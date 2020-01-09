@@ -1,17 +1,18 @@
 from abc import ABC, abstractmethod
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QFrame
 
+from python.src.view.View import View
 
-class ItemView(ABC, QWidget):
+
+class ItemView(ABC, QWidget, View):
     def __init__(self, parent, id: int, icon_path: str):
-        super.__init__(parent)
+        super().__init__(parent)
 
         self.__id: int = id
         self.__icon_path: str = icon_path
-        
+
         self.__mousePressPos = None
         self.__mouseMovePos = None
         self.__lastPos = None
@@ -25,10 +26,6 @@ class ItemView(ABC, QWidget):
 
         # TODO: Shape
         # TODO: Icons
-
-    @abstractmethod
-    def delete(self):
-        self.delete()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
