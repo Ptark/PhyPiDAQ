@@ -34,7 +34,7 @@ class ManagerModel(Model):
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def set_selected_item(selected: OutputItem):
+    def set_selected_item(selected: OutputItem) -> NoReturn:
         ManagerModel.__selected_item = selected
 
     selected_item: OutputItem = property(get_selected_item(), set_selected_item())
