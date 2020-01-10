@@ -9,5 +9,5 @@ class Selectable(ABC):
         pass
 
     @abstractmethod
-    def delete(self):
+    def delete(self) -> None:
         pass
