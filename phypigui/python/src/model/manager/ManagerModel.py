@@ -22,8 +22,7 @@ class ManagerModel(Model):
     @staticmethod
     def __read_data() -> NoReturn:
         for sensor in ManagerModel.__sensor_data:
-            #TODO: set value in __sensor_data
-            #ManagerModel.__sensor_data[sensor] = sensor.read()
+            ManagerModel.__sensor_data[sensor] = sensor.read()
 
     @staticmethod
     def is_running() -> bool:
@@ -42,12 +41,12 @@ class ManagerModel(Model):
     @staticmethod
     def add_sensor(sensor: SensorItem) -> NoReturn:
         ManagerModel.__sensors.append(sensor)
-        #TODO: add sensor to __sensor_data
+        ManagerModel.__sensor_data[sensor] = []
 
     @staticmethod
     def delete_sensor(sensor: SensorItem) -> NoReturn:
         ManagerModel.__sensors.remove(sensor)
-        #TODO: delete sensor from __sensor_data
+        ManagerModel.__sensor_data.pop(sensor)
 
     @staticmethod
     def add_diagram(diagram: DiagramItem) -> NoReturn:
