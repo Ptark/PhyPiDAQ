@@ -1,21 +1,22 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QFrame
 
 from python.src.view.View import View
 
 
 class ItemView(ABC, QWidget, View):
-    def __init__(self, parent, id: int, icon_path: str):
+    def __init__(self, parent: QWidget, id: int, icon_path: str):
         super().__init__(parent)
 
         self.__id: int = id
         self.__icon_path: str = icon_path
 
-        self.__mousePressPos = None
-        self.__mouseMovePos = None
-        self.__lastPos = None
+        self.__mousePressPos: QPoint = None
+        self.__mouseMovePos: QPoint = None
+        self.__lastPos: QPoint = None
 
         self.__init_view()
 
@@ -27,7 +28,7 @@ class ItemView(ABC, QWidget, View):
         # TODO: Shape
         # TODO: Icons
 
-    def mousePressEvent(self, event):
+    def mousePressEvent(self, event: QMouseEvent) -> None:
         if event.button() == Qt.LeftButton:
             self.__mousePressPos = event.globalPos()
             self.__mouseMovePos = event.globalPos()
@@ -35,7 +36,7 @@ class ItemView(ABC, QWidget, View):
 
         super(ItemView, self).mousePressEvent(event)
 
-    def mouseMoveEvent(self, event):
+    def mouseMoveEvent(self, event: QMouseEvent) -> None:
         if event.buttons() == Qt.LeftButton:
             currPos = self.mapToGlobal(self.pos())
             globalPos = event.globalPos()
@@ -46,7 +47,7 @@ class ItemView(ABC, QWidget, View):
 
         super(ItemView, self).mouseMoveEvent(event)
 
-    def mouseReleaseEvent(self, event):
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
         if self.__mousePressPos is not None:
             moved = event.globalPos() - self.mousePressPos
             if moved.manhattanLength() > 3:

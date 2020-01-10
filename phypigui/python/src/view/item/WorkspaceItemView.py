@@ -8,12 +8,12 @@ from python.src.view.item.ItemView import ItemView
 
 
 class WorkspaceItemView(ABC, ItemView, Selectable):
-    def __init__(self, parent, id: int, icon_path: str):
+    def __init__(self, parent: QWidget, id: int, icon_path: str):
         super().__init__(parent, id, icon_path)
         # TODO: Klassenvariablen
 
     def get_info_widget(self) -> QWidget:
         return self.__info_widget
 
-    def delete(self):
+    def delete(self) -> None:
         WorkspaceView.delete_item(self)
