@@ -7,7 +7,7 @@ from ..Model import Model
 import copy
 
 
-class ManagerModel(Model):
+class ManagerModel:
     __sensors: List[SensorItem] = []
     __diagrams: List[DiagramItem] = []
     __sensor_data: Dict[SensorItem, List[float]] = {}
@@ -69,4 +69,3 @@ class ManagerModel(Model):
     @staticmethod
     def stop() -> NoReturn:
         ManagerModel.__running = False
-        ManagerModel.notify()
