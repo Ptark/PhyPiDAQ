@@ -19,7 +19,8 @@ class ConfigModel:
 
     @bool_options.setter
     def bool_options(self, options_list: List[BoolOption]) -> NoReturn:
-        self.__bool_options = options_list
+        if len(options_list) == len(self.__bool_options):
+            self.__bool_options = options_list
 
     @property
     def file_options(self) -> List[FileOption]:
@@ -27,7 +28,8 @@ class ConfigModel:
 
     @file_options.setter
     def file_options(self, options_list: List[FileOption]) -> NoReturn:
-        self.__file_options = options_list
+        if len(options_list) == len(self.__file_options):
+            self.__file_options = options_list
 
     @property
     def enum_options(self) -> List[EnumOption]:
@@ -35,7 +37,8 @@ class ConfigModel:
 
     @enum_options.setter
     def enum_options(self, options_list: List[EnumOption]) -> NoReturn:
-        self.__enum_options = options_list
+        if len(options_list) == len(self.__enum_options):
+            self.__enum_options = options_list
 
     @property
     def num_options(self) -> List[NumOption]:
@@ -43,7 +46,8 @@ class ConfigModel:
 
     @num_options.setter
     def num_options(self, options_list: List[NumOption]) -> NoReturn:
-        self.__num_options = options_list
+        if len(options_list) == len(self.__num_options):
+            self.__num_options = options_list
 
     def add_bool_option(self, option: BoolOption) -> int:
         self.__bool_options.append(option)
