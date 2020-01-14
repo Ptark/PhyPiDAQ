@@ -13,34 +13,37 @@ class ConfigModel:
         self.__enum_options: List[EnumOption] = []
         self.__num_options: List[NumOption] = []
 
-    def get_bool_options(self) -> List[BoolOption]:
+    @property
+    def bool_options(self) -> List[BoolOption]:
         return self.__bool_options.copy()
 
-    def get_file_options(self) -> List[FileOption]:
-        return self.__file_options.copy()
-
-    def get_enum_options(self) -> List[EnumOption]:
-        return self.__enum_options.copy()
-
-    def get_num_options(self) -> List[NumOption]:
-        return self.__num_options.copy()
-
-    def set_bool_options(self, options_list: List[BoolOption]) -> NoReturn:
+    @bool_options.setter
+    def bool_options(self, options_list: List[BoolOption]) -> NoReturn:
         self.__bool_options = options_list
 
-    def set_file_options(self, options_list: List[FileOption]) -> NoReturn:
+    @property
+    def file_options(self) -> List[FileOption]:
+        return self.__file_options.copy()
+
+    @file_options.setter
+    def file_options(self, options_list: List[FileOption]) -> NoReturn:
         self.__file_options = options_list
 
-    def set_enum_options(self, options_list: List[EnumOption]) -> NoReturn:
+    @property
+    def enum_options(self) -> List[EnumOption]:
+        return self.__enum_options.copy()
+
+    @enum_options.setter
+    def enum_options(self, options_list: List[EnumOption]) -> NoReturn:
         self.__enum_options = options_list
 
-    def set_num_options(self, options_list: List[NumOption]) -> NoReturn:
-        self.__num_options = options_list
+    @property
+    def num_options(self) -> List[NumOption]:
+        return self.__num_options.copy()
 
-    bool_options: List[BoolOption] = property(get_bool_options(), set_bool_options())
-    file_options: List[FileOption] = property(get_file_options(), set_file_options())
-    enum_options: List[EnumOption] = property(get_enum_options(), set_enum_options())
-    num_option: List[NumOption] = property(get_num_options(), get_num_options())
+    @num_options.setter
+    def num_options(self, options_list: List[NumOption]) -> NoReturn:
+        self.__num_options = options_list
 
     def add_bool_option(self, option: BoolOption) -> int:
         self.__bool_options.append(option)

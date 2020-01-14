@@ -54,7 +54,6 @@ class WorkspaceModel:
         else:
             return False
 
-
     @staticmethod
     def delete_output_connections(output_id: int) -> bool:
         connected_ids: List[int] = WorkspaceModel.__output_list[output_id].get_connections()

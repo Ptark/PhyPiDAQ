@@ -5,13 +5,13 @@ from typing import NoReturn
 class NumOption(NameableRO):
 
     def __init__(self, name: str):
+        super().__init__(name)
         self.__number: float = 0
-        self._name = name
 
-    def get_number(self) -> float:
+    @property
+    def number(self) -> float:
         return self.__number
 
-    def set_number(self, number: float) -> NoReturn:
-        self.__number = number
-
-    number: float = property(get_number(), set_number())
+    @number.setter
+    def number(self, value: float) -> NoReturn:
+        self.__number = value

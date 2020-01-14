@@ -29,14 +29,12 @@ class ManagerModel(Model):
         return ManagerModel.__running
 
     @staticmethod
-    def get_selected_item() -> OutputItem:
+    def set_selected_item() -> OutputItem:
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def set_selected_item(selected: OutputItem) -> NoReturn:
+    def get_selected_item(selected: OutputItem) -> NoReturn:
         ManagerModel.__selected_item = selected
-
-    selected_item: OutputItem = property(get_selected_item(), set_selected_item())
 
     @staticmethod
     def add_sensor(sensor: SensorItem) -> NoReturn:
@@ -56,19 +54,18 @@ class ManagerModel(Model):
     def delete_diagram(diagram: DiagramItem) -> NoReturn:
         ManagerModel.__diagrams.remove(diagram)
 
-    #This method starts reading from sensors
+    # This method starts reading from sensors
     @staticmethod
     def start() -> NoReturn:
         ManagerModel.__init_functions()
         ManagerModel.__running = True
-        ManagerModel.notify()
         while ManagerModel.__running:
             ManagerModel.__read_data()
             for diagram in ManagerModel.__diagrams:
                 diagram.calculate(ManagerModel.__sensor_data.copy())
                 diagram.notify()
 
-    #This method stopps reading from sensors
+    # This method stops reading from sensors
     @staticmethod
     def stop() -> NoReturn:
         ManagerModel.__running = False
