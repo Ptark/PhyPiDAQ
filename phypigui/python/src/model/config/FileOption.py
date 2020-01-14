@@ -1,5 +1,6 @@
 from ..NameableRO import NameableRO
 from typing import NoReturn
+from pathlib import Path
 
 
 class FileOption(NameableRO):
@@ -14,4 +15,5 @@ class FileOption(NameableRO):
 
     @path.setter
     def path(self, new_path: str) -> NoReturn:
-        self.__path = new_path
+        if Path(new_path).is_file():
+            self.__path = new_path
