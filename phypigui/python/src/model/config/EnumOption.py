@@ -16,7 +16,8 @@ class EnumOption(NameableRO):
 
     @selection.setter
     def selection(self, index: int) -> NoReturn:
-        self.__selection = index
+        if index >= 0:
+            self.__selection = index
 
     def get_samples(self) -> enum:
         return self.__samples
