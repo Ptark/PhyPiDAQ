@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QPushButton
 
 
 class StartButtonView(QPushButton):
-    _start_image = "../../../images/startknopf.png"
-    _stop_image = "../../../images/startknopf.png"
+    _start_image = "../resources/images/buttons/startknopf.png"
+    _stop_image = "../resources/images/buttons/stoppknopf.png"
     icon = QtGui.QIcon()
     is_started = False
 
@@ -16,7 +16,7 @@ class StartButtonView(QPushButton):
         self.setGeometry(QtCore.QRect(359, 10, 31, 31))
         self.setText("")
         self.setObjectName("StartButtonView")
-        self.icon.addPixmap(QtGui.QPixmap(StartButtonView.start_image))
+        self.icon.addPixmap(QtGui.QPixmap(StartButtonView._start_image))
         self.setIcon(StartButtonView.icon)
         self.clicked.connect(self.on_click)
 
@@ -32,8 +32,8 @@ class StartButtonView(QPushButton):
 
     def change_icon(self):
         if self.is_started:
-            self.icon.addPixmap(QtGui.QPixmap(self.start_image))
+            self.icon.addPixmap(QtGui.QPixmap(self._start_image))
             self.setIcon(self.icon)
         else:
-            self.icon.addPixmap(QtGui.QPixmap(self.stop_image))
+            self.icon.addPixmap(QtGui.QPixmap(self._stop_image))
             self.setIcon(self.icon)
