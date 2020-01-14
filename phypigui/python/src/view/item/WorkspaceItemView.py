@@ -5,10 +5,10 @@ from PyQt5.QtWidgets import QWidget
 
 from python.src.model.item import ItemModel
 from python.src.view.Selectable import Selectable
-from python.src.view.WorkSpace import WorkspaceView
-from python.src.view.item.InputView import InputView
+from python.src.view.Workspace.WorkspaceView import WorkspaceView
 from python.src.view.item.ItemView import ItemView
 from python.src.view.item.OutputView import OutputView
+from python.src.view.item.InputView import InputView
 
 
 class WorkspaceItemView(ABC, ItemView, Selectable):
