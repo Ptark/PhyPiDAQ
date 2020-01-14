@@ -29,11 +29,11 @@ class ManagerModel(Model):
         return ManagerModel.__running
 
     @staticmethod
-    def set_selected_item() -> OutputItem:
+    def get_selected_item() -> OutputItem:
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def get_selected_item(selected: OutputItem) -> NoReturn:
+    def set_selected_item(selected: OutputItem) -> NoReturn:
         ManagerModel.__selected_item = selected
 
     @staticmethod
