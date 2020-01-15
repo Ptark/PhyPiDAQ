@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
+from .List.ListFieldView import ListFieldView
 from .DiagramField.DiagramFieldView import DiagramFieldView
 from .InfoBar.InfoBarView import InfoBarView
 from .Workspace.WorkspaceView import WorkspaceView
@@ -22,7 +23,7 @@ class MainWindow(QWidget):
         self.resize(window_width, window_height)
         self.setMinimumSize(800, 600)
 
-        list_field = QWidget()  # ListFieldView(None)
+        list_field = ListFieldView(None)
         workspace_field = WorkspaceView(None)
         infobar_field = InfoBarView(None)
         diagram_field = DiagramFieldView(None)
