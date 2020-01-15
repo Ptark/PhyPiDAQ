@@ -1,4 +1,3 @@
-from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget
 
 from python.src.view.InfoBar.DeleteButtonView import DeleteButtonView
@@ -11,7 +10,6 @@ class InfoBarView(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setGeometry(QtCore.QRect(190, 450, 401, 131))
         self.setObjectName("Infobar")
 
         """self.Infobar = QtWidgets.QTextBrowser(self.InfobarView)

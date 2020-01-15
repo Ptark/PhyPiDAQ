@@ -1,4 +1,3 @@
-from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from python.src.view.DiagramField.DiagramView import DiagramView
@@ -10,7 +9,6 @@ class DiagramFieldView(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setGeometry(QtCore.QRect(610, 40, 181, 541))
         self.setObjectName("DiagramFieldView")
 
         vertical_layout = QVBoxLayout()

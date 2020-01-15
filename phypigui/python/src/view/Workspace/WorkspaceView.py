@@ -1,4 +1,3 @@
-from PyQt5 import QtCore
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
@@ -15,7 +14,6 @@ class WorkspaceView(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setGeometry(QtCore.QRect(190, 40, 401, 391))
         self.setObjectName("WorkspaceView")
 
         StartButtonView(self)
