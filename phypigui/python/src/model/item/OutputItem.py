@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from ..item import ItemModel
 from ..item import Output
 from ..workspace import WorkspaceModel
+from typing import NoReturn
 
 
 class OutputItem(ItemModel, ABC):
@@ -9,7 +10,7 @@ class OutputItem(ItemModel, ABC):
         self._outputs: [Output] = []
 
     @abstractmethod
-    def get_rule(self, output_number: int) -> None:
+    def get_rule(self, output_number: int) -> NoReturn:
         #TODO
         pass
 
@@ -23,7 +24,7 @@ class OutputItem(ItemModel, ABC):
             return len(self._outputs)
         return 0
 
-    def connect_output(self, output_index: int, input_id: int) -> None:
+    def connect_output(self, output_index: int, input_id: int) -> NoReturn:
         if self._outputs[output_index] is not None:
             output_id = self._outputs[output_index].getid()
             WorkspaceModel.WorkspaceModel.connect(input_id, output_id)

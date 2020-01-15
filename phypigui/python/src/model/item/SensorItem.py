@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from ..item import OutputItem
 from ..item import Output
 from ..config import ConfigModel, EnumOption, NumOption
-from typing import List, Callable, Dict
+from typing import List, Callable, Dict, NoReturn
 
 
 class SensorItem(OutputItem, ABC):
@@ -23,7 +23,7 @@ class SensorItem(OutputItem, ABC):
         #TODO
         pass
 
-    def close(self) -> None:
+    def close(self) -> NoReturn:
         #TODO
         pass
 
