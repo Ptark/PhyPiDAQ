@@ -1,10 +1,9 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
-from python.src.view.DiagramField.DiagramFieldView import DiagramFieldView
-from python.src.view.InfoBar.InfoBarView import InfoBarView
-from python.src.view.Workspace.WorkspaceView import WorkspaceView
-from python.src.view.Workspace.StartButtonView import StartButtonView
+from .DiagramField.DiagramFieldView import DiagramFieldView
+from .InfoBar.InfoBarView import InfoBarView
+from .Workspace.WorkspaceView import WorkspaceView
 
 
 class MainWindow(QWidget):

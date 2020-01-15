@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
@@ -9,5 +10,5 @@ class Selectable(ABC):
         pass
 
     @abstractmethod
-    def delete(self) -> None:
+    def delete(self) -> NoReturn:
         pass

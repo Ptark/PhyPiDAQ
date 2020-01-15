@@ -1,14 +1,14 @@
 from abc import ABC
-from typing import List
+from typing import List, NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.model.item import ItemModel
-from python.src.view.Selectable import Selectable
-from python.src.view.Workspace.WorkspaceView import WorkspaceView
-from python.src.view.item.ItemView import ItemView
-from python.src.view.item.OutputView import OutputView
-from python.src.view.item.InputView import InputView
+from ...model.item.ItemModel import ItemModel
+from ..Selectable import Selectable
+from ..Workspace.WorkspaceView import WorkspaceView
+from .ItemView import ItemView
+from .OutputView import OutputView
+from .InputView import InputView
 
 
 class WorkspaceItemView(ABC, ItemView, Selectable):
@@ -24,5 +24,5 @@ class WorkspaceItemView(ABC, ItemView, Selectable):
     def get_info_widget(self) -> QWidget:
         return self.__info_widget
 
-    def delete(self) -> None:
+    def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)

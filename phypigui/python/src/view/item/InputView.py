@@ -1,8 +1,10 @@
+from typing import NoReturn
+
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
-from python.src.view.item.InOutView import InOutView
-from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from .InOutView import InOutView
+from .WorkspaceItemView import WorkspaceItemView
 
 
 class InputView(InOutView):
@@ -14,9 +16,9 @@ class InputView(InOutView):
     def is_connected(self) -> bool:
         return self.__connected
 
-    def remove_connection(self) -> None:
+    def remove_connection(self) -> NoReturn:
         self.__connected = False
 
-    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
+    def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         # TODO
         pass

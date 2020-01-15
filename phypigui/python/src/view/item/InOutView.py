@@ -2,8 +2,8 @@ from abc import ABC
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.view.View import View
-from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from ..View import View
+from .WorkspaceItemView import WorkspaceItemView
 
 
 class InOutView(ABC, QWidget, View):

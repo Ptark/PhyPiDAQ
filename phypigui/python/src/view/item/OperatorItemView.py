@@ -2,8 +2,8 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.model.item import OperatorItem
-from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from ...model.item.OperatorItem import OperatorItem
+from .WorkspaceItemView import WorkspaceItemView
 
 
 class OperatorItemView(WorkspaceItemView):

@@ -3,5 +3,5 @@ from abc import ABC, abstractmethod
 
 class View(ABC):
     @abstractmethod
-    def update(self) -> None:
+    def update(self) -> NoReturn:
         pass

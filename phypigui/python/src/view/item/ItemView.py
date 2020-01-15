@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QFrame
 
-from python.src.view.View import View
+from ..View import View
 
 
 class ItemView(ABC, QWidget, View):

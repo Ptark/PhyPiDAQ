@@ -2,9 +2,9 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.model.item import DiagramItem
-from python.src.view.DiagramField import DiagramView
-from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from ...model.item import DiagramItem
+from ..DiagramField.DiagramView import DiagramView
+from ..item.WorkspaceItemView import WorkspaceItemView
 
 
 class DiagramItemView(WorkspaceItemView):

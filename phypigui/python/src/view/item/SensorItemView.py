@@ -2,8 +2,8 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.model.item import SensorItem
-from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from ...model.item.SensorItem import SensorItem
+from .WorkspaceItemView import WorkspaceItemView
 
 
 class SensorItemView(WorkspaceItemView):
