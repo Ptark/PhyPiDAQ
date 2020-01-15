@@ -1,9 +1,8 @@
-from abc import ABC
 from typing import List, NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
-from ...model.item.ItemModel import ItemModel
+# from ...model.item.ItemModel import ItemModel
 from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
 from .ItemView import ItemView
@@ -11,11 +10,11 @@ from .OutputView import OutputView
 from .InputView import InputView
 
 
-class WorkspaceItemView(ABC, ItemView, Selectable):
-    def __init__(self, parent: QWidget, id: int, icon_path: str):
-        super().__init__(parent, id, icon_path)
+class WorkspaceItemView(ItemView, Selectable):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
 
-        self.__model: ItemModel = None
+        # self.__model: ItemModel = None
         self.__selected: bool = False
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []

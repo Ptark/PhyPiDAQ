@@ -23,7 +23,7 @@ class MainWindow(QWidget):
         self.resize(window_width, window_height)
         self.setMinimumSize(800, 600)
 
-        list_field = ListFieldView(None)
+        list_field = ListFieldView(self)
         workspace_field = WorkspaceView(None)
         infobar_field = InfoBarView(None)
         diagram_field = DiagramFieldView(None)
