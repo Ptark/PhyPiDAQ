@@ -2,7 +2,9 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget, QPushButton
 
 from python.src.view.Workspace.WorkspaceView import WorkspaceView
-#from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+
+
+# from python.src.view.item.WorkspaceItemView import WorkspaceItemView
 
 
 class DeleteButtonView(QPushButton):
@@ -13,8 +15,9 @@ class DeleteButtonView(QPushButton):
         self.setObjectName("DeleteButtonView")
 
     def on_click(self):
-        selectable = WorkspaceView.get_selectable()
-        #if selectable.type() == WorkspaceItemView:
-         #   WorkspaceView.delete_item(selectable)
-        #else:
-         #   WorkspaceView.delete_wire(selectable)
+        selectable = WorkspaceView.get_selectable()  # todo: WorspaceItemView raises an error
+
+        ''' if selectable.type() == WorkspaceItemView:          
+            WorkspaceItemView.delete(selectable)
+           elif selectable.type() == WireView:
+             WorkspaceItemView.delete(selectable)'''

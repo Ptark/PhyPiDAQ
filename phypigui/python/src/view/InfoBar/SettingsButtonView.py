@@ -5,13 +5,14 @@ from PyQt5.QtWidgets import QPushButton
 
 
 class SettingsButtonView(QPushButton):
-    #item_config: WorkspaceItemView
+    #item_config: WorkspaceItemView  #Todo was macht das eigentlich?
 
     def __init__(self, parent):
         super().__init__(parent)
         self.setGeometry(QtCore.QRect(360, 80, 31, 31))
         self.setText("sett")
         self.setObjectName("SettingsButtonView")
+        #self.clicked.connect(self.on_click())
 
     def on_click(self):
-        pass
+        ConfigView.init_window()

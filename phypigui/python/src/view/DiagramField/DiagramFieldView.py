@@ -27,8 +27,11 @@ class DiagramFieldView(QWidget):
         """
 
     def add_diagram(self, diagram: DiagramView) -> None:
-        list.append(diagram)
+        if len(self.list) < 3:
+            self.list.append(diagram)        #todo reinitialize again with new diagram
 
     def delete_diagram(self, diagram: DiagramView) -> None:
-        list.remove(diagram)
+        self.list.remove(diagram)           #todo reinitialize again with the remaining diagrams
 
+
+                                            # todo: initialize the diagrams in the list

@@ -22,7 +22,7 @@ class BarDiagramItem(DiagramItem):
 class TimeDiagramItem(DiagramItem):
     def __init__(self):
         super().__init__([None], [None], [None])
-        self._name: str = "Zeitdriagramm"
+        self._name: str = "Zeitdiagramm"
         self._description = "stellt die gemessenen Daten als Zeitdiagramm dar"
         self._config = ConfigModel.ConfigModel()
         self._inputs: [Input] = [Input] * 2
