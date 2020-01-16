@@ -1,6 +1,6 @@
 from typing import NoReturn, List
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from ..Item.ListItemView import ListItemView
 
@@ -11,8 +11,14 @@ class ItemListView(QWidget):
 
         self.__items: List[ListItemView] = []
         self.__layout = QVBoxLayout()
-        self.setLayout(self.__layout)
+        self.__layout.addSpacing(10)
+        self.__layout.addStretch(1)
+
+        centering = QHBoxLayout()
+        centering.addLayout(self.__layout)
+        self.setLayout(centering)
 
     def add_item(self, item: ListItemView) -> NoReturn:
         self.__items.append(item)
-        self.__layout.addWidget(item)
+        self.__layout.insertWidget(1, item)
+        self.__layout.insertSpacing(2, 20)

@@ -3,8 +3,12 @@ from typing import NoReturn
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 
-from python.src.view.Item.ListItemView import ListItemView
+from ..Item.DiagramItemView import *
+from ..Item.ListItemView import ListItemView
+from ..Item.OperatorItemView import *
+from ..Item.SensorItemView import *
 from .ItemListView import ItemListView
+
 
 
 class ListFieldView(QWidget):
@@ -21,11 +25,20 @@ class ListFieldView(QWidget):
         self.__init_ui()
 
     def __init_items(self) -> NoReturn:
-        self.__sensor_list.add_item(ListItemView(self.__main, None))
+        self.__sensor_list.add_item(ListItemView(self.__main, AccelerationSensorItemView))
+        self.__sensor_list.add_item(ListItemView(self.__main, DistanceSensorItemView))
+        self.__sensor_list.add_item(ListItemView(self.__main, ForceSensorItemView))
+        self.__sensor_list.add_item(ListItemView(self.__main, TemperatureSensorItemView))
 
-        self.__operator_list.add_item(ListItemView(self.__main, None))
+        self.__operator_list.add_item(ListItemView(self.__main, AbsoluteOperatorItemView))
+        self.__operator_list.add_item(ListItemView(self.__main, DivisionOperatorItemView))
+        self.__operator_list.add_item(ListItemView(self.__main, MultiplicationOperatorItemView))
+        self.__operator_list.add_item(ListItemView(self.__main, SubtractionOperatorItemView))
+        self.__operator_list.add_item(ListItemView(self.__main, AdditionOperatorItemView))
 
-        self.__diagram_list.add_item(ListItemView(self.__main, None))
+        self.__diagram_list.add_item(ListItemView(self.__main, DualDiagramItemView))
+        self.__diagram_list.add_item(ListItemView(self.__main, BarDiagramItemView))
+        self.__diagram_list.add_item(ListItemView(self.__main, TimeDiagramItemView))
 
     def __init_ui(self) -> NoReturn:
         self.__tab.setElideMode(Qt.ElideRight)

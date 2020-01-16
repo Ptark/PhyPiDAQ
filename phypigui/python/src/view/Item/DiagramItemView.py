@@ -1,17 +1,36 @@
 from typing import Final
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLabel
 
-from ...model.item import DiagramItem
-from ..DiagramField.DiagramView import DiagramView
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 
 class DiagramItemView(WorkspaceItemView):
     FRAME_PATH: Final[str] = ""  # TODO: frame erstellen
 
-    def __init__(self, parent: QWidget, id: int, icon_path: str):
-        super().__init__(parent, id, icon_path)
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
 
-        self.__model: DiagramItem = None
-        self.__diagram: DiagramView = DiagramView()
+        # TODO: Model & DiagramView in jeder Klasse selbst hinzufügen
+        # TODO: Icons
+
+
+class TimeDiagramItemView(DiagramItemView):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
+
+        lab = QLabel("Time", self)
+
+
+class BarDiagramItemView(DiagramItemView):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
+
+        lab = QLabel("Bar", self)
+
+
+class DualDiagramItemView(DiagramItemView):
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
+
+        lab = QLabel("Dual", self)

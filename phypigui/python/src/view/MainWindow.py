@@ -11,6 +11,12 @@ from .Workspace.WorkspaceView import WorkspaceView
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
+
+        self.__list_field = ListFieldView(self)
+        self.__workspace_field = WorkspaceView(None)
+        self.__infobar_field = InfoBarView(None)
+        self.__diagram_field = DiagramFieldView(None)
+
         self.__init_ui()
 
     def __init_ui(self):
@@ -23,22 +29,15 @@ class MainWindow(QWidget):
         self.resize(window_width, window_height)
         self.setMinimumSize(800, 600)
 
-        list_field = ListFieldView(self)
-        workspace_field = WorkspaceView(None)
-        infobar_field = InfoBarView(None)
-        diagram_field = DiagramFieldView(None)
-
         layout_middle = QVBoxLayout()
-        layout_middle.addWidget(workspace_field, 7)
-        layout_middle.addWidget(infobar_field, 2)
+        layout_middle.addWidget(self.__workspace_field, 7)
+        layout_middle.addWidget(self.__infobar_field, 2)
 
         layout = QHBoxLayout()
-        layout.addWidget(list_field, 2)
+        layout.addWidget(self.__list_field, 2)
         layout.addLayout(layout_middle, 7)
-        layout.addWidget(diagram_field, 3)
+        layout.addWidget(self.__diagram_field, 3)
 
         self.setLayout(layout)
 
         self.show()
-
-

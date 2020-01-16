@@ -11,10 +11,13 @@ class WorkspaceView(QWidget):
     wire_in_hand: WireView
     items = []  # list_of_WorkspaceItemView
     wires = []  # list_of_WireView
+    widget: QWidget = None
 
     def __init__(self, parent):
         super().__init__(parent)
         self.setObjectName("WorkspaceView")
+
+        WorkspaceView.widget = self
 
         StartButtonView(self)
 
