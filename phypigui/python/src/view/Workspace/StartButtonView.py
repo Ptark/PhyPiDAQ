@@ -8,16 +8,14 @@ from PyQt5.QtWidgets import QPushButton
 class StartButtonView(QPushButton):
     __start_image = "../resources/images/buttons/startknopf.png"
     __stop_image = "../resources/images/buttons/stoppknopf.png"
-    icon = QtGui.QIcon()
     is_started = False
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setGeometry(QtCore.QRect(359, 10, 31, 31))
-        self.setText("")
-        self.setObjectName("StartButtonView")
+        self.setFixedSize(31,31)
+        self.icon = QtGui.QIcon()
         self.icon.addPixmap(QtGui.QPixmap(StartButtonView.__start_image))
-        self.setIcon(StartButtonView.icon)
+        self.setIcon(self.icon)
         self.clicked.connect(self.on_click)
 
     @pyqtSlot()

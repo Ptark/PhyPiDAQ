@@ -19,13 +19,13 @@ class WorkspaceView(QWidget):
 
         WorkspaceView.widget = self
 
-        StartButtonView(self)
         self.vertical_layout = QVBoxLayout()
         self.horizontal_layout = QHBoxLayout()
 
         self.start_button = StartButtonView(self)
-
         self.vertical_layout.addWidget(self.start_button, 1)
+        self.vertical_layout.addStretch(1)
+        self.horizontal_layout.addStretch(1)
         self.horizontal_layout.addLayout(self.vertical_layout)
 
         self.setLayout(self.horizontal_layout)

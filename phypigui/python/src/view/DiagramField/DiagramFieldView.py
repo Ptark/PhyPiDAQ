@@ -34,8 +34,8 @@ class DiagramFieldView(QWidget):
         self.add_diagram(a)
         self.add_diagram(b)
         self.add_diagram(c)
-        #self.delete_dicagram(c)
-        #self.delete_diagram(b)
+        # self.delete_diagram(c)
+        # self.delete_diagram(b)
 
     def add_diagram(self, diagram: DiagramView) -> NoReturn:
         if len(self.list) < 3:
