@@ -1,7 +1,7 @@
 from typing import Type, NoReturn
 
 from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QMouseEvent, QColor
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 from .DragItemView import DragItemView
@@ -15,15 +15,13 @@ class ListItemView(ItemView):
 
         self.__main = main
         self.__item: Type[WorkspaceItemView] = item
-        # TODO: visibility
+        # TODO: Sensor Fehlermeldung
 
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
         # TODO
-        p = self.palette()
-        p.setColor(self.backgroundRole(), QColor(200, 0, 0, 255))
-        self.setPalette(p)
+        pass
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:

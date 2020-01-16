@@ -1,16 +1,13 @@
-from typing import List, NoReturn
+from typing import NoReturn
 
 from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QMouseEvent, QColor
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 # from ...model.item.ItemModel import ItemModel
 from .Draggable import Draggable
 from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
-from .ItemView import ItemView
-from .OutputView import OutputView
-from .InputView import InputView
 
 
 class WorkspaceItemView(Draggable, Selectable):
@@ -23,14 +20,15 @@ class WorkspaceItemView(Draggable, Selectable):
         # self.__selected: bool = False
         # self.__inputs: List[InputView] = []
         # self.__outputs: List[OutputView] = []
-        # self.__info_widget: QWidget = QWidget(None, None)
 
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
-        p = self.palette()
-        p.setColor(self.backgroundRole(), QColor(0, 0, 200, 255))
-        self.setPalette(p)
+        # TODO
+        pass
+
+    def get_info_widget(self) -> QWidget:
+        pass
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)

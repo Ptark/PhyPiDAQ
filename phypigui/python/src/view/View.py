@@ -2,6 +2,6 @@ from abc import ABC, abstractmethod
 from typing import NoReturn
 
 
-class View:
+class View(ABC):
     def update(self) -> NoReturn:
         pass

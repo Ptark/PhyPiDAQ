@@ -1,14 +1,13 @@
 from typing import NoReturn
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 
 from ..Item.DiagramItemView import *
 from ..Item.ListItemView import ListItemView
 from ..Item.OperatorItemView import *
 from ..Item.SensorItemView import *
 from .ItemListView import ItemListView
-
 
 
 class ListFieldView(QWidget):

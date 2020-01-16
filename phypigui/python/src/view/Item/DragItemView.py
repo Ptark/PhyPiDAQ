@@ -20,9 +20,7 @@ class DragItemView(Draggable):
 
     def __init_ui(self) -> NoReturn:
         # TODO
-        p = self.palette()
-        p.setColor(self.backgroundRole(), QColor(0, 200, 0, 255))
-        self.setPalette(p)
+        pass
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         self._move_item(event)
