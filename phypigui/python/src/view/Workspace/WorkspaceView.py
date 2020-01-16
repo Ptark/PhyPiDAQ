@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from python.src.view.Selectable import Selectable
 from python.src.view.Workspace.StartButtonView import StartButtonView
@@ -20,6 +20,15 @@ class WorkspaceView(QWidget):
         WorkspaceView.widget = self
 
         StartButtonView(self)
+        self.vertical_layout = QVBoxLayout()
+        self.horizontal_layout = QHBoxLayout()
+
+        self.start_button = StartButtonView(self)
+
+        self.vertical_layout.addWidget(self.start_button, 1)
+        self.horizontal_layout.addLayout(self.vertical_layout)
+
+        self.setLayout(self.horizontal_layout)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         pass

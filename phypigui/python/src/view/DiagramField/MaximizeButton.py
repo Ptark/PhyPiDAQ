@@ -21,4 +21,5 @@ class MaximizeButtonView(QPushButton):
     def on_click(self):
         # self.dialog.show()
         # for diagram in DiagramFieldView.list
+
         pass

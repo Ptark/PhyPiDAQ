@@ -27,6 +27,7 @@ class StartButtonView(QPushButton):
             self.change_icon()
             self.is_started = True
         else:
+            #ManagerModel.stop()
             self.change_icon()
             self.is_started = False
 

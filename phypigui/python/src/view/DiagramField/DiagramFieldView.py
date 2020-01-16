@@ -1,37 +1,47 @@
+from typing import List, NoReturn
+
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
+from python.src.model.item import DiagramItem
 from python.src.view.DiagramField.DiagramView import DiagramView
 from python.src.view.DiagramField.MaximizeButton import MaximizeButtonView
 
 
 class DiagramFieldView(QWidget):
-    list = []  # List of DiagramView
 
     def __init__(self, parent):
         super().__init__(parent)
         self.setObjectName("DiagramFieldView")
+        self.list: List[DiagramView] = []
 
-        vertical_layout = QVBoxLayout()
-        horizontal_layout = QHBoxLayout()
-        horizontal_layout.addStretch(2)
-        horizontal_layout.addWidget(MaximizeButtonView(self))
-        vertical_layout.addLayout(horizontal_layout)
-        vertical_layout.addWidget(DiagramView(self))
-        vertical_layout.addWidget(DiagramView(self))
-        # vertical_layout.addWidget(DiagramView(self))
+        self.vertical_layout = QVBoxLayout()
+        self.horizontal_layout = QHBoxLayout()
+        self.horizontal_layout.addStretch(2)
 
-        self.setLayout(vertical_layout)
+        self.maxButton = MaximizeButtonView(self)
 
-        """for diagram in self.list:
-                vertical_layout.addWidget(diagram)
-        """
+        self.horizontal_layout.addWidget(self.maxButton)
+        self.vertical_layout.addLayout(self.horizontal_layout)
 
-    def add_diagram(self, diagram: DiagramView) -> None:
+        self.init_example_diagrams()
+        self.setLayout(self.vertical_layout)
+
+    def init_example_diagrams(self):
+        a = DiagramView(self, DiagramItem.TimeDiagramItem)
+        b = DiagramView(self, DiagramItem.TimeDiagramItem)
+        c = DiagramView(self, DiagramItem.TimeDiagramItem)
+
+        self.add_diagram(a)
+        self.add_diagram(b)
+        self.add_diagram(c)
+        #self.delete_dicagram(c)
+        #self.delete_diagram(b)
+
+    def add_diagram(self, diagram: DiagramView) -> NoReturn:
         if len(self.list) < 3:
-            self.list.append(diagram)        #todo reinitialize again with new diagram
+            self.list.append(diagram)
+            self.vertical_layout.addWidget(diagram)
 
-    def delete_diagram(self, diagram: DiagramView) -> None:
-        self.list.remove(diagram)           #todo reinitialize again with the remaining diagrams
-
-
-                                            # todo: initialize the diagrams in the list
+    def delete_diagram(self, diagram: DiagramView) -> NoReturn:
+        self.list.remove(diagram)
+        self.vertical_layout.removeWidget(diagram)

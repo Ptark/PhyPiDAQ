@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from python.src.view.InfoBar.DeleteButtonView import DeleteButtonView
 from python.src.view.InfoBar.SettingsButtonView import SettingsButtonView
@@ -10,18 +10,20 @@ class InfoBarView(QWidget):
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setObjectName("Infobar")
 
-        """self.Infobar = QtWidgets.QTextBrowser(self.InfobarView)
-        self.Infobar.setGeometry(QtCore.QRect(0, 0, 401, 131))
-        self.Infobar.setObjectName("Infobar")"""
+        self.delete_button = DeleteButtonView(self)
+        self.settings_button = SettingsButtonView(self)
 
-        db = DeleteButtonView(self)
+        self.horizontal_layout = QHBoxLayout()  # for the info widget
+        self.vertical_layout = QVBoxLayout()  # for the buttons
 
-        sb = SettingsButtonView(self)
+        self.vertical_layout.addWidget(self.delete_button)
+        self.vertical_layout.addWidget(self.settings_button)
+        self.horizontal_layout.addStretch(1)
+        self.horizontal_layout.addLayout(self.vertical_layout)
+        self.setLayout(self.horizontal_layout)
 
     def refresh_infobar(self):
         if not WorkspaceView.selection is None:
             self.widget = WorkspaceView.selection.get_info_widget()
-            self.Infobar = self.widget  # Todo: Rückgabe in die InfoBarView einbinden.
-            self.Infobar.setGeometry(QtCore.QRect(0, 0, InfoBarView.width(self), InfoBarView.height(self)))
+            self.horizontal_layout.addWidget(self.widget)

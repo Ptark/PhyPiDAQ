@@ -9,9 +9,9 @@ from python.src.model.item import DiagramItem
 
 
 class DiagramView(FigureCanvas):
-    diagram: DiagramItem
 
-    def __init__(self, parent):
+    def __init__(self, parent, diagram: DiagramItem):
+        self.diagram = diagram
         fig = Figure(figsize=(4, 5), dpi=70)
         super().__init__(fig)
         self.axes = fig.add_subplot(111)
