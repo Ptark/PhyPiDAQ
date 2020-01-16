@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 
-diagram_path = "../resources/images/icons/diagram/"
+diagram_path = "../resources/images/items/diagram/"
 
 
 class DiagramItemView(WorkspaceItemView):

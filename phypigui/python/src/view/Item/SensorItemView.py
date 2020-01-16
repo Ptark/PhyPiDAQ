@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 from .WorkspaceItemView import WorkspaceItemView
 
 
-sensor_path = "../resources/images/icons/sensor/"
+sensor_path = "../resources/images/items/sensor/"
 
 
 class SensorItemView(WorkspaceItemView):

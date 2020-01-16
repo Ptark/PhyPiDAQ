@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 from .WorkspaceItemView import WorkspaceItemView
 
 
-operator_path = "../resources/images/icons/operator/"
+operator_path = "../resources/images/items/operator/"
 
 
 class OperatorItemView(WorkspaceItemView):
@@ -18,35 +18,35 @@ class OperatorItemView(WorkspaceItemView):
 
 
 class AdditionOperatorItemView(OperatorItemView):
-    icon_path: str = operator_path + ''
+    icon_path: str = operator_path + 'addition.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class SubtractionOperatorItemView(OperatorItemView):
-    icon_path: str = operator_path + ''
+    icon_path: str = operator_path + 'subtraction.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class MultiplicationOperatorItemView(OperatorItemView):
-    icon_path: str = operator_path + ''
+    icon_path: str = operator_path + 'multiplication.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class DivisionOperatorItemView(OperatorItemView):
-    icon_path: str = operator_path + ''
+    icon_path: str = operator_path + 'division.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class AbsoluteOperatorItemView(OperatorItemView):
-    icon_path: str = operator_path + ''
+    icon_path: str = operator_path + 'absolute.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
