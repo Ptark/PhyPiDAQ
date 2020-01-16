@@ -8,8 +8,8 @@ from .ItemView import ItemView
 
 
 class Draggable(ItemView):
-    def __init__(self, parent: QWidget):
-        super().__init__(parent)
+    def __init__(self, main: QWidget, icon_path: str):
+        super().__init__(main, icon_path)
 
         self.__mousePressPos: QPoint = None
         self.__mouseMovePos: QPoint = None

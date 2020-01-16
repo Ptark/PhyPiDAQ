@@ -11,17 +11,11 @@ from .WorkspaceItemView import WorkspaceItemView
 
 class ListItemView(ItemView):
     def __init__(self, main: QWidget, item: Type[WorkspaceItemView]):
-        super().__init__(None)
+        super().__init__(main, item.icon_path)
 
         self.__main = main
         self.__item: Type[WorkspaceItemView] = item
         # TODO: Sensor Fehlermeldung
-
-        self.__init_ui()
-
-    def __init_ui(self) -> NoReturn:
-        # TODO
-        pass
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:

@@ -10,17 +10,12 @@ from ..Workspace.WorkspaceView import WorkspaceView
 
 class DragItemView(Draggable):
     def __init__(self, main: QWidget, event: QMouseEvent, item: Type[WorkspaceItemView]):
-        super().__init__(main)
+        super().__init__(main, item.icon_path)
 
         self.__main = main
         self.__item: Type[WorkspaceItemView] = item
 
         self._save_position(event)
-        self.__init_ui()
-
-    def __init_ui(self) -> NoReturn:
-        # TODO
-        pass
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         self._move_item(event)

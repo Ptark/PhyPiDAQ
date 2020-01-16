@@ -11,8 +11,10 @@ from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class WorkspaceItemView(Draggable, Selectable):
+    icon_path: str
+
     def __init__(self, main: QWidget):
-        super().__init__(main)
+        super().__init__(main, self.icon_path)
 
         self.__lastPos: QPoint = None
 
@@ -20,12 +22,6 @@ class WorkspaceItemView(Draggable, Selectable):
         # self.__selected: bool = False
         # self.__inputs: List[InputView] = []
         # self.__outputs: List[OutputView] = []
-
-        self.__init_ui()
-
-    def __init_ui(self) -> NoReturn:
-        # TODO
-        pass
 
     def get_info_widget(self) -> QWidget:
         pass

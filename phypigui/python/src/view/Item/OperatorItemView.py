@@ -1,8 +1,11 @@
 from typing import Final
 
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtWidgets import QWidget
 
 from .WorkspaceItemView import WorkspaceItemView
+
+
+operator_path = "../resources/images/icons/operator/"
 
 
 class OperatorItemView(WorkspaceItemView):
@@ -12,39 +15,38 @@ class OperatorItemView(WorkspaceItemView):
         super().__init__(parent)
 
         # TODO: Model in jeder Klasse selbst hinzufügen
-        # TODO: Icons
 
 
 class AdditionOperatorItemView(OperatorItemView):
+    icon_path: str = operator_path + ''
+
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-
-        lab = QLabel("Addition", self)
 
 
 class SubtractionOperatorItemView(OperatorItemView):
+    icon_path: str = operator_path + ''
+
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-
-        lab = QLabel("Subtraction", self)
 
 
 class MultiplicationOperatorItemView(OperatorItemView):
+    icon_path: str = operator_path + ''
+
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-
-        lab = QLabel("Multiplication", self)
 
 
 class DivisionOperatorItemView(OperatorItemView):
+    icon_path: str = operator_path + ''
+
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-
-        lab = QLabel("Division", self)
 
 
 class AbsoluteOperatorItemView(OperatorItemView):
+    icon_path: str = operator_path + ''
+
     def __init__(self, parent: QWidget):
         super().__init__(parent)
-
-        lab = QLabel("Absolute", self)
