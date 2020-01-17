@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import NoReturn, Type
 
 from PyQt5.QtGui import QMouseEvent
@@ -8,7 +9,7 @@ from .WorkspaceItemView import WorkspaceItemView
 from ..Workspace.WorkspaceView import WorkspaceView
 
 
-class DragItemView(Draggable):
+class DragItemView(Draggable, ABC):
     def __init__(self, main: QWidget, event: QMouseEvent, item: Type[WorkspaceItemView]):
         super().__init__(main, item.icon_path)
 

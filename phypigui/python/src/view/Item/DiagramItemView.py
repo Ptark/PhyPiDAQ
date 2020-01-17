@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import Final
 
 from PyQt5.QtWidgets import QWidget
@@ -8,7 +9,7 @@ from ..Item.WorkspaceItemView import WorkspaceItemView
 diagram_path = "../resources/images/items/diagram/"
 
 
-class DiagramItemView(WorkspaceItemView):
+class DiagramItemView(WorkspaceItemView, ABC):
     FRAME_PATH: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_inputs: int = 1):

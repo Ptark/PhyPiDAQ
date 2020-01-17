@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import NoReturn
 
 from PyQt5.QtCore import QPoint
@@ -7,7 +8,7 @@ from PyQt5.QtWidgets import QWidget
 from .ItemView import ItemView
 
 
-class Draggable(ItemView):
+class Draggable(ItemView, ABC):
     def __init__(self, main: QWidget, icon_path: str):
         super().__init__(main, icon_path)
 

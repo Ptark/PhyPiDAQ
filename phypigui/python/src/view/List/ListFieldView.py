@@ -9,9 +9,14 @@ from ..Item.ListItemView import ListItemView
 from ..Item.OperatorItemView import *
 from ..Item.SensorItemView import *
 from .ItemListView import ItemListView
+from ..View import View
 
 
-class ListFieldView(QWidget):
+class ListFieldViewMeta(type(QWidget), type(View)):
+    pass
+
+
+class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
     def __init__(self, main: QWidget):
         super().__init__()
 

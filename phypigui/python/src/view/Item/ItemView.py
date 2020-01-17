@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import NoReturn
 
 from PyQt5.QtSvg import QSvgWidget
@@ -10,7 +11,7 @@ class ItemViewMeta(type(QFrame), type(View)):
     pass
 
 
-class ItemView(QFrame, View, metaclass=ItemViewMeta):
+class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
     def __init__(self, parent: QWidget, icon_path: str):
         super().__init__(parent)
 

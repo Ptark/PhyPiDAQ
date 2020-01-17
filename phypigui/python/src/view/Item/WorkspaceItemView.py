@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import NoReturn, List
 
 from PyQt5.QtCore import QPoint, Qt
@@ -12,7 +13,7 @@ from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
 
 
-class WorkspaceItemView(Draggable, Selectable):
+class WorkspaceItemView(Draggable, Selectable, ABC):
     icon_path: str
 
     def __init__(self, main: QWidget, num_of_inputs: int, num_of_outputs: int):

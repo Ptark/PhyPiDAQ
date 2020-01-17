@@ -3,9 +3,14 @@ from typing import NoReturn, List
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from ..Item.ListItemView import ListItemView
+from ..View import View
 
 
-class ItemListView(QWidget):
+class ItemListViewMeta(type(QWidget), type(View)):
+    pass
+
+
+class ItemListView(QWidget, View, metaclass=ItemListViewMeta):
     def __init__(self):
         super().__init__()
 

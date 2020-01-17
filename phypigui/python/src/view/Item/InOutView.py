@@ -1,15 +1,16 @@
+from abc import ABC
 from typing import NoReturn
 
-from PyQt5.QtWidgets import QWidget, QFrame
+from PyQt5.QtWidgets import QFrame
 
 from ..View import View
 
 
-class InOutViewMeta(type(QWidget), type(View)):
+class InOutViewMeta(type(QFrame), type(View)):
     pass
 
 
-class InOutView(QFrame, View, metaclass=InOutViewMeta):
+class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
     def __init__(self):
         super().__init__(None)
 
