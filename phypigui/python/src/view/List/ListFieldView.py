@@ -42,9 +42,9 @@ class ListFieldView(QWidget):
     def __init_ui(self) -> NoReturn:
         self.__tab.setElideMode(Qt.ElideRight)
 
-        self.__tab.addTab(self.__sensor_list, "&Sensoren")
-        self.__tab.addTab(self.__operator_list, "&Operatoren")
-        self.__tab.addTab(self.__diagram_list, "&Diagramme")
+        self.__tab.addTab(self.__sensor_list, self.tr("Sensoren"))
+        self.__tab.addTab(self.__operator_list, self.tr("Operatoren"))
+        self.__tab.addTab(self.__diagram_list, self.tr("Diagramme"))
 
         layout = QVBoxLayout()
         layout.addWidget(self.__tab)
