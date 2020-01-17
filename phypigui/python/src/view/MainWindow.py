@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
 
     def __init_ui(self):
         self.setWindowTitle('PhyPiDAQ')
-        self.setWindowIcon(QIcon('../../../images/PhiPi_icon.png'))
+        self.setWindowIcon(QIcon('../resources/images/PhiPi_icon.png'))
 
         self.setMenuBar(MenuBarView())
         self.setCentralWidget(self.__main_widget)
