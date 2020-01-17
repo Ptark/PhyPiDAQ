@@ -1,6 +1,6 @@
 from typing import NoReturn, Type
 
-from PyQt5.QtGui import QColor, QMouseEvent
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 from .Draggable import Draggable

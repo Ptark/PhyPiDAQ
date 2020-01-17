@@ -1,6 +1,7 @@
 from typing import NoReturn
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 
 from ..Item.DiagramItemView import *
@@ -41,11 +42,19 @@ class ListFieldView(QWidget):
 
     def __init_ui(self) -> NoReturn:
         self.__tab.setElideMode(Qt.ElideRight)
+        self.__tab.setIconSize(QSize(35, 35))
 
-        self.__tab.addTab(self.__sensor_list, self.tr("Sensoren"))
-        self.__tab.addTab(self.__operator_list, self.tr("Operatoren"))
-        self.__tab.addTab(self.__diagram_list, self.tr("Diagramme"))
+        icon_path = "../resources/images/items/"
+
+        sensoren = self.__tab.addTab(self.__sensor_list, QIcon(icon_path + "sensor/distance.svg"), "")
+        operatoren = self.__tab.addTab(self.__operator_list, QIcon(icon_path + "operator/addition.svg"), "")
+        diagramme = self.__tab.addTab(self.__diagram_list, QIcon(icon_path + "diagram/time.svg"), "")
+
+        self.__tab.setTabToolTip(sensoren, self.tr("Sensoren"))
+        self.__tab.setTabToolTip(operatoren, self.tr("Operatoren"))
+        self.__tab.setTabToolTip(diagramme, self.tr("Diagramme"))
 
         layout = QVBoxLayout()
         layout.addWidget(self.__tab)
         self.setLayout(layout)
+        self.setMaximumWidth(207)
