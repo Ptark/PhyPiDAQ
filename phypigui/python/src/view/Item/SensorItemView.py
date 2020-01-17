@@ -11,7 +11,7 @@ sensor_path = "../resources/images/items/sensor/"
 
 
 class SensorItemView(WorkspaceItemView, ABC):
-    FRAME_PATH: Final[str] = ""  # TODO: frame erstellen
+    frame_path: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_outputs: int = 1):
         super().__init__(parent, 0, num_of_outputs)
@@ -20,28 +20,28 @@ class SensorItemView(WorkspaceItemView, ABC):
 
 
 class TemperatureSensorItemView(SensorItemView):
-    icon_path: str = sensor_path + 'temperature.svg'
+    icon_path: Final[str] = sensor_path + 'temperature.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class ForceSensorItemView(SensorItemView):
-    icon_path: str = sensor_path + 'force.svg'
+    icon_path: Final[str] = sensor_path + 'force.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class DistanceSensorItemView(SensorItemView):
-    icon_path: str = sensor_path + 'distance.svg'
+    icon_path: Final[str] = sensor_path + 'distance.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
 
 class AccelerationSensorItemView(SensorItemView):
-    icon_path: str = sensor_path + 'acceleration.svg'
+    icon_path: Final[str] = sensor_path + 'acceleration.svg'
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
