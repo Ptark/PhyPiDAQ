@@ -1,14 +1,13 @@
 from typing import NoReturn
 
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget
 
 from .InOutView import InOutView
 
 
 class InputView(InOutView):
-    def __init__(self, parent: QWidget):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
 
         self.__connected: bool = False
 

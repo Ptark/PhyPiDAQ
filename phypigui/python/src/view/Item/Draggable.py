@@ -19,12 +19,16 @@ class Draggable(ItemView):
         self.__mouseMovePos = event.globalPos()
 
     def _move_item(self, event: QMouseEvent) -> NoReturn:
-        currPos = self.mapToGlobal(self.pos())
-        globalPos = event.globalPos()
-        diff = globalPos - self.__mouseMovePos
-        newPos = self.mapFromGlobal(currPos + diff)
-        self.move(newPos)
-        self.__mouseMovePos = globalPos
+        if self.__mouseMovePos is not None:
+            currPos = self.mapToGlobal(self.pos())
+            globalPos = event.globalPos()
+            diff = globalPos - self.__mouseMovePos
+            newPos = self.mapFromGlobal(currPos + diff)
+            self.move(newPos)
+            self.__mouseMovePos = globalPos
+
+    def _on_click(self):
+        pass
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         if self.__mousePressPos is not None:
@@ -33,4 +37,5 @@ class Draggable(ItemView):
                 event.ignore()
                 return
 
+        self._on_click()
         super(Draggable, self).mouseReleaseEvent(event)

@@ -1,18 +1,20 @@
+from abc import ABC
 from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
+from python.src.view.Item.OutputView import OutputView
 from .WorkspaceItemView import WorkspaceItemView
 
 
 sensor_path = "../resources/images/items/sensor/"
 
 
-class SensorItemView(WorkspaceItemView):
+class SensorItemView(WorkspaceItemView, ABC):
     FRAME_PATH: Final[str] = ""  # TODO: frame erstellen
 
-    def __init__(self, parent: QWidget):
-        super().__init__(parent)
+    def __init__(self, parent: QWidget, num_of_outputs: int = 1):
+        super().__init__(parent, 0, num_of_outputs)
 
         # TODO: Model in jeder Klasse selbst hinzufügen
 
