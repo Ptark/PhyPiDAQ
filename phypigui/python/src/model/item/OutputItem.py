@@ -11,7 +11,6 @@ class OutputItem(ItemModel, ABC):
 
     @abstractmethod
     def get_rule(self, output_number: int) -> NoReturn:
-        #TODO
         pass
 
     @abstractmethod

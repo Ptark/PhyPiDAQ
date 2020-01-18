@@ -8,7 +8,7 @@ from typing import List, Callable, Dict, NoReturn
 
 class SensorItem(OutputItem, ABC):
     def __init__(self, buffer: [float], last_read_time: int):
-        super(self).__init__()
+        super().__init__()
         self._buffer = buffer
         self._last_read_time = last_read_time
 
@@ -46,8 +46,8 @@ class TemperatureSensorItem(SensorItem):
 
     def get_unit(self) -> str:
         if self._config.get_enum_options()[0] is not None:
-            eOpt: EnumOption.NumOption = self._config.get_enum_options()[0]
-            if eOpt.get_selection() == 'Kelvin':
+            e_opt: EnumOption.NumOption = self._config.get_enum_options()[0]
+            if e_opt.get_selection() == 'Kelvin':
                 return "K"
             return "°C"
         return ""
