@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from python.src.view.InfoBar.DeleteButtonView import DeleteButtonView
 from python.src.view.InfoBar.SettingsButtonView import SettingsButtonView
-from python.src.view.Workspace.WorkspaceView import WorkspaceView
+from python.src.view.Workspace import WorkspaceView
 
 
 class InfoBarView(QWidget):

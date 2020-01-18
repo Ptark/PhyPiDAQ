@@ -14,7 +14,6 @@ class DiagramView(FigureCanvas):
         self.diagram = diagram
         fig = Figure(figsize=(4, 5), dpi=70)
         super().__init__(fig)
-        self.axes = fig.add_subplot(111)
         FigureCanvas.__init__(self, fig)
 
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
