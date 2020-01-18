@@ -8,11 +8,12 @@ from python.src.view.DiagramField.MaximizeButton import MaximizeButtonView
 
 
 class DiagramFieldView(QWidget):
+    list = []
+    vertical_layout: QVBoxLayout = QVBoxLayout()
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setObjectName("DiagramFieldView")
-        self.list: List[DiagramView] = []
+        self.list: List[DiagramView]
 
         self.vertical_layout = QVBoxLayout()
         self.horizontal_layout = QHBoxLayout()
@@ -34,8 +35,8 @@ class DiagramFieldView(QWidget):
         self.add_diagram(a)
         self.add_diagram(b)
         self.add_diagram(c)
-        # self.delete_diagram(c)
-        # self.delete_diagram(b)
+        #self.delete_diagram(c)
+        #self.delete_diagram(b)
 
     def add_diagram(self, diagram: DiagramView) -> NoReturn:
         if len(self.list) < 3:

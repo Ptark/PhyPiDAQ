@@ -20,7 +20,7 @@ class DeleteButtonView(QPushButton):
     def on_click(self):
         selectable = WorkspaceView.WorkspaceView.selection
 
-        if selectable.type() == WorkspaceItemView:
-            WorkspaceItemView.delete(selectable)
-        elif selectable.type() == WireView:
-            WorkspaceItemView.delete(selectable)
+        if isinstance(selectable, WorkspaceItemView.WorkspaceItemView):
+            WorkspaceItemView.WorkspaceItemView.delete(selectable)
+        elif isinstance(selectable, WireView.WireView):
+            WireView.WireView.delete(selectable)

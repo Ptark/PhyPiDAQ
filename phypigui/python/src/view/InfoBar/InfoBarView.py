@@ -24,6 +24,6 @@ class InfoBarView(QWidget):
         self.setLayout(self.horizontal_layout)
 
     def refresh_infobar(self):
-        if not WorkspaceView.selection is None:
-            self.widget = WorkspaceView.selection.get_info_widget()
+        if not WorkspaceView.WorkspaceView.selection is None:
+            self.widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
             self.horizontal_layout.addWidget(self.widget)
