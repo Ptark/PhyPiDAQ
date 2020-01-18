@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QEvent, pyqtSlot
 from PyQt5.QtWidgets import QPushButton
 
-#from python.src.model.manager.ManagerModel import ManagerModel
+#from python.src.model.manager import ManagerModel
 
 
 class StartButtonView(QPushButton):
@@ -22,14 +22,14 @@ class StartButtonView(QPushButton):
     def on_click(self):
         if not self.is_started:
             #ManagerModel.start()
-            self.change_icon()
+            self.__change_icon()
             self.is_started = True
         else:
             #ManagerModel.stop()
-            self.change_icon()
+            self.__change_icon()
             self.is_started = False
 
-    def change_icon(self):
+    def __change_icon(self):
         if self.is_started:
             self.icon.addPixmap(QtGui.QPixmap(self.__start_image))
             self.setIcon(self.icon)

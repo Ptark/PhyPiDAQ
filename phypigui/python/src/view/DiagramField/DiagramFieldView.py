@@ -1,6 +1,7 @@
 from typing import List, NoReturn
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from numpy import random
 
 from python.src.model.item import DiagramItem
 from python.src.view.DiagramField.DiagramView import DiagramView
@@ -8,11 +9,12 @@ from python.src.view.DiagramField.MaximizeButton import MaximizeButtonView
 
 
 class DiagramFieldView(QWidget):
+    list = []
+    vertical_layout: QVBoxLayout = QVBoxLayout()
 
     def __init__(self, parent):
         super().__init__(parent)
-        self.setObjectName("DiagramFieldView")
-        self.list: List[DiagramView] = []
+        self.list: List[DiagramView]
 
         self.vertical_layout = QVBoxLayout()
         self.horizontal_layout = QHBoxLayout()
@@ -34,6 +36,8 @@ class DiagramFieldView(QWidget):
         self.add_diagram(a)
         self.add_diagram(b)
         self.add_diagram(c)
+        self.test_diag(a)
+        self.test_diag(b)
         # self.delete_diagram(c)
         # self.delete_diagram(b)
 
@@ -45,3 +49,7 @@ class DiagramFieldView(QWidget):
     def delete_diagram(self, diagram: DiagramView) -> NoReturn:
         self.list.remove(diagram)
         self.vertical_layout.removeWidget(diagram)
+
+    def test_diag(self, diag: DiagramView):
+        for i in range(40):
+            diag.update_diagram(random.random())
