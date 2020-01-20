@@ -11,7 +11,8 @@ class InputView(InOutView):
 
         self.__connected: bool = False
 
-    def is_connected(self) -> bool:
+    @property
+    def connected(self) -> bool:
         return self.__connected
 
     def remove_connection(self) -> NoReturn:

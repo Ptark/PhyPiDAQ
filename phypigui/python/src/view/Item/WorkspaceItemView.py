@@ -16,13 +16,13 @@ from ..Workspace.WorkspaceView import WorkspaceView
 class WorkspaceItemView(Draggable, Selectable, ABC):
     icon_path: str
 
-    def __init__(self, main: QWidget, num_of_inputs: int, num_of_outputs: int):
+    def __init__(self, main: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
         super().__init__(main, self.icon_path)
 
         self.__lastPos: QPoint = None
 
         # self.__model: ItemModel = None
-        # self.__selected: bool = False
+        self.__selected: bool = False
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
 
@@ -31,6 +31,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         for i in range(0, num_of_outputs):
             self.__outputs.append(OutputView())
 
+        # WorkspaceView.add_item(self)
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
@@ -50,15 +51,27 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_widget.setLayout(out_layout)
         out_widget.move(101, 0)
 
-    def _on_click(self):
-        # WorkspaceView.set_selected_item(self)  # TODO: selection system
+    @property
+    def selected(self) -> bool:
+        return self.__selected
+
+    @selected.setter
+    def selected(self, new_selected: bool) -> NoReturn:
+        self.__selected = new_selected
+        # WorkspaceView.set_selected_item(self) if self.selected else WorkspaceView.remove_selected_item(self)
+
+        border = "blue" if self.selected else "black"
+        background = "#CCCCEE" if self.selected else "#CCCCCC"
         self.setStyleSheet("""
-            QFrame {
-                border: 2px solid blue;
-                border-radius: 5px;
-                background-color: #CCCCEE;
-                }
-            """)
+                        QFrame {
+                            border: 2px solid """ + border + """;
+                            border-radius: 5px;
+                            background-color: """ + background + """;
+                            }
+                        """)
+
+    def _on_click(self):
+        self.selected = not self.selected
 
     def get_info_widget(self) -> QWidget:
         pass  # TODO: infobar system
