@@ -75,12 +75,16 @@ class WorkspaceModel:
         if output_id in WorkspaceModel.__output_list.keys():
             return WorkspaceModel.__output_list[output_id].calculate_function()
         else:
-            return None
+            return lambda data: 0
 
     @staticmethod
     def calculate_unit(output_id: int) -> str:
         if output_id in WorkspaceModel.__output_list.keys():
             return WorkspaceModel.__output_list[output_id].calculate_unit()
         else:
-            return None
+            return ''
 
+    @staticmethod
+    def invalidate_functions(output_id: int) -> NoReturn:
+        for input_id in WorkspaceModel.__output_list[output_id].get_connections():
+            WorkspaceModel.__input_list[input_id].invalidate_functions()
