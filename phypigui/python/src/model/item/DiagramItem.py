@@ -1,19 +1,40 @@
 from abc import ABC, abstractmethod
-from ..item import Input
-from ..config import ConfigModel
+from ..item.SensorItem import SensorItem
+from ..config.ConfigModel import ConfigModel
+from typing import List, Callable, Dict
+from ..item.InputItem import InputItem
+from ..workspace.WorkspaceModel import WorkspaceModel
 
 
-class DiagramItem(ABC):
-    pass
+class DiagramItem(InputItem):
+    def __init__(self, name: str, description: str, config: ConfigModel, input_count: int):
+        self._functions: List[Callable[[Dict[SensorItem, List[float]]], float]] = []
+        self._data: List[float] = []
+        self._unit: List[str] = []
+        for i in range(0, input_count - 1):
+            self._functions.append(lambda data: 0)
+            self._data.append(0)
+            self._unit.append('')
+        super().__init__(name, description, config, input_count)
+
+    def calculate_functions(self) -> bool:
+        for i in range(0, self.get_number_of_inputs() - 1):
+            self._functions[i] = WorkspaceModel.calculate_function(self._inputs[i].connected_to)
+            self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].connected_to)
+        return True
+
+    def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
+        for i in range(0, self._get_number_of_inputs() - 1):
+            self._data[i] = self._functions[i](sensor_data)
+        return True
 
 
 class BarDiagramItem(DiagramItem):
     def __int__(self):
-        super().__init__([None] * 3, [None] * 3, [None] * 3)
-        self._name: str = "Balkendiagramm"
-        self._config = ConfigModel.ConfigModel()
-        self._description: str = "stellt die gemessenen Daten als Balkendiagramm dar"
-        self._inputs: [Input] = [Input.Input()] * 3
+        name: str = "Balkendiagramm"
+        config: ConfigModel = ConfigModel()
+        description: str = "Stellt die gemessenen Daten als Balkendiagramm dar"
+        super().__init__(name, description, config, self.get_number_of_inputs())
 
     def get_number_of_inputs(self) -> int:
         return 3
@@ -21,11 +42,10 @@ class BarDiagramItem(DiagramItem):
 
 class TimeDiagramItem(DiagramItem):
     def __init__(self):
-        super().__init__([None], [None], [None])
-        self._name: str = "Zeitdiagramm"
-        self._description = "stellt die gemessenen Daten als Zeitdiagramm dar"
-        self._config = ConfigModel.ConfigModel()
-        self._inputs: [Input] = [Input.Input] * 2
+        name: str = "Zeitdiagramm"
+        description = "Stellt die gemessenen Daten als Zeitdiagramm dar"
+        config = ConfigModel()
+        super().__init__(name, description, config, self.get_number_of_inputs())
 
     def get_number_of_inputs(self) -> int:
         return 1
