@@ -2,7 +2,6 @@ from typing import Dict, List, NoReturn
 from ..item.SensorItem import SensorItem
 from ..item.DiagramItem import DiagramItem
 from ..item.OutputItem import OutputItem
-from ..Model import Model
 
 import copy
 
