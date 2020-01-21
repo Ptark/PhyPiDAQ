@@ -7,7 +7,10 @@ from typing import List, Callable, Dict
 
 class OperatorItem(ABC, InputItem, OutputItem):
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
-        super().__init__(name, description, config, inputs, outputs)
+        InputItem.InputItem.__init__(name, description, config, inputs)
+        self._outputs: List[Output] = []
+        for i in range(1, outputs):
+            self._outputs.append(Output.Output())
 
     def get_number_of_outputs(self) -> int:
         return 1

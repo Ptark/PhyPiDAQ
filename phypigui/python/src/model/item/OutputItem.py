@@ -2,12 +2,16 @@ from abc import ABC, abstractmethod
 from ..item import ItemModel
 from ..item import Output
 from ..workspace import WorkspaceModel
-from typing import NoReturn
+from typing import NoReturn, List
+from ..config import ConfigModel
 
 
 class OutputItem(ItemModel, ABC):
-    def __init__(self):
+    def __init__(self, name: str, description: str, config: ConfigModel, outputs: int):
         self._outputs: [Output] = []
+        for i in range(1, outputs):
+            self._outputs.append(Output.Output())
+        super().__init__(name, description, config)
 
     @abstractmethod
     def get_rule(self, output_number: int) -> NoReturn:
