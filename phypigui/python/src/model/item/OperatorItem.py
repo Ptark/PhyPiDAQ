@@ -1,70 +1,68 @@
 from abc import ABC, abstractmethod
-from ..item import InputItem,Output,Input, OutputItem
+from ..item import InputItem, Output, Input, OutputItem, SensorItem
 from ..config import ConfigModel
 from ..workspace import WorkspaceModel
+from typing import List, Callable, Dict
 
 
 class OperatorItem(ABC, InputItem, OutputItem):
-
-    @abstractmethod
-    def get_rule(self, output_number: int):
-        first_function = lambda data: WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].get_id())(data)
-        second_function = lambda data: WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].get_id())(data)
-
+    def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
+        self._first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].get_id())(data)
+        super().__init__(name, description, config, inputs, outputs)
 
     def get_unit(self, output_number: int) -> str:
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ") + (" /\
+        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ") + (" +\
                 WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].get_id()) + ")"
 
     def get_number_of_outputs(self) -> int:
         return 1
 
+
+class DivisionOperatorItem(OperatorItem):
+    def __init__(self):
+        self._second_function = Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].get_id())(data)
+        name: str = "Divisionsoperator"
+        description: str = "Dieser Operator dividiert zwei Werte"
+        config: ConfigModel = ConfigModel.ConfigModel()
+        super().__init__(name, description, config, 2, 1)
+
+    def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
+        return lambda data: self._first_function(data) / self._second_function(data)
+
     def get_number_of_inputs(self) -> int:
         return 2
 
 
-class DivisionOperatorItem(OperatorItem):
-    def __init__(self):
-        self._name: str = "Divisionsoperator"
-        self._description: str = "Dieser Operator dividiert zwei Werte"
-        self._config: ConfigModel = ConfigModel.ConfigModel()
-        self._outputs: [Output] = [Output()]
-        self._inputs: [Input] = [Input()] * 2
-
-    def get_rule(self, output_number: int):
-        #TODO
-         pass
-
-
 class AbsoluteOperatorItem(OperatorItem):
-    def __int__(self):
-        self._name: str = "Absoluteoperator"
-        self._description: str = "Dieser Operator berechnet den Absolutbetrag"
-        self._config: ConfigModel = ConfigModel.ConfigModel()
-        self._outputs: [Output] = [Output.Output()]
-        self._inputs: [Input] = [Input.Input()]
+    def __init__(self):
+        name: str = "Absolutoperator"
+        description: str = "Dieser Operator berechnet den Absolutbetrag"
+        config: ConfigModel = ConfigModel.ConfigModel()
+        super().__init__(name, description, config, 1, 1)
     
     def get_number_of_inputs(self) -> int:
         return 1
 
-    def get_rule(self, output_number: int):
-        #TODO
-        pass
+    def get_rule(self, output_number: int = 0):
+        return lambda data: abs(self._first_function(data))
 
     def get_unit(self, output_number: int) -> str:
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ")"
 
 
 class MultiplicationOperatorItem(OperatorItem):
-    def __int__(self):
-        self._name: str = "Multiplikationsoperator"
-        self._description. str = "Dieser Operator multipliziert zwei Werte"
-        self._config: ConfigModel = ConfigModel.ConfigModel()
-        self._outputs: [Output] = [Output()]
-        self._inputs: [Input] = [Input()] * 2
+    def __init__(self):
+        self._second_function = Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].get_id())(data)
+        name: str = "Multiplikationsoperator"
+        description: str = "Dieser Operator multipliziert zwei Werte"
+        config: ConfigModel = ConfigModel.ConfigModel()
+        super().__init__(name, description, config, 2, 1)
 
-    def get_rule(self, output_number: int):
-        #TODO
-        pass
+    def get_rule(self, output_number: int = 0):
+        return lambda data: self._first_function(data) * self._second_function(data)
 
-    
+    def get_number_of_inputs(self) -> int:
+        return 2
