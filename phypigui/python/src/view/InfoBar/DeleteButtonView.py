@@ -1,9 +1,8 @@
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QPushButton
+from PyQt5 import QtGui
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtWidgets import QPushButton
 
-from python.src.view.Workspace import WireView, WorkspaceView
-
-from python.src.view.Item import WorkspaceItemView
+from ..Workspace import WorkspaceView
 
 
 class DeleteButtonView(QPushButton):
@@ -17,10 +16,8 @@ class DeleteButtonView(QPushButton):
         self.setIcon(self.icon)
         self.clicked.connect(self.on_click)
 
+    @pyqtSlot()
     def on_click(self):
-        selectable = WorkspaceView.WorkspaceView.selection
-
-        if isinstance(selectable, WorkspaceItemView.WorkspaceItemView):
-            WorkspaceItemView.WorkspaceItemView.delete(selectable)
-        elif isinstance(selectable, WireView.WireView):
-            WireView.WireView.delete(selectable)
+        selection = WorkspaceView.WorkspaceView.selection
+        if selection is not None:
+            selection.delete()

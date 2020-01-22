@@ -19,19 +19,19 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def __init__(self, main: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
         super().__init__(main, self.icon_path)
 
-        self.__lastPos: QPoint = None
-
+        self.__id: int = 0  # WorkspaceView.add_item(self)
         # self.__model: ItemModel = None
         self.__selected: bool = False
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
+
+        self.__lastPos: QPoint = None
 
         for i in range(0, num_of_inputs):
             self.__inputs.append(InputView())
         for i in range(0, num_of_outputs):
             self.__outputs.append(OutputView())
 
-        # WorkspaceView.add_item(self)
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
@@ -52,29 +52,44 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_widget.move(101, 0)
 
     @property
+    def id(self) -> int:
+        return self.__id
+
+    @property
     def selected(self) -> bool:
         return self.__selected
 
     @selected.setter
     def selected(self, new_selected: bool) -> NoReturn:
-        self.__selected = new_selected
-        # WorkspaceView.set_selected_item(self) if self.selected else WorkspaceView.remove_selected_item(self)
+        if self.__selected == new_selected:
+            return
 
-        border = "blue" if self.selected else "black"
-        background = "#CCCCEE" if self.selected else "#CCCCCC"
+        self.__selected = new_selected
+
+        if self.selected:
+            if WorkspaceView.selection is not None:
+                WorkspaceView.selection.selected = False
+            border = "blue"
+            background = "#CCCCEE"
+            WorkspaceView.selection = self
+        else:
+            border = "black"
+            background = "#CCCCCC"
+            WorkspaceView.selection = None
+
         self.setStyleSheet("""
-                        QFrame {
-                            border: 2px solid """ + border + """;
-                            border-radius: 5px;
-                            background-color: """ + background + """;
-                            }
-                        """)
+            QFrame {
+                border: 2px solid """ + border + """;
+                border-radius: 5px;
+                background-color: """ + background + """;
+                }
+            """)
 
     def _on_click(self):
         self.selected = not self.selected
 
     def get_info_widget(self) -> QWidget:
-        pass  # TODO: infobar system
+        return QWidget()  # TODO: infobar system
 
     def delete(self) -> NoReturn:
         # WorkspaceView.delete_item(self)
@@ -84,11 +99,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         if event.buttons() == Qt.LeftButton:
             self.__lastPos = self.pos()
             self._save_position(event)
-
-        # for testing:  TODO: deletion system
-        if event.buttons() == Qt.RightButton:
-            self.delete()
-            return
+            self.raise_()
 
         super(WorkspaceItemView, self).mousePressEvent(event)
 

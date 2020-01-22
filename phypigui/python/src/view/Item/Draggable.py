@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import NoReturn
 
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
@@ -38,5 +38,7 @@ class Draggable(ItemView, ABC):
                 event.ignore()
                 return
 
-        self._on_click()
+        if event.button() == Qt.LeftButton:
+            self._on_click()
+
         super(Draggable, self).mouseReleaseEvent(event)

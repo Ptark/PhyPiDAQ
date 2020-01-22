@@ -13,7 +13,7 @@ from python.src.view.Workspace.WireView import WireView
 
 class WorkspaceView(QWidget):
     widget: QWidget = None
-    selection: Selectable
+    selection: Selectable = None
 
     def __init__(self, parent):
         super().__init__(parent)
