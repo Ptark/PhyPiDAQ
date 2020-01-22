@@ -3,7 +3,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
 
 # from ...model.item.ItemModel import ItemModel
 from .InputView import InputView
@@ -31,6 +31,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             self.__inputs.append(InputView())
         for i in range(0, num_of_outputs):
             self.__outputs.append(OutputView())
+
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.__context_menu)
 
         self.__init_ui()
 
@@ -85,6 +88,12 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
                 }
             """)
 
+    def __context_menu(self, pos: QPoint) -> NoReturn:
+        menu = QMenu()
+        # menu.addAction(self.tr("Einstellungen"), self.open_settings)
+        menu.addAction(self.tr("Entfernen"), self.delete)
+        menu.exec(self.mapToGlobal(pos))
+
     def _on_click(self):
         self.selected = not self.selected
 
@@ -93,6 +102,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def delete(self) -> NoReturn:
         # WorkspaceView.delete_item(self)
+        if WorkspaceView.selection is self:
+            WorkspaceView.selection = None
         self.close()
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:

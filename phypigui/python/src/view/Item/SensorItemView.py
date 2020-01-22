@@ -3,7 +3,6 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
-from python.src.view.Item.OutputView import OutputView
 from .WorkspaceItemView import WorkspaceItemView
 
 
