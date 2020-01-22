@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import NoReturn
 
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QFrame
 
 from ..View import View
@@ -23,6 +24,15 @@ class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
             QFrame {
                 border: 2px solid black;
                 border-radius: 5px;
-                background-color: #FF0000;
+                background-color: #FF4444;
                 }
             """)
+
+    def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
+        pass
+
+    def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
+        pass
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
+        pass

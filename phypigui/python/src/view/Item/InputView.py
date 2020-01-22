@@ -2,6 +2,7 @@ from typing import NoReturn
 
 from PyQt5.QtGui import QMouseEvent
 
+# from ..Workspace.WorkspaceView import WorkspaceView
 from .InOutView import InOutView
 
 
@@ -18,6 +19,11 @@ class InputView(InOutView):
     def remove_connection(self) -> NoReturn:
         self.__connected = False
 
-    def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
-        # TODO
-        pass
+    def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
+        """
+        if WorkspaceView.wire_in_hand is not None:
+            WorkspaceView.wire_in_hand.input = self
+            self.__connected = True
+            WorkspaceView.wire_in_hand = None
+        """
+        super(InputView, self).mouseReleaseEvent(event)
