@@ -10,7 +10,7 @@ class OutputItem(ItemModel, ABC):
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int):
         self._outputs: [Output] = []
         for i in range(1, outputs):
-            self._outputs.append(Output.Output())
+            self._outputs.append(Output.Output(self.__id, i))
         super().__init__(name, description, config)
 
     @abstractmethod
@@ -29,6 +29,6 @@ class OutputItem(ItemModel, ABC):
 
     def connect_output(self, output_index: int, input_id: int) -> NoReturn:
         if self._outputs[output_index] is not None:
-            output_id = self._outputs[output_index].getid()
+            output_id = self._outputs[output_index].id
             WorkspaceModel.WorkspaceModel.connect(input_id, output_id)
         return
