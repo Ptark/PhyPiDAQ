@@ -1,18 +1,23 @@
 from ..workspace import WorkspaceModel
 from typing import List, Dict, Callable, NoReturn
 from . import SensorItem
+from .. import Identifiable
 
 
-class Output:
+class Output(Identifiable.Identifiable):
     def __init__(self, parent_id: int, output_number: int):
-        self.__id: int = WorkspaceModel.WorkspaceModel.add_output(self)
-        self.__parent_item: int = parent_id
+        super().__init__(WorkspaceModel.WorkspaceModel.add_output(self))
+        self.__parent_item_id: int = parent_id
         self.__connected_to: List[int] = []
         self.__number_of_output: int = output_number
         self.__function: Callable[[Dict[SensorItem.SensorItem, List[float]]], float] = lambda data: 0
         self.__is_function_valid: bool = False
         self.__data: float = 0
         self.__unit: str = ''
+
+    @property
+    def parent_item_id(self) -> int:
+        return self.__parent_item_id
 
     @property
     def connected_to(self) -> List[int]:
