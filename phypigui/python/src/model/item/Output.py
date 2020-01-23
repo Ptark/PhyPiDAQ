@@ -1,11 +1,12 @@
 from ..workspace import WorkspaceModel
 from typing import List, Dict, Callable, NoReturn
 from . import SensorItem
+from .. import Identifiable
 
 
-class Output:
+class Output(Identifiable.Identifiable):
     def __init__(self, parent_id: int, output_number: int):
-        self.__id: int = WorkspaceModel.WorkspaceModel.add_output(self)
+        super().__init__(WorkspaceModel.WorkspaceModel.add_output(self))
         self.__parent_item: int = parent_id
         self.__connected_to: List[int] = []
         self.__number_of_output: int = output_number
