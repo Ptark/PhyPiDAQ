@@ -115,7 +115,7 @@ class WorkspaceModel:
         Returns:
               bool: False, if one of the connected inputs doesn't exist
         """
-        connected_ids: List[int] = WorkspaceModel.__output_list[output_id].get_connections()
+        connected_ids: List[int] = WorkspaceModel.__output_list[output_id].connected_to
         for id in connected_ids:
             if id in WorkspaceModel.__input_list.keys():
                 WorkspaceModel.__update_input(id, -1)
@@ -180,5 +180,5 @@ class WorkspaceModel:
         Args:
             output_id (int): ID of the output
         """
-        for input_id in WorkspaceModel.__output_list[output_id].get_connections():
+        for input_id in WorkspaceModel.__output_list[output_id].connected_to:
             WorkspaceModel.__input_list[input_id].invalidate_functions()
