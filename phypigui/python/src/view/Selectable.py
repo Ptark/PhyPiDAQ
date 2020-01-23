@@ -31,11 +31,15 @@ class Selectable(ABC):
         self._change_selected_view()
 
     @abstractmethod
-    def _change_selected_view(self):
+    def _change_selected_view(self) -> NoReturn:
         pass
 
     @abstractmethod
     def get_info_widget(self) -> QWidget:
+        pass
+
+    @abstractmethod
+    def open_config(self) -> NoReturn:
         pass
 
     @abstractmethod

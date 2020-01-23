@@ -17,7 +17,6 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
         super().__init__(parent)
 
         self.__icon_path = icon_path
-        # TODO: id
 
         self.__init_ui()
 
@@ -39,6 +38,3 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
         layout = QHBoxLayout()
         layout.addWidget(icon)
         self.setLayout(layout)
-
-        # TODO: Size
-        # TODO: Shape

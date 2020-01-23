@@ -56,7 +56,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def __context_menu(self, pos: QPoint) -> NoReturn:
         menu = QMenu()
-        # menu.addAction(self.tr("Einstellungen"), self.open_settings)
+        menu.addAction(self.tr("Einstellungen"), self.open_config)
         menu.addAction(self.tr("Entfernen"), self.delete)
         menu.exec(self.mapToGlobal(pos))
 
@@ -79,8 +79,13 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
                 }
             """)
 
+    def open_config(self) -> NoReturn:
+        # TODO: Configfenster öffnen
+        print("Open Config of " + self.__class__.__name__)
+
     def get_info_widget(self) -> QWidget:
-        return QWidget()  # TODO: infobar system
+        # TODO: infobar erstellen
+        return QWidget()
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
