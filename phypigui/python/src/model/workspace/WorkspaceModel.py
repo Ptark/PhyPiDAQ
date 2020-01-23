@@ -21,6 +21,14 @@ class WorkspaceModel:
             WorkspaceModel.__output_list[output_id].add_connection(input_id)
 
     @staticmethod
+    def check_input_id(input_id: int) -> bool:
+        pass #TODO
+
+    @staticmethod
+    def check_output_id(output_id: int) -> bool:
+        pass #TODO
+
+    @staticmethod
     def add_input(input: Input) -> int:
         """Adds an Input-Object to global list of inputs
 
