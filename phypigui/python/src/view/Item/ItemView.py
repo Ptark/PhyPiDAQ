@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import NoReturn
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QWidget, QFrame, QHBoxLayout
 
@@ -22,6 +23,7 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
 
     def __init_ui(self) -> NoReturn:
         self.setFixedSize(120, 60)
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
         self.setStyleSheet("""
             QFrame {
