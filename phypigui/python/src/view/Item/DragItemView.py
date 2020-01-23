@@ -24,9 +24,9 @@ class DragItemView(Draggable, ABC):
         super(DragItemView, self).mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
-        if WorkspaceView.widget.geometry().contains(self.geometry()):
-            item = self.__item(self.__main)
-            item.move(self.pos())
+        if WorkspaceView.is_on_workspace(self):
+            item = self.__item(WorkspaceView.widget)
+            item.move(item.mapFrom(self.parent(), self.pos()))
             item.show()
 
         self.releaseMouse()

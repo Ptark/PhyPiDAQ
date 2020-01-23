@@ -40,5 +40,3 @@ class Draggable(ItemView, ABC):
 
         if event.button() == Qt.LeftButton:
             self._on_click()
-
-        super(Draggable, self).mouseReleaseEvent(event)

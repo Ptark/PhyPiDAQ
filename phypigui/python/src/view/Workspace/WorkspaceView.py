@@ -1,57 +1,129 @@
-from typing import List
+from typing import NoReturn
 
-from PyQt5 import QtGui
-from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
+from PyQt5.QtCore import Qt, QRect, QPointF
+from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter
+from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
-from python.src.view.Item import WorkspaceItemView
-from python.src.view.List import ListFieldView
-from python.src.view.Selectable import Selectable
-from python.src.view.Workspace.StartButtonView import StartButtonView
-from python.src.view.Workspace.WireView import WireView
+from .. import Selectable
+from ..Item import WorkspaceItemView
+from .WireView import WireView
+
+
+class WorkspaceContentView(QWidget):
+    def paintEvent(self, event: QPaintEvent) -> NoReturn:
+        rect: QRect = event.rect()
+        spacing = 25
+
+        paint = QPainter()
+        paint.begin(self)
+        for i in range(rect.x(), rect.x() + rect.width() + spacing, spacing):
+            for j in range(rect.y(), rect.y() + rect.height() + spacing, spacing):
+                paint.drawPoint(QPointF(int(i / spacing) * spacing, int(j / spacing) * spacing))
+        paint.end()
 
 
 class WorkspaceView(QWidget):
-    widget: QWidget = None
     selection: Selectable = None
+    wire_in_hand: WireView = None
 
-    def __init__(self, parent):
-        super().__init__(parent)
-        self.setObjectName("WorkspaceView")
+    __items = None
+    __wires = None
+    __widget: QWidget = None
+    __boundary: QWidget = None
+    __main: QWidget = None
 
-        WorkspaceView.widget = self
-        self.selection = None
-        self.wire_in_hand: WireView
-        self.items = []  # todo: list_of_WorkspaceItemView circular dependency
-        self.__wires: List[WireView] = []
+    def __init__(self, main: QWidget):
+        super().__init__(main)
 
-        self.vertical_layout = QVBoxLayout()
-        self.horizontal_layout = QHBoxLayout()
+        WorkspaceView.boundary = self
+        WorkspaceView.main = main
+        WorkspaceView.items = []
+        WorkspaceView.wires = []
 
-        self.start_button = StartButtonView(self)
-        self.vertical_layout.addWidget(self.start_button, 1)
-        self.vertical_layout.addStretch(1)
-        self.horizontal_layout.addStretch(1)
-        self.horizontal_layout.addLayout(self.vertical_layout)
+        self.__h_scroll_bar: QScrollBar = None
+        self.__v_scroll_bar: QScrollBar = None
+        self.__h_last_pos = 0
+        self.__v_last_pos = 0
 
-        self.setLayout(self.horizontal_layout)
+        self.__init_ui()
 
-    def mousePressEvent(self, event: QMouseEvent) -> None:
-        self.selection = None
+    def __init_ui(self) -> NoReturn:
+        layout = QGridLayout()
+        scroll_area = QScrollArea()
 
-    def add_item(self, item: 'WorkspaceItemView') -> None:  # forward referenced to avoid circular dependency
-        self.items.append(item)
+        self.__h_scroll_bar = scroll_area.horizontalScrollBar()
+        self.__v_scroll_bar = scroll_area.verticalScrollBar()
+        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-    def add_wire(self, wire: WireView) -> None:
-        self.wires.append(wire)
+        scroll_contents = WorkspaceContentView()
+        scroll_contents.setMinimumSize(10000, 10000)
+        WorkspaceView.widget = scroll_contents
+        scroll_area.setWidget(scroll_contents)
+        layout.addWidget(scroll_area)
+        self.setLayout(layout)
 
-    def delete_item(self, item: 'WorkspaceItemView') -> None:  # forward referenced to avoid circular dependency
-        self.items.remove(item)
-        ListFieldView.ListFieldView.make_visible(item.id)
-        for wire in self.__wires:
-            if item.id == (wire.output or wire.input):
-                self.delete_wire(wire)
+        self.__h_scroll_bar.setValue(scroll_contents.width() / 2)
+        self.__v_scroll_bar.setValue(scroll_contents.height() / 2)
 
-    def delete_wire(self, wire: WireView) -> None:
-        self.wires.remove(wire)
-        # todo: was bedeutet aktualisiert alle WorkspaceItemView, die mit der Verbindung verbunden waren.
+    def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
+        if self.__h_last_pos == 0:
+            self.__h_last_pos = event.pos().x()
+
+        h_distance = self.__h_last_pos - event.pos().x()
+        self.__h_scroll_bar.setValue(self.__h_scroll_bar.value() + h_distance)
+
+        self.__h_last_pos = event.pos().x()
+
+        if self.__v_last_pos == 0:
+            self.__v_last_pos = event.pos().y()
+
+        v_distance = self.__v_last_pos - event.pos().y()
+        self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() + v_distance)
+
+        self.__v_last_pos = event.pos().y()
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
+        self.__h_last_pos = 0
+        self.__v_last_pos = 0
+
+    def resizeEvent(self, event: QResizeEvent) -> NoReturn:
+        w_diff = event.size().width() - event.oldSize().width()
+        h_diff = event.size().height() - event.oldSize().height()
+        self.__h_scroll_bar.setValue(self.__h_scroll_bar.value() - w_diff / 2)
+        self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() - h_diff / 2)
+
+    @staticmethod
+    def add_item(item: WorkspaceItemView) -> NoReturn:
+        WorkspaceView.items.append(item)
+
+    @staticmethod
+    def add_wire(wire: WireView) -> NoReturn:
+        WorkspaceView.wires.append(wire)
+
+    @staticmethod
+    def delete_item(item: WorkspaceItemView) -> NoReturn:
+        WorkspaceView.items.remove(item)
+
+    @staticmethod
+    def delete_wire(wire: WireView) -> NoReturn:
+        WorkspaceView.wires.remove(wire)
+
+    @staticmethod
+    def delete_all() -> NoReturn:
+        for item in WorkspaceView.items:
+            item.delete()
+        for wire in WorkspaceView.wires:
+            wire.delete()
+        WorkspaceView.items = []
+        WorkspaceView.wires = []
+
+    @staticmethod
+    def get_widget() -> QWidget:
+        return WorkspaceView.widget
+
+    @staticmethod
+    def is_on_workspace(widget: QWidget) -> bool:
+        widget_rect = QRect(widget.parent().mapToGlobal(widget.pos()), widget.size())
+        boundary_rect = QRect(WorkspaceView.main.mapToGlobal(WorkspaceView.boundary.pos()), WorkspaceView.boundary.size())
+        return boundary_rect.contains(widget_rect)

@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.__main_widget = QWidget()
 
         self.__list_field = ListFieldView(self.__main_widget)
-        self.__workspace_field = WorkspaceView(None)
+        self.__workspace_field = WorkspaceView(self.__main_widget)
         self.__infobar_field = InfoBarView(None)
         self.__diagram_field = DiagramFieldView(None)
 
