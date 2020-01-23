@@ -1,13 +1,11 @@
 from typing import Dict, NoReturn, List, Callable
-from ..item.Input import Input
-from ..item.Output import Output
-from ..item.SensorItem import SensorItem
+from ..item import Input, Output, SensorItem, ItemModel
 
 
 class WorkspaceModel:
     __next_id: int = 0
-    __input_list: Dict[int, Input] = {}
-    __output_list: Dict[int, Output] = {}
+    __input_list: Dict[int, Input.Input] = {}
+    __output_list: Dict[int, Output.Output] = {}
 
     @staticmethod
     def __update_input(input_id: int, output_id: int) -> NoReturn:
@@ -29,7 +27,7 @@ class WorkspaceModel:
         pass #TODO
 
     @staticmethod
-    def add_input(input: Input) -> int:
+    def add_input(input: Input.Input) -> int:
         """Adds an Input-Object to global list of inputs
 
             Adds an Input-Object to global list of inputs and returns next free ID.
@@ -48,7 +46,7 @@ class WorkspaceModel:
         return id
 
     @staticmethod
-    def add_output(output: Output) -> int:
+    def add_output(output: Output.Output) -> int:
         """Adds an Output-Object to global list of outputs
 
                 Adds an Output-Object to global list of outputs and returns next free ID.
@@ -65,6 +63,10 @@ class WorkspaceModel:
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_list[id] = output
         return id
+
+    @staticmethod
+    def add_item(item: ItemModel.ItemModel) -> int:
+        pass #TODO
 
     @staticmethod
     def delete_input(id: int) -> NoReturn:
@@ -146,7 +148,7 @@ class WorkspaceModel:
         WorkspaceModel.__update_output(output_id, input_id)
 
     @staticmethod
-    def calculate_function(output_id: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
+    def calculate_function(output_id: int) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
         """Calculates lambda-function from output
 
         Calculates lambda-function from output identified by its ID and all its previous outputs recursively
