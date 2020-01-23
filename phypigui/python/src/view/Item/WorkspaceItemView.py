@@ -17,11 +17,10 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     icon_path: str
 
     def __init__(self, main: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
-        super().__init__(main, self.icon_path)
+        Draggable.__init__(self, main, self.icon_path)
+        Selectable.__init__(self)
 
-        self.__id: int = 0  # WorkspaceView.add_item(self)
         # self.__model: ItemModel = None
-        self.__selected: bool = False
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
 
@@ -35,6 +34,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.__context_menu)
 
+        WorkspaceView.add_item(self)
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
@@ -54,31 +54,22 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_widget.setLayout(out_layout)
         out_widget.move(101, 0)
 
-    @property
-    def id(self) -> int:
-        return self.__id
+    def __context_menu(self, pos: QPoint) -> NoReturn:
+        menu = QMenu()
+        menu.addAction(self.tr("Einstellungen"), self.open_config)
+        menu.addAction(self.tr("Entfernen"), self.delete)
+        menu.exec(self.mapToGlobal(pos))
 
-    @property
-    def selected(self) -> bool:
-        return self.__selected
+    def _on_click(self):
+        self.selected = not self.selected
 
-    @selected.setter
-    def selected(self, new_selected: bool) -> NoReturn:
-        if self.__selected == new_selected:
-            return
-
-        self.__selected = new_selected
-
+    def _change_selected_view(self):
         if self.selected:
-            if WorkspaceView.selection is not None:
-                WorkspaceView.selection.selected = False
             border = "blue"
             background = "#CCCCEE"
-            WorkspaceView.selection = self
         else:
             border = "black"
             background = "#CCCCCC"
-            WorkspaceView.selection = None
 
         self.setStyleSheet("""
             QFrame {
@@ -88,20 +79,16 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
                 }
             """)
 
-    def __context_menu(self, pos: QPoint) -> NoReturn:
-        menu = QMenu()
-        # menu.addAction(self.tr("Einstellungen"), self.open_settings)
-        menu.addAction(self.tr("Entfernen"), self.delete)
-        menu.exec(self.mapToGlobal(pos))
-
-    def _on_click(self):
-        self.selected = not self.selected
+    def open_config(self) -> NoReturn:
+        # TODO: Configfenster öffnen
+        print("Open Config of " + self.__class__.__name__)
 
     def get_info_widget(self) -> QWidget:
-        return QWidget()  # TODO: infobar system
+        # TODO: infobar erstellen
+        return QWidget()
 
     def delete(self) -> NoReturn:
-        # WorkspaceView.delete_item(self)
+        WorkspaceView.delete_item(self)
         if WorkspaceView.selection is self:
             WorkspaceView.selection = None
         self.close()
@@ -112,17 +99,13 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             self._save_position(event)
             self.raise_()
 
-        super(WorkspaceItemView, self).mousePressEvent(event)
-
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
             self._move_item(event)
 
-        super(WorkspaceItemView, self).mouseMoveEvent(event)
-
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
-        if not WorkspaceView.widget.geometry().contains(self.geometry()):
+        if not WorkspaceView.is_on_workspace(self):
             self.move(self.__lastPos)
             return
 
-        super(WorkspaceItemView, self).mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)

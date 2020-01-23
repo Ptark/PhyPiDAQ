@@ -1,12 +1,12 @@
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtGui
+from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QPushButton
 
 
-# from python.src.view.item.WorkspaceItemView import WorkspaceItemView
+from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class SettingsButtonView(QPushButton):
-    # item_config: WorkspaceItemView  #Todo was macht das eigentlich?
     __icon_source = "../resources/images/buttons/settingsbutton.png"
 
     def __init__(self, parent):
@@ -15,7 +15,9 @@ class SettingsButtonView(QPushButton):
         self.icon = QtGui.QIcon()
         self.icon.addPixmap(QtGui.QPixmap(self.__icon_source))
         self.setIcon(self.icon)
-        # self.clicked.connect(self.on_click())
+        self.clicked.connect(self.on_click)
 
+    @pyqtSlot()
     def on_click(self):
-        ConfigView.init_window()
+        if WorkspaceView.selection is not None:
+            WorkspaceView.selection.open_config()

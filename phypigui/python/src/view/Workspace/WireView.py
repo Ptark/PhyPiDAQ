@@ -1,34 +1,41 @@
-from PyQt5.QtGui import QPainter
+from typing import NoReturn
+
+from PyQt5.QtCore import QLine
+from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
-
-from python.src.view.InfoBar.InfoBarView import InfoBarView
-from python.src.view.Item.InputView import InputView
-from python.src.view.Item.OutputView import OutputView
-from python.src.view.Workspace import WorkspaceView
+from ..Item.InputView import InputView
+from ..Item.OutputView import OutputView
+from . import WorkspaceView
 
 
-class WireView(QPainter):
+class WireView(QLine):
     output: OutputView
     input: InputView
 
-    def __init__(self,parent):
+    def __init__(self, parent):
         super().__init__(parent)
         self.output: OutputView
         self.input: InputView
+        # TODO: Wire zeichnen
 
     def redraw(self):
         pass
 
-    def mousePressEvent(self, event) -> None:
-        WorkspaceView.selection = self
-        InfoBarView.refresh_infobar()
-
-    def mouseMoveEvent(self, event) -> None: #void ist output noch NULL, so folgt die Spitze der Verbindung dem Mauszeiger, ansonsten tut sich garnichts.
+    def _change_selected_view(self) -> NoReturn:
         pass
 
-    def get_info_widget(self) -> QWidget:   #In WireView wird ein QWidget mit dem Ein- und Ausgang zurückgegeben.
+    def get_info_widget(self) -> QWidget:
         pass
 
-    def delete(self) -> None:
+    def open_config(self) -> NoReturn:
+        pass
+
+    def delete(self) -> NoReturn:
         WorkspaceView.WorkspaceView.delete_wire(self)
+
+    def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
+        self.selected = True
+
+    def mouseMoveEvent(self, event) -> NoReturn:
+        pass
