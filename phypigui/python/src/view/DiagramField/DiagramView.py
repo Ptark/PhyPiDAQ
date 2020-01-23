@@ -4,12 +4,12 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 import random
 
-from python.src.model.item import DiagramItem
+# from python.src.model.item import DiagramItem
 
 
 class DiagramView(FigureCanvas):
 
-    def __init__(self, parent, diagram: DiagramItem):
+    def __init__(self, parent, diagram):  # DiagramItem):
         self.diagram = diagram
         self.data = []
         fig = Figure(figsize=(4, 5), dpi=70)
