@@ -67,7 +67,7 @@ class WorkspaceModel:
         Args:
             id (int): ID of input, which will be deleted
         """
-        if WorkspaceModel.delete_input_connection(id):
+        if WorkspaceModel.delete_connection(id):
             WorkspaceModel.__input_list.pop(id)
 
     @staticmethod
@@ -79,11 +79,11 @@ class WorkspaceModel:
         Args:
             id (int): ID of output, which will be deleted
         """
-        if WorkspaceModel.delete_output_connections(id):
+        if WorkspaceModel.delete_all_output_connections(id):
             WorkspaceModel.__output_list.pop(id)
 
     @staticmethod
-    def delete_input_connection(input_id: int) -> bool:
+    def delete_connection(input_id: int) -> bool:
         """Deletes a connection between two items
 
         Deletes a connection identified by an input-ID and refreshes all items, which are part of the connection
@@ -104,7 +104,7 @@ class WorkspaceModel:
             return False
 
     @staticmethod
-    def delete_output_connections(output_id: int) -> bool:
+    def delete_all_output_connections(output_id: int) -> bool:
         """Deletes all connection from one output
 
         Deletes all connections identified by an output-ID and refreshes all items, which ire part of the connection
