@@ -26,7 +26,10 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable):
         Args:
             index (int): Index of the Bool-Option in the List of all Bool-Options for this item
             value (bool): Value, on which the value of the Bool-Option will be set
+        Raises:
+            AssertionError: If the specified index doesnt exist
         """
+        assert(self.__config.bool_options[index] is not None)
         self.__config.set_bool_option(index, value)
 
     def set_file_option(self, index: int, path: str) -> NoReturn:
@@ -35,7 +38,10 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable):
         Args:
             index (int): Index of the File-Option in the List of all File-Options for this item
             path (str): Path, on which the path of the File-Option will be set
+        Raises:
+            AssertionError: If the specified index doesnt exist
         """
+        assert(self.__config.file_options[index] is not None)
         self.__config.set_file_option(index, path)
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
@@ -44,7 +50,10 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable):
         Args:
             index (int): Index of the Enum-Option in the List of all Enum-Options for this item
             selection (int): Selection-index, on which the selection of the Enum-Option will be set
+        Raises:
+            AssertionError: If the specified index doesnt exist
         """
+        assert(self.__config.enum_options[index] is not None)
         self.__config.set_enum_option(index, selection)
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
@@ -53,5 +62,8 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable):
         Args:
             index (int): Index of the Num-Option in the List of all Num-Options for this item
             number (float): Number, on which the number of the Num-Option will be set
+        Raises:
+            AssertionError: If the specified index doesnt exist
         """
+        assert(self.__config.num_options[index] is not None)
         self.__config.set_num_option(index, number)
