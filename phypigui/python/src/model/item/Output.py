@@ -5,6 +5,20 @@ from .. import Identifiable
 
 
 class Output(Identifiable.Identifiable):
+    """Represents one output of an item.
+
+    Items can have Output in a list to represent its outputs.
+
+    Attributes:
+        __parent_item_id (int): Id of the item the output belongs to
+        __connected_to (List[int]): List of ids of items the output is connected to
+        __number_of_output (int): The number this output has in the parent item
+        __function (Callable[[Dict[SensorItem.SensorItem, List[float]]], float]):
+            the constructed delta function of all previous Items
+        __is_function_valid (bool): Indicates if the function has been constructed and is valid
+        __data (float): Saves the last calculated value for this Output
+        __unit (str): Saves the last calculated unit for this Output
+    """
     def __init__(self, parent_id: int, output_number: int):
         super().__init__(WorkspaceModel.WorkspaceModel.add_output(self))
         self.__parent_item_id: int = parent_id

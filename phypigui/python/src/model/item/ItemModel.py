@@ -10,9 +10,8 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, ABC):
     """Abstract class models an item (Sensor, Operator, Diagram).
 
    Attributes:
-        name: A str which names the ItemModel
-        description: A str which describes the item model
-        config: A ConfigModel which holds the configuration of the ItemModel
+        __description (str): Describes the item model
+        __config (ConfigModel): Holds the configuration of the ItemModel
     """
     def __init__(self, name: str, description: str, config: ConfigModel.ConfigModel):
         NameableRO.NameableRO.__init__(self, name)
