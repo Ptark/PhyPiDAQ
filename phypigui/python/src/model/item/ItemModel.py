@@ -1,3 +1,4 @@
+from abc import ABC
 from .. import NameableRO, Identifiable
 from ..config import ConfigModel
 from ..workspace import WorkspaceModel
@@ -5,7 +6,14 @@ from typing import NoReturn
 import copy
 
 
-class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable):
+class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, ABC):
+    """Abstract class models an item (Sensor, Operator, Diagram).
+
+   Attributes:
+        name: A str which names the ItemModel
+        description: A str which describes the item model
+        config: A ConfigModel which holds the configuration of the ItemModel
+    """
     def __init__(self, name: str, description: str, config: ConfigModel.ConfigModel):
         NameableRO.NameableRO.__init__(self, name)
         Identifiable.Identifiable.__init__(self, WorkspaceModel.WorkspaceModel.add_item(self))
