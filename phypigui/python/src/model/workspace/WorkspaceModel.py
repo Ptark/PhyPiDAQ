@@ -1,24 +1,48 @@
 from typing import Dict, NoReturn, List, Callable
-from ..item import Input, Output, SensorItem, ItemModel, Connection
+from ..item import Input, Output, SensorItem, ItemModel, Connection, OutputItem, InputItem
 
 
 class WorkspaceModel:
     __next_id: int = 0
     __input_list: Dict[int, Input.Input] = {}
     __output_list: Dict[int, Output.Output] = {}
-    __item_list: Dict[int, ItemModel.ItemModel] = {}
-    __connection_list: List[Connection.Connection] = []
+    __input_item_list: Dict[int, InputItem.InputItem] = {}
+    __output_item_list: Dict[int, OutputItem.OutputItem] = {}
+    __connection_list: Dict[int, Connection.Connection] = {}
 
     @staticmethod
-    def __update_input(input_id: int, output_id: int) -> NoReturn:
-        WorkspaceModel.__input_list[input_id].connected_to = output_id
+    def __is_output_item(item_id: int) -> bool:
+        return item_id in WorkspaceModel.__output_item_list
 
     @staticmethod
-    def __update_output(output_id: int, input_id: int) -> NoReturn:
-        if input_id == -1:
-            WorkspaceModel.__output_list[output_id].delete_all_connections()
-        else:
-            WorkspaceModel.__output_list[output_id].add_connection(input_id)
+    def get_connection_to_input(input_id: int) -> int:
+        """Returns the ID of the output, which is connected to this input identified by its ID
+
+        Args:
+            input_id (int): ID of the input
+
+        Returns:
+            int: ID of the output or -1, if no connection exists
+        """
+        if input_id in WorkspaceModel.__connection_list:
+            return WorkspaceModel.__connection_list[input_id].output
+        return -1
+
+    @staticmethod
+    def get_connections_from_output(output_id: int) -> List[int]:
+        """Returns a list of IDs of inputs, which are connected to this output identified by its ID
+
+        Args:
+            output_id (int): ID of the output
+
+        Returns:
+            List[int]: list of input-IDs connected to this output
+        """
+        inputs: List[int] = []
+        for connection in WorkspaceModel.__connection_list.values():
+            if connection.output == output_id:
+                inputs.append(connection.input)
+        return inputs
 
     @staticmethod
     def check_input_id(input_id: int) -> bool:
@@ -54,7 +78,7 @@ class WorkspaceModel:
                  Returns:
                      bool: False, if no item with this ID exists
                 """
-        return item_id in WorkspaceModel.__item_list
+        return item_id in WorkspaceModel.__output_item_list or item_id in WorkspaceModel.__input_item_list
 
     @staticmethod
     def add_input(input: Input.Input) -> int:
@@ -95,47 +119,78 @@ class WorkspaceModel:
         return id
 
     @staticmethod
-    def add_item(item: ItemModel.ItemModel) -> int:
-        """Adds an ItemModel-Object to global list of items
+    def add_input_item(item: InputItem.InputItem) -> int:
+        """Adds an InputItem-Object to global list of input-items
 
-        Adds an ItemModel-Object to global list of items and returns next free ID.
-        This method is called every time a ItemModel-Object was created.
+        Adds an InputItem-Object to global list of input-items and returns next free ID.
+        This method is called every time a InputItem-Object was created.
         The returned ID should set as id for this item.
 
         Args:
-            item (ItemModel.ItemModel): Item, which will be added to the list
+            item (InputItem.InputItem): Item, which will be added to the list
 
         Returns:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
-        WorkspaceModel.__item_list[id] = item
+        WorkspaceModel.__input_item_list[id] = item
         return id
 
     @staticmethod
-    def delete_input(id: int) -> NoReturn:
+    def add_output_item(item: OutputItem.OutputItem) -> int:
+        """Adds an OutputItem-Object to global list of output-items
+
+        Adds an OutputItem-Object to global list of output-items and returns next free ID.
+        This method is called every time a OutputItem-Object was created.
+        The returned ID should set as id for this item.
+
+        Args:
+            item (OutputItem.OutputItem): Item, which will be added to the list
+
+        Returns:
+            int: Next free ID
+        """
+        id: int = WorkspaceModel.__next_id
+        WorkspaceModel.__next_id += 1
+        WorkspaceModel.__output_item_list[id] = item
+        return id
+
+    @staticmethod
+    def delete_item(item_id: int) -> NoReturn:
+        """Deletes an item identified by its ID
+
+        Args:
+            item_id (int):
+        """
+        if WorkspaceModel.__is_output_item(item_id):
+            WorkspaceModel.__output_item_list.pop(item_id)
+        if item_id in WorkspaceModel.__input_item_list:
+            WorkspaceModel.__input_item_list.pop(item_id)
+
+    @staticmethod
+    def delete_input(input_id: int) -> NoReturn:
         """Deletes an input
 
         Deletes an input and refreshes all items, which are connected to this input
 
         Args:
-            id (int): ID of input, which will be deleted
+            input_id (int): ID of input, which will be deleted
         """
-        if WorkspaceModel.delete_connection(id):
-            WorkspaceModel.__input_list.pop(id)
+        if WorkspaceModel.delete_connection(input_id):
+            WorkspaceModel.__input_list.pop(input_id)
 
     @staticmethod
-    def delete_output(id: int) -> NoReturn:
+    def delete_output(output_id: int) -> NoReturn:
         """Deletes an output
 
         Deletes an output und refreshes all items, which are connected to this output
 
         Args:
-            id (int): ID of output, which will be deleted
+            output_id (int): ID of output, which will be deleted
         """
-        if WorkspaceModel.delete_all_output_connections(id):
-            WorkspaceModel.__output_list.pop(id)
+        if WorkspaceModel.delete_all_output_connections(output_id):
+            WorkspaceModel.__output_list.pop(output_id)
 
     @staticmethod
     def delete_connection(input_id: int) -> bool:
@@ -150,37 +205,31 @@ class WorkspaceModel:
             bool: False, if there is no connection from this input
                     or if connected output doesn't exist
         """
-        connected_id: int = WorkspaceModel.__input_list[input_id].connected_to
-        if connected_id in WorkspaceModel.__output_list.keys():
-            WorkspaceModel.__output_list[connected_id].delete_connection(input_id)
-            WorkspaceModel.__update_input(input_id, -1)
+        if input_id in WorkspaceModel.__connection_list:
+            input: Input.Input = WorkspaceModel.__input_list[input_id]
+            WorkspaceModel.__connection_list.pop(input_id)
+            if WorkspaceModel.__is_output_item(input.parent_item_id):
+                WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()
             return True
         else:
             return False
 
     @staticmethod
-    def delete_all_output_connections(output_id: int) -> bool:
+    def delete_all_output_connections(output_id: int) -> NoReturn:
         """Deletes all connection from one output
 
         Deletes all connections identified by an output-ID and refreshes all items, which ire part of the connection
 
         Args:
             output_id (int): ID of output, which are part of all connections to be deleted
-
-        Returns:
-              bool: False, if one of the connected inputs doesn't exist
         """
-        connected_ids: List[int] = WorkspaceModel.__output_list[output_id].connected_to
-        for id in connected_ids:
-            if id in WorkspaceModel.__input_list.keys():
-                WorkspaceModel.__update_input(id, -1)
-            else:
-                return False
-        WorkspaceModel.__update_output(output_id, -1)
-        return True
+        WorkspaceModel.invalidate_functions(output_id)
+        for connection in WorkspaceModel.__connection_list.values():
+            if connection.output == output_id:
+                WorkspaceModel.__connection_list.pop(connection.input)
 
     @staticmethod
-    def connect(input_id: int, output_id: int) -> NoReturn:
+    def connect(input_id: int, output_id: int) -> bool:
         """Connects two items
 
             Connects two items and updates there attributes
@@ -188,52 +237,66 @@ class WorkspaceModel:
             Args:
                 input_id (int): Input-ID of input, which is part of connection
                 output_id (int): Output-ID of output, which is part of connection
+
+            Returns:
+                bool: False, if no input with input_id or output with output_id exists or if input is already connected
         """
-        WorkspaceModel.__update_input(input_id, output_id)
-        WorkspaceModel.__update_output(output_id, input_id)
+        if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
+            if input_id not in WorkspaceModel.__connection_list:
+                WorkspaceModel.__connection_list[input_id] = Connection.Connection(input_id, output_id)
+                return True
+        return False
 
     @staticmethod
-    def calculate_function(output_id: int) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
-        """Calculates lambda-function from output
+    def calculate_function(input_id: int) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
+        """Calculates lambda-function from input
 
-        Calculates lambda-function from output identified by its ID and all its previous outputs recursively
+        Returns the stored function in the connected output if it is valid.
+        Otherwise it calculates lambda-function from connected output and all its previous items recursively
 
         Args:
-            output_id (int): ID of the output
+            input_id (int): ID of the input
 
         Returns:
-            Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function from output
+            Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function composed of all previous items
         """
-        if output_id in WorkspaceModel.__output_list.keys():
-            return WorkspaceModel.__output_list[output_id].calculate_function()
+        if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
+            output: Output.Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            if not output.is_function_valid:
+                output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
+                    get_rule(output.number_of_output)
+                return output.function
         else:
             return lambda data: 0
 
     @staticmethod
-    def calculate_unit(output_id: int) -> str:
-        """Calculates unit from output
+    def calculate_unit(input_id: int) -> str:
+        """Calculates unit from input
 
-            Calculates unit from output identified by its ID and all its previous outputs recursively
+        Calculates unit from connected output and all its previous items recursively
 
-            Args:
-                output_id (int): ID of the output
+        Args:
+            input_id (int): ID of the input
 
-            Returns:
-                str: Unit from output
+        Returns:
+            str: Unit from output
         """
-        if output_id in WorkspaceModel.__output_list.keys():
-            return WorkspaceModel.__output_list[output_id].calculate_unit()
+        if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
+            output: Output.Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output.unit = WorkspaceModel.__output_item_list[output.parent_item_id].get_unit(output.number_of_output)
+            return output.unit
         else:
             return ''
 
     @staticmethod
     def invalidate_functions(output_id: int) -> NoReturn:
-        """Invalidates all lambda-function in sequel items after a output
-
-        Invalidates all lambda-function in sequel items after a output identified by its ID
+        """Invalidates all lambda-function in the items, which are connected to this output and  all following items
 
         Args:
             output_id (int): ID of the output
         """
-        for input_id in WorkspaceModel.__output_list[output_id].connected_to:
-            WorkspaceModel.__input_list[input_id].invalidate_functions()
+        for connection in WorkspaceModel.__connection_list.values():
+            if connection.output == output_id:
+                input: Input.Input = WorkspaceModel.__input_list[connection.input]
+                if WorkspaceModel.__is_output_item(input.parent_item_id):
+                    WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()

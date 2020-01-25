@@ -42,7 +42,7 @@ class ManagerModel:
 
     @staticmethod
     def delete_sensor(sensor: SensorItem) -> NoReturn:
-        ManagerModel.__sensors.remove(sensor)
+        ManagerModel.__sensors.pop(sensor)
         ManagerModel.__sensor_data.pop(sensor)
 
     @staticmethod
@@ -51,7 +51,7 @@ class ManagerModel:
 
     @staticmethod
     def delete_diagram(diagram: DiagramItem) -> NoReturn:
-        ManagerModel.__diagrams.remove(diagram)
+        ManagerModel.__diagrams.pop(diagram)
 
     # This method starts reading from sensors
     @staticmethod
@@ -63,6 +63,9 @@ class ManagerModel:
             for diagram in ManagerModel.__diagrams:
                 diagram.calculate(ManagerModel.__sensor_data.copy())
                 diagram.notify()
+            if ManagerModel.__selected_item is not None:
+                ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data.copy())
+                ManagerModel.__selected_item.notify()
 
     # This method stops reading from sensors
     @staticmethod

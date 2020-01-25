@@ -7,10 +7,10 @@ from typing import List, Callable, Dict
 
 class OperatorItem(ABC, InputItem, OutputItem):
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
-        InputItem.InputItem.__init__(name, description, config, inputs)
+        InputItem.InputItem.__init__(self.super(), name, description, config, inputs)
         self._outputs: List[Output] = []
         for i in range(1, outputs):
-            self._outputs.append(Output.Output())
+            self._outputs.append(Output.Output(self._id, i))
 
     def get_number_of_outputs(self) -> int:
         return 1
@@ -25,14 +25,14 @@ class DivisionOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].get_id())(data)
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].id())(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].get_id())(data)
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].id())(data)
         return lambda data: first_function(data) / second_function(data)
 
     def get_unit(self, output_number: int) -> str:
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ") / (" +\
-                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].get_id()) + ")"
+        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
+                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
 
     def get_number_of_inputs(self) -> int:
         return 2
@@ -50,11 +50,11 @@ class AbsoluteOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].get_id())(data)
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].id())(data)
         return lambda data: abs(first_function(data))
 
     def get_unit(self, output_number: int) -> str:
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ")"
+        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ")"
 
 
 class MultiplicationOperatorItem(OperatorItem):
@@ -66,14 +66,14 @@ class MultiplicationOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].get_id())(data)
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[0].id())(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].get_id())(data)
+            WorkspaceModel.WorkspaceModel.calculate_function(self._inputs[1].id())(data)
         return lambda data: first_function(data) * second_function(data)
 
     def get_unit(self, output_number: int) -> str:
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].get_id()) + ") * (" +\
-                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].get_id()) + ")"
+        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
+                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
 
     def get_number_of_inputs(self) -> int:
         return 2
