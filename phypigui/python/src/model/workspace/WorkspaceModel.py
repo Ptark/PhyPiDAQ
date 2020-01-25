@@ -1,5 +1,5 @@
 from typing import Dict, NoReturn, List, Callable
-from ..item import Input, Output, SensorItem, ItemModel
+from ..item import Input, Output, SensorItem, ItemModel, Connection
 
 
 class WorkspaceModel:
@@ -7,6 +7,7 @@ class WorkspaceModel:
     __input_list: Dict[int, Input.Input] = {}
     __output_list: Dict[int, Output.Output] = {}
     __item_list: Dict[int, ItemModel.ItemModel] = {}
+    __connection_list: List[Connection.Connection] = []
 
     @staticmethod
     def __update_input(input_id: int, output_id: int) -> NoReturn:
@@ -110,6 +111,7 @@ class WorkspaceModel:
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__item_list[id] = item
+        return id
 
     @staticmethod
     def delete_input(id: int) -> NoReturn:
