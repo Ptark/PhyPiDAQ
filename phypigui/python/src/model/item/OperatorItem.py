@@ -12,9 +12,6 @@ class OperatorItem(ABC, InputItem, OutputItem):
         for i in range(1, outputs):
             self._outputs.append(Output.Output(self._id, i))
 
-    def get_number_of_outputs(self) -> int:
-        return 1
-
 
 class DivisionOperatorItem(OperatorItem):
     def __init__(self):
@@ -34,9 +31,6 @@ class DivisionOperatorItem(OperatorItem):
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
                 WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
 
-    def get_number_of_inputs(self) -> int:
-        return 2
-
 
 class AbsoluteOperatorItem(OperatorItem):
     def __init__(self):
@@ -44,9 +38,6 @@ class AbsoluteOperatorItem(OperatorItem):
         description: str = "Dieser Operator berechnet den Absolutbetrag"
         config: ConfigModel = ConfigModel.ConfigModel()
         super().__init__(name, description, config, 1, 1)
-    
-    def get_number_of_inputs(self) -> int:
-        return 1
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
@@ -74,6 +65,3 @@ class MultiplicationOperatorItem(OperatorItem):
     def get_unit(self, output_number: int) -> str:
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
                 WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
-
-    def get_number_of_inputs(self) -> int:
-        return 2

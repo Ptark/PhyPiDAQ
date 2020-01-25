@@ -34,10 +34,7 @@ class BarDiagramItem(DiagramItem):
         name: str = "Balkendiagramm"
         config: ConfigModel = ConfigModel()
         description: str = "Stellt die gemessenen Daten als Balkendiagramm dar"
-        super().__init__(name, description, config, self.get_number_of_inputs())
-
-    def get_number_of_inputs(self) -> int:
-        return 3
+        super().__init__(name, description, config, 3)
 
 
 class TimeDiagramItem(DiagramItem):
@@ -45,7 +42,4 @@ class TimeDiagramItem(DiagramItem):
         name: str = "Zeitdiagramm"
         description = "Stellt die gemessenen Daten als Zeitdiagramm dar"
         config = ConfigModel()
-        super().__init__(name, description, config, self.get_number_of_inputs())
-
-    def get_number_of_inputs(self) -> int:
-        return 1
+        super().__init__(name, description, config, 1)

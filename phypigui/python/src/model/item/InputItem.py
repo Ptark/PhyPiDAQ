@@ -10,16 +10,17 @@ class InputItem(ItemModel, ABC):
         super().__init__(name, description, config, WorkspaceModel.WorkspaceModel.add_input_item(self))
         self.__inputs: List[Input.Input] = []
         for i in range(1, inputs):
-            self.__inputs.append(Input.Input(self._id))
+            self.__inputs.append(Input.Input(self._id, i))
 
-    @abstractmethod
     def get_number_of_inputs(self) -> int:
         """Returns maximum number of inputs for this item
 
         Returns:
             int: Maximum number of inputs
         """
-        pass
+        if len(self._inputs) is not None:
+            return len(self._inputs)
+        return 0
 
     def connect_input(self, input_index: int, output_id: int) -> NoReturn:
         """Connects an input with an output

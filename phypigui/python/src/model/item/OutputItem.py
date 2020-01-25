@@ -46,8 +46,12 @@ class OutputItem(ItemModel, ABC):
             units.append(output.unit)
         return units
 
-    @abstractmethod
     def get_number_of_outputs(self) -> int:
+        """Returns maximum number of outputs for this item
+
+        Returns:
+            int: Maximum number of outputs
+        """
         if len(self._outputs) is not None:
             return len(self._outputs)
         return 0
