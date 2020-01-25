@@ -1,7 +1,7 @@
 class Identifiable:
     def __init__(self, id: int):
-        self.__id: int = id
+        self._id: int = id
 
     @property
     def id(self) -> int:
-        return self.__id
+        return self._id
