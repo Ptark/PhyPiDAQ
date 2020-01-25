@@ -6,6 +6,7 @@ class WorkspaceModel:
     __next_id: int = 0
     __input_list: Dict[int, Input.Input] = {}
     __output_list: Dict[int, Output.Output] = {}
+    __item_list: Dict[int, ItemModel.ItemModel] = {}
 
     @staticmethod
     def __update_input(input_id: int, output_id: int) -> NoReturn:
@@ -20,11 +21,39 @@ class WorkspaceModel:
 
     @staticmethod
     def check_input_id(input_id: int) -> bool:
-        pass #TODO
+        """Checks of an input with this ID exists
+
+        Args:
+            input_id (int): ID to be checked
+
+         Returns:
+             bool: False, if no input with this ID exists
+        """
+        return input_id in WorkspaceModel.__input_list
 
     @staticmethod
     def check_output_id(output_id: int) -> bool:
-        pass #TODO
+        """Checks of an output with this ID exists
+
+                Args:
+                    output_id (int): ID to be checked
+
+                 Returns:
+                     bool: False, if no output with this ID exists
+                """
+        return output_id in WorkspaceModel.__output_list
+
+    @staticmethod
+    def check_item_id(item_id: int) -> bool:
+        """Checks of an item with this ID exists
+
+                Args:
+                    item_id (int): ID to be checked
+
+                 Returns:
+                     bool: False, if no item with this ID exists
+                """
+        return item_id in WorkspaceModel.__item_list
 
     @staticmethod
     def add_input(input: Input.Input) -> int:
@@ -32,13 +61,13 @@ class WorkspaceModel:
 
             Adds an Input-Object to global list of inputs and returns next free ID.
             This method is called every time a Input-Object was created.
-            The returned ID should set as id for input.
+            The returned ID should set as id for this input.
 
             Args:
                 input (Input): Input, which will be added to the list
 
             Returns:
-                int: Next free id
+                int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
@@ -49,15 +78,15 @@ class WorkspaceModel:
     def add_output(output: Output.Output) -> int:
         """Adds an Output-Object to global list of outputs
 
-                Adds an Output-Object to global list of outputs and returns next free ID.
-                This method is called every time a Output-Object was created.
-                The returned ID should set as id for output.
+        Adds an Output-Object to global list of outputs and returns next free ID.
+        This method is called every time a Output-Object was created.
+        The returned ID should set as id for this output.
 
-                Args:
-                    output (Output): Output, which will be added to the list
+        Args:
+            output (Output): Output, which will be added to the list
 
-                Returns:
-                    int: Next free id
+        Returns:
+            int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
@@ -66,7 +95,21 @@ class WorkspaceModel:
 
     @staticmethod
     def add_item(item: ItemModel.ItemModel) -> int:
-        pass #TODO
+        """Adds an ItemModel-Object to global list of items
+
+        Adds an ItemModel-Object to global list of items and returns next free ID.
+        This method is called every time a ItemModel-Object was created.
+        The returned ID should set as id for this item.
+
+        Args:
+            item (ItemModel.ItemModel): Item, which will be added to the list
+
+        Returns:
+            int: Next free ID
+        """
+        id: int = WorkspaceModel.__next_id
+        WorkspaceModel.__next_id += 1
+        WorkspaceModel.__item_list[id] = item
 
     @staticmethod
     def delete_input(id: int) -> NoReturn:
