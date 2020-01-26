@@ -1,10 +1,13 @@
 from __future__ import annotations
+
+import time
 from abc import ABC
+
 from ..item import OutputItem
 from ..config import ConfigModel, EnumOption, NumOption
 from typing import List, Callable, Dict, NoReturn
-from PhyPiDAQ.phypidaq.ADS1115Config import *
-from PhyPiDAQ.phypidaq.MMA8451Config import *
+from phypidaq import ADS1115Config
+from phypidaq import MMA8451Config
 
 
 class SensorItem(OutputItem, ABC):
@@ -51,35 +54,4 @@ class SensorItem(OutputItem, ABC):
     def set_buffer(self, data: [float]) -> NoReturn:
         self._buffer = data
 
-
-class TemperatureSensorItem(SensorItem):
-    def __init__(self):
-        name: str = "Temperatursensor"
-        description: str = "Der Temperatursensor misst die Temperatur in Grad Celsius oder Kelvin"
-        config: ConfigModel = ConfigModel.ConfigModel()
-        self._config.add_enum_option(EnumOption.EnumOption("Einheit", ('Kelvin,Celsius')))
-        self._config.add_num_option(NumOption.NumOption("Ausleserate", 100))
-        super().__init__(name, description, config, 1, ADS1115Config())
-
-    def get_unit(self) -> str:
-        if self._config.enum_options[0] is not None:
-            e_opt: EnumOption = self._config.enum_options[0]
-            if e_opt.selection == 'Kelvin':
-                return "K"
-            return "°C"
-        return ""
-
-
-class AccelerationSensorItem(SensorItem):
-    def __init__(self):
-        name: str = "Beschleunigungssensor"
-        description: str = "Der Beschleunigungssensor misst die Beschleunigung in 3 Richtungen: x,y,z"
-        config: ConfigModel = ConfigModel.ConfigModel()
-        self._num_option: NumOption = self._config.add_num_option(NumOption.NumOption("Ausleserate, 100"))
-        super().__init__(name, description, config, 3, MMA8451Config())
-
-    def get_unit(self, output_number: int) -> str:
-        if self._config.enum_options[output_number] is not None:
-            return "m*s^2"
-        return ""
 
