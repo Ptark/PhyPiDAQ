@@ -6,8 +6,6 @@ from abc import ABC
 from ..item import OutputItem
 from ..config import ConfigModel, EnumOption, NumOption
 from typing import List, Callable, Dict, NoReturn
-from phypidaq import ADS1115Config
-from phypidaq import MMA8451Config
 
 
 class SensorItem(OutputItem, ABC):
@@ -29,8 +27,7 @@ class SensorItem(OutputItem, ABC):
         return function
 
     def read(self) -> [float]:
-        #TODO incomplete
-        data: [float] = []
+        data: [float] = [0]
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
 
