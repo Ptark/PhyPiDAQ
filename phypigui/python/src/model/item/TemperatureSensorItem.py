@@ -2,7 +2,7 @@ from enum import Enum
 
 from ..item import SensorItem
 from ..config import ConfigModel, EnumOption, NumOption
-from PhyPiDAQ.phypidaq import DS18B20Config
+from ......phypidaq import DS18B20Config
 
 
 class TemperatureSensorItem(SensorItem):
