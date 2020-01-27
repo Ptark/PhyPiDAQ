@@ -19,9 +19,6 @@ class SensorItem(OutputItem, ABC):
     def get_device(self):
         return self._device
 
-    def get_number_of_outputs(self) -> int:
-        return 1
-
     def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
         function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: data[self][output_number]
         return function
