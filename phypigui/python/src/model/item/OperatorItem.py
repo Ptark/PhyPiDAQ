@@ -6,6 +6,7 @@ from typing import List, Callable, Dict
 
 
 class OperatorItem(ABC, InputItem, OutputItem):
+    """Superclass for all kind of operators"""
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
         InputItem.InputItem.__init__(self.super(), name, description, config, inputs)
         self._outputs: List[Output] = []
@@ -14,6 +15,7 @@ class OperatorItem(ABC, InputItem, OutputItem):
 
 
 class DivisionOperatorItem(OperatorItem):
+    """Class models a division operator"""
     def __init__(self):
         name: str = "Divisionsoperator"
         description: str = "Dieser Operator dividiert zwei Werte"
@@ -28,11 +30,15 @@ class DivisionOperatorItem(OperatorItem):
         return lambda data: first_function(data) / second_function(data)
 
     def get_unit(self, output_number: int) -> str:
+        """Returns the units from inputs and concatenate with division operator"""
+
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
-                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+            WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
 
 
 class AbsoluteOperatorItem(OperatorItem):
+    """Class models an absolute operator"""
+
     def __init__(self):
         name: str = "Absolutoperator"
         description: str = "Dieser Operator berechnet den Absolutbetrag"
@@ -45,10 +51,14 @@ class AbsoluteOperatorItem(OperatorItem):
         return lambda data: abs(first_function(data))
 
     def get_unit(self, output_number: int) -> str:
+        """Returns the unit from input"""
+
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ")"
 
 
 class MultiplicationOperatorItem(OperatorItem):
+    """Class models a multiplication operator"""
+
     def __init__(self):
         name: str = "Multiplikationsoperator"
         description: str = "Dieser Operator multipliziert zwei Werte"
@@ -63,5 +73,7 @@ class MultiplicationOperatorItem(OperatorItem):
         return lambda data: first_function(data) * second_function(data)
 
     def get_unit(self, output_number: int) -> str:
+        """Returns the units from inputs and concatenate with multiplication operator"""
+
         return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
-                WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+            WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"

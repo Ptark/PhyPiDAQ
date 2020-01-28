@@ -9,6 +9,8 @@ from typing import List, Callable, Dict, NoReturn
 
 
 class SensorItem(OutputItem, ABC):
+    """Superclass for all kind of sensors"""
+
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, sensor_config):
         self._device = sensor_config
         self._device.init()
@@ -17,6 +19,7 @@ class SensorItem(OutputItem, ABC):
         super().__init__(name, description, config, outputs)
 
     def get_device(self):
+        """returns the sensor config"""
         return self._device
 
     def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
@@ -24,6 +27,7 @@ class SensorItem(OutputItem, ABC):
         return function
 
     def read(self) -> [float]:
+        """read data from physical sensor and return _buffer which holds the measured data"""
         data: [float] = [0]
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
@@ -37,15 +41,15 @@ class SensorItem(OutputItem, ABC):
         return self._buffer
 
     def close(self) -> NoReturn:
+        """close sensor if needed"""
         self._device.closeDevice()
 
     def get_last_read_time(self) -> int:
+        """returns the last read time from sensor"""
         return self._last_read_time
 
     def get_buffer(self) -> [float]:
+        """returns _buffer which holds the measured data"""
         return self._buffer
-
-    def set_buffer(self, data: [float]) -> NoReturn:
-        self._buffer = data
 
 

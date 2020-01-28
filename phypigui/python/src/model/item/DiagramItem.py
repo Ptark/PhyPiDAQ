@@ -7,6 +7,8 @@ from ..workspace import WorkspaceModel
 
 
 class DiagramItem(InputItem):
+    """Superclass for all kind of diagram"""
+
     def __init__(self, name: str, description: str, config: ConfigModel, input_count: int):
         self._functions: List[Callable[[Dict[SensorItem, List[float]]], float]] = []
         self._data: List[float] = []
@@ -30,6 +32,7 @@ class DiagramItem(InputItem):
 
 
 class BarDiagramItem(DiagramItem):
+    """Class models a bar diagram item"""
     def __int__(self):
         name: str = "Balkendiagramm"
         config: ConfigModel = ConfigModel()
@@ -38,6 +41,7 @@ class BarDiagramItem(DiagramItem):
 
 
 class TimeDiagramItem(DiagramItem):
+    """Class models a time diagram item"""
     def __init__(self):
         name: str = "Zeitdiagramm"
         description = "Stellt die gemessenen Daten als Zeitdiagramm dar"
