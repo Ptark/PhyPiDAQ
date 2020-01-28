@@ -1,14 +1,19 @@
 from typing import Dict, NoReturn, List, Callable
-from ..item import Input, Output, SensorItem, ItemModel, Connection, OutputItem, InputItem
+from ..item.Input import Input
+from ..item.Output import Output
+from ..item.SensorItem import SensorItem
+from ..item.Connection import Connection
+from ..item.OutputItem import OutputItem
+from ..item.InputItem import InputItem
 
 
 class WorkspaceModel:
     __next_id: int = 0
-    __input_list: Dict[int, Input.Input] = {}
-    __output_list: Dict[int, Output.Output] = {}
-    __input_item_list: Dict[int, InputItem.InputItem] = {}
-    __output_item_list: Dict[int, OutputItem.OutputItem] = {}
-    __connection_list: Dict[int, Connection.Connection] = {}
+    __input_list: Dict[int, Input] = {}
+    __output_list: Dict[int, Output] = {}
+    __input_item_list: Dict[int, InputItem] = {}
+    __output_item_list: Dict[int, OutputItem] = {}
+    __connection_list: Dict[int, Connection] = {}
 
     @staticmethod
     def __is_output_item(item_id: int) -> bool:
@@ -81,7 +86,7 @@ class WorkspaceModel:
         return item_id in WorkspaceModel.__output_item_list or item_id in WorkspaceModel.__input_item_list
 
     @staticmethod
-    def add_input(input: Input.Input) -> int:
+    def add_input(input: Input) -> int:
         """Adds an Input-Object to global list of inputs
 
             Adds an Input-Object to global list of inputs and returns next free ID.
@@ -100,7 +105,7 @@ class WorkspaceModel:
         return id
 
     @staticmethod
-    def add_output(output: Output.Output) -> int:
+    def add_output(output: Output) -> int:
         """Adds an Output-Object to global list of outputs
 
         Adds an Output-Object to global list of outputs and returns next free ID.
@@ -119,7 +124,7 @@ class WorkspaceModel:
         return id
 
     @staticmethod
-    def add_input_item(item: InputItem.InputItem) -> int:
+    def add_input_item(item: InputItem) -> int:
         """Adds an InputItem-Object to global list of input-items
 
         Adds an InputItem-Object to global list of input-items and returns next free ID.
@@ -138,7 +143,7 @@ class WorkspaceModel:
         return id
 
     @staticmethod
-    def add_output_item(item: OutputItem.OutputItem) -> int:
+    def add_output_item(item: OutputItem) -> int:
         """Adds an OutputItem-Object to global list of output-items
 
         Adds an OutputItem-Object to global list of output-items and returns next free ID.
@@ -206,7 +211,7 @@ class WorkspaceModel:
                     or if connected output doesn't exist
         """
         if input_id in WorkspaceModel.__connection_list:
-            input: Input.Input = WorkspaceModel.__input_list[input_id]
+            input: Input = WorkspaceModel.__input_list[input_id]
             WorkspaceModel.__connection_list.pop(input_id)
             if WorkspaceModel.__is_output_item(input.parent_item_id):
                 WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()
@@ -243,12 +248,12 @@ class WorkspaceModel:
         """
         if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
             if input_id not in WorkspaceModel.__connection_list:
-                WorkspaceModel.__connection_list[input_id] = Connection.Connection(input_id, output_id)
+                WorkspaceModel.__connection_list[input_id] = Connection(input_id, output_id)
                 return True
         return False
 
     @staticmethod
-    def calculate_function(input_id: int) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
+    def calculate_function(input_id: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
         """Calculates lambda-function from input
 
         Returns the stored function in the connected output if it is valid.
@@ -261,7 +266,7 @@ class WorkspaceModel:
             Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function composed of all previous items
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: Output.Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output: Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
             if not output.is_function_valid:
                 output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
                     get_rule(output.number_of_output)
@@ -282,7 +287,7 @@ class WorkspaceModel:
             str: Unit from output
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: Output.Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output: Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
             output.unit = WorkspaceModel.__output_item_list[output.parent_item_id].get_unit(output.number_of_output)
             return output.unit
         else:
@@ -297,6 +302,6 @@ class WorkspaceModel:
         """
         for connection in WorkspaceModel.__connection_list.values():
             if connection.output == output_id:
-                input: Input.Input = WorkspaceModel.__input_list[connection.input]
+                input: Input = WorkspaceModel.__input_list[connection.input]
                 if WorkspaceModel.__is_output_item(input.parent_item_id):
                     WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()

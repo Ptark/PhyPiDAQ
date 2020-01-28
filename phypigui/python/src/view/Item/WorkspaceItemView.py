@@ -11,6 +11,7 @@ from .OutputView import OutputView
 from .Draggable import Draggable
 from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
+from ..config import ConfigView
 
 
 class WorkspaceItemView(Draggable, Selectable, ABC):
@@ -20,9 +21,11 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         Draggable.__init__(self, main, self.icon_path)
         Selectable.__init__(self)
 
-        # self.__model: ItemModel = None
+        #self.__model: ItemModel.ItemModel = None
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
+
+        self.__config_window: ConfigView.ConfigView = None
 
         self.__lastPos: QPoint = None
 
@@ -81,6 +84,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def open_config(self) -> NoReturn:
         # TODO: Configfenster öffnen
+        #self.__config_window = ConfigView.ConfigView(self.__model.name, self.__model.config)
+        self.__config_window = ConfigView.ConfigView("Item")
         print("Open Config of " + self.__class__.__name__)
 
     def get_info_widget(self) -> QWidget:

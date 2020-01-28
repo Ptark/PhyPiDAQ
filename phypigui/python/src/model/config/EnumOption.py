@@ -19,5 +19,6 @@ class EnumOption(NameableRO):
         if index >= 0:
             self.__selection = index
 
-    def get_samples(self) -> enum:
-        return self.__samples
+    @property
+    def samples(self) -> enum:
+        return self.__samples.copy()

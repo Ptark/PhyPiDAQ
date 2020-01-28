@@ -1,12 +1,12 @@
-from .. import Identifiable
-from ..workspace import WorkspaceModel
+from ..Identifiable import Identifiable
+from ..workspace.WorkspaceModel import WorkspaceModel
 
 
 class Input(Identifiable):
     def __init__(self, parent_id: int, input_number: int):
         self.__parent_item_id: int = parent_id
         self.__number_of_input = input_number
-        super().__init__(WorkspaceModel.WorkspaceModel.add_input(self))
+        super().__init__(WorkspaceModel.add_input(self))
 
     @property
     def parent_item_id(self) -> int:
