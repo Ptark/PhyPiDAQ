@@ -11,7 +11,7 @@ class AccelerationSensorItem(SensorItem):
         name: str = "Beschleunigungssensor"
         description: str = "Der Beschleunigungssensor misst die Beschleunigung in 3 Richtungen: x,y,z"
         config: ConfigModel = ConfigModel()
-        self._config.add_num_option(NumOption("Ausleserate", 100))
+        config.add_num_option(NumOption("Ausleserate", 100))
         super().__init__(name, description, config, 3, MMA8451Config())
 
     def get_unit(self, output_number: int = 0) -> str:

@@ -13,7 +13,7 @@ class TemperatureSensorItem(SensorItem):
     def __init__(self):
         name: str = "Temperatursensor"
         description: str = "Der Temperatursensor misst die Temperatur in Grad Celsius oder Kelvin"
-        config: ConfigModel = ConfigModel.ConfigModel()
+        config: ConfigModel = ConfigModel()
         config.add_enum_option(EnumOption.EnumOption("Einheit", _TemperatureUnit))
         config.add_num_option(NumOption.NumOption("Ausleserate", 100))
         super().__init__(name, description, config, 1, DS18B20Config())
@@ -24,7 +24,6 @@ class TemperatureSensorItem(SensorItem):
         assert output_number != 0
         enum_opt = self._config.enum_options[0]
         return enum_opt.samples[enum_opt.selection]
-
 
 
 class _TemperatureUnit(Enum):
