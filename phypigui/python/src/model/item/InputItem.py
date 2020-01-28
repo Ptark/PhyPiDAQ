@@ -6,6 +6,8 @@ from typing import List, NoReturn
 
 
 class InputItem(ItemModel, ABC):
+    """Superclass of inputs"""
+
     def __init__(self, name: str, description: str, config: ConfigModel.ConfigModel, inputs: int):
         super().__init__(name, description, config, WorkspaceModel.WorkspaceModel.add_input_item(self))
         self.__inputs: List[Input.Input] = []
