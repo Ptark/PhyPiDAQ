@@ -4,6 +4,7 @@ from ..config import ConfigModel, NumOption
 
 
 class DistanceSensorItem(SensorItem):
+    """Class models a distance sensor"""
     def __init__(self):
         name: str = "Abstandssensor"
         description: str = "Der Abstandssensor misst den Abstand zu einem Objekt"

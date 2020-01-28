@@ -6,7 +6,6 @@ from ..item.SensorItem import SensorItem
 
 class AccelerationSensorItem(SensorItem):
     """Class models an acceleration sensor"""
-
     def __init__(self):
         name: str = "Beschleunigungssensor"
         description: str = "Der Beschleunigungssensor misst die Beschleunigung in 3 Richtungen: x,y,z"
@@ -15,5 +14,6 @@ class AccelerationSensorItem(SensorItem):
         super().__init__(name, description, config, 3, MMA8451Config())
 
     def get_unit(self, output_number: int = 0) -> str:
+        """Returns unit for acceleration"""
         return "m*s^2"
 
