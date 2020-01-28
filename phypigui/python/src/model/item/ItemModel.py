@@ -1,31 +1,32 @@
 from abc import ABC
-from .. import NameableRO, Identifiable, Model
-from ..config import ConfigModel
-from ..workspace import WorkspaceModel
+from ..NameableRO import NameableRO
+from ..Identifiable import Identifiable
+from ..Model import Model
+from ..config.ConfigModel import ConfigModel
 from typing import NoReturn
 import copy
 
 
-class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, Model.Model, ABC):
+class ItemModel(NameableRO, Identifiable, Model, ABC):
     """Abstract class models an item (Sensor, Operator, Diagram).
 
    Attributes:
-        __description (str): Describes the item model
-        __config (ConfigModel): Holds the configuration of the ItemModel
+        _description (str): Describes the item model
+        _config (ConfigModel): Holds the configuration of the ItemModel
     """
-    def __init__(self, name: str, description: str, config: ConfigModel.ConfigModel, item_id: int):
-        NameableRO.NameableRO.__init__(self, name)
-        Identifiable.Identifiable.__init__(self, item_id)
-        self.__config: ConfigModel.ConfigModel = config
-        self.__description: str = description
+    def __init__(self, name: str, description: str, config: ConfigModel, item_id: int):
+        NameableRO.__init__(self, name)
+        Identifiable.__init__(self, item_id)
+        self._config: ConfigModel = config
+        self._description: str = description
 
     @property
-    def config(self) -> ConfigModel.ConfigModel:
-        return copy.deepcopy(self.__config)
+    def config(self) -> ConfigModel:
+        return copy.deepcopy(self._config)
 
     @property
     def description(self) -> str:
-        return self.__description
+        return self._description
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
         """Sets the value of the Bool-Option on a specific index
@@ -36,8 +37,8 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, Model.Model, A
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self.__config.bool_options[index] is not None)
-        self.__config.set_bool_option(index, value)
+        assert(self._config.bool_options[index] is not None)
+        self._config.set_bool_option(index, value)
 
     def set_file_option(self, index: int, path: str) -> NoReturn:
         """Sets the path of the File-Option on a specific index
@@ -48,8 +49,8 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, Model.Model, A
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self.__config.file_options[index] is not None)
-        self.__config.set_file_option(index, path)
+        assert(self._config.file_options[index] is not None)
+        self._config.set_file_option(index, path)
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
         """Sets the selection of the Bool-Option on a specific index
@@ -60,8 +61,8 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, Model.Model, A
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self.__config.enum_options[index] is not None)
-        self.__config.set_enum_option(index, selection)
+        assert(self._config.enum_options[index] is not None)
+        self._config.set_enum_option(index, selection)
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
         """Sets the number of the Num-Option on a specific index
@@ -72,5 +73,5 @@ class ItemModel(NameableRO.NameableRO, Identifiable.Identifiable, Model.Model, A
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self.__config.num_options[index] is not None)
-        self.__config.set_num_option(index, number)
+        assert(self._config.num_options[index] is not None)
+        self._config.set_num_option(index, number)

@@ -1,10 +1,10 @@
-from ..workspace import WorkspaceModel
+from ..workspace.WorkspaceModel import WorkspaceModel
 from typing import List, Dict, Callable, NoReturn
-from . import SensorItem
-from .. import Identifiable
+from .SensorItem import SensorItem
+from ..Identifiable import Identifiable
 
 
-class Output(Identifiable.Identifiable):
+class Output(Identifiable):
     """Represents one output of an item.
 
     Items can have Output in a list to represent its outputs.
@@ -19,10 +19,10 @@ class Output(Identifiable.Identifiable):
         __unit (str): Saves the last calculated unit for this Output
     """
     def __init__(self, parent_id: int, output_number: int):
-        super().__init__(WorkspaceModel.WorkspaceModel.add_output(self))
+        super().__init__(WorkspaceModel.add_output(self))
         self.__parent_item_id: int = parent_id
         self.__number_of_output: int = output_number
-        self.__function: Callable[[Dict[SensorItem.SensorItem, List[float]]], float] = lambda data: 0
+        self.__function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: 0
         self.__is_function_valid: bool = False
         self.__data: float = 0
         self.__unit: str = ''
@@ -44,11 +44,11 @@ class Output(Identifiable.Identifiable):
         self.__unit = new_unit
 
     @property
-    def function(self) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
+    def function(self) -> Callable[[Dict[SensorItem, List[float]]], float]:
         return self.__function
 
     @function.setter
-    def function(self, new_function: Callable[[Dict[SensorItem.SensorItem, List[float]]], float]) -> NoReturn:
+    def function(self, new_function: Callable[[Dict[SensorItem, List[float]]], float]) -> NoReturn:
         self.__function = new_function
         self.__is_function_valid = True
 
@@ -64,9 +64,9 @@ class Output(Identifiable.Identifiable):
         """Invalidates the lambda-function of this output and all sequel items
         """
         self.__is_function_valid = False
-        WorkspaceModel.WorkspaceModel.invalidate_functions(self._id)
+        WorkspaceModel.invalidate_functions(self._id)
 
-    def calculate_function(self) -> Callable[[Dict[SensorItem.SensorItem, List[float]]], float]:
+    def calculate_function(self) -> Callable[[Dict[SensorItem, List[float]]], float]:
         """Calculates lambda-function for this output and returns it
 
         Calculates lambda-function for this output recursively
@@ -75,7 +75,7 @@ class Output(Identifiable.Identifiable):
             Callable[[Dict[SensorItem.SensorItem, List[float]]], float]: calculated lambda-function for this output
         """
         if not self.__is_function_valid:
-            self.__function = WorkspaceModel.WorkspaceModel.calculate_function(self._id)
+            self.__function = WorkspaceModel.calculate_function(self._id)
             self.__is_function_valid = True
         return self.__function
 
@@ -87,10 +87,10 @@ class Output(Identifiable.Identifiable):
         Returns:
             str: calculated unit for this output
         """
-        self.__unit = WorkspaceModel.WorkspaceModel.calculate_unit(self._id)
+        self.__unit = WorkspaceModel.calculate_unit(self._id)
         return self.__unit
 
-    def calculate(self, data: Dict[SensorItem.SensorItem, List[float]]) -> NoReturn:
+    def calculate(self, data: Dict[SensorItem, List[float]]) -> NoReturn:
         """Plugs data in lambda-function und stores result
 
         Args:

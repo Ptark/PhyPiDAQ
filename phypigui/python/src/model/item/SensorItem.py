@@ -3,8 +3,8 @@ from __future__ import annotations
 import time
 from abc import ABC
 
-from ..item import OutputItem
-from ..config import ConfigModel, EnumOption, NumOption
+from ..item.OutputItem import OutputItem
+from ..config.ConfigModel import ConfigModel
 from typing import List, Callable, Dict, NoReturn
 
 
@@ -32,7 +32,7 @@ class SensorItem(OutputItem, ABC):
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
 
-        if read_diff < self.get_num_option(self.get_id()).number:
+        if read_diff < self._config.num_options[0].number:
             return self._buffer
 
         self._device.acquireData(data)

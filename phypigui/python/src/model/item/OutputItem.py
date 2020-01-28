@@ -1,16 +1,18 @@
 from abc import ABC, abstractmethod
-from ..item import ItemModel, Output, SensorItem
-from ..workspace import WorkspaceModel
+from ..item.ItemModel import ItemModel
+from ..item.Output import Output
+from ..item.SensorItem import SensorItem
+from ..workspace.WorkspaceModel import WorkspaceModel
 from typing import NoReturn, List, Dict
-from ..config import ConfigModel
+from ..config.ConfigModel import ConfigModel
 
 
 class OutputItem(ItemModel, ABC):
-    def __init__(self, name: str, description: str, config: ConfigModel.ConfigModel, outputs: int):
-        super().__init__(name, description, config, WorkspaceModel.WorkspaceModel.add_output_item(self))
-        self._outputs: List[Output.Output] = []
+    def __init__(self, name: str, description: str, config: ConfigModel, outputs: int):
+        super().__init__(name, description, config, WorkspaceModel.add_output_item(self))
+        self._outputs: List[Output] = []
         for i in range(1, outputs):
-            self._outputs.append(Output.Output(self.__id, i))
+            self._outputs.append(Output(self._id, i))
 
     @abstractmethod
     def get_rule(self, output_number: int) -> NoReturn:
@@ -59,7 +61,7 @@ class OutputItem(ItemModel, ABC):
     def connect_output(self, output_index: int, input_id: int) -> NoReturn:
         if self._outputs[output_index] is not None:
             output_id = self._outputs[output_index].id
-            WorkspaceModel.WorkspaceModel.connect(input_id, output_id)
+            WorkspaceModel.connect(input_id, output_id)
         return
 
     def get_output_id(self, number_of_output: int) -> int:
@@ -84,7 +86,7 @@ class OutputItem(ItemModel, ABC):
         for output in self._outputs:
             output.invalidate_function()
 
-    def calculate(self, data: Dict[SensorItem.SensorItem, List[float]]) -> NoReturn:
+    def calculate(self, data: Dict[SensorItem, List[float]]) -> NoReturn:
         """Plugs data in every lambda-function of its outputs und stores result
 
         Args:

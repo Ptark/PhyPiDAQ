@@ -1,6 +1,8 @@
-from phypidaq.MMA845xConfig import MMA845xConfig
-from ..item import SensorItem
-from ..config import ConfigModel, EnumOption, NumOption
+from ..item.SensorItem import SensorItem
+from ..config.ConfigModel import ConfigModel
+from ..config.EnumOption import EnumOption
+from ..config.NumOption import NumOption
+from ......phypidaq.ADS1115Config import ADS1115Config
 
 
 class ForceSensorItem(SensorItem):
