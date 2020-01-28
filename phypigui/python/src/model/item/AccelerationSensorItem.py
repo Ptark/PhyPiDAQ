@@ -1,4 +1,4 @@
-from phypidaq.MMA8451Config import MMA8451Config
+from ......phypidaq.MMA8451Config import MMA8451Config
 from ..config import NumOption, ConfigModel
 from ..item import SensorItem
 

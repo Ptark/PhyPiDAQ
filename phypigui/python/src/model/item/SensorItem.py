@@ -6,8 +6,6 @@ from abc import ABC
 from ..item import OutputItem
 from ..config import ConfigModel, EnumOption, NumOption
 from typing import List, Callable, Dict, NoReturn
-from phypidaq import ADS1115Config
-from phypidaq import MMA8451Config
 
 
 class SensorItem(OutputItem, ABC):
@@ -21,16 +19,12 @@ class SensorItem(OutputItem, ABC):
     def get_device(self):
         return self._device
 
-    def get_number_of_outputs(self) -> int:
-        return 1
-
     def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
         function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: data[self][output_number]
         return function
 
     def read(self) -> [float]:
-        #TODO incomplete
-        data: [float] = []
+        data: [float] = [0]
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
 
