@@ -9,9 +9,9 @@ from typing import List, NoReturn
 class InputItem(ItemModel, ABC):
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int):
         super().__init__(name, description, config, WorkspaceModel.add_input_item(self))
-        self._inputs: List[Input.Input] = []
+        self._inputs: List[Input] = []
         for i in range(1, inputs):
-            self._inputs.append(Input.Input(self._id, i))
+            self._inputs.append(Input(self._id, i))
 
     def get_number_of_inputs(self) -> int:
         """Returns maximum number of inputs for this item
