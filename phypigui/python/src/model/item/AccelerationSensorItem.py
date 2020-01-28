@@ -15,7 +15,5 @@ class AccelerationSensorItem(SensorItem):
         super().__init__(name, description, config, 3, MMA8451Config())
 
     def get_unit(self, output_number: int = 0) -> str:
-        if self._config.enum_options[output_number] is not None:
-            return "m*s^2"
-        return ""
+        return "m*s^2"
 

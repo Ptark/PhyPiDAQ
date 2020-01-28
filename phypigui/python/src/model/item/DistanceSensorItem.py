@@ -12,5 +12,5 @@ class DistanceSensorItem(SensorItem):
         super().__init__(name, description, config, 1, VL53LxConfig())
 
     def get_unit(self) -> str:
-        """Returns the unit metern"""
+        """Returns the unit meter"""
         return "m"
