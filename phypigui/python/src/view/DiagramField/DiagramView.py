@@ -4,17 +4,18 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 import random
 
+
 # from python.src.model.item import DiagramItem
 
 
 class DiagramView(FigureCanvas):
 
-    def __init__(self, parent, diagram):  # DiagramItem):
-        self.diagram = diagram
+    def __init__(self, parent):  # DiagramItem):
+
         self.data = []
         fig = Figure(figsize=(4, 5), dpi=70)
         super().__init__(fig)
-        FigureCanvas.__init__(self, fig)
+        'FigureCanvas.__init__(self, fig)'
         self.ax = self.figure.add_subplot(111)
         self.ax.set_title("self.diagram.name")  # self.diagram._name
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -26,3 +27,12 @@ class DiagramView(FigureCanvas):
         self.draw()
 
 
+class TimeDiagram(DiagramView):
+
+    def __init__(self, parent):
+        pass
+
+    def update_diagram(self, data: float):
+        self.data.append(data)
+        self.ax.plot(self.data, "r")
+        self.draw()
