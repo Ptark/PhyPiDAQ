@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from ..item.SensorItem import SensorItem
 from ..config.ConfigModel import ConfigModel
 from typing import List, Callable, Dict

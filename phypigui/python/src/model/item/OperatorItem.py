@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from ..item.InputItem import InputItem
 from ..item.Output import Output
 from ..item.OutputItem import OutputItem
@@ -35,8 +35,8 @@ class DivisionOperatorItem(OperatorItem):
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with division operator"""
 
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
-            WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
 
 
 class AbsoluteOperatorItem(OperatorItem):
@@ -56,7 +56,7 @@ class AbsoluteOperatorItem(OperatorItem):
     def get_unit(self, output_number: int) -> str:
         """Returns the unit from input"""
 
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ")"
 
 
 class MultiplicationOperatorItem(OperatorItem):
@@ -78,5 +78,5 @@ class MultiplicationOperatorItem(OperatorItem):
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with multiplication operator"""
 
-        return "(" + WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
-            WorkspaceModel.WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"

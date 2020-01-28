@@ -55,7 +55,7 @@ class ConfigModel:
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
         if 0 <= index < len(self.__bool_options):
-            if 0 <= selection < len(self.__enum_options[index].get_samples()):
+            if 0 <= selection < len(self.__enum_options[index].samples()):
                 self.__enum_options[index].selection = selection
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
