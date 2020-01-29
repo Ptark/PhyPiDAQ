@@ -7,7 +7,7 @@ class EnumOptionView(OptionView):
 
     def __init__(self, parent: QtWidgets.QWidget, option: EnumOption):
         self.__option: EnumOption = option
-        super().__init__(parent, option.name)
+        super().__init__(parent, option.name, option.description)
 
     @property
     def option(self) -> EnumOption:

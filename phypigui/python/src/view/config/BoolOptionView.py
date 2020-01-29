@@ -7,7 +7,7 @@ from typing import NoReturn
 class BoolOptionView(OptionView):
 
     def __init__(self, parent: QtWidgets.QWidget, option: BoolOption):
-        super().__init__(parent, option.name)
+        super().__init__(parent, option.name, option.description)
         self.__option: BoolOption = option
         # Checkbox
         self.__checkbox: QtWidgets.QRadioButton = QtWidgets.QRadioButton()

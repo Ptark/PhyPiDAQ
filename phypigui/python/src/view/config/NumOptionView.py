@@ -7,14 +7,14 @@ from typing import NoReturn
 class NumOptionView(OptionView):
 
     def __init__(self, parent: QtWidgets.QWidget, option: NumOption):
-        super().__init__(parent, option.name)
+        super().__init__(parent, option.name, option.description)
         self.__option: NumOption = option
         # Text-field
         self.__text_field: QtWidgets.QLineEdit = QtWidgets.QLineEdit()
         # Validator for input
         self.__validator: QtGui.QRegExpValidator = QtGui.QRegExpValidator()
         # Error-label
-        self.__error_label: QtWidgets.QLabel = QtWidgets.QLabel("Min: " + str(self.__option.min) + ", Max: "
+        self.__error_label: QtWidgets.QLabel = QtWidgets.QLabel("Min: " + str(self.__option.min) + "  Max: "
                                                                         + str(self.__option.max))
         # Text-field-layout
         self.__tf_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
