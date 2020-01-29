@@ -112,7 +112,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
             self.__lastPos = self.pos()
-            self._save_position(event)
+            self._save_position(event.globalPos())
             self.raise_()
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:

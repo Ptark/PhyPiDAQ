@@ -27,7 +27,7 @@ class ListItemView(ItemView, ABC):
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
-            item = DragItemView(self.__main, event, self.__item)
+            item = DragItemView(self.__main, event.globalPos(), self.__item)
             item.move(self.mapTo(self.__main, QPoint(0, 0)))
             item.show()
             item.grabMouse()

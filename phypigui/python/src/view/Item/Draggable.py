@@ -44,12 +44,11 @@ class Draggable(ItemView, ABC):
                 pos (QPoint): The current global position to move to.
         """
         if self.__mouseMovePos is not None:
-            currPos = self.mapToGlobal(self.pos())
-            globalPos = pos
-            diff = globalPos - self.__mouseMovePos
-            newPos = self.mapFromGlobal(currPos + diff)
-            self.move(newPos)
-            self.__mouseMovePos = globalPos
+            curr_pos = self.mapToGlobal(self.pos())
+            diff = pos - self.__mouseMovePos
+            new_pos = self.mapFromGlobal(curr_pos + diff)
+            self.move(new_pos)
+            self.__mouseMovePos = pos
 
     def _on_click(self) -> NoReturn:
         """Is called when the Widget is clicked on"""
