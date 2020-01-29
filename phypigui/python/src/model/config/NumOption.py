@@ -6,8 +6,8 @@ import math
 
 class NumOption(NameableRO):
 
-    def __init__(self, name: str, num: float = 0, min: float = sys.float_info.min, max: float = sys.float_info.max
-                 , decimals: int = math.fabs(sys.float_info.min_10_exp)):
+    def __init__(self, name: str, num: float = 0, min: float = -sys.float_info.max, max: float = sys.float_info.max
+                 , decimals: int = 20):
         super().__init__(name)
         self.__number: float = num
         self.__min: float = min

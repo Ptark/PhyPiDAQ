@@ -4,7 +4,8 @@ from typing import NoReturn, final
 
 
 class OptionView(QtWidgets.QWidget):
-    ERROR_COLOR: final(QtGui.QColor) = QtGui.QColor(255, 158, 158)
+    # style-sheet rgb value
+    ERROR_COLOR: final(str) = 'rgb(255, 158, 158)'
 
     def __init__(self, parent: QtWidgets.QWidget, name: str):
         super().__init__(parent)
