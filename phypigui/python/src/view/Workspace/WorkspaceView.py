@@ -1,7 +1,7 @@
 from typing import NoReturn, List
 
 from PyQt5.QtCore import Qt, QRect, QPointF
-from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen
+from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen, QWheelEvent
 from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
 from ..Item import WorkspaceItemView
@@ -48,6 +48,28 @@ class WorkspaceContentView(QWidget):
         super().mouseMoveEvent(event)
 
 
+class WorkspaceScrollView(QScrollArea):
+    def __init__(self):
+        super().__init__()
+        self.__init_ui()
+
+    def __init_ui(self) -> NoReturn:
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+
+        scroll_contents = WorkspaceContentView()
+        scroll_contents.setMinimumSize(10000, 10000)
+        scroll_contents.setMouseTracking(True)
+        WorkspaceView.widget = scroll_contents
+        self.setWidget(scroll_contents)
+
+        self.horizontalScrollBar().setValue(scroll_contents.width() / 2)
+        self.verticalScrollBar().setValue(scroll_contents.height() / 2)
+
+    def wheelEvent(self, event: QWheelEvent) -> NoReturn:
+        event.ignore()
+
+
 class WorkspaceView(QWidget):
     selection: 'Selectable' = None
     wire_in_hand: 'WireView' = None
@@ -75,23 +97,13 @@ class WorkspaceView(QWidget):
 
     def __init_ui(self) -> NoReturn:
         layout = QGridLayout()
-        scroll_area = QScrollArea()
+        scroll_area = WorkspaceScrollView()
 
         self.__h_scroll_bar = scroll_area.horizontalScrollBar()
         self.__v_scroll_bar = scroll_area.verticalScrollBar()
-        scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
-        scroll_contents = WorkspaceContentView()
-        scroll_contents.setMinimumSize(10000, 10000)
-        scroll_contents.setMouseTracking(True)
-        WorkspaceView.widget = scroll_contents
-        scroll_area.setWidget(scroll_contents)
         layout.addWidget(scroll_area)
         self.setLayout(layout)
-
-        self.__h_scroll_bar.setValue(scroll_contents.width() / 2)
-        self.__v_scroll_bar.setValue(scroll_contents.height() / 2)
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
