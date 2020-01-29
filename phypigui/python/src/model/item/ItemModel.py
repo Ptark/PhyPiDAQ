@@ -1,5 +1,6 @@
 from abc import ABC
 from ..NameableRO import NameableRO
+from ..Describable import Describable
 from ..Identifiable import Identifiable
 from ..Model import Model
 from ..config.ConfigModel import ConfigModel
@@ -7,26 +8,21 @@ from typing import NoReturn
 import copy
 
 
-class ItemModel(NameableRO, Identifiable, Model, ABC):
+class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
     """Abstract class models an item (Sensor, Operator, Diagram).
 
    Attributes:
-        _description (str): Describes the item model
         _config (ConfigModel): Holds the configuration of the ItemModel
     """
     def __init__(self, name: str, description: str, config: ConfigModel, item_id: int):
         NameableRO.__init__(self, name)
+        Describable.__init__(self, description)
         Identifiable.__init__(self, item_id)
         self._config: ConfigModel = config
-        self._description: str = description
 
     @property
     def config(self) -> ConfigModel:
         return copy.deepcopy(self._config)
-
-    @property
-    def description(self) -> str:
-        return self._description
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
         """Sets the value of the Bool-Option on a specific index

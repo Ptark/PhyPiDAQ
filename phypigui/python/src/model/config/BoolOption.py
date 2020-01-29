@@ -1,11 +1,11 @@
-from ..NameableRO import NameableRO
+from .OptionModel import OptionModel
 from typing import NoReturn
 
 
-class BoolOption(NameableRO):
+class BoolOption(OptionModel):
 
-    def __init__(self, name: str, start_value: bool = False):
-        super().__init__(name)
+    def __init__(self, name: str, description: str = '', start_value: bool = False):
+        super().__init__(name, description)
         self.__enabled: bool = start_value
 
     @property

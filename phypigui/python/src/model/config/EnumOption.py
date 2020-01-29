@@ -1,12 +1,12 @@
-from ..NameableRO import NameableRO
+from .OptionModel import OptionModel
 from typing import NoReturn
 import enum
 
 
-class EnumOption(NameableRO):
+class EnumOption(OptionModel):
 
-    def __init__(self, name: str, samples: enum, start_selection: int = 1):
-        super().__init__(name)
+    def __init__(self, name: str, samples: enum, description: str = '', start_selection: int = 1):
+        super().__init__(name, description)
         self.__samples: enum = samples
         self.__selection: int = start_selection
 

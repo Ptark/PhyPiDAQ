@@ -1,12 +1,12 @@
-from ..NameableRO import NameableRO
+from .OptionModel import OptionModel
 from typing import NoReturn
 from pathlib import Path
 
 
-class FileOption(NameableRO):
+class FileOption(OptionModel):
 
-    def __init__(self, name: str):
-        super().__init__(name)
+    def __init__(self, name: str, description: str = ''):
+        super().__init__(name, description)
         self.__path: str = ''
 
     @property

@@ -1,14 +1,14 @@
-from ..NameableRO import NameableRO
+from .OptionModel import OptionModel
 from typing import NoReturn
 import sys
-import math
 
 
-class NumOption(NameableRO):
+class NumOption(OptionModel):
 
-    def __init__(self, name: str, num: float = 0, min: float = -sys.float_info.max, max: float = sys.float_info.max
-                 , decimals: int = 20):
-        super().__init__(name)
+    def __init__(self, name: str, description: str = '', num: float = 0, min: float = -sys.float_info.max
+                 , max: float = sys.float_info.max , decimals: int = 20):
+        super().__init__(name, description)
+
         self.__number: float = num
         self.__min: float = min
         self.__max: float = max
