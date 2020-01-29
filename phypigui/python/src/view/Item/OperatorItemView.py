@@ -10,6 +10,11 @@ operator_path = "../resources/images/items/operator/"
 
 
 class OperatorItemView(WorkspaceItemView, ABC):
+    """Abstract class for displaying an item of an operator on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     frame_path: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_inputs: int = 2, num_of_outputs: int = 1):
@@ -19,6 +24,11 @@ class OperatorItemView(WorkspaceItemView, ABC):
 
 
 class AdditionOperatorItemView(OperatorItemView):
+    """Class for displaying an item of an addition operator on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = operator_path + 'addition.svg'
 
     def __init__(self, parent: QWidget):
@@ -26,6 +36,11 @@ class AdditionOperatorItemView(OperatorItemView):
 
 
 class SubtractionOperatorItemView(OperatorItemView):
+    """Class for displaying an item of an subtraction operator on the workspace
+
+        Attributes (QWidget):
+            parent: A parent widget.
+    """
     icon_path: Final[str] = operator_path + 'subtraction.svg'
 
     def __init__(self, parent: QWidget):
@@ -33,6 +48,11 @@ class SubtractionOperatorItemView(OperatorItemView):
 
 
 class MultiplicationOperatorItemView(OperatorItemView):
+    """Class for displaying an item of an multiplication operator on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = operator_path + 'multiplication.svg'
 
     def __init__(self, parent: QWidget):
@@ -40,6 +60,11 @@ class MultiplicationOperatorItemView(OperatorItemView):
 
 
 class DivisionOperatorItemView(OperatorItemView):
+    """Class for displaying an item of an division operator on the workspace
+
+        Attributes:
+            parent: A parent widget.
+    """
     icon_path: Final[str] = operator_path + 'division.svg'
 
     def __init__(self, parent: QWidget):
@@ -47,6 +72,11 @@ class DivisionOperatorItemView(OperatorItemView):
 
 
 class AbsoluteOperatorItemView(OperatorItemView):
+    """Class for displaying an item of an absolute operator on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = operator_path + 'absolute.svg'
 
     def __init__(self, parent: QWidget):

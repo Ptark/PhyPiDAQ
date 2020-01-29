@@ -10,6 +10,11 @@ sensor_path = "../resources/images/items/sensor/"
 
 
 class SensorItemView(WorkspaceItemView, ABC):
+    """Abstract class for displaying an item of a sensor on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     frame_path: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_outputs: int = 1):
@@ -19,6 +24,11 @@ class SensorItemView(WorkspaceItemView, ABC):
 
 
 class TemperatureSensorItemView(SensorItemView):
+    """Class for displaying an item of a temperature sensor on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = sensor_path + 'temperature.svg'
 
     def __init__(self, parent: QWidget):
@@ -26,6 +36,11 @@ class TemperatureSensorItemView(SensorItemView):
 
 
 class ForceSensorItemView(SensorItemView):
+    """Class for displaying an item of a force sensor on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = sensor_path + 'force.svg'
 
     def __init__(self, parent: QWidget):
@@ -33,6 +48,11 @@ class ForceSensorItemView(SensorItemView):
 
 
 class DistanceSensorItemView(SensorItemView):
+    """Class for displaying an item of a distance sensor on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = sensor_path + 'distance.svg'
 
     def __init__(self, parent: QWidget):
@@ -40,6 +60,11 @@ class DistanceSensorItemView(SensorItemView):
 
 
 class AccelerationSensorItemView(SensorItemView):
+    """Class for displaying an item of an acceleration sensor on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = sensor_path + 'acceleration.svg'
 
     def __init__(self, parent: QWidget):

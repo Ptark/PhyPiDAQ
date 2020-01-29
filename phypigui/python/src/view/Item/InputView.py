@@ -7,6 +7,7 @@ from .InOutView import InOutView
 
 
 class InputView(InOutView):
+    """Class for displaying an item input"""
     def __init__(self):
         super().__init__()
 

@@ -13,6 +13,12 @@ class ItemViewMeta(type(QFrame), type(View)):
 
 
 class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
+    """Abstract class for displaying an item
+
+        Attributes:
+            parent (QWidget): A parent widget.
+            icon_path (str): A file path of the icon displayed on the item.
+    """
     def __init__(self, parent: QWidget, icon_path: str):
         super().__init__(parent)
 

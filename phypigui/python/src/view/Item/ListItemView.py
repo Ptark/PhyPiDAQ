@@ -11,6 +11,13 @@ from .WorkspaceItemView import WorkspaceItemView
 
 
 class ListItemView(ItemView, ABC):
+    """Abstract class for displaying an item in the list
+
+        Attributes:
+            main (QWidget): The main widget of the window.
+            item (Type[WorkspaceItemView]): A subclass of WorkspaceItemView to define which item type to represent.
+                  It holds the actual class and not an instance of it.
+    """
     def __init__(self, main: QWidget, item: Type[WorkspaceItemView]):
         super().__init__(main, item.icon_path)
 

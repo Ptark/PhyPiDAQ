@@ -10,6 +10,11 @@ diagram_path = "../resources/images/items/diagram/"
 
 
 class DiagramItemView(WorkspaceItemView, ABC):
+    """Abstract class for displaying an item of an diagram on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     frame_path: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_inputs: int = 1):
@@ -19,6 +24,11 @@ class DiagramItemView(WorkspaceItemView, ABC):
 
 
 class TimeDiagramItemView(DiagramItemView):
+    """Class for displaying an item of an time diagram on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = diagram_path + 'time.svg'
 
     def __init__(self, parent: QWidget):
@@ -26,6 +36,11 @@ class TimeDiagramItemView(DiagramItemView):
 
 
 class BarDiagramItemView(DiagramItemView):
+    """Class for displaying an item of an bar diagram on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = diagram_path + 'bar.svg'
 
     def __init__(self, parent: QWidget):
@@ -33,6 +48,11 @@ class BarDiagramItemView(DiagramItemView):
 
 
 class DualDiagramItemView(DiagramItemView):
+    """Class for displaying an item of an dual diagram on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: Final[str] = diagram_path + 'dual.svg'
 
     def __init__(self, parent: QWidget):

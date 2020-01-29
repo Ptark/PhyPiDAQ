@@ -8,6 +8,7 @@ from .InOutView import InOutView
 
 
 class OutputView(InOutView):
+    """Class for displaying an item output"""
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         """
         if WorkspaceView.wire_in_hand is None:

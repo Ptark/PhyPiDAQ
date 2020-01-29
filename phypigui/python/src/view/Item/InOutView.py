@@ -12,6 +12,7 @@ class InOutViewMeta(type(QFrame), type(View)):
 
 
 class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
+    """Abstract class for displaying an item input or output"""
     def __init__(self):
         super().__init__(None)
 
@@ -27,6 +28,9 @@ class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
                 background-color: #FF4444;
                 }
             """)
+
+    # Catches and stops all mouse events so other widgets under
+    # the in-/outputs (items and workspace) don't get mouse events
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         pass

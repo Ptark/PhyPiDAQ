@@ -15,10 +15,15 @@ from ..config import ConfigView
 
 
 class WorkspaceItemView(Draggable, Selectable, ABC):
+    """Abstract class for displaying an item on the workspace
+
+        Attributes:
+            parent (QWidget): A parent widget.
+    """
     icon_path: str
 
-    def __init__(self, main: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
-        Draggable.__init__(self, main, self.icon_path)
+    def __init__(self, parent: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
+        Draggable.__init__(self, parent, self.icon_path)
         Selectable.__init__(self)
 
         #self.__model: ItemModel.ItemModel = None
@@ -29,6 +34,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         self.__lastPos: QPoint = None
 
+        # TODO: Input Output Erstellung überarbeiten
         for i in range(0, num_of_inputs):
             self.__inputs.append(InputView())
         for i in range(0, num_of_outputs):
@@ -58,15 +64,20 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_widget.move(101, 0)
 
     def __context_menu(self, pos: QPoint) -> NoReturn:
+        """Creates a context menu at the given position
+
+            Args:
+                pos (QPoint): Position at which the menu should appear.
+        """
         menu = QMenu()
         menu.addAction(self.tr("Einstellungen"), self.open_config)
         menu.addAction(self.tr("Entfernen"), self.delete)
         menu.exec(self.mapToGlobal(pos))
 
-    def _on_click(self):
+    def _on_click(self) -> NoReturn:
         self.selected = not self.selected
 
-    def _change_selected_view(self):
+    def _update_selected_view(self) -> NoReturn:
         if self.selected:
             border = "blue"
             background = "#CCCCEE"
