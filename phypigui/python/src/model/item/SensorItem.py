@@ -28,7 +28,7 @@ class SensorItem(OutputItem, ABC):
 
     def read(self) -> [float]:
         """read data from physical sensor and return _buffer which holds the measured data"""
-        data: [float] = [0]
+        data: [float] = [0][1][2]
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
 
