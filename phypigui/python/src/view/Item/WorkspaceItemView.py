@@ -110,6 +110,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
         super().delete()
+        for inout in (self.__inputs + self.__outputs):
+            inout.delete_all_wires()
         self.close()
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
@@ -121,10 +123,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
             self._move_item(event.globalPos())
-            for input in self.__inputs:
-                input.redraw_wire()
-            for output in self.__outputs:
-                output.redraw_wire()
+            for inout in (self.__inputs + self.__outputs):
+                inout.redraw_wires()
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         if not WorkspaceView.is_on_workspace(self):

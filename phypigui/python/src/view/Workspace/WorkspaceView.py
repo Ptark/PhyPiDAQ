@@ -28,9 +28,16 @@ class WorkspaceContentView(QWidget):
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         for wire in WorkspaceView.wires:
             if wire.point_on_line(event.pos()) and WorkspaceView.wire_in_hand is None:
-                wire.selected = not wire.selected
+                if event.buttons() == Qt.LeftButton:
+                    wire.selected = not wire.selected
+                elif event.buttons() == Qt.RightButton:
+                    wire.open_context_menu(event.globalPos())
                 event.ignore()
                 return
+
+        if event.buttons() == Qt.LeftButton:
+            if WorkspaceView.wire_in_hand is not None:
+                WorkspaceView.wire_in_hand.delete()
 
         super().mousePressEvent(event)
 
@@ -131,6 +138,8 @@ class WorkspaceView(QWidget):
     @staticmethod
     def delete_wire(wire: 'WireView') -> NoReturn:
         WorkspaceView.wires.remove(wire)
+        if WorkspaceView.wire_in_hand is wire:
+            WorkspaceView.wire_in_hand = None
 
     @staticmethod
     def delete_all() -> NoReturn:

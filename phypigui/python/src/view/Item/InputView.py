@@ -1,8 +1,8 @@
 from typing import NoReturn
 
-from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QMouseEvent
 
+from ..Workspace.WireView import WireView
 from ..Workspace.WorkspaceView import WorkspaceView
 from PyQt5.QtWidgets import QWidget
 
@@ -14,17 +14,27 @@ class InputView(InOutView):
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
-        self.__wire: QPoint = None
+        self.__wire: WireView = None
 
-    def redraw_wire(self) -> NoReturn:
+    def redraw_wires(self) -> NoReturn:
         if self.__wire is not None:
             p = self._get_connection_point()
             self.__wire.redraw(input=p)
 
+    def _remove_wire(self, wire: WireView) -> NoReturn:
+        if self.__wire is wire:
+            self.__wire = None
+
+    def delete_all_wires(self) -> NoReturn:
+        if self.__wire is not None:
+            self.__wire.delete()
+            self.__wire = None
+
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if WorkspaceView.wire_in_hand is not None and self.__wire is None:
             self.__wire = WorkspaceView.wire_in_hand
+            self.__wire.deletion_signal.connect(self._remove_wire)
             WorkspaceView.wire_in_hand = None
-            self.redraw_wire()
+            self.redraw_wires()
 
         super().mousePressEvent(event)

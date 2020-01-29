@@ -1,10 +1,11 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import NoReturn
 
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QFrame, QWidget
 
+from ..Workspace.WireView import WireView
 from ..View import View
 
 
@@ -36,6 +37,27 @@ class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
         p.setX(p.x() + self.width() / 2)
         p.setY(p.y() + self.height() / 2)
         return p
+
+    @abstractmethod
+    def redraw_wires(self) -> NoReturn:
+        """Redraws all connected wires"""
+        pass
+
+    @abstractmethod
+    def _remove_wire(self, wire: WireView) -> NoReturn:
+        """Removes the given wire
+
+            This does not call delete on the given wire.
+
+            Args:
+                wire (WireView): The wire to remove
+        """
+        pass
+
+    @abstractmethod
+    def delete_all_wires(self) -> NoReturn:
+        """Deletes all connected wires"""
+        pass
 
     # Catches and stops all mouse events so other widgets under
     # the in-/outputs (items and workspace) don't get mouse events
