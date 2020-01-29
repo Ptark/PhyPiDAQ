@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
-from PyQt5 import QtWidgets
-from typing import NoReturn
+from PyQt5 import QtWidgets, QtGui
+from typing import NoReturn, final
 
 
 class OptionView(QtWidgets.QWidget):
+    ERROR_COLOR: final(QtGui.QColor) = QtGui.QColor(255, 158, 158)
 
     def __init__(self, parent: QtWidgets.QWidget, name: str):
         super().__init__(parent)

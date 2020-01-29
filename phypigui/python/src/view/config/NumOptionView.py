@@ -19,7 +19,7 @@ class NumOptionView(OptionView):
         self.__text_field.setFixedSize(250, 40)
         self.__text_field.setAutoFillBackground(True)
         palette: QtGui.QPalette = QtGui.QPalette()
-        palette.setColor(self.__text_field.backgroundRole(), QtGui.QColor(255, 158, 158))
+        palette.setColor(self.__text_field.backgroundRole(), QtCore.Qt.white)
         self.__text_field.setPalette(palette)
         self.__text_field.setText(self.__option.number.__str__())
         self.__text_field.setValidator(self.__validator)
@@ -35,9 +35,13 @@ class NumOptionView(OptionView):
             if QtCore.QRegularExpression("^[-+]?\\.?$").match(text).hasMatch():
                 self.__option.number = 0
             else:
+                palette: QtGui.QPalette = QtGui.QPalette()
+                palette.setColor(self.__text_field.backgroundRole(), OptionView.ERROR_COLOR)
                 if float(text) > self.__option.max:
-                    self.__text_field.setText(self.__option.max.__str__())
+                    self.__option.number = self.__option.max.__str__()
                 elif float(text) < self.__option.min:
-                    self.__text_field.setText(self.__option.min.__str__())
+                    self.__option.number = self.__option.min.__str__()
                 else:
                     self.option.number = float(text)
+                    palette.setColor(self.__text_field.backgroundRole(), QtCore.Qt.white)
+                self.__text_field.setPalette(palette)

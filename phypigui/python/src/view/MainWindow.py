@@ -8,6 +8,9 @@ from .DiagramField.DiagramFieldView import DiagramFieldView
 from .InfoBar.InfoBarView import InfoBarView
 from .Workspace.WorkspaceView import WorkspaceView
 
+from ..model.config import ConfigModel, NumOption, EnumOption, FileOption, BoolOption
+from ..view.config import ConfigView
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -19,6 +22,7 @@ class MainWindow(QMainWindow):
         self.__workspace_field = WorkspaceView(self.__main_widget)
         self.__infobar_field = InfoBarView(None)
         self.__diagram_field = DiagramFieldView(None)
+        self.__config_window = None
 
         self.__init_ui()
 
@@ -45,5 +49,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.__diagram_field, 3)
 
         self.__main_widget.setLayout(layout)
+        config = ConfigModel.ConfigModel()
+        config.add_num_option(NumOption.NumOption("NumOption1", 0, -20, 20))
+        config.add_num_option(NumOption.NumOption("NumOption2", 13423545))
+        config.add_num_option(NumOption.NumOption("NumOption3", -234.65672))
+        #for i in range(0, 100):
+        #    config.add_num_option(NumOption.NumOption(i.__str__(), 0))
+        self.__config_window = ConfigView.ConfigView("Item", config)
 
         self.show()
