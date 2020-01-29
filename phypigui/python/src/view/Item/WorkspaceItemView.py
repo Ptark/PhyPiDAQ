@@ -5,7 +5,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
 
-from ...model.config import ConfigModel, NumOption
+from ...model.config import ConfigModel, NumOption, BoolOption, FileOption
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
@@ -98,9 +98,13 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         """Creates and opens the settings-window for this Item"""
         #self.__config_window = ConfigView.ConfigView(self.__model.name, self.__model.config)
         config = ConfigModel.ConfigModel()
-        config.add_num_option(NumOption.NumOption("NumOption1"))
-        config.add_num_option(NumOption.NumOption("NumOption2", 13423545))
-        config.add_num_option(NumOption.NumOption("NumOption3", -234.65672))
+        config.add_num_option(NumOption.NumOption("Num\nOption1", "", 0, -20000.0000, 200000.00000))
+        config.add_num_option(NumOption.NumOption("123456789012345678901234567890", "", 13423545, 0, 3234234242, 4))
+        config.add_num_option(NumOption.NumOption("NumOption3", "", -234.65672))
+        config.add_bool_option(BoolOption.BoolOption("", 'BoolOption2'))
+        config.add_bool_option(BoolOption.BoolOption("12345678901234567890123456789012345678901234567890", "", True))
+        config.add_enum_option(EnumOption.EnumOption("EnumOption1", EnumTest, "Beschreibung blablabla"))
+        config.add_enum_option(EnumOption.EnumOption("", EnumTest, "EnumOption", 2))
         self.__config_window = ConfigView.ConfigView("Item", config)
 
     def get_info_widget(self) -> QWidget:
