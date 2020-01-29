@@ -5,13 +5,14 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
 
-from ...model.config import ConfigModel, NumOption, BoolOption, FileOption
+from ...model.config import ConfigModel, NumOption, BoolOption, FileOption, EnumOption
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
 from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
 from ..config import ConfigView
+from ..EnumTest import EnumTest
 
 
 class WorkspaceItemView(Draggable, Selectable, ABC):
