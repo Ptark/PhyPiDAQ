@@ -51,6 +51,20 @@ class ConfigModel:
         return self.__file_options.index(option)
 
     def add_enum_option(self, option: EnumOption) -> int:
+        """Adds an enum-option to this config
+
+        Adds an enum-option to this config.
+        The user can modify this option in generic generated settings-window.
+        Maximum size for the name of this option should be 28 Symbols.
+        Maximum size for the description of this option should be two lines with 28 Symbols each.
+        Maximum size for each element is 21 Symbols
+
+        Args:
+            option (EnumOption): Enum-option, which will be added to this config
+
+        Return:
+            int: Returns index from the added option in the list of EnumOptions
+        """
         self.__enum_options.append(option)
         return self.__enum_options.index(option)
 

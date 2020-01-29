@@ -1,11 +1,11 @@
 from .OptionModel import OptionModel
 from typing import NoReturn
-import enum
+import enum, copy
 
 
 class EnumOption(OptionModel):
 
-    def __init__(self, name: str, samples: enum, description: str = '', start_selection: int = 1):
+    def __init__(self, name: str, samples: enum, description: str = '', start_selection: int = 0):
         super().__init__(name, description)
         self.__samples: enum = samples
         self.__selection: int = start_selection
@@ -21,4 +21,4 @@ class EnumOption(OptionModel):
 
     @property
     def samples(self) -> enum:
-        return self.__samples.copy()
+        return copy.deepcopy(self.__samples)

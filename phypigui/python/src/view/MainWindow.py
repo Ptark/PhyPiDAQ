@@ -10,13 +10,15 @@ from .Workspace.WorkspaceView import WorkspaceView
 
 from ..model.config import ConfigModel, NumOption, EnumOption, FileOption, BoolOption
 from ..view.config import ConfigView
+from .EnumTest import EnumTest
+import enum
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.__main_widget = QWidget()
+        self.__main_widget = QWidget(self)
 
         self.__list_field = ListFieldView(self.__main_widget)
         self.__workspace_field = WorkspaceView(self.__main_widget)
@@ -55,6 +57,8 @@ class MainWindow(QMainWindow):
         config.add_num_option(NumOption.NumOption("NumOption3", "", -234.65672))
         config.add_bool_option(BoolOption.BoolOption("", 'BoolOption2'))
         config.add_bool_option(BoolOption.BoolOption("12345678901234567890123456789012345678901234567890", "", True))
+        config.add_enum_option(EnumOption.EnumOption("1234567890123456789012345678", EnumTest, "Beschreibung blablabla"))
+        config.add_enum_option(EnumOption.EnumOption("", EnumTest, "EnumOption", 2))
         #for i in range(0, 100):
         #    config.add_num_option(NumOption.NumOption(i.__str__(), 0))
         self.__config_window = ConfigView.ConfigView("Item", config)
