@@ -1,8 +1,9 @@
 from abc import ABC
 from typing import NoReturn
 
+from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QFrame
+from PyQt5.QtWidgets import QFrame, QWidget
 
 from ..View import View
 
@@ -13,8 +14,9 @@ class InOutViewMeta(type(QFrame), type(View)):
 
 class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
     """Abstract class for displaying an item input or output"""
-    def __init__(self):
-        super().__init__(None)
+
+    def __init__(self, parent: QWidget):
+        super().__init__(parent)
 
         self.__init_ui()
 
@@ -29,9 +31,14 @@ class InOutView(QFrame, View, ABC, metaclass=InOutViewMeta):
                 }
             """)
 
+    def _get_connection_point(self) -> QPoint:
+        p = self.parent().mapTo(self.parent().parent().parent(), self.pos())
+        p.setX(p.x() + self.width() / 2)
+        p.setY(p.y() + self.height() / 2)
+        return p
+
     # Catches and stops all mouse events so other widgets under
     # the in-/outputs (items and workspace) don't get mouse events
-
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         pass
 

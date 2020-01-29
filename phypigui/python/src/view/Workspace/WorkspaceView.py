@@ -1,12 +1,10 @@
-from typing import NoReturn
+from typing import NoReturn, List
 
 from PyQt5.QtCore import Qt, QRect, QPointF
-from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter
+from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen
 from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
-from .. import Selectable
 from ..Item import WorkspaceItemView
-from .WireView import WireView
 
 
 class WorkspaceContentView(QWidget):
@@ -19,15 +17,36 @@ class WorkspaceContentView(QWidget):
         for i in range(rect.x(), rect.x() + rect.width() + spacing, spacing):
             for j in range(rect.y(), rect.y() + rect.height() + spacing, spacing):
                 paint.drawPoint(QPointF(int(i / spacing) * spacing, int(j / spacing) * spacing))
+
+        pen = QPen(Qt.black, 3, Qt.SolidLine, Qt.RoundCap)
+        for wire in WorkspaceView.wires:
+            pen.setColor(Qt.blue if wire.selected else Qt.black)
+            paint.setPen(pen)
+            paint.drawLine(wire.output, wire.input)
         paint.end()
+
+    def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
+        for wire in WorkspaceView.wires:
+            if wire.point_on_line(event.pos()) and WorkspaceView.wire_in_hand is None:
+                wire.selected = not wire.selected
+                event.ignore()
+                return
+
+        super().mousePressEvent(event)
+
+    def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
+        if WorkspaceView.wire_in_hand is not None:
+            WorkspaceView.wire_in_hand.redraw(input=event.pos())
+
+        super().mouseMoveEvent(event)
 
 
 class WorkspaceView(QWidget):
-    selection: Selectable = None
-    wire_in_hand: WireView = None
+    selection: 'Selectable' = None
+    wire_in_hand: 'WireView' = None
 
     __items = None
-    __wires = None
+    wires: List['WireView'] = None
     __widget: QWidget = None
     __boundary: QWidget = None
     __main: QWidget = None
@@ -58,6 +77,7 @@ class WorkspaceView(QWidget):
 
         scroll_contents = WorkspaceContentView()
         scroll_contents.setMinimumSize(10000, 10000)
+        scroll_contents.setMouseTracking(True)
         WorkspaceView.widget = scroll_contents
         scroll_area.setWidget(scroll_contents)
         layout.addWidget(scroll_area)
@@ -67,21 +87,22 @@ class WorkspaceView(QWidget):
         self.__v_scroll_bar.setValue(scroll_contents.height() / 2)
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
-        if self.__h_last_pos == 0:
+        if event.buttons() == Qt.LeftButton:
+            if self.__h_last_pos == 0:
+                self.__h_last_pos = event.pos().x()
+
+            h_distance = self.__h_last_pos - event.pos().x()
+            self.__h_scroll_bar.setValue(self.__h_scroll_bar.value() + h_distance)
+
             self.__h_last_pos = event.pos().x()
 
-        h_distance = self.__h_last_pos - event.pos().x()
-        self.__h_scroll_bar.setValue(self.__h_scroll_bar.value() + h_distance)
+            if self.__v_last_pos == 0:
+                self.__v_last_pos = event.pos().y()
 
-        self.__h_last_pos = event.pos().x()
+            v_distance = self.__v_last_pos - event.pos().y()
+            self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() + v_distance)
 
-        if self.__v_last_pos == 0:
             self.__v_last_pos = event.pos().y()
-
-        v_distance = self.__v_last_pos - event.pos().y()
-        self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() + v_distance)
-
-        self.__v_last_pos = event.pos().y()
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         self.__h_last_pos = 0
@@ -98,15 +119,17 @@ class WorkspaceView(QWidget):
         WorkspaceView.items.append(item)
 
     @staticmethod
-    def add_wire(wire: WireView) -> NoReturn:
+    def add_wire(wire: 'WireView') -> NoReturn:
         WorkspaceView.wires.append(wire)
+        WorkspaceView.wire_in_hand = wire
+        wire.redraw_signal.connect(WorkspaceView.widget.update)
 
     @staticmethod
     def delete_item(item: WorkspaceItemView) -> NoReturn:
         WorkspaceView.items.remove(item)
 
     @staticmethod
-    def delete_wire(wire: WireView) -> NoReturn:
+    def delete_wire(wire: 'WireView') -> NoReturn:
         WorkspaceView.wires.remove(wire)
 
     @staticmethod

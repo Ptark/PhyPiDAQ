@@ -49,8 +49,7 @@ class Selectable(ABC):
 
     @abstractmethod
     def _update_selected_view(self) -> NoReturn:
-        """Checks if the component is selected and updates the its appearance accordingly
-        """
+        """Checks if the component is selected and updates the its appearance accordingly"""
         pass
 
     @abstractmethod
@@ -66,12 +65,11 @@ class Selectable(ABC):
 
     @abstractmethod
     def open_config(self) -> NoReturn:
-        """Opens the components configuration window
-        """
+        """Opens the components configuration window"""
         pass
 
     @abstractmethod
     def delete(self) -> NoReturn:
-        """Deletes the component from the workspace
-        """
-        pass
+        """Deletes the component from the workspace"""
+        if WorkspaceView.selection is self:
+            WorkspaceView.selection = None

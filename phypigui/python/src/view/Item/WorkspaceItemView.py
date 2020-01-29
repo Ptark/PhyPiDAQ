@@ -5,8 +5,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
 
-from ...model.item.ItemModel import ItemModel
-from ...model.config import ConfigModel, NumOption,BoolOption,FileOption,EnumOption
+from ...model.config import ConfigModel, NumOption
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
@@ -37,9 +36,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         # TODO: Input Output Erstellung überarbeiten
         for i in range(0, num_of_inputs):
-            self.__inputs.append(InputView())
+            self.__inputs.append(InputView(self))
         for i in range(0, num_of_outputs):
-            self.__outputs.append(OutputView())
+            self.__outputs.append(OutputView(self))
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.__context_menu)
@@ -76,7 +75,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         menu.exec(self.mapToGlobal(pos))
 
     def _on_click(self) -> NoReturn:
-        self.selected = not self.selected
+        if WorkspaceView.wire_in_hand is None:
+            self.selected = not self.selected
 
     def _update_selected_view(self) -> NoReturn:
         if self.selected:
@@ -95,7 +95,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             """)
 
     def open_config(self) -> NoReturn:
-        """Creats and opens the settings-window for this Item"""
+        """Creates and opens the settings-window for this Item"""
         #self.__config_window = ConfigView.ConfigView(self.__model.name, self.__model.config)
         config = ConfigModel.ConfigModel()
         config.add_num_option(NumOption.NumOption("NumOption1"))
@@ -109,8 +109,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
-        if WorkspaceView.selection is self:
-            WorkspaceView.selection = None
+        super().delete()
         self.close()
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
@@ -121,7 +120,11 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
-            self._move_item(event)
+            self._move_item(event.globalPos())
+            for input in self.__inputs:
+                input.redraw_wire()
+            for output in self.__outputs:
+                output.redraw_wire()
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         if not WorkspaceView.is_on_workspace(self):
