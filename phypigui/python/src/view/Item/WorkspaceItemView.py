@@ -5,7 +5,8 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
 
-# from ...model.item.ItemModel import ItemModel
+from ...model.item.ItemModel import ItemModel
+from ...model.config import ConfigModel, NumOption,BoolOption,FileOption,EnumOption
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
@@ -94,10 +95,13 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             """)
 
     def open_config(self) -> NoReturn:
-        # TODO: Configfenster öffnen
+        """Creats and opens the settings-window for this Item"""
         #self.__config_window = ConfigView.ConfigView(self.__model.name, self.__model.config)
-        self.__config_window = ConfigView.ConfigView("Item")
-        print("Open Config of " + self.__class__.__name__)
+        config = ConfigModel.ConfigModel()
+        config.add_num_option(NumOption.NumOption("NumOption1"))
+        config.add_num_option(NumOption.NumOption("NumOption2", 13423545))
+        config.add_num_option(NumOption.NumOption("NumOption3", -234.65672))
+        self.__config_window = ConfigView.ConfigView("Item", config)
 
     def get_info_widget(self) -> QWidget:
         # TODO: infobar erstellen

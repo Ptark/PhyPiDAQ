@@ -42,6 +42,18 @@ class ConfigModel:
         return self.__enum_options.index(option)
 
     def add_num_option(self, option: NumOption) -> int:
+        """Adds an numerical option to this config
+
+        Adds an numerical option to this config.
+        The user can modify this option in generic generated settings-window.
+        Maximum size of name of this Option should be 32 Symbols
+
+        Args:
+            option (NumOption): Numerical option, which will be added to this config
+
+        Return:
+            int: Returns index from the added option in the list of NumOptions
+        """
         self.__num_options.append(option)
         return self.__num_options.index(option)
 
