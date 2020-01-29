@@ -11,7 +11,10 @@ class OptionView(QtWidgets.QWidget):
         super().__init__(parent)
         # Group-box and its layout
         self.__box = QtWidgets.QGroupBox()
-        self.__box.setTitle(name + ':')
+        if name == '':
+            self.__box.setTitle(name)
+        else:
+            self.__box.setTitle(name + ':')
         layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.__box)
         # Layout for the whole option

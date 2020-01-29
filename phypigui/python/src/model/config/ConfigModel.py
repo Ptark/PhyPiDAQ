@@ -30,6 +30,19 @@ class ConfigModel:
         return self.__num_options.copy()
 
     def add_bool_option(self, option: BoolOption) -> int:
+        """Adds an boolean option to this config
+
+        Adds an boolean option to this config.
+        The user can modify this option in generic generated settings-window.
+        Maximum size for the name of this option should be 50 Symbols.
+        Maximum size for the description of this option should be two lines with 50 Symbols each.
+
+        Args:
+            option (BoolOption): Boolean option, which will be added to this config
+
+        Return:
+            int: Returns index from the added option in the list of BoolOptions
+        """
         self.__bool_options.append(option)
         return self.__bool_options.index(option)
 
@@ -46,7 +59,8 @@ class ConfigModel:
 
         Adds an numerical option to this config.
         The user can modify this option in generic generated settings-window.
-        Maximum size of name of this Option should be two lines with 30 Symbols each
+        Maximum size for the name of this option should be 30 Symbols.
+        Maximum size for the description of this option should be two lines with 30 Symbols each.
 
         Args:
             option (NumOption): Numerical option, which will be added to this config
