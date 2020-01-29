@@ -39,7 +39,7 @@ class NumOptionView(OptionView):
         self.__error_label.setVisible(False)
 
         # Add text-field-widget to layout
-        self._layout.addWidget(self.__tf_widget)
+        self._option_layout.addWidget(self.__tf_widget)
 
         # Set text-field-layout as layout for text-field-widget
         self.__tf_widget.setLayout(self.__tf_layout)

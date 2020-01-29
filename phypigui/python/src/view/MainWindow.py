@@ -50,9 +50,11 @@ class MainWindow(QMainWindow):
 
         self.__main_widget.setLayout(layout)
         config = ConfigModel.ConfigModel()
-        config.add_num_option(NumOption.NumOption("NumOption1", 0, -20000.0000, 200000.00000))
-        config.add_num_option(NumOption.NumOption("NumOption2", 13423545, 0, 3234234242, 4))
+        config.add_num_option(NumOption.NumOption("Num\nOption1", 0, -20000.0000, 200000.00000))
+        config.add_num_option(NumOption.NumOption("123456789012345678901234567890", 13423545, 0, 3234234242, 4))
         config.add_num_option(NumOption.NumOption("NumOption3", -234.65672))
+        config.add_bool_option(BoolOption.BoolOption("BoolOption1"))
+        config.add_bool_option(BoolOption.BoolOption("12345678901234567890123456789012345678901234567890", True))
         #for i in range(0, 100):
         #    config.add_num_option(NumOption.NumOption(i.__str__(), 0))
         self.__config_window = ConfigView.ConfigView("Item", config)

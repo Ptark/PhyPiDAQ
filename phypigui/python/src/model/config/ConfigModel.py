@@ -46,7 +46,7 @@ class ConfigModel:
 
         Adds an numerical option to this config.
         The user can modify this option in generic generated settings-window.
-        Maximum size of name of this Option should be 32 Symbols
+        Maximum size of name of this Option should be two lines with 30 Symbols each
 
         Args:
             option (NumOption): Numerical option, which will be added to this config
