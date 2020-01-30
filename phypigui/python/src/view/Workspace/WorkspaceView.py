@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt, QRect, QPointF
 from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen, QWheelEvent
 from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
+from ...Exceptions import DuplicateWorkspaceItemException
 from ..Item import WorkspaceItemView
 
 
@@ -134,7 +135,11 @@ class WorkspaceView(QWidget):
         self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() - h_diff / 2)
 
     @staticmethod
-    def add_item(item: WorkspaceItemView) -> NoReturn:
+    def add_item(item: WorkspaceItemView, unique: bool = False) -> NoReturn:
+        if unique:
+            for i in WorkspaceView.items:
+                if i.__class__ is item.__class__:
+                    raise DuplicateWorkspaceItemException
         WorkspaceView.items.append(item)
 
     @staticmethod

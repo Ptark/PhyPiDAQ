@@ -1,38 +1,31 @@
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QEvent, pyqtSlot
+from typing import NoReturn
+
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
-#from python.src.model.manager import ManagerModel
+# from ...model.manager import ManagerModel
 
 
 class StartButtonView(QPushButton):
-    __start_image = "../resources/images/buttons/startknopf.png"
-    __stop_image = "../resources/images/buttons/stoppknopf.png"
-    is_started = False
-
     def __init__(self, parent):
         super().__init__(parent)
-        self.setFixedSize(31,31)
-        self.icon = QtGui.QIcon()
-        self.icon.addPixmap(QtGui.QPixmap(StartButtonView.__start_image))
-        self.setIcon(self.icon)
-        self.clicked.connect(self.on_click)
+
+        self.__is_started = False
+        self.__start_icon = QIcon("../resources/images/buttons/start.svg")
+        self.__stop_icon = QIcon("../resources/images/buttons/stop.svg")
+
+        self.setFixedSize(31, 31)
+        self.setIcon(self.__start_icon)
+        self.clicked.connect(self.__on_click)
 
     @pyqtSlot()
-    def on_click(self):
-        if not self.is_started:
-            #ManagerModel.start()
-            self.__change_icon()
-            self.is_started = True
+    def __on_click(self) -> NoReturn:
+        if self.__is_started:
+            # ManagerModel.stop()
+            self.setIcon(self.__start_icon)
         else:
-            #ManagerModel.stop()
-            self.__change_icon()
-            self.is_started = False
+            # ManagerModel.start()
+            self.setIcon(self.__stop_icon)
 
-    def __change_icon(self):
-        if self.is_started:
-            self.icon.addPixmap(QtGui.QPixmap(self.__start_image))
-            self.setIcon(self.icon)
-        else:
-            self.icon.addPixmap(QtGui.QPixmap(self.__stop_image))
-            self.setIcon(self.icon)
+        self.__is_started = not self.__is_started

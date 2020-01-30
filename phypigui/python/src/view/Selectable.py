@@ -3,6 +3,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from .InfoBar.InfoBarView import InfoBarView
 from .Workspace.WorkspaceView import WorkspaceView
 
 
@@ -46,6 +47,7 @@ class Selectable(ABC):
             WorkspaceView.selection = None
 
         self._update_selected_view()
+        InfoBarView.refresh_infobar()
 
     @abstractmethod
     def _update_selected_view(self) -> NoReturn:
@@ -73,3 +75,4 @@ class Selectable(ABC):
         """Deletes the component from the workspace"""
         if WorkspaceView.selection is self:
             WorkspaceView.selection = None
+            InfoBarView.refresh_infobar()
