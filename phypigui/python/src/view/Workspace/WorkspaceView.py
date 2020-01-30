@@ -5,7 +5,6 @@ from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen, 
 from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
 from ...Exceptions import DuplicateWorkspaceItemException
-from ..Item import WorkspaceItemView
 
 
 class WorkspaceContentView(QWidget):
@@ -135,7 +134,7 @@ class WorkspaceView(QWidget):
         self.__v_scroll_bar.setValue(self.__v_scroll_bar.value() - h_diff / 2)
 
     @staticmethod
-    def add_item(item: WorkspaceItemView, unique: bool = False) -> NoReturn:
+    def add_item(item: 'WorkspaceItemView', unique: bool = False) -> NoReturn:
         if unique:
             for i in WorkspaceView.items:
                 if i.__class__ is item.__class__:
@@ -149,7 +148,7 @@ class WorkspaceView(QWidget):
         wire.redraw_signal.connect(WorkspaceView.widget.update)
 
     @staticmethod
-    def delete_item(item: WorkspaceItemView) -> NoReturn:
+    def delete_item(item: 'WorkspaceItemView') -> NoReturn:
         WorkspaceView.items.remove(item)
 
     @staticmethod
