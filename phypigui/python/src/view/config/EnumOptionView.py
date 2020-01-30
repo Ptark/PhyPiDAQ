@@ -1,6 +1,6 @@
 from ...model.config.EnumOption import EnumOption
 from .OptionView import OptionView
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 from typing import NoReturn
 
 

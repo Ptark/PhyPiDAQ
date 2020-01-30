@@ -1,6 +1,7 @@
 from .OptionModel import OptionModel
 from typing import NoReturn
-import enum, copy
+import enum
+import copy
 
 
 class EnumOption(OptionModel):
