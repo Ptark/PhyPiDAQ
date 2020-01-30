@@ -9,7 +9,7 @@ class DistanceSensorItem(SensorItem):
         name: str = "Abstandssensor"
         description: str = "Der Abstandssensor misst den Abstand zu einem Objekt"
         config: ConfigModel = ConfigModel.ConfigModel()
-        config.add_num_option(NumOption.NumOption("Ausleserate", 100))
+        config.add_num_option(NumOption.NumOption("Ausleserate", "", 100))
         super().__init__(name, description, config, 1, None)  # VL53LxConfig())
 
     def get_unit(self) -> str:
