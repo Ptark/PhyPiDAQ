@@ -60,6 +60,7 @@ class DiagramFieldView(QWidget):
     def on_click(self):
         self.__dialog = Dialog(self.__list)
         self.__dialog.close_signal.connect(self.__update_diagrams)
+        self.__maximize_button.clearFocus()
 
     def __init_max_button(self):
         icon = QtGui.QIcon("../resources/images/buttons/maximize.svg")

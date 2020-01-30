@@ -8,8 +8,12 @@ from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class SettingsButtonView(QPushButton):
+    __button: 'SettingsButtonView'
+
     def __init__(self, parent):
         super().__init__(parent)
+
+        SettingsButtonView.__button = self
 
         self.setFixedSize(31, 31)
         self.setIcon(QIcon("../resources/images/buttons/settings.svg"))
@@ -19,3 +23,9 @@ class SettingsButtonView(QPushButton):
     def __on_click(self) -> NoReturn:
         if WorkspaceView.selection is not None:
             WorkspaceView.selection.open_config()
+
+        self.clearFocus()
+
+    @staticmethod
+    def click() -> NoReturn:
+        SettingsButtonView.__button.__on_click()

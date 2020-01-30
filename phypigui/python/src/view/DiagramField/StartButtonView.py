@@ -8,8 +8,12 @@ from PyQt5.QtWidgets import QPushButton
 
 
 class StartButtonView(QPushButton):
+    __button: 'StartButtonView'
+
     def __init__(self, parent):
         super().__init__(parent)
+
+        StartButtonView.__button = self
 
         self.__is_started = False
         self.__start_icon = QIcon("../resources/images/buttons/start.svg")
@@ -29,3 +33,9 @@ class StartButtonView(QPushButton):
             self.setIcon(self.__stop_icon)
 
         self.__is_started = not self.__is_started
+
+        self.clearFocus()
+
+    @staticmethod
+    def click() -> NoReturn:
+        StartButtonView.__button.__on_click()

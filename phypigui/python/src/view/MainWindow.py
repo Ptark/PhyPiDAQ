@@ -1,7 +1,10 @@
+from typing import NoReturn
+
 from PyQt5 import QtWidgets
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QKeyEvent
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QMainWindow
 
+from .KeyboardHandler import KeyboardHandler
 from .MenuBar.MenuBarView import MenuBarView
 from .List.ListFieldView import ListFieldView
 from .DiagramField.DiagramFieldView import DiagramFieldView
@@ -19,11 +22,10 @@ class MainWindow(QMainWindow):
         self.__workspace_field = WorkspaceView(self.__main_widget)
         self.__infobar_field = InfoBarView(None)
         self.__diagram_field = DiagramFieldView(None)
-        self.__config_window = None
 
         self.__init_ui()
 
-    def __init_ui(self):
+    def __init_ui(self) -> NoReturn:
         self.setWindowTitle('PhyPiDAQ')
         self.setWindowIcon(QIcon('../resources/images/PhiPi_icon.png'))
 
@@ -48,3 +50,6 @@ class MainWindow(QMainWindow):
         self.__main_widget.setLayout(layout)
 
         self.show()
+
+    def keyPressEvent(self, event: QKeyEvent) -> NoReturn:
+        KeyboardHandler.key_pressed(event)
