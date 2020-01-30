@@ -1,23 +1,21 @@
-from PyQt5 import QtGui
+from typing import NoReturn
+
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
-from ..Workspace import WorkspaceView
+from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class DeleteButtonView(QPushButton):
-    __icon_source = "../resources/images/buttons/deletebutton.png"
-
     def __init__(self, parent):
         super().__init__(parent)
+
         self.setFixedSize(31, 31)
-        self.icon = QtGui.QIcon()
-        self.icon.addPixmap(QtGui.QPixmap(self.__icon_source))
-        self.setIcon(self.icon)
-        self.clicked.connect(self.on_click)
+        self.setIcon(QIcon("../resources/images/buttons/delete.svg"))
+        self.clicked.connect(self.__on_click)
 
     @pyqtSlot()
-    def on_click(self):
-        selection = WorkspaceView.WorkspaceView.selection
-        if selection is not None:
-            selection.delete()
+    def __on_click(self) -> NoReturn:
+        if WorkspaceView.selection is not None:
+            WorkspaceView.selection.delete()
