@@ -3,6 +3,7 @@ from .BoolOption import BoolOption
 from .FileOption import FileOption
 from .EnumOption import EnumOption
 from .NumOption import NumOption
+import copy
 
 
 class ConfigModel:
@@ -15,19 +16,19 @@ class ConfigModel:
 
     @property
     def bool_options(self) -> List[BoolOption]:
-        return self.__bool_options.copy()
+        return copy.deepcopy(self.__bool_options)
 
     @property
     def file_options(self) -> List[FileOption]:
-        return self.__file_options.copy()
+        return copy.deepcopy(self.__file_options)
 
     @property
     def enum_options(self) -> List[EnumOption]:
-        return self.__enum_options.copy()
+        return copy.deepcopy(self.__enum_options)
 
     @property
     def num_options(self) -> List[NumOption]:
-        return self.__num_options.copy()
+        return copy.deepcopy(self.__num_options)
 
     def add_bool_option(self, option: BoolOption) -> int:
         """Adds an boolean option to this config
@@ -94,8 +95,8 @@ class ConfigModel:
             self.__file_options[index].path = path
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
-        if 0 <= index < len(self.__bool_options):
-            if 0 <= selection < len(self.__enum_options[index].samples()):
+        if 0 <= index < len(self.__enum_options):
+            if 0 <= selection < len(self.__enum_options[index].samples):
                 self.__enum_options[index].selection = selection
 
     def set_num_option(self, index: int, number: float) -> NoReturn:

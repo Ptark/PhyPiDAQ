@@ -22,7 +22,7 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
 
     @property
     def config(self) -> ConfigModel:
-        return copy.deepcopy(self._config)
+        return self._config
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
         """Sets the value of the Bool-Option on a specific index

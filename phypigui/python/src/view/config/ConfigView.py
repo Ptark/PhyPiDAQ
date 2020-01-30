@@ -11,7 +11,6 @@ from .OptionView import OptionView
 class ConfigView(QtWidgets.QWidget):
     __icon_source = "../resources/images/buttons/settingsbutton.png"
 
-   #def __init__(self, name: str, config: ConfigModel):
     def __init__(self, name: str, config: ConfigModel):
         QtWidgets.QWidget.__init__(self)
 
@@ -29,7 +28,7 @@ class ConfigView(QtWidgets.QWidget):
         for option in self.__config.enum_options:
             self.__enum_options.append(EnumOptionView(self, option))
 
-
+        # Configure sittings-window
         self.__title: str = name + ' Einstellungsfenster'
         self.__icon = QtGui.QIcon()
 
@@ -65,24 +64,19 @@ class ConfigView(QtWidgets.QWidget):
         scroll.setWidgetResizable(True)
 
         # Add options to layout
-
         for option in self.__file_options:
-            option_layout.addWidget(option)
+            option_layout.addWidget(option, 0, QtCore.Qt.AlignTop)
         for option in self.__enum_options:
-            option_layout.addWidget(option)
+            option_layout.addWidget(option, 0, QtCore.Qt.AlignTop)
         for option in self.__num_options:
-            option_layout.addWidget(option)
+            option_layout.addWidget(option, 0, QtCore.Qt.AlignTop)
         for option in self.__bool_options:
-            option_layout.addWidget(option)
-        end_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
-        option_layout.addWidget(end_widget, 10)
-        """
-        for i in range(0, 100):
-            option = OptionView(scroll, i.__str__())
-            option.setMinimumHeight(100)
-            option_layout.addWidget(option)
-"""
-    def __on_close(self) -> ConfigModel:
+            option_layout.addWidget(option, 0, QtCore.Qt.AlignTop)
+
+        # Add stretch-widget to option-layout
+        option_layout.addWidget(QtWidgets.QWidget(self), 10, QtCore.Qt.AlignBottom)
+
+    def __on_close(self) -> NoReturn:
         """
         config: ConfigModel = ConfigModel()
         for option in self.__file_options:
@@ -93,8 +87,15 @@ class ConfigView(QtWidgets.QWidget):
             config.add_num_option(option.option)
         for option in self.__bool_options:
             config.add_bool_option(option.option)
-        self.__config = config
-        """
+        self.__config = config"""
+        for option in self.__file_options:
+            self.__config.set_file_option(self.__file_options.index(option), option.option.path)
+        for option in self.__enum_options:
+            self.__config.set_enum_option(self.__enum_options.index(option), option.option.selection)
+        for option in self.__num_options:
+            self.__config.set_num_option(self.__num_options.index(option), option.option.number)
+        for option in self.__bool_options:
+            self.__config.set_bool_option(self.__bool_options.index(option), option.option.enabled)
 
     def closeEvent(self, close_event: QtGui.QCloseEvent):
         self.__on_close()

@@ -16,9 +16,9 @@ class EnumOption(OptionModel):
         return self.__selection
 
     @selection.setter
-    def selection(self, index: int) -> NoReturn:
-        if index >= 0:
-            self.__selection = index
+    def selection(self, selection_index: int) -> NoReturn:
+        if selection_index >= 0:
+            self.__selection = selection_index
 
     @property
     def samples(self) -> enum:

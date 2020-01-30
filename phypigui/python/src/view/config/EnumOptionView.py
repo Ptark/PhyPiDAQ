@@ -30,6 +30,6 @@ class EnumOptionView(OptionView):
     def option(self) -> EnumOption:
         return self.__option
 
-    def __set_option_data(self, new_index: int) -> NoReturn:
-        if 0 <= new_index < len(self.option.samples):
-            self.option.selection = new_index
+    def __set_option_data(self, selection_index: int) -> NoReturn:
+        if 0 <= selection_index < len(self.option.samples):
+            self.option.selection = selection_index
