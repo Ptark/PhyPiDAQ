@@ -106,6 +106,11 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         config.add_bool_option(BoolOption.BoolOption("12345678901234567890123456789012345678901234567890", "", True))
         config.add_enum_option(EnumOption.EnumOption("EnumOption1", EnumTest, "Beschreibung blablabla"))
         config.add_enum_option(EnumOption.EnumOption("", EnumTest, "EnumOption", 2))
+        config.add_file_option(FileOption.FileOption("FileOption1", "1234567890123456789012"))
+        config.add_file_option(FileOption.FileOption("1234567890123456789012", "Bescheibung\n tüdelü"))
+        config.add_file_option(FileOption.FileOption("", "", FileOption.FileOption.DIR))
+        config.add_file_option(FileOption.FileOption("Mit Name", "", FileOption.FileOption.ANYFILE, 'Textdokumente', ['txt', 'tex', 'pdf']))
+        config.add_file_option(FileOption.FileOption("Ohne Name", "", FileOption.FileOption.ANYFILE, '', ['png', 'ahmad']))
         self.__config_window = ConfigView.ConfigView("Item", config)
 
     def get_info_widget(self) -> QWidget:
