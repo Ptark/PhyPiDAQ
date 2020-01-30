@@ -97,7 +97,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def open_config(self) -> NoReturn:
         """Creates and opens the settings-window for this Item"""
-        self.__config_window = ConfigView(self.__model.name, self.__model.config)
+        self.__config_window = ConfigView(self._model.name, self._model.config)
 
     def get_info_widget(self) -> QWidget:
         # TODO: infobar erstellen
