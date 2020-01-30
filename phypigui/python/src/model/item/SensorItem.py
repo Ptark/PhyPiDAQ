@@ -13,7 +13,7 @@ class SensorItem(OutputItem, ABC):
 
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, sensor_config):
         self._device = sensor_config
-        self._device.init()
+        # self._device.init()
         self._buffer: [float] = []
         self._last_read_time: int = 0
         super().__init__(name, description, config, outputs)

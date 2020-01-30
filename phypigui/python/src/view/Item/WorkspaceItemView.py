@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
+from ...model.item.ItemModel import ItemModel
 from ...model.config import ConfigModel, NumOption, BoolOption, FileOption, EnumOption
 from .InputView import InputView
 from .OutputView import OutputView
@@ -29,7 +30,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         Draggable.__init__(self, parent, self.icon_path)
         Selectable.__init__(self)
 
-        #self.__model: ItemModel.ItemModel = None
+        self._model: ItemModel = None
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
 
@@ -117,7 +118,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def get_info_widget(self) -> QWidget:
         # TODO: infobar erstellen
         widget = QWidget()
-        QLabel(self.__class__.__name__, widget)
+        QLabel(self._model.name, widget)
         return widget
 
     def delete(self) -> NoReturn:

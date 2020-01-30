@@ -8,10 +8,10 @@ from ..workspace.WorkspaceModel import WorkspaceModel
 from typing import List, Callable, Dict
 
 
-class OperatorItem(ABC, InputItem, OutputItem):
+class OperatorItem(InputItem, OutputItem, ABC):
     """Superclass for all kind of operators"""
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
-        InputItem.__init__(self.super(), name, description, config, inputs)
+        InputItem.__init__(self, name, description, config, inputs)
         self._outputs: List[Output] = []
         for i in range(1, outputs):
             self._outputs.append(Output(self._id, i))
