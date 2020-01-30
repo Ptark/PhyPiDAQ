@@ -1,5 +1,4 @@
-from abc import ABC, abstractmethod
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 from typing import NoReturn, final
 
 
@@ -16,7 +15,7 @@ class OptionView(QtWidgets.QWidget):
         else:
             self.__box.setTitle(name + ':')
         layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
-        layout.addWidget(self.__box)
+        layout.addWidget(self.__box, 0, QtCore.Qt.AlignTop)
         # Layout for the whole option
         self._option_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout(self.__box)
         # Label, which stores name of option
@@ -25,5 +24,5 @@ class OptionView(QtWidgets.QWidget):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
-        # Add label and stretch-widget to option-layout
+        # Add description-label to option-layout
         self._option_layout.addWidget(self._description_label, 0, QtCore.Qt.AlignLeft)
