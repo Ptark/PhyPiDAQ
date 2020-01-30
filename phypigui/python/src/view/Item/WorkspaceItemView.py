@@ -6,14 +6,12 @@ from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
 from ...model.item.ItemModel import ItemModel
-from ...model.config import ConfigModel, NumOption, BoolOption, FileOption, EnumOption
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
 from ..Selectable import Selectable
 from ..Workspace.WorkspaceView import WorkspaceView
-from ..config import ConfigView
-from ..EnumTest import EnumTest
+from ..config.ConfigView import ConfigView
 
 
 class WorkspaceItemView(Draggable, Selectable, ABC):
@@ -99,21 +97,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def open_config(self) -> NoReturn:
         """Creates and opens the settings-window for this Item"""
-        #self.__config_window = ConfigView.ConfigView(self.__model.name, self.__model.config)
-        config = ConfigModel.ConfigModel()
-        config.add_num_option(NumOption.NumOption("Num\nOption1", "", 0, -20000.0000, 200000.00000))
-        config.add_num_option(NumOption.NumOption("123456789012345678901234567890", "", 13423545, 0, 3234234242, 4))
-        config.add_num_option(NumOption.NumOption("NumOption3", "", -234.65672))
-        config.add_bool_option(BoolOption.BoolOption("", 'BoolOption2'))
-        config.add_bool_option(BoolOption.BoolOption("12345678901234567890123456789012345678901234567890", "", True))
-        config.add_enum_option(EnumOption.EnumOption("EnumOption1", EnumTest, "Beschreibung blablabla"))
-        config.add_enum_option(EnumOption.EnumOption("", EnumTest, "EnumOption", 2))
-        config.add_file_option(FileOption.FileOption("FileOption1", "1234567890123456789012"))
-        config.add_file_option(FileOption.FileOption("1234567890123456789012", "Bescheibung\n tüdelü"))
-        config.add_file_option(FileOption.FileOption("", "", FileOption.FileOption.DIR))
-        config.add_file_option(FileOption.FileOption("Mit Name", "", FileOption.FileOption.ANYFILE, 'Textdokumente', ['txt', 'tex', 'pdf']))
-        config.add_file_option(FileOption.FileOption("Ohne Name", "", FileOption.FileOption.ANYFILE, '', ['png', 'ahmad']))
-        self.__config_window = ConfigView.ConfigView("Item", config)
+        self.__config_window = ConfigView(self.__model.name, self.__model.config)
 
     def get_info_widget(self) -> QWidget:
         # TODO: infobar erstellen
