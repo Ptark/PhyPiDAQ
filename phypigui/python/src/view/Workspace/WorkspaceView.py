@@ -1,3 +1,4 @@
+from copy import copy
 from typing import NoReturn, List
 
 from PyQt5.QtCore import Qt, QRect, QPointF
@@ -159,9 +160,9 @@ class WorkspaceView(QWidget):
 
     @staticmethod
     def delete_all() -> NoReturn:
-        for item in WorkspaceView.items:
+        for item in copy(WorkspaceView.items):
             item.delete()
-        for wire in WorkspaceView.wires:
+        for wire in copy(WorkspaceView.wires):
             wire.delete()
         WorkspaceView.items = []
         WorkspaceView.wires = []

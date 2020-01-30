@@ -2,6 +2,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QMenu, QWidget
 
+from ..Workspace.WorkspaceView import WorkspaceView
 from .LanguageAction import LanguageAction
 
 
@@ -13,7 +14,7 @@ class FileMenuView(QMenu):
         self.addAction(self.tr("Arbeitsflaeche leeren"), self.__clear_workspace)
 
     def __clear_workspace(self) -> NoReturn:
-        pass  # TODO
+        WorkspaceView.delete_all()
 
 
 class SettingsMenuView(QMenu):
