@@ -1,3 +1,5 @@
+from typing import NoReturn
+
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
@@ -15,10 +17,10 @@ class StartButtonView(QPushButton):
 
         self.setFixedSize(31, 31)
         self.setIcon(self.__start_icon)
-        self.clicked.connect(self.on_click)
+        self.clicked.connect(self.__on_click)
 
     @pyqtSlot()
-    def on_click(self):
+    def __on_click(self) -> NoReturn:
         if self.__is_started:
             # ManagerModel.stop()
             self.setIcon(self.__start_icon)
