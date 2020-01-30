@@ -27,16 +27,16 @@ class DivisionOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[0].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[1].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) / second_function(data)
 
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with division operator"""
 
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") / (" +\
-            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") / (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
 
 class AbsoluteOperatorItem(OperatorItem):
@@ -50,13 +50,13 @@ class AbsoluteOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[0].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         return lambda data: abs(first_function(data))
 
     def get_unit(self, output_number: int) -> str:
         """Returns the unit from input"""
 
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ")"
 
 
 class MultiplicationOperatorItem(OperatorItem):
@@ -70,16 +70,16 @@ class MultiplicationOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[0].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[1].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) * second_function(data)
 
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with multiplication operator"""
 
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") * (" +\
-            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") * (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
 
 class AdditionOperatorItem(OperatorItem):
@@ -93,16 +93,16 @@ class AdditionOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[0].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[1].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) + second_function(data)
 
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with addition operator"""
 
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") + (" +\
-            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") + (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
 
 class SubtractionOperatorItem(OperatorItem):
@@ -116,13 +116,13 @@ class SubtractionOperatorItem(OperatorItem):
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[0].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
-            WorkspaceModel.calculate_function(self._inputs[1].id())(data)
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) - second_function(data)
 
     def get_unit(self, output_number: int) -> str:
         """Returns the units from inputs and concatenate with subtraction operator"""
 
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id()) + ") - (" +\
-            WorkspaceModel.calculate_unit(self._inputs[1].id()) + ")"
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") - (" +\
+            WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
