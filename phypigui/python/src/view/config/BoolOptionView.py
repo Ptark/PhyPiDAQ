@@ -10,7 +10,7 @@ class BoolOptionView(OptionView):
         super().__init__(parent, option.name, option.description)
         self.__option: BoolOption = option
         # Checkbox
-        self.__checkbox: QtWidgets.QRadioButton = QtWidgets.QRadioButton()
+        self.__checkbox: QtWidgets.QCheckBox = QtWidgets.QCheckBox()
 
         self.__init_ui()
 
