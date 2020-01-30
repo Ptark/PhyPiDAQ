@@ -1,29 +1,44 @@
+from typing import NoReturn
+
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
-from python.src.view.InfoBar.DeleteButtonView import DeleteButtonView
-from python.src.view.InfoBar.SettingsButtonView import SettingsButtonView
-from python.src.view.Workspace import WorkspaceView
+from .DeleteButtonView import DeleteButtonView
+from .SettingsButtonView import SettingsButtonView
+from ..Workspace import WorkspaceView
 
 
 class InfoBarView(QWidget):
-    widget: QWidget
+    __infobar: 'InfoBarView' = None
 
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.delete_button = DeleteButtonView(self)
-        self.settings_button = SettingsButtonView(self)
+        InfoBarView.infobar = self
 
-        self.horizontal_layout = QHBoxLayout()  # for the info widget
-        self.vertical_layout = QVBoxLayout()  # for the buttons
+        self.__horizontal_layout: QHBoxLayout = QHBoxLayout()
+        self.__info_widget: QWidget = QWidget()
 
-        self.vertical_layout.addWidget(self.delete_button)
-        self.vertical_layout.addWidget(self.settings_button)
-        self.horizontal_layout.addStretch(1)
-        self.horizontal_layout.addLayout(self.vertical_layout)
-        self.setLayout(self.horizontal_layout)
+        self.__init_ui()
 
-    def refresh_infobar(self):
-        if not WorkspaceView.WorkspaceView.selection is None:
-            self.widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
-            self.horizontal_layout.addWidget(self.widget)
+    def __init_ui(self) -> NoReturn:
+        button_layout = QVBoxLayout()
+        button_layout.addWidget(DeleteButtonView(self))
+        button_layout.addWidget(SettingsButtonView(self))
+
+        self.__horizontal_layout.addWidget(self.__info_widget)
+        self.__horizontal_layout.addLayout(button_layout)
+
+        self.setLayout(self.__horizontal_layout)
+
+    def update_info_widget(self, widget: QWidget) -> NoReturn:
+        self.__horizontal_layout.replaceWidget(self.__info_widget, widget)
+        self.__info_widget.close()
+        self.__info_widget = widget
+
+    @staticmethod
+    def refresh_infobar() -> NoReturn:
+        if WorkspaceView.WorkspaceView.selection is not None:
+            widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
+        else:
+            widget = QWidget()
+        InfoBarView.infobar.update_info_widget(widget)

@@ -1,7 +1,7 @@
 from typing import NoReturn, Final
 
 from PyQt5.QtCore import pyqtSignal, QObject, QPoint
-from PyQt5.QtWidgets import QWidget, QMenu
+from PyQt5.QtWidgets import QWidget, QMenu, QLabel
 
 from ..Selectable import Selectable
 from .WorkspaceView import WorkspaceView
@@ -91,7 +91,10 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.redraw()
 
     def get_info_widget(self) -> QWidget:
-        pass
+        # TODO: infobar erstellen
+        widget = QWidget()
+        QLabel("Wire", widget)
+        return widget
 
     def open_config(self) -> NoReturn:
         pass

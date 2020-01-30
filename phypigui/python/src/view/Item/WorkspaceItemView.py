@@ -3,7 +3,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
 from ...model.config import ConfigModel, NumOption, BoolOption, FileOption, EnumOption
 from .InputView import InputView
@@ -111,7 +111,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def get_info_widget(self) -> QWidget:
         # TODO: infobar erstellen
-        return QWidget()
+        widget = QWidget()
+        QLabel(self.__class__.__name__, widget)
+        return widget
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
