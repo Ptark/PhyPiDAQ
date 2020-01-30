@@ -18,7 +18,7 @@ class SensorItemView(WorkspaceItemView, ABC):
     frame_path: Final[str] = ""  # TODO: frame erstellen
 
     def __init__(self, parent: QWidget, num_of_outputs: int = 1):
-        super().__init__(parent, 0, num_of_outputs)
+        super().__init__(parent, 0, num_of_outputs, True)
 
         # TODO: Model in jeder Klasse selbst hinzufügen
 

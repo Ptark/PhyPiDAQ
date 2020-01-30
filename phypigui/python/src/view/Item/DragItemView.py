@@ -5,6 +5,8 @@ from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
+from ..DialogView import DialogView
+from ...Exceptions import DuplicateWorkspaceItemException
 from .Draggable import Draggable
 from .WorkspaceItemView import WorkspaceItemView
 from ..Workspace.WorkspaceView import WorkspaceView
@@ -33,11 +35,15 @@ class DragItemView(Draggable, ABC):
         super(DragItemView, self).mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
-        if WorkspaceView.is_on_workspace(self):
-            item = self.__item(WorkspaceView.widget)
-            item.move(item.mapFrom(self.parent(), self.pos()))
-            item.show()
-
         self.releaseMouse()
         event.ignore()
         self.close()
+
+        if WorkspaceView.is_on_workspace(self):
+            try:
+                item = self.__item(WorkspaceView.widget)
+            except DuplicateWorkspaceItemException:
+                DialogView.show_warning(self.tr("Element schon auf Arbeitsfläche"), self.tr("Dieses Element kann nur einmal auf der Arbeitsfläche existieren."))
+            else:
+                item.move(item.mapFrom(self.parent(), self.pos()))
+                item.show()

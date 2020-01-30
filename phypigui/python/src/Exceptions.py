@@ -1,0 +1,2 @@
+class DuplicateWorkspaceItemException(Exception):
+    pass

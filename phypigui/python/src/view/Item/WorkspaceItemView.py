@@ -23,7 +23,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     """
     icon_path: str
 
-    def __init__(self, parent: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0):
+    def __init__(self, parent: QWidget, num_of_inputs: int = 0, num_of_outputs: int = 0, unique: bool = False):
+        WorkspaceView.add_item(self, unique)
+
         Draggable.__init__(self, parent, self.icon_path)
         Selectable.__init__(self)
 
@@ -44,7 +46,6 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.__context_menu)
 
-        WorkspaceView.add_item(self)
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
