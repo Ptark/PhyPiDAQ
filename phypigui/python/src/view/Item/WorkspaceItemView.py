@@ -134,6 +134,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
         if not WorkspaceView.is_on_workspace(self):
             self.move(self.__lastPos)
+            for inout in (self.__inputs + self.__outputs):
+                inout.redraw_wires()
             return
 
         super().mouseReleaseEvent(event)
