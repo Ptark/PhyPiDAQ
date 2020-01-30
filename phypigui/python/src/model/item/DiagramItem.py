@@ -32,7 +32,7 @@ class DiagramItem(InputItem):
 
 class BarDiagramItem(DiagramItem):
     """Class models a bar diagram item"""
-    def __int__(self):
+    def __init__(self):
         name: str = "Balkendiagramm"
         config: ConfigModel = ConfigModel()
         description: str = "Stellt die gemessenen Daten als Balkendiagramm dar"

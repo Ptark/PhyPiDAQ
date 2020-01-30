@@ -4,7 +4,7 @@ from ..item.SensorItem import SensorItem
 from ..config.ConfigModel import ConfigModel
 from ..config.EnumOption import EnumOption
 from ..config.NumOption import NumOption
-from ......phypidaq import DS18B20Config
+# from ......phypidaq import DS18B20Config
 
 
 class TemperatureSensorItem(SensorItem):
@@ -16,7 +16,7 @@ class TemperatureSensorItem(SensorItem):
         config: ConfigModel = ConfigModel()
         config.add_enum_option(EnumOption("Einheit", _TemperatureUnit))
         config.add_num_option(NumOption("Ausleserate", "", 100))
-        super().__init__(name, description, config, 1, DS18B20Config())
+        super().__init__(name, description, config, 1, None)  # DS18B20Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the currently selected unit"""

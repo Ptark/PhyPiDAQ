@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from ..item.ItemModel import ItemModel
 from ..item.Output import Output
-from ..item.SensorItem import SensorItem
 from ..workspace.WorkspaceModel import WorkspaceModel
 from typing import NoReturn, List, Dict
 from ..config.ConfigModel import ConfigModel
@@ -86,7 +85,7 @@ class OutputItem(ItemModel, ABC):
         for output in self._outputs:
             output.invalidate_function()
 
-    def calculate(self, data: Dict[SensorItem, List[float]]) -> NoReturn:
+    def calculate(self, data: Dict['SensorItem', List[float]]) -> NoReturn:
         """Plugs data in every lambda-function of its outputs und stores result
 
         Args:

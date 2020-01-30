@@ -3,6 +3,11 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
+from ...model.item.AccelerationSensorItem import AccelerationSensorItem
+from ...model.item.DistanceSensorItem import DistanceSensorItem
+from ...model.item.ForceSensorItem import ForceSensorItem
+from ...model.item.SensorItem import SensorItem
+from ...model.item.TemperatureSensorItem import TemperatureSensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 
@@ -15,12 +20,10 @@ class SensorItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    frame_path: Final[str] = ""  # TODO: frame erstellen
-
     def __init__(self, parent: QWidget, num_of_outputs: int = 1):
         super().__init__(parent, 0, num_of_outputs, True)
 
-        # TODO: Model in jeder Klasse selbst hinzufügen
+        self._model: SensorItem = None
 
 
 class TemperatureSensorItemView(SensorItemView):
@@ -34,6 +37,8 @@ class TemperatureSensorItemView(SensorItemView):
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
+        self._model: TemperatureSensorItem = TemperatureSensorItem()
+
 
 class ForceSensorItemView(SensorItemView):
     """Class for displaying an item of a force sensor on the workspace
@@ -45,6 +50,8 @@ class ForceSensorItemView(SensorItemView):
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
+
+        self._model: ForceSensorItem = ForceSensorItem()
 
 
 class DistanceSensorItemView(SensorItemView):
@@ -58,6 +65,8 @@ class DistanceSensorItemView(SensorItemView):
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
+        self._model: DistanceSensorItem = DistanceSensorItem()
+
 
 class AccelerationSensorItemView(SensorItemView):
     """Class for displaying an item of an acceleration sensor on the workspace
@@ -69,3 +78,5 @@ class AccelerationSensorItemView(SensorItemView):
 
     def __init__(self, parent: QWidget):
         super().__init__(parent)
+
+        self._model: AccelerationSensorItem = AccelerationSensorItem()
