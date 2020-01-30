@@ -1,6 +1,6 @@
 from .OptionModel import OptionModel
 from typing import NoReturn
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import List
 
 
@@ -16,7 +16,7 @@ class FileOption(OptionModel):
         self.__file_type: str = file_type
         self.__file_endings: List[str] = file_endings
 
-        self.__path: str = ''
+        self.__path: PurePath = PurePath()
 
     @property
     def file_mode(self) -> int:

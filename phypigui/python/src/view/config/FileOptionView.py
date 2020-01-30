@@ -2,6 +2,7 @@ from ...model.config.FileOption import FileOption
 from .OptionView import OptionView
 from PyQt5 import QtWidgets, QtCore
 from typing import NoReturn, List
+from pathlib import PurePath
 
 
 class FileOptionView(OptionView):
@@ -19,6 +20,9 @@ class FileOptionView(OptionView):
 
         self.__init_ui()
 
+        # Calculate letters per text-field
+        self.__l_count: int = int(self.__text_field.width() / 12)
+
         # Configure file-dialog
         self.__file_dialog: QtWidgets.QFileDialog = QtWidgets.QFileDialog(self)
         self.__init_dialog()
@@ -28,8 +32,10 @@ class FileOptionView(OptionView):
         self.__text_field.setText('')
         self.__text_field.setFixedSize(300, 40)
         self.__text_field.setEnabled(False)
-        self.__text_field.setText('/home/user')
+        self.__text_field.setText('Select path')
         self.__text_field.setToolTip('No path')
+        self.__text_field.setStyleSheet("QLineEdit { color: rgb(90, 90, 90); }")
+
         # Configure browse-button
         self.__browse_button.setText('...')
         self.__browse_button.setFixedSize(40, 40)
@@ -70,11 +76,25 @@ class FileOptionView(OptionView):
     def __on_click(self) -> NoReturn:
         paths: List[str] = []
         if self.__file_dialog.exec():
+            self.__file_dialog.setDirectory(str(self.__option.path))
             paths = self.__file_dialog.selectedFiles()
-            self.__set_option_data(str(paths[0]))
+            self.__set_option_data(PurePath(str(paths[0])))
 
-    def __set_option_data(self, path: str) -> NoReturn:
-        if path == '':
+    def __set_option_data(self, path: PurePath) -> NoReturn:
+        s_path: str = str(path)
+        text: str = ''
+        if s_path == '':
             return
-        self.__text_field.setText(path)
-        self.__option.path = path
+        elif len(s_path) > self.__l_count:
+            self.__option.path = path
+            self.__text_field.setToolTip(s_path)
+            file_name: str = path.name
+            print(file_name)
+            print(self.__l_count)
+            if len(file_name) > self.__l_count:
+                text = file_name
+            else:
+                text = s_path[:self.__l_count - len(file_name)] + ' [...] \\' + file_name
+        else:
+            text = s_path
+        self.__text_field.setText(text)
