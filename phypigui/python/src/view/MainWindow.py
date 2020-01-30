@@ -8,11 +8,6 @@ from .DiagramField.DiagramFieldView import DiagramFieldView
 from .InfoBar.InfoBarView import InfoBarView
 from .Workspace.WorkspaceView import WorkspaceView
 
-from ..model.config import ConfigModel, NumOption, EnumOption, FileOption, BoolOption
-from ..view.config import ConfigView
-from .EnumTest import EnumTest
-import enum
-
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -51,14 +46,5 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.__diagram_field, 3)
 
         self.__main_widget.setLayout(layout)
-        config = ConfigModel.ConfigModel()
-        config.add_file_option(FileOption.FileOption("FileOption1", "1234567890123456789012", FileOption.FileOption.ANYFILE))
-        config.add_file_option(FileOption.FileOption("1234567890123456789012", "Bescheibung\n tüdelü", FileOption.FileOption.EXISTINGFILE))
-        config.add_file_option(FileOption.FileOption("", "", FileOption.FileOption.DIR))
-        config.add_file_option(FileOption.FileOption("Mit Name", "", FileOption.FileOption.ANYFILE, 'Textdokumente', ['txt', 'tex', 'pdf']))
-        config.add_file_option(FileOption.FileOption("Ohne Name", "", FileOption.FileOption.ANYFILE, '', ['png', 'ahmad']))
-        #for i in range(0, 100):
-        #    config.add_num_option(NumOption.NumOption(i.__str__(), 0))
-        self.__config_window = ConfigView.ConfigView("Item", config)
 
         self.show()
