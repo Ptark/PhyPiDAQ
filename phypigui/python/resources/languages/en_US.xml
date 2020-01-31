@@ -1,0 +1,34 @@
+<data>
+    <item>
+		<source>Datei</source>
+		<translation>File</translation>
+	</item>
+    <item>
+		<source>Optionen</source>
+		<translation>Settings</translation>
+	</item>
+    <item>
+		<source>Hilfe</source>
+		<translation>Help</translation>
+	</item>
+    <item>
+		<source>Arbeitsfläche leeren</source>
+		<translation>Clear Workspace</translation>
+	</item>
+    <item>
+		<source>Sprache</source>
+		<translation>Language</translation>
+	</item>
+    <item>
+		<source>Deutsch</source>
+		<translation>German</translation>
+	</item>
+    <item>
+		<source>Englisch</source>
+		<translation>English</translation>
+	</item>
+    <item>
+		<source>Über</source>
+		<translation>About</translation>
+	</item>
+</data>
