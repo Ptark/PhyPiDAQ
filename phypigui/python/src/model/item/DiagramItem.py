@@ -32,6 +32,7 @@ class DiagramItem(InputItem):
 
 class BarDiagramItem(DiagramItem):
     """Class models a bar diagram item"""
+    
     def __init__(self):
         name: str = "Balkendiagramm"
         config: ConfigModel = ConfigModel()
@@ -41,8 +42,20 @@ class BarDiagramItem(DiagramItem):
 
 class TimeDiagramItem(DiagramItem):
     """Class models a time diagram item"""
+    
     def __init__(self):
         name: str = "Zeitdiagramm"
         description = "Stellt die gemessenen Daten als Zeitdiagramm dar"
         config = ConfigModel()
         super().__init__(name, description, config, 1)
+
+
+class DualDiagramItem(DiagramItem):
+    """Class models a dual diagram item"""
+
+    def __init__(self):
+        name: str = "2D-Diagramm"
+        description = "Stellt die gemessenen Daten als 2D-Diagramm dar"
+        config = ConfigModel()
+        super().__init__(name, description, config, 2)
+
