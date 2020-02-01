@@ -19,13 +19,13 @@ class DiagramItem(InputItem):
         super().__init__(name, description, config, input_count)
 
     def calculate_functions(self) -> bool:
-        for i in range(0, self.get_number_of_inputs() - 1):
+        for i in range(0, self.get_count_of_inputs() - 1):
             self._functions[i] = WorkspaceModel.calculate_function(self._inputs[i].id)
             self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
         return True
 
     def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
-        for i in range(0, self.get_number_of_inputs() - 1):
+        for i in range(0, self.get_count_of_inputs() - 1):
             self._data[i] = self._functions[i](sensor_data)
         return True
 
