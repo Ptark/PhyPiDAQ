@@ -1,34 +1,51 @@
 from __future__ import annotations
 
 import time
+
 from abc import ABC
+from typing import List, Callable, Dict, NoReturn
 
 from ..item.OutputItem import OutputItem
 from ..config.ConfigModel import ConfigModel
-from typing import List, Callable, Dict, NoReturn
 
 
 class SensorItem(OutputItem, ABC):
-    """Superclass for all kind of sensors"""
+    """This class is a superclass for all kind of SensorItems"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, sensor_config):
-        self._device = sensor_config
-        # self._device.init()
-        self._buffer: [float] = []
-        self._last_read_time: int = 0
+        """Initialising a SensorItem object
+
+        Args:
+            name (str): Name of this SensorItem
+            description (str): Description of this SensorItem
+            config (ConfigModel): A configuration of adjustable options for this SensorItem
+            outputs (int): Count of outputs for this SensorItem
+            sensor_config: Configuration of a sensor from PhyPiDAQ
+        """
         super().__init__(name, description, config, outputs)
 
-    def get_device(self):
-        """returns the sensor config"""
+        self._device = sensor_config
+        # self._device.init()
+        self._buffer: List[float] = []
+        self._last_read_time: int = 0
+
+    @property
+    def device(self):
+        """Configuration (from PhyPiDAQ) of a sensor, this SensorItem represents"""
         return self._device
+
+    @property
+    def buffer(self) -> List[float]:
+        """Buffer, which contains the last read data from the hardware sensor"""
+        return self._buffer
 
     def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
         function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: data[self][output_number]
         return function
 
-    def read(self) -> [float]:
-        """read data from physical sensor and return _buffer which holds the measured data"""
-        data: [float] = [0][1][2]
+    def read(self) -> List[float]:
+        """read data from physical sensor and return _buffer which holds the measured data""" # TODO doc
+        data: [float] = [0][1][2]   # TODO watttt?
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
 
@@ -41,15 +58,17 @@ class SensorItem(OutputItem, ABC):
         return self._buffer
 
     def close(self) -> NoReturn:
-        """close sensor if needed"""
+        """Close sensor if needed""" # TODO doc
         self._device.closeDevice()
 
-    def get_last_read_time(self) -> int:
-        """returns the last read time from sensor"""
-        return self._last_read_time
+    def get_last_read_time(self) -> int:    # TODO unit of time??
+        """Returns the last read time of this SensorItem
 
-    def get_buffer(self) -> [float]:
-        """returns _buffer which holds the measured data"""
-        return self._buffer
+        This method return the last time read() was called for this SensorItem
+
+        Returns:
+            int: Last read time
+        """
+        return self._last_read_time
 
 
