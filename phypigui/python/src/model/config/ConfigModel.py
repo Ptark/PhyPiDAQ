@@ -1,14 +1,22 @@
+import copy
+
 from typing import List, NoReturn
+from pathlib import PurePath
+
 from .BoolOption import BoolOption
 from .FileOption import FileOption
 from .EnumOption import EnumOption
 from .NumOption import NumOption
-import copy
 
 
 class ConfigModel:
+    """This class represents an configuration of options of a Drag and Drop item
+
+    A configuration contains one list per option type
+    """
 
     def __init__(self):
+        """Initialising an ConfigModel object"""
         self.__bool_options: List[BoolOption] = []
         self.__file_options: List[FileOption] = []
         self.__enum_options: List[EnumOption] = []
@@ -16,18 +24,22 @@ class ConfigModel:
 
     @property
     def bool_options(self) -> List[BoolOption]:
+        """List of all boolean options in this config"""
         return copy.deepcopy(self.__bool_options)
 
     @property
     def file_options(self) -> List[FileOption]:
+        """List of all path-selecting options in this config"""
         return copy.deepcopy(self.__file_options)
 
     @property
     def enum_options(self) -> List[EnumOption]:
+        """List of all enumerable options in this config"""
         return copy.deepcopy(self.__enum_options)
 
     @property
     def num_options(self) -> List[NumOption]:
+        """List of all numerical options in this config"""
         return copy.deepcopy(self.__num_options)
 
     def add_bool_option(self, option: BoolOption) -> int:
@@ -100,18 +112,50 @@ class ConfigModel:
         return self.__num_options.index(option)
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
+        """Sets the value of a BoolOption
+
+        Sets the value of a BoolOption on a specific index in the list of this config, if index is valid.
+
+        Args:
+            index (int): Index of option, which will be set
+            value (bool): Value on which the option will be set
+        """
         if 0 <= index < len(self.__bool_options):
             self.__bool_options[index].enabled = value
 
-    def set_file_option(self, index: int, path: str) -> NoReturn:
+    def set_file_option(self, index: int, path: PurePath) -> NoReturn:
+        """Sets the path of a FileOption
+
+        Sets the path of a FileOption on a specific index in the list of this config, if index is valid.
+
+        Args:
+            index (int): Index of option, which will be set
+            path (PurePath): Path on which the option will be set
+        """
         if 0 <= index < len(self.__file_options):
             self.__file_options[index].path = path
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
+        """Sets the selection of an EnumOption
+
+        Sets the selection of an EnumOption on a specific index in the list of this config, if index is valid.
+
+        Args:
+            index (int): Index of option, which will be set
+            selection (int): Selection on which the option will be set
+        """
         if 0 <= index < len(self.__enum_options):
             if 0 <= selection < len(self.__enum_options[index].samples):
                 self.__enum_options[index].selection = selection
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
+        """Sets the number of a NumOption
+
+        Sets the number of a NumOption on a specific index in the list of this config, if index is valid.
+
+        Args:
+            index (int): Index of option, which will be set
+            number (float): Number on which the option will be set
+        """
         if 0 <= index < len(self.__num_options):
             self.__num_options[index].number = number
