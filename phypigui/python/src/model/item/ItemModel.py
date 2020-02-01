@@ -1,73 +1,85 @@
 from abc import ABC
+from typing import NoReturn
+from pathlib import PurePath
+
+from ..Model import Model
 from ..NameableRO import NameableRO
 from ..Describable import Describable
 from ..Identifiable import Identifiable
-from ..Model import Model
 from ..config.ConfigModel import ConfigModel
-from typing import NoReturn
-import copy
 
 
 class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
-    """Abstract class models an item (Sensor, Operator, Diagram).
+    """This class contains the basic structure for all Drag and Drop items"""
 
-   Attributes:
-        _config (ConfigModel): Holds the configuration of the ItemModel
-    """
     def __init__(self, name: str, description: str, config: ConfigModel, item_id: int):
+        """Initialising an ItemModel object
+
+        Args:
+            name (str): Name of this item
+            description (str): Description of this item
+            config (ConfigModel): A configuration of adjustable options for this item
+            item_id (int): ID of this item
+        """
         NameableRO.__init__(self, name)
         Describable.__init__(self, description)
         Identifiable.__init__(self, item_id)
+
         self._config: ConfigModel = config
 
     @property
     def config(self) -> ConfigModel:
+        """Configuration of options for this item"""
         return self._config
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
-        """Sets the value of the Bool-Option on a specific index
+        """Sets the value of a BoolOption on a specific index
 
         Args:
-            index (int): Index of the Bool-Option in the List of all Bool-Options for this item
-            value (bool): Value, on which the value of the Bool-Option will be set
+            index (int): Index of the BoolOption in the config of this item
+            value (bool): Value, on which the value of the BoolOption will be set
+
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self._config.bool_options[index] is not None)
+        assert(len(self._config.bool_options) > index)
         self._config.set_bool_option(index, value)
 
-    def set_file_option(self, index: int, path: str) -> NoReturn:
-        """Sets the path of the File-Option on a specific index
+    def set_file_option(self, index: int, path: PurePath) -> NoReturn:
+        """Sets the path of a FileOption on a specific index
 
         Args:
-            index (int): Index of the File-Option in the List of all File-Options for this item
-            path (str): Path, on which the path of the File-Option will be set
+            index (int): Index of the FileOption in the config of this item
+            path (str): Path, on which the path of the FileOption will be set
+
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self._config.file_options[index] is not None)
+        assert(len(self._config.file_options) > index)
         self._config.set_file_option(index, path)
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
-        """Sets the selection of the Bool-Option on a specific index
+        """Sets the selection of a EnumOption on a specific index
 
         Args:
-            index (int): Index of the Enum-Option in the List of all Enum-Options for this item
-            selection (int): Selection-index, on which the selection of the Enum-Option will be set
+            index (int): Index of the EnumOption in the config of this item
+            selection (int): Selection-index, on which the selection of the EnumOption will be set
+
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self._config.enum_options[index] is not None)
+        assert(len(self._config.enum_options) > index)
         self._config.set_enum_option(index, selection)
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
-        """Sets the number of the Num-Option on a specific index
+        """Sets the number of a NumOption on a specific index
 
         Args:
-            index (int): Index of the Num-Option in the List of all Num-Options for this item
-            number (float): Number, on which the number of the Num-Option will be set
+            index (int): Index of the NumOption in the config of this item
+            number (float): Number, on which the number of the NumOption will be set
+
         Raises:
             AssertionError: If the specified index doesnt exist
         """
-        assert(self._config.num_options[index] is not None)
+        assert(len(self._config.num_options) > index)
         self._config.set_num_option(index, number)
