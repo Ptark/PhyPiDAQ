@@ -1,7 +1,21 @@
 from typing import Dict, NoReturn, List, Callable
 
+#from ..item.Input import Input
+#from ..item.InputItem import InputItem
+#from ..item.Output import Output
+#from ..item.OutputItem import OutputItem
+#from ..item.Connection import Connection
+
 
 class WorkspaceModel:
+    """This class represents the workspace in the model
+
+    This class has only static attributes and holds lists of all items, inputs, outputs and connections in the
+    workspace.
+    WorkspaceModel manages all connections between Drag and Drop items and distributes IDs for every input, output and
+    item.
+    """
+
     __next_id: int = 0
     __input_list: Dict[int, 'Input'] = {}
     __output_list: Dict[int, 'Output'] = {}
@@ -45,7 +59,7 @@ class WorkspaceModel:
 
     @staticmethod
     def check_input_id(input_id: int) -> bool:
-        """Checks of an input with this ID exists
+        """Checks, if an input with this ID exists
 
         Args:
             input_id (int): ID to be checked
@@ -57,7 +71,7 @@ class WorkspaceModel:
 
     @staticmethod
     def check_output_id(output_id: int) -> bool:
-        """Checks of an output with this ID exists
+        """Checks, if an output with this ID exists
 
                 Args:
                     output_id (int): ID to be checked
@@ -69,7 +83,7 @@ class WorkspaceModel:
 
     @staticmethod
     def check_item_id(item_id: int) -> bool:
-        """Checks of an item with this ID exists
+        """Checks, if an item with this ID exists
 
                 Args:
                     item_id (int): ID to be checked
@@ -126,7 +140,7 @@ class WorkspaceModel:
         The returned ID should set as id for this item.
 
         Args:
-            item (InputItem.InputItem): Item, which will be added to the list
+            item (InputItem): Item, which will be added to the list
 
         Returns:
             int: Next free ID
@@ -145,7 +159,7 @@ class WorkspaceModel:
         The returned ID should set as id for this item.
 
         Args:
-            item (OutputItem.OutputItem): Item, which will be added to the list
+            item (OutputItem): Item, which will be added to the list
 
         Returns:
             int: Next free ID
@@ -231,14 +245,14 @@ class WorkspaceModel:
     def connect(input_id: int, output_id: int) -> bool:
         """Connects two items
 
-            Connects two items and updates there attributes
+        Connects two items and updates there attributes
 
-            Args:
-                input_id (int): Input-ID of input, which is part of connection
-                output_id (int): Output-ID of output, which is part of connection
+        Args:
+            input_id (int): ID of input, which is part of connection
+            output_id (int): ID of output, which is part of connection
 
-            Returns:
-                bool: False, if no input with input_id or output with output_id exists or if input is already connected
+        Returns:
+            bool: False, if no input with input_id or output with output_id exists or if input is already connected
         """
         if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
             if input_id not in WorkspaceModel.__connection_list:
