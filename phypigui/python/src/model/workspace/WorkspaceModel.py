@@ -73,39 +73,39 @@ class WorkspaceModel:
     def check_output_id(output_id: int) -> bool:
         """Checks, if an output with this ID exists
 
-                Args:
-                    output_id (int): ID to be checked
+        Args:
+            output_id (int): ID to be checked
 
-                 Returns:
-                     bool: False, if no output with this ID exists
-                """
+        Returns:
+            bool: False, if no output with this ID exists
+        """
         return output_id in WorkspaceModel.__output_list
 
     @staticmethod
     def check_item_id(item_id: int) -> bool:
         """Checks, if an item with this ID exists
 
-                Args:
-                    item_id (int): ID to be checked
+        Args:
+            item_id (int): ID to be checked
 
-                 Returns:
-                     bool: False, if no item with this ID exists
-                """
+        Returns:
+            bool: False, if no item with this ID exists
+        """
         return item_id in WorkspaceModel.__output_item_list or item_id in WorkspaceModel.__input_item_list
 
     @staticmethod
     def add_input(input: 'Input') -> int:
         """Adds an Input-Object to global list of inputs
 
-            Adds an Input-Object to global list of inputs and returns next free ID.
-            This method is called every time a Input-Object was created.
-            The returned ID should set as id for this input.
+        Adds an Input-Object to global list of inputs and returns next free ID.
+        This method is called every time a Input-Object was created.
+        The returned ID should set as id for this input.
 
-            Args:
-                input (Input): Input, which will be added to the list
+        Args:
+            input (Input): Input, which will be added to the list
 
-            Returns:
-                int: Next free ID
+        Returns:
+            int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
