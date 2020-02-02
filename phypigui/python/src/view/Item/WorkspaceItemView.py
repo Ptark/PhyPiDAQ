@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
+from ..Translator import Translator
 from ...model.item.ItemModel import ItemModel
 from .InputView import InputView
 from .OutputView import OutputView
@@ -71,8 +72,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
                 pos (QPoint): Position at which the menu should appear.
         """
         menu = QMenu()
-        menu.addAction(self.tr("Einstellungen"), self.open_config)
-        menu.addAction(self.tr("Entfernen"), self.delete)
+        menu.addAction(Translator.tr("Einstellungen"), self.open_config)
+        menu.addAction(Translator.tr("Entfernen"), self.delete)
         menu.exec(self.mapToGlobal(pos))
 
     def _on_click(self) -> NoReturn:
@@ -100,9 +101,21 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.__config_window = ConfigView(self._model.name, self._model.config)
 
     def get_info_widget(self) -> QWidget:
-        # TODO: infobar erstellen
         widget = QWidget()
-        QLabel(self._model.name, widget)
+
+        name = QLabel(Translator.tr(self._model.name))
+        desc = QLabel(Translator.tr(self._model.description))
+        desc.setWordWrap(True)
+
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(10)
+
+        layout.addWidget(name)
+        layout.addWidget(desc)
+        layout.addStretch()
+
+        widget.setLayout(layout)
         return widget
 
     def delete(self) -> NoReturn:

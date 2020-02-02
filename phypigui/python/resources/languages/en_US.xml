@@ -31,4 +31,12 @@
 		<source>Über</source>
 		<translation>About</translation>
 	</item>
+    <item>
+		<source>Einstellungen</source>
+		<translation>Settings</translation>
+	</item>
+    <item>
+		<source>Entfernen</source>
+		<translation>Delete</translation>
+	</item>
 </data>

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QMenu, QLabel
 
 from ..Selectable import Selectable
 from .WorkspaceView import WorkspaceView
+from ..Translator import Translator
 
 
 class WireViewMeta(type(Selectable), type(QObject)):
@@ -84,7 +85,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
                 pos (QPoint): Position at which the menu should appear.
         """
         menu = QMenu()
-        menu.addAction(self.tr("Entfernen"), self.delete)
+        menu.addAction(Translator.tr("Entfernen"), self.delete)
         menu.exec(pos)
 
     def _update_selected_view(self) -> NoReturn:

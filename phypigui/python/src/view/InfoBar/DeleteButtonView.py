@@ -4,6 +4,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
+from ..Translator import Translator
 from ..Workspace.WorkspaceView import WorkspaceView
 
 
@@ -18,6 +19,11 @@ class DeleteButtonView(QPushButton):
         self.setFixedSize(31, 31)
         self.setIcon(QIcon("../resources/images/buttons/delete.svg"))
         self.clicked.connect(self.__on_click)
+        Translator.language_changed.signal.connect(self.__update_text)
+        self.__update_text()
+
+    def __update_text(self) -> NoReturn:
+        self.setToolTip(Translator.tr("Entfernen"))
 
     @pyqtSlot()
     def __on_click(self) -> NoReturn:

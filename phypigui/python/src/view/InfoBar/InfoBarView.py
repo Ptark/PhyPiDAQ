@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from .DeleteButtonView import DeleteButtonView
 from .SettingsButtonView import SettingsButtonView
+from ..Translator import Translator
 from ..Workspace import WorkspaceView
 
 
@@ -18,6 +19,7 @@ class InfoBarView(QWidget):
         self.__horizontal_layout: QHBoxLayout = QHBoxLayout()
         self.__info_widget: QWidget = QWidget()
 
+        Translator.language_changed.signal.connect(InfoBarView.refresh_infobar)
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
