@@ -39,7 +39,7 @@ class SensorItem(OutputItem, ABC):
         """Buffer, which contains the last read data from the hardware sensor"""
         return self._buffer
 
-    def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
+    def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: data[self][output_number]
         return function
 

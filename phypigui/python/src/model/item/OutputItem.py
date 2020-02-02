@@ -3,7 +3,7 @@ from typing import NoReturn, List, Dict, Callable
 
 from ..item.Output import Output
 from ..item.ItemModel import ItemModel
-from ..item.SensorItem import SensorItem
+#from ..item.SensorItem import SensorItem
 from ..config.ConfigModel import ConfigModel
 from ..workspace.WorkspaceModel import WorkspaceModel
 
@@ -27,12 +27,13 @@ class OutputItem(ItemModel, ABC):
             self._outputs.append(Output(self._id, i))
 
     @abstractmethod
-    def get_rule(self, output_number: int) -> Callable[[Dict[SensorItem, List[float]]], float]:
+    def get_rule(self, output_number: int = 0) -> NoReturn: #Callable[[Dict[SensorItem, List[float]]], float]: # TODO Cange SensorItem to OutputItem?
         """Construct for an output on a specific index its lambda-function and returns it
 
         This method calls all previous items to construct their lambda-functions and constructs with these a new
         lambda-function for the specified output.
         Returns a constant zero lambda-function, if this item has no valid connections to enough SensorItems.
+        The standard output_number is zero.
 
         Args:
             output_number (int): Index of the output in this item
@@ -44,12 +45,13 @@ class OutputItem(ItemModel, ABC):
         pass
 
     @abstractmethod
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         """Construct for an output on a specific index its unit and returns it
 
         This method calls all previous items to construct their units and constructs with these a new
         unit for the specified output.
         Returns a empty string, if this item has no valid connections to enough SensorItems.
+        The standard output_number is zero.
 
         Args:
             output_number (int): Index of the output in this item

@@ -50,7 +50,7 @@ class DivisionOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) / second_function(data)
 
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") / (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
@@ -74,7 +74,7 @@ class AbsoluteOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         return lambda data: abs(first_function(data))
 
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ")"
 
 
@@ -99,7 +99,7 @@ class MultiplicationOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) * second_function(data)
 
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") * (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
@@ -124,7 +124,7 @@ class AdditionOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) + second_function(data)
 
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") + (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
 
@@ -149,6 +149,6 @@ class SubtractionOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[1].id)(data)
         return lambda data: first_function(data) - second_function(data)
 
-    def get_unit(self, output_number: int) -> str:
+    def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") - (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
