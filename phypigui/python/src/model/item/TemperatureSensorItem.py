@@ -16,7 +16,7 @@ class TemperatureSensorItem(SensorItem):
         CELSIUS = 'Celsius'
 
     def __init__(self):
-        """Initialising an TemperatureSensorItem object"""
+        """Initialising a TemperatureSensorItem object"""
         name: str = "Temperatursensor"
         description: str = "Der Temperatursensor misst die Temperatur in Grad Celsius oder Kelvin"
 
