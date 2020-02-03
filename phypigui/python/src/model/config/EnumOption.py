@@ -1,7 +1,7 @@
-import enum
+from enum import Enum
 import copy
 
-from typing import NoReturn
+from typing import NoReturn, Type
 
 from .OptionModel import OptionModel
 
@@ -13,7 +13,7 @@ class EnumOption(OptionModel):
     Only the values of the enum will be excepted from this option.
     """
 
-    def __init__(self, name: str, samples: enum, description: str = '', start_selection: int = 0):
+    def __init__(self, name: str, samples: Type[Enum], description: str = '', start_selection: int = 0):
         """Initialising an BoolOption object
 
         Args:
@@ -24,7 +24,7 @@ class EnumOption(OptionModel):
         """
         super().__init__(name, description)
 
-        self.__samples: enum = samples
+        self.__samples: Type[Enum] = samples
         self.__selection: int = start_selection
 
     @property
@@ -38,6 +38,6 @@ class EnumOption(OptionModel):
             self.__selection = selection_index
 
     @property
-    def samples(self) -> enum:
+    def samples(self) -> Type[Enum]:
         """Enum of all possible values for this option"""
         return copy.deepcopy(self.__samples)
