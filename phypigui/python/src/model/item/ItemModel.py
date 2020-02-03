@@ -24,6 +24,7 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
         NameableRO.__init__(self, name)
         Describable.__init__(self, description)
         Identifiable.__init__(self, item_id)
+        Model.__init__(self)
 
         self._config: ConfigModel = config
 

@@ -1,5 +1,6 @@
 from typing import List, Callable, Dict
 
+from ..manager.ManagerModel import ManagerModel
 from ..item.InputItem import InputItem
 from ..item.SensorItem import SensorItem
 from ..config.ConfigModel import ConfigModel
@@ -28,6 +29,8 @@ class DiagramItem(InputItem):
             self._functions.append(lambda data: 0)
             self._data.append(0)
             self._unit.append('')
+
+        ManagerModel.add_diagram(self)
 
     @property
     def data(self) -> List[float]:

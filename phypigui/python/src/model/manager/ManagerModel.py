@@ -2,10 +2,6 @@ import copy
 
 from typing import Dict, List, NoReturn
 
-from ..item.SensorItem import SensorItem
-from ..item.DiagramItem import DiagramItem
-from ..item.OutputItem import OutputItem
-
 
 class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
@@ -18,11 +14,11 @@ class ManagerModel:
     The main methods of this class are start() and stop().
     """
 
-    __sensors: List[SensorItem] = []
-    __diagrams: List[DiagramItem] = []
-    __sensor_data: Dict[SensorItem, List[float]] = {}
+    __sensors: List['SensorItem'] = []
+    __diagrams: List['DiagramItem'] = []
+    __sensor_data: Dict['SensorItem', List[float]] = {}
     __running: bool = False
-    __selected_item: OutputItem = None
+    __selected_item: 'OutputItem' = None
 
     @staticmethod
     def __init_functions() -> NoReturn:
@@ -44,7 +40,7 @@ class ManagerModel:
         return ManagerModel.__running
 
     @staticmethod
-    def get_selected_item() -> OutputItem:
+    def get_selected_item() -> 'OutputItem':
         """Returns a copy of the current selected OutputItem
 
         Returns:
@@ -54,7 +50,7 @@ class ManagerModel:
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def set_selected_item(selected: OutputItem) -> NoReturn:
+    def set_selected_item(selected: 'OutputItem') -> NoReturn:
         """Sets current selected OutputItem
 
         Args:
@@ -63,7 +59,7 @@ class ManagerModel:
         ManagerModel.__selected_item = selected
 
     @staticmethod
-    def add_sensor(sensor: SensorItem) -> NoReturn:
+    def add_sensor(sensor: 'SensorItem') -> NoReturn:
         """Adds a SensorItem to the global list of SensorItems
 
         This method is typically called in the constructor of a SensorItem to add it to the list.
@@ -75,7 +71,7 @@ class ManagerModel:
         ManagerModel.__sensor_data[sensor] = []
 
     @staticmethod
-    def delete_sensor(sensor: SensorItem) -> NoReturn:
+    def delete_sensor(sensor: 'SensorItem') -> NoReturn:
         """Deletes a SensorItem from the global list of SensorItems
 
         This method is typically called in the destructor af a SensorItem.
@@ -87,7 +83,7 @@ class ManagerModel:
         ManagerModel.__sensor_data.pop(sensor)
 
     @staticmethod
-    def add_diagram(diagram: DiagramItem) -> NoReturn:
+    def add_diagram(diagram: 'DiagramItem') -> NoReturn:
         """Adds a DiagramItem to the global list of DiagramItems
 
         This method is typically called in the constructor of a DiagramItem to add it to the list.
@@ -98,7 +94,7 @@ class ManagerModel:
         ManagerModel.__diagrams.append(diagram)
 
     @staticmethod
-    def delete_diagram(diagram: DiagramItem) -> NoReturn:
+    def delete_diagram(diagram: 'DiagramItem') -> NoReturn:
         """Deletes a DiagramItem from the global list of DiagramItems
 
         This method is typically called in the destructor af a DiagramItem.
