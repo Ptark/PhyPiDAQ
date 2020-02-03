@@ -7,6 +7,6 @@ class View(ABC):
 
         It can attach itself to a model to receive updates from it.
     """
-    def update(self) -> NoReturn:
+    def update_view(self) -> NoReturn:
         """Is called when a model it is subscribed to, broadcasts an update"""
         pass
