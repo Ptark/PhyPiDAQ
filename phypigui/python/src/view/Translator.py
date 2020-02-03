@@ -3,24 +3,36 @@ from xml.dom import minidom
 
 from PyQt5.QtCore import QLocale, pyqtSignal, QObject
 
-path = '../resources/languages/'
-
-
-class Signal(QObject):
-    signal = pyqtSignal()
-
 
 class Translator:
+    """Static class for getting translations and changing languages
+
+        Attributes:
+            language_changed (Signal): Emits updates when the language is changed.
+    """
+
+    class Signal(QObject):
+        signal = pyqtSignal()
+
     __translator: Dict[str, str] = None
     language_changed: Signal = Signal()
 
     @staticmethod
     def install_translator(language: int) -> bool:
+        """Installs a translator with the given language
+
+            Args:
+                language (int): A Qt language from QLocale. (e.g.: QLocale.English)
+
+            Returns:
+                bool: If the installation was successful.
+                    Mostly depends on if the given language has a language file in /resources/languages/.
+        """
         if language == QLocale.German:
             Translator.__translator = None
         else:
             try:
-                items = minidom.parse(path + QLocale(language).name() + '.xml').getElementsByTagName('item')
+                items = minidom.parse('../resources/languages/' + QLocale(language).name() + '.xml').getElementsByTagName('item')
             except FileNotFoundError:
                 return False
 
@@ -33,6 +45,15 @@ class Translator:
 
     @staticmethod
     def tr(original: str) -> str:
+        """Translates the given string
+
+            Args:
+                original (str): The original string, which will be translated.
+
+            Returns:
+                str: Returns the translated sting. If no translator is installed or the current language does not have a
+                    translation for the original, returns the original string.
+        """
         if Translator.__translator is None:
             return original
 
