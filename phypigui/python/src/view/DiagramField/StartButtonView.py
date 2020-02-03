@@ -4,6 +4,7 @@ from PyQt5.QtCore import pyqtSlot, QRunnable, QThreadPool
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
+from ...GlobalSignals import GlobalSignals
 from ..Translator import Translator
 from ...model.manager.ManagerModel import ManagerModel
 
@@ -29,6 +30,7 @@ class StartButtonView(QPushButton):
         self.setIcon(self.__start_icon)
 
         self.clicked.connect(self.__on_click)
+        GlobalSignals.about_to_quit.signal.connect(ManagerModel.stop)
         Translator.language_changed.signal.connect(self.__update_text)
 
         self.__update_text()
