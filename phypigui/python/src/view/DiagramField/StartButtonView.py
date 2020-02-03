@@ -1,13 +1,18 @@
 from typing import NoReturn
 
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QRunnable, QThreadPool
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
-# from ...model.manager import ManagerModel
+from ...model.manager.ManagerModel import ManagerModel
 
 
 class StartButtonView(QPushButton):
+
+    class Start(QRunnable):
+        def run(self) -> NoReturn:
+            ManagerModel.start()
+
     __button: 'StartButtonView'
 
     def __init__(self, parent):
@@ -26,10 +31,10 @@ class StartButtonView(QPushButton):
     @pyqtSlot()
     def __on_click(self) -> NoReturn:
         if self.__is_started:
-            # ManagerModel.stop()
+            ManagerModel.stop()
             self.setIcon(self.__start_icon)
         else:
-            # ManagerModel.start()
+            QThreadPool.globalInstance().start(self.Start())
             self.setIcon(self.__stop_icon)
 
         self.__is_started = not self.__is_started
