@@ -23,7 +23,6 @@ class ListItemView(ItemView, ABC):
 
         self.__main = main
         self.__item: Type[WorkspaceItemView] = item
-        # TODO: Sensor Fehlermeldung
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:

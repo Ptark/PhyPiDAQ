@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 
+from ..Translator import Translator
 from ..Item.DiagramItemView import *
 from ..Item.ListItemView import ListItemView
 from ..Item.OperatorItemView import *
@@ -17,6 +18,11 @@ class ListFieldViewMeta(type(QWidget), type(View)):
 
 
 class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
+    """Class for displaying the three lists of items
+
+        Attributes:
+            main (QWidget): The main widget.
+    """
     def __init__(self, main: QWidget):
         super().__init__()
 
@@ -25,6 +31,8 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__sensor_list: ItemListView = ItemListView()
         self.__operator_list: ItemListView = ItemListView()
         self.__diagram_list: ItemListView = ItemListView()
+
+        Translator.language_changed.signal.connect(self.__update_text)
 
         self.__init_items()
         self.__init_ui()
@@ -51,15 +59,18 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
 
         icon_path = "../resources/images/items/"
 
-        sensoren = self.__tab.addTab(self.__sensor_list, QIcon(icon_path + "sensor/distance.svg"), "")
-        operatoren = self.__tab.addTab(self.__operator_list, QIcon(icon_path + "operator/addition.svg"), "")
-        diagramme = self.__tab.addTab(self.__diagram_list, QIcon(icon_path + "diagram/time.svg"), "")
-
-        self.__tab.setTabToolTip(sensoren, self.tr("Sensoren"))
-        self.__tab.setTabToolTip(operatoren, self.tr("Operatoren"))
-        self.__tab.setTabToolTip(diagramme, self.tr("Diagramme"))
+        self.__tab.addTab(self.__sensor_list, QIcon(icon_path + "sensor/distance.svg"), "")
+        self.__tab.addTab(self.__operator_list, QIcon(icon_path + "operator/addition.svg"), "")
+        self.__tab.addTab(self.__diagram_list, QIcon(icon_path + "diagram/time.svg"), "")
 
         layout = QVBoxLayout()
         layout.addWidget(self.__tab)
         self.setLayout(layout)
-        self.setMaximumWidth(207)
+        self.setFixedWidth(209)
+
+        self.__update_text()
+
+    def __update_text(self):
+        self.__tab.setTabToolTip(0, Translator.tr("Sensoren"))
+        self.__tab.setTabToolTip(1, Translator.tr("Operatoren"))
+        self.__tab.setTabToolTip(2, Translator.tr("Diagramme"))

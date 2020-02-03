@@ -5,6 +5,7 @@ from ..Translator import Translator
 
 
 class LanguageAction(QAction):
+    """This class represents a language change action in the main menu bar"""
     def __init__(self, parent, locale: int):
         super().__init__(parent)
 

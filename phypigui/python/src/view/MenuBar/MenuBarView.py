@@ -9,6 +9,7 @@ class MenuBarViewMeta(type(QMenuBar), type(View)):
 
 
 class MenuBarView(QMenuBar, View, metaclass=MenuBarViewMeta):
+    """This class represents the menu bar of the main window"""
     def __init__(self):
         super().__init__(None)
 

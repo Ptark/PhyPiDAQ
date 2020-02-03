@@ -17,10 +17,10 @@ class OperatorItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget, num_of_inputs: int = 2, num_of_outputs: int = 1):
-        super().__init__(parent, num_of_inputs, num_of_outputs)
+    def __init__(self, parent: QWidget):
+        self._model: OperatorItem
 
-        self._model: OperatorItem = None
+        super().__init__(parent, self._model.get_count_of_inputs(), self._model.get_count_of_outputs())
 
 
 class AdditionOperatorItemView(OperatorItemView):
@@ -32,9 +32,9 @@ class AdditionOperatorItemView(OperatorItemView):
     icon_path: Final[str] = operator_path + 'addition.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: AdditionOperatorItem = AdditionOperatorItem()
+
+        super().__init__(parent)
 
 
 class SubtractionOperatorItemView(OperatorItemView):
@@ -46,9 +46,9 @@ class SubtractionOperatorItemView(OperatorItemView):
     icon_path: Final[str] = operator_path + 'subtraction.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: SubtractionOperatorItem = SubtractionOperatorItem()
+
+        super().__init__(parent)
 
 
 class MultiplicationOperatorItemView(OperatorItemView):
@@ -60,9 +60,9 @@ class MultiplicationOperatorItemView(OperatorItemView):
     icon_path: Final[str] = operator_path + 'multiplication.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: MultiplicationOperatorItem = MultiplicationOperatorItem()
+
+        super().__init__(parent)
 
 
 class DivisionOperatorItemView(OperatorItemView):
@@ -74,9 +74,9 @@ class DivisionOperatorItemView(OperatorItemView):
     icon_path: Final[str] = operator_path + 'division.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: DivisionOperatorItem = DivisionOperatorItem()
+
+        super().__init__(parent)
 
 
 class AbsoluteOperatorItemView(OperatorItemView):
@@ -88,6 +88,6 @@ class AbsoluteOperatorItemView(OperatorItemView):
     icon_path: Final[str] = operator_path + 'absolute.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent, 1)
-
         self._model: AbsoluteOperatorItem = AbsoluteOperatorItem()
+
+        super().__init__(parent)

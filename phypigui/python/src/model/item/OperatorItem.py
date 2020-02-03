@@ -23,10 +23,7 @@ class OperatorItem(InputItem, OutputItem, ABC):
             outputs (int): Count of outputs for this OperatorItem
         """
         InputItem.__init__(self, name, description, config, inputs)
-
-        self._outputs: List[Output] = []
-        for i in range(1, outputs):
-            self._outputs.append(Output(self._id, i))
+        OutputItem.__init__(self, name, description, config, outputs)
 
 
 class DivisionOperatorItem(OperatorItem):

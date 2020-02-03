@@ -23,7 +23,7 @@ class OutputItem(ItemModel, ABC):
         super().__init__(name, description, config, WorkspaceModel.add_output_item(self))
 
         self._outputs: List[Output] = []
-        for i in range(1, outputs):
+        for i in range(0, outputs):
             self._outputs.append(Output(self._id, i))
 
     @abstractmethod

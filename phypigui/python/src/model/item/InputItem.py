@@ -21,7 +21,7 @@ class InputItem(ItemModel):
         super().__init__(name, description, config, WorkspaceModel.add_input_item(self))
 
         self._inputs: List[Input] = []
-        for i in range(1, inputs):
+        for i in range(0, inputs):
             self._inputs.append(Input(self._id, i))
 
     def get_count_of_inputs(self) -> int:

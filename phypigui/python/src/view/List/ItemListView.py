@@ -11,6 +11,7 @@ class ItemListViewMeta(type(QWidget), type(View)):
 
 
 class ItemListView(QWidget, View, metaclass=ItemListViewMeta):
+    """Class for displaying a list of items"""
     def __init__(self):
         super().__init__()
 
@@ -24,6 +25,11 @@ class ItemListView(QWidget, View, metaclass=ItemListViewMeta):
         self.setLayout(centering)
 
     def add_item(self, item: ListItemView) -> NoReturn:
+        """Adds an item to the list
+
+            Args:
+                item (ListItemView): Item to be added.
+        """
         self.__items.append(item)
         self.__layout.insertWidget(1, item)
         self.__layout.insertSpacing(2, 20)

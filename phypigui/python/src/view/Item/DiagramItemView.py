@@ -3,7 +3,7 @@ from typing import Final
 
 from PyQt5.QtWidgets import QWidget
 
-from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem
+from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 
@@ -16,10 +16,10 @@ class DiagramItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget, num_of_inputs: int = 1):
-        super().__init__(parent, num_of_inputs, 0)
+    def __init__(self, parent: QWidget):
+        self._model: DiagramItem
 
-        self._model: DiagramItem = None
+        super().__init__(parent, self._model.get_count_of_inputs(), 0)
 
 
 class TimeDiagramItemView(DiagramItemView):
@@ -31,9 +31,9 @@ class TimeDiagramItemView(DiagramItemView):
     icon_path: Final[str] = diagram_path + 'time.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: TimeDiagramItem = TimeDiagramItem()
+
+        super().__init__(parent)
 
 
 class BarDiagramItemView(DiagramItemView):
@@ -45,9 +45,9 @@ class BarDiagramItemView(DiagramItemView):
     icon_path: Final[str] = diagram_path + 'bar.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent, 3)
-
         self._model: BarDiagramItem = BarDiagramItem()
+
+        super().__init__(parent)
 
 
 class DualDiagramItemView(DiagramItemView):
@@ -59,6 +59,6 @@ class DualDiagramItemView(DiagramItemView):
     icon_path: Final[str] = diagram_path + 'dual.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent, 2)
-        # TODO: DualDiagramItem im Model existiert noch nicht
-        # self._model: DualDiagramItem = DualDiagramItem()
+        self._model: DualDiagramItem = DualDiagramItem()
+
+        super().__init__(parent)

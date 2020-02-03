@@ -20,10 +20,10 @@ class SensorItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget, num_of_outputs: int = 1):
-        super().__init__(parent, 0, num_of_outputs, True)
+    def __init__(self, parent: QWidget):
+        self._model: SensorItem
 
-        self._model: SensorItem = None
+        super().__init__(parent, 0, self._model.get_count_of_outputs(), True)
 
 
 class TemperatureSensorItemView(SensorItemView):
@@ -35,9 +35,9 @@ class TemperatureSensorItemView(SensorItemView):
     icon_path: Final[str] = sensor_path + 'temperature.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: TemperatureSensorItem = TemperatureSensorItem()
+
+        super().__init__(parent)
 
 
 class ForceSensorItemView(SensorItemView):
@@ -49,9 +49,9 @@ class ForceSensorItemView(SensorItemView):
     icon_path: Final[str] = sensor_path + 'force.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: ForceSensorItem = ForceSensorItem()
+
+        super().__init__(parent)
 
 
 class DistanceSensorItemView(SensorItemView):
@@ -63,9 +63,9 @@ class DistanceSensorItemView(SensorItemView):
     icon_path: Final[str] = sensor_path + 'distance.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: DistanceSensorItem = DistanceSensorItem()
+
+        super().__init__(parent)
 
 
 class AccelerationSensorItemView(SensorItemView):
@@ -77,6 +77,6 @@ class AccelerationSensorItemView(SensorItemView):
     icon_path: Final[str] = sensor_path + 'acceleration.svg'
 
     def __init__(self, parent: QWidget):
-        super().__init__(parent)
-
         self._model: AccelerationSensorItem = AccelerationSensorItem()
+
+        super().__init__(parent)
