@@ -10,7 +10,7 @@ import random
 
 class DiagramView(FigureCanvas):
 
-    def __init__(self, parent):  # DiagramItem):
+    def __init__(self):  # DiagramItem):
 
         self.data = []
         fig = Figure(figsize=(4, 5), dpi=70)
