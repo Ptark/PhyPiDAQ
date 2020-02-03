@@ -1,3 +1,4 @@
+from copy import copy
 from typing import NoReturn, List
 
 from PyQt5.QtGui import QMouseEvent
@@ -24,7 +25,7 @@ class OutputView(InOutView):
         self.__wires.remove(wire)
 
     def delete_all_wires(self) -> NoReturn:
-        for wire in self.__wires:
+        for wire in copy(self.__wires):
             wire.delete()
         self.__wires = []
 
