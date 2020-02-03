@@ -29,7 +29,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         Draggable.__init__(self, parent, self.icon_path)
         Selectable.__init__(self)
 
-        self._model: ItemModel = None
+        self._model: ItemModel
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
 
