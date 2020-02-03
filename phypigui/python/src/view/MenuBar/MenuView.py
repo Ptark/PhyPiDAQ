@@ -9,6 +9,7 @@ from .LanguageAction import LanguageAction
 
 
 class FileMenuView(QMenu):
+    """This class represents the file menu of the main menu bar"""
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
@@ -26,6 +27,7 @@ class FileMenuView(QMenu):
 
 
 class SettingsMenuView(QMenu):
+    """This class represents the settings menu of the main menu bar"""
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
@@ -47,6 +49,7 @@ class SettingsMenuView(QMenu):
 
 
 class HelpMenuView(QMenu):
+    """This class represents the help menu of the main menu bar"""
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
