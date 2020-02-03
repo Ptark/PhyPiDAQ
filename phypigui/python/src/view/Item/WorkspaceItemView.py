@@ -37,7 +37,6 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         self.__lastPos: QPoint = None
 
-        # TODO: Input Output Erstellung überarbeiten
         for i in range(0, num_of_inputs):
             self.__inputs.append(InputView(self))
         for i in range(0, num_of_outputs):
@@ -45,6 +44,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.__context_menu)
+        Translator.language_changed.signal.connect(self.__update_text)
 
         self.__init_ui()
 
@@ -65,6 +65,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_widget.setLayout(out_layout)
         out_widget.move(101, 0)
 
+        self.__update_text()
+
     def __context_menu(self, pos: QPoint) -> NoReturn:
         """Creates a context menu at the given position
 
@@ -75,6 +77,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         menu.addAction(Translator.tr("Einstellungen"), self.open_config)
         menu.addAction(Translator.tr("Entfernen"), self.delete)
         menu.exec(self.mapToGlobal(pos))
+
+    def __update_text(self):
+        self.setToolTip(Translator.tr(self._model.name))
 
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
