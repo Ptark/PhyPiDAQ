@@ -19,13 +19,11 @@ class DiagramItemView(WorkspaceItemView, ABC):
             parent (QWidget): A parent widget.
     """
     def __init__(self, parent: QWidget):
-        self._diagram = DiagramView()
+        self._model: DiagramItem
+        self._diagram = DiagramView(self._model)
         DiagramFieldView.add_diagram(self._diagram)
 
-        self._model: DiagramItem
-
         super().__init__(parent, self._model.get_count_of_inputs(), 0)
-
 
     def delete(self) -> NoReturn:
         DiagramFieldView.delete_diagram(self._diagram)
