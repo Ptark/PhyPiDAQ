@@ -18,6 +18,11 @@ class ListFieldViewMeta(type(QWidget), type(View)):
 
 
 class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
+    """Class for displaying the three lists of items
+
+        Attributes:
+            main (QWidget): The main widget.
+    """
     def __init__(self, main: QWidget):
         super().__init__()
 
