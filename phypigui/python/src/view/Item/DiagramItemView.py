@@ -23,7 +23,7 @@ class DiagramItemView(WorkspaceItemView, ABC):
         self._diagram = DiagramView(self._model)
         DiagramFieldView.add_diagram(self._diagram)
 
-        super().__init__(parent, self._model.get_count_of_inputs(), 0)
+        super().__init__(parent, self._model.get_input_ids(), [])
 
     def delete(self) -> NoReturn:
         DiagramFieldView.delete_diagram(self._diagram)

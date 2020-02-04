@@ -23,7 +23,7 @@ class SensorItemView(WorkspaceItemView, ABC):
     def __init__(self, parent: QWidget):
         self._model: SensorItem
 
-        super().__init__(parent, 0, self._model.get_count_of_outputs(), True)
+        super().__init__(parent, [], self._model.get_output_ids(), True)
 
 
 class TemperatureSensorItemView(SensorItemView):

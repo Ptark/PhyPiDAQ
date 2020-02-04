@@ -11,8 +11,10 @@ from .InOutView import InOutView
 
 class InputView(InOutView):
     """Class for displaying an item input"""
-    def __init__(self, parent: QWidget):
+    def __init__(self, parent: QWidget, model_id: int):
         super().__init__(parent)
+
+        self.__model_id: int = model_id
 
         self.__wire: WireView = None
 
@@ -33,6 +35,7 @@ class InputView(InOutView):
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if WorkspaceView.wire_in_hand is not None and self.__wire is None:
             self.__wire = WorkspaceView.wire_in_hand
+            self.__wire.connect(self.__model_id)
             self.__wire.deletion_signal.connect(self._remove_wire)
             WorkspaceView.wire_in_hand = None
             self.redraw_wires()

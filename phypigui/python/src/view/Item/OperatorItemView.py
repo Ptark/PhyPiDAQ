@@ -20,7 +20,7 @@ class OperatorItemView(WorkspaceItemView, ABC):
     def __init__(self, parent: QWidget):
         self._model: OperatorItem
 
-        super().__init__(parent, self._model.get_count_of_inputs(), self._model.get_count_of_outputs())
+        super().__init__(parent, self._model.get_input_ids(), self._model.get_output_ids())
 
 
 class AdditionOperatorItemView(OperatorItemView):

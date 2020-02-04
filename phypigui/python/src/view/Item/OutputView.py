@@ -11,8 +11,10 @@ from .InOutView import InOutView
 
 class OutputView(InOutView):
     """Class for displaying an item output"""
-    def __init__(self, parent: QWidget):
+    def __init__(self, parent: QWidget, model_id: int):
         super().__init__(parent)
+
+        self.__model_id: int = model_id
 
         self.__wires: List[WireView] = []
 
@@ -32,7 +34,7 @@ class OutputView(InOutView):
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
             p = self._get_connection_point()
-            wire = WireView(p, p)
+            wire = WireView(p, p, self.__model_id)
             wire.deletion_signal.connect(self._remove_wire)
             self.__wires.append(wire)
             WorkspaceView.add_wire(wire)

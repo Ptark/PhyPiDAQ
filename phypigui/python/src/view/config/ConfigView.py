@@ -1,11 +1,8 @@
 import copy
-
-from PyQt5.QtCore import pyqtSignal
-
-from python.src.model.config.ConfigModel import ConfigModel
 from typing import List, NoReturn
 
 from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtCore import pyqtSignal
 
 from .NumOptionView import NumOptionView
 from .BoolOptionView import BoolOptionView
