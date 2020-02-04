@@ -3,9 +3,9 @@ import sys
 from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QApplication
 
-from python.src.GlobalSignals import GlobalSignals
-from python.src.view.MainWindow import MainWindow
-from python.src.view.Translator import Translator
+from phypigui.python.src.GlobalSignals import GlobalSignals
+from phypigui.python.src.view.MainWindow import MainWindow
+from phypigui.python.src.view.Translator import Translator
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

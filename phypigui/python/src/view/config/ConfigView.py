@@ -1,15 +1,16 @@
-from python.src.model.config.ConfigModel import ConfigModel
 from typing import List, NoReturn
+
 from PyQt5 import QtWidgets, QtCore, QtGui
+
 from .NumOptionView import NumOptionView
 from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
 from .EnumOptionView import EnumOptionView
-from .OptionView import OptionView
+from ...model.config.ConfigModel import ConfigModel
 
 
 class ConfigView(QtWidgets.QWidget):
-    __icon_source = "../resources/images/buttons/settingsbutton.png"
+    __icon_source = "../resources/images/PhiPi_icon.png"
 
     def __init__(self, name: str, config: ConfigModel):
         QtWidgets.QWidget.__init__(self)
