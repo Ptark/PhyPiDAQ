@@ -7,7 +7,7 @@ from .OptionModel import OptionModel
 
 
 class FileOption(OptionModel):
-    """This class represents an path-selecting option"""
+    """This class represents a path-selecting option"""
 
     ANYFILE: final(int) = 0
     EXISTINGFILE: final(int) = 1
@@ -15,7 +15,7 @@ class FileOption(OptionModel):
 
     def __init__(self, name: str, description: str = '', file_opening_mode: int = 0
                  , file_type: str = '', file_endings: List[str] = None):
-        """Initialising an FileOption object
+        """Initialising a FileOption object
 
         Args:
             name (str): Name of this option
