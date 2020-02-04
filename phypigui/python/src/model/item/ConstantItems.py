@@ -37,8 +37,8 @@ class NatureConstantItem(SensorItem):
 class ConstantItem(SensorItem):
     """This class models an item, which has a constant value set by the user"""
 
-    def __inti__(self):
-        """Initialising an ConstantItem object"""
+    def __init__(self):
+        """Initialising a ConstantItem object"""
 
         name: str = "Konstantenelement"
         description: str = "Dieses Element gibt eine der vom Benutzer einstellbare Konstante aus."

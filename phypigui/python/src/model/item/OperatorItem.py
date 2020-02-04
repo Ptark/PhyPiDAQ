@@ -163,7 +163,7 @@ class NegativeOperatorItem(OperatorItem):
     def __init__(self):
         """Initialising a NegativeOperatorItem object"""
         name: str = "Negativer Betragsoperator"
-        description: str = "Dieser Operator macht alle einkommenden Werte negative"
+        description: str = "Dieser Operator negiert alle einkommenden Werte"
         config: ConfigModel = ConfigModel()
 
         super().__init__(name, description, config, 1, 1)
@@ -203,7 +203,7 @@ class PowerOperatorItem(OperatorItem):
 
 
 class RootOperatorItem(OperatorItem):
-    """This class models an operator, which exponentiates a data-stream with 1 divided through an second data-streom
+    """This class models an operator, which exponentiates a data-stream with 1 divided through a second data-streom
 
     A OperatorItem has two inputs and one output.
     """
