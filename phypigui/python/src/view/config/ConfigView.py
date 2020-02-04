@@ -4,6 +4,7 @@ from typing import List, NoReturn
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import pyqtSignal
 
+from ..Translator import Translator
 from .NumOptionView import NumOptionView
 from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
@@ -12,7 +13,7 @@ from ...model.config.ConfigModel import ConfigModel
 
 
 class ConfigView(QtWidgets.QWidget):
-    __icon_source = "../resources/images/buttons/settingsbutton.png"
+    __icon_source = "../resources/images/PhiPi_icon.png"
     set_data: pyqtSignal = pyqtSignal(ConfigModel)
 
     def __init__(self, name: str, config: ConfigModel):
@@ -32,8 +33,8 @@ class ConfigView(QtWidgets.QWidget):
         for option in self.__config.enum_options:
             self.__enum_options.append(EnumOptionView(self, option))
 
-        # Configure sittings-window
-        self.__title: str = name + ' Einstellungsfenster'
+        # Configure settings-window
+        self.__title: str = Translator.tr(name) + ' ' + Translator.tr("Einstellungsfenster")
         self.__icon = QtGui.QIcon()
 
         self.__init_ui()

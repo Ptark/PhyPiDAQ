@@ -3,6 +3,8 @@ from abc import ABC
 from typing import NoReturn, final
 from PyQt5 import QtWidgets, QtCore
 
+from ..Translator import Translator
+
 
 class OptionViewMeta(type(ABC), type(QtWidgets.QWidget)):
     pass
@@ -29,13 +31,13 @@ class OptionView(ABC, QtWidgets.QWidget, metaclass=OptionViewMeta):
         if name == '':
             self.__box.setTitle(name)
         else:
-            self.__box.setTitle(name + ':')
+            self.__box.setTitle(Translator.tr(name) + ':')
         layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(self.__box, 0, QtCore.Qt.AlignTop)
         # Layout for the whole option
         self._option_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout(self.__box)
         # Label, which stores name of option
-        self._description_label: QtWidgets.QLabel = QtWidgets.QLabel(description, self)
+        self._description_label: QtWidgets.QLabel = QtWidgets.QLabel(Translator.tr(description), self)
 
         self.__init_ui()
 
