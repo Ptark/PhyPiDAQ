@@ -28,4 +28,4 @@ class Model(ABC):
     def notify(self) -> NoReturn:
         """Notify all subscribers"""
         for view in self.__views:
-            view.update()
+            view.update_view()

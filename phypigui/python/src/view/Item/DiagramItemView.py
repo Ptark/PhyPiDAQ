@@ -1,8 +1,10 @@
 from abc import ABC
-from typing import Final
+from typing import Final, NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from ..DiagramField.DiagramFieldView import DiagramFieldView
+from ..DiagramField.DiagramView import DiagramView
 from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
@@ -18,8 +20,14 @@ class DiagramItemView(WorkspaceItemView, ABC):
     """
     def __init__(self, parent: QWidget):
         self._model: DiagramItem
+        self._diagram = DiagramView(self._model)
+        DiagramFieldView.add_diagram(self._diagram)
 
         super().__init__(parent, self._model.get_count_of_inputs(), 0)
+
+    def delete(self) -> NoReturn:
+        DiagramFieldView.delete_diagram(self._diagram)
+        super().delete()
 
 
 class TimeDiagramItemView(DiagramItemView):
