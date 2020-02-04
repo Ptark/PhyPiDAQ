@@ -9,9 +9,10 @@ from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class DeleteButtonView(QPushButton):
+    """This class represents the delete button in info bar"""
     __button: 'DeleteButtonView'
 
-    def __init__(self, parent):
+    def __init__(self, parent: QPushButton):
         super().__init__(parent)
 
         DeleteButtonView.__button = self
@@ -34,4 +35,5 @@ class DeleteButtonView(QPushButton):
 
     @staticmethod
     def click() -> NoReturn:
+        """a static method to execute the deletion of the selected workspaceItemView"""
         DeleteButtonView.__button.__on_click()

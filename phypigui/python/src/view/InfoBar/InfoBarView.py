@@ -9,6 +9,7 @@ from ..Workspace import WorkspaceView
 
 
 class InfoBarView(QWidget):
+    """This class represents the Info bar which contains Delete button and Settings button"""
     __infobar: 'InfoBarView' = None
 
     def __init__(self, parent):
@@ -33,12 +34,14 @@ class InfoBarView(QWidget):
         self.setLayout(self.__horizontal_layout)
 
     def update_info_widget(self, widget: QWidget) -> NoReturn:
+        """adds the information about the selected WorkspaceItemView in the info bar"""
         self.__horizontal_layout.replaceWidget(self.__info_widget, widget)
         self.__info_widget.close()
         self.__info_widget = widget
 
     @staticmethod
     def refresh_infobar() -> NoReturn:
+        """refreshes the info bar if there is a selected WorkspaceItemView"""
         if WorkspaceView.WorkspaceView.selection is not None:
             widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
         else:
