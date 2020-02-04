@@ -78,7 +78,7 @@ class AbsoluteOperatorItem(OperatorItem):
         return lambda data: abs(first_function(data))
 
     def get_unit(self, output_number: int = 0) -> str:
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ")"
+        return WorkspaceModel.calculate_unit(self._inputs[0].id)
 
 
 class MultiplicationOperatorItem(OperatorItem):
@@ -118,6 +118,7 @@ class AdditionOperatorItem(OperatorItem):
         name: str = "Additionsoperator"
         description: str = "Dieser Operator addiert zwei Werte"
         config: ConfigModel = ConfigModel()
+
         super().__init__(name, description, config, 2, 1)
 
     def get_rule(self, output_number: int = 0):
@@ -143,6 +144,7 @@ class SubtractionOperatorItem(OperatorItem):
         name: str = "Subtraktionsoperator"
         description: str = "Dieser Operator subtrahiert zwei Werte"
         config: ConfigModel = ConfigModel()
+
         super().__init__(name, description, config, 2, 1)
 
     def get_rule(self, output_number: int = 0):
@@ -155,3 +157,99 @@ class SubtractionOperatorItem(OperatorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") - (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
+
+
+class NegativeOperatorItem(OperatorItem):
+    """This class models an operator, which makes a data-stream only negative
+
+    A NegativeOperatorItem has one input and one output.
+    """
+
+    def __init__(self):
+        """Initialising a NegativeOperatorItem object"""
+        name: str = "Negativer Betragsoperator"
+        description: str = "Dieser Operator macht alle einkommenden Werte negative"
+        config: ConfigModel = ConfigModel()
+
+        super().__init__(name, description, config, 1, 1)
+
+    def get_rule(self, output_number: int = 0):
+        first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
+        return lambda data: (-1 * abs(first_function(data)))
+
+    def get_unit(self, output_number: int = 0) -> str:
+        return WorkspaceModel.calculate_unit(self._inputs[0].id)
+
+
+class PowerOperatorItem(OperatorItem):
+    """This class models an operator, which exponentiates a data-stream with an other
+
+    A PowerOperatorItem has two inputs and one output.
+    """
+
+    def __init__(self):
+        """Initialising a PowerOperatorItem object"""
+        name: str = "Exponentialsoperator"
+        description: str = "Dieser Operator potenziert einen Datenstrom mit einem anderen"
+        config: ConfigModel = ConfigModel()
+
+        super().__init__(name, description, config, 2, 1)
+
+    def get_rule(self, output_number: int = 0):
+        first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
+        second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
+        return lambda data: pow(first_function(data), second_function(data))
+
+    def get_unit(self, output_number: int = 0) -> str:
+        return '' #TODO entweder 2. Eingang nur mit Konstantenelement verbinden oder keinen 2. Eingang und dafür NumOption
+
+
+class RootOperatorItem(OperatorItem):
+    """This class models an operator, which exponentiates a data-stream with 1 divided through an second data-streom
+
+    A OperatorItem has two inputs and one output.
+    """
+
+    def __init__(self):
+        """Initialising a RootOperatorItem object"""
+        name: str = "Wurzeloperator"
+        description: str = "Dieser Operator potenziert einen Datenstrom mit 1 geteilt durch den 2. Datenstrom"
+        config: ConfigModel = ConfigModel()
+
+        super().__init__(name, description, config, 2, 1)
+
+    def get_rule(self, output_number: int = 0):
+        first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
+        second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
+            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
+        return lambda data: pow(first_function(data), 1 / second_function(data))
+
+    def get_unit(self, output_number: int = 0) -> str:
+        return '' #TODO entweder 2. Eingang nur mit Konstantenelement verbinden oder keinen 2. Eingang und dafür NumOption
+
+
+class CloneItem(OperatorItem):
+    """This class models an operator, which doubles a data-stream
+
+    A CloneItem has one input and two output.
+    """
+
+    def __init__(self):
+        """Initialising a DoubleItem object"""
+        name: str = "Klonoperator"
+        description: str = "Dieser Operator vordoppelt einen Datenstrom"
+        config: ConfigModel = ConfigModel()
+
+        super().__init__(name, description, config, 1, 2)
+
+    def get_rule(self, output_number: int = 0):
+        first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
+            WorkspaceModel.calculate_function(self._inputs[0].id)(data)
+        return lambda data: first_function(data)
+
+    def get_unit(self, output_number: int = 0) -> str:
+        return WorkspaceModel.calculate_unit(self._inputs[0].id)

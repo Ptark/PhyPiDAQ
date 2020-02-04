@@ -28,7 +28,6 @@ class TemperatureSensorItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         assert self._config.enum_options[0] is not None
-        assert output_number != 0
 
         enum_opt = self._config.enum_options[0]
         return enum_opt.samples[enum_opt.selection]

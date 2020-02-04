@@ -14,6 +14,7 @@ class WireViewMeta(type(Selectable), type(QObject)):
 
 
 class WireView(Selectable, QObject, metaclass=WireViewMeta):
+    """This class represents a Wire connecting two WorkspaceItemViews """
     __CLICKABLE_MARGIN: Final[int] = 1400
     redraw_signal = pyqtSignal()
     deletion_signal = pyqtSignal(QObject)
@@ -97,15 +98,18 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.redraw()
 
     def get_info_widget(self) -> QWidget:
+        """show the input and output of wire in info bar"""
         # TODO: infobar erstellen
         widget = QWidget()
         QLabel("Wire", widget)
         return widget
 
     def open_config(self) -> NoReturn:
+        """configuration of the Wire can not be opened because there is nothing to set in WireView"""
         pass
 
     def delete(self) -> NoReturn:
+        """deletes the wire and sends a message then deletes wire from workspaceView """
         WorkspaceView.delete_wire(self)
         super().delete()
         self.deletion_signal.emit(self)

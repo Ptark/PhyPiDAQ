@@ -171,6 +171,12 @@ class WorkspaceModel:
 
     @staticmethod
     def unite_ids(input_item_id: int, output_item: 'OutputItem') -> NoReturn:
+        """Corrects the ID of an InputItem, if it is an OutputItem too
+
+        Args:
+            input_item_id (int): ID the added InputItem-version of the item has
+            output_item (OutputItem): The item, which is the same as the InputItem with the input_item_id
+        """
         item_id: int = output_item.id
         assert(WorkspaceModel.__input_item_list[input_item_id] is output_item)
         input_item: 'InputItem' = WorkspaceModel.__input_item_list[input_item_id]

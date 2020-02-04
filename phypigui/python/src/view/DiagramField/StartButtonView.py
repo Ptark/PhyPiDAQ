@@ -10,7 +10,7 @@ from ...model.manager.ManagerModel import ManagerModel
 
 
 class StartButtonView(QPushButton):
-
+    """This class represents the start button"""
     class Start(QRunnable):
         def run(self) -> NoReturn:
             ManagerModel.start()
@@ -55,4 +55,5 @@ class StartButtonView(QPushButton):
 
     @staticmethod
     def click() -> NoReturn:
+        """a static method of on_click that executes the running of the program on the Managermodel"""
         StartButtonView.__button.__on_click()
