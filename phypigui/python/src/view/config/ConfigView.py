@@ -81,17 +81,6 @@ class ConfigView(QtWidgets.QWidget):
         option_layout.addWidget(QtWidgets.QWidget(self), 10, QtCore.Qt.AlignBottom)
 
     def __on_close(self) -> NoReturn:
-        """
-        config: ConfigModel = ConfigModel()
-        for option in self.__file_options:
-            config.add_file_option(option.option)
-        for option in self.__enum_options:
-            config.add_enum_option(option.option)
-        for option in self.__num_options:
-            config.add_num_option(option.option)
-        for option in self.__bool_options:
-            config.add_bool_option(option.option)
-        self.__config = config"""
         for option in self.__file_options:
             self.__config.set_file_option(self.__file_options.index(option), option.option.path)
         for option in self.__enum_options:
