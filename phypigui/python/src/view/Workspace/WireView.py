@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QMenu, QLabel
 from ..Selectable import Selectable
 from .WorkspaceView import WorkspaceView
 from ..Translator import Translator
-from ...model.item.Connection import Connection
+from ...model.workspace.WorkspaceModel import WorkspaceModel
 
 
 class WireViewMeta(type(Selectable), type(QObject)):
@@ -25,7 +25,6 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.__output: QPoint = output
         self.__input: QPoint = input
         self.__output_id: int = output_id
-        self.__connection: Connection = None
 
     @property
     def output(self) -> QPoint:
@@ -38,7 +37,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         return self.__input
 
     def connect(self, input_id: int) -> NoReturn:
-        self.__connection = Connection(input_id, self.__output_id)
+        WorkspaceModel.connect(input_id, self.__output_id)
 
     def redraw(self, output: QPoint = None, input: QPoint = None) -> NoReturn:
         """Updates the position of the connected in- and/or output
