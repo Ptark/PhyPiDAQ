@@ -136,6 +136,11 @@ class WorkspaceView(QWidget):
 
     @staticmethod
     def add_item(item: 'WorkspaceItemView', unique: bool = False) -> NoReturn:
+        """adds item to workspace
+            Args:
+                item: item to be added on workspace
+                unique(bool): true if item is unique, false otherwise
+        """
         if unique:
             for i in WorkspaceView.items:
                 if i.__class__ is item.__class__:
@@ -144,22 +149,35 @@ class WorkspaceView(QWidget):
 
     @staticmethod
     def add_wire(wire: 'WireView') -> NoReturn:
+        """adds wire to Workspace
+            Args:
+                wire(WireView): wire to be added on workspace
+        """
         WorkspaceView.wires.append(wire)
         WorkspaceView.wire_in_hand = wire
         wire.redraw_signal.connect(WorkspaceView.widget.update)
 
     @staticmethod
     def delete_item(item: 'WorkspaceItemView') -> NoReturn:
+        """deletes item from workspace
+            Args:
+                item(WorkspaceView): the item to be deleted from workspace
+        """
         WorkspaceView.items.remove(item)
 
     @staticmethod
     def delete_wire(wire: 'WireView') -> NoReturn:
+        """deletes wire from workspace
+           Args:
+               wire(WireView): the wire to be deleted from workspace
+        """
         WorkspaceView.wires.remove(wire)
         if WorkspaceView.wire_in_hand is wire:
             WorkspaceView.wire_in_hand = None
 
     @staticmethod
     def delete_all() -> NoReturn:
+        """deletes all items and wires on workspace"""
         for item in copy(WorkspaceView.items):
             item.delete()
         for wire in copy(WorkspaceView.wires):
@@ -173,6 +191,10 @@ class WorkspaceView(QWidget):
 
     @staticmethod
     def is_on_workspace(widget: QWidget) -> bool:
+        """checks if the widget is currently on the workspace
+           Args:
+               widget(QWidget): the widget to test if its on workspaceview
+        """
         widget_rect = QRect(widget.parent().mapToGlobal(widget.pos()), widget.size())
         boundary_rect = QRect(WorkspaceView.main.mapToGlobal(WorkspaceView.boundary.pos()), WorkspaceView.boundary.size())
         return boundary_rect.contains(widget_rect)

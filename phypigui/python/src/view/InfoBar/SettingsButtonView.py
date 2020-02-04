@@ -9,6 +9,7 @@ from ..Workspace.WorkspaceView import WorkspaceView
 
 
 class SettingsButtonView(QPushButton):
+    """This class represents the Settings button in the info bar"""
     __button: 'SettingsButtonView'
 
     def __init__(self, parent):
@@ -34,4 +35,5 @@ class SettingsButtonView(QPushButton):
 
     @staticmethod
     def click() -> NoReturn:
+        """a static method of the on click method that opens a window with the settings of the selected WorkspaceItemView"""
         SettingsButtonView.__button.__on_click()
