@@ -1,8 +1,9 @@
 from abc import ABC
-from typing import Final
+from typing import Final, NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from ...model.manager.ManagerModel import ManagerModel
 from ...model.item.AccelerationSensorItem import AccelerationSensorItem
 from ...model.item.DistanceSensorItem import DistanceSensorItem
 from ...model.item.ForceSensorItem import ForceSensorItem
@@ -25,6 +26,9 @@ class SensorItemView(WorkspaceItemView, ABC):
 
         super().__init__(parent, [], self._model.get_output_ids(), True)
 
+    def delete(self) -> NoReturn:
+        ManagerModel.delete_sensor(self._model)
+        super().delete()
 
 class TemperatureSensorItemView(SensorItemView):
     """Class for displaying an item of a temperature sensor on the workspace

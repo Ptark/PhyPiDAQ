@@ -3,6 +3,7 @@ from typing import Final, NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..DiagramField.DiagramView import DiagramView
 from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
@@ -27,6 +28,7 @@ class DiagramItemView(WorkspaceItemView, ABC):
 
     def delete(self) -> NoReturn:
         DiagramFieldView.delete_diagram(self._diagram)
+        ManagerModel.delete_diagram(self._model)
         super().delete()
 
 
