@@ -141,3 +141,9 @@ class OutputItem(ItemModel, ABC):
         """
         for output in self._outputs:
             output.calculate(data)
+
+    def get_output_ids(self) -> List[int]:
+        ids: List[int] = []
+        for output in self._outputs:
+            ids.append(output.id)
+        return ids

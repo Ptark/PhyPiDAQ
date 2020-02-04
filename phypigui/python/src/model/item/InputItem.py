@@ -62,3 +62,9 @@ class InputItem(ItemModel):
         if 0 <= input_number < self.get_count_of_inputs():
             return self._inputs[input_number].id
         return -1
+
+    def get_input_ids(self) -> List[int]:
+        ids: List[int] = []
+        for input in self._inputs:
+            ids.append(input.id)
+        return ids
