@@ -18,7 +18,7 @@ class InputItem(ItemModel):
             config (ConfigModel): A configuration of adjustable options for this InputItem
             inputs (int): Count of inputs this InputItem has
         """
-        super().__init__(name, description, config, WorkspaceModel.add_input_item(self))
+        ItemModel.__init__(self, name, description, config, WorkspaceModel.add_input_item(self))
 
         self._inputs: List[Input] = []
         for i in range(0, inputs):

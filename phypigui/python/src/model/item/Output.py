@@ -4,7 +4,6 @@ from ..Identifiable import Identifiable
 from ..workspace.WorkspaceModel import WorkspaceModel
 
 
-
 class Output(Identifiable):
     """This class represents a output of an OutputItem
 

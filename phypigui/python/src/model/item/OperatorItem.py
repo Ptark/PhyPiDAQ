@@ -23,8 +23,14 @@ class OperatorItem(InputItem, OutputItem, ABC):
             outputs (int): Count of outputs for this OperatorItem
         """
         InputItem.__init__(self, name, description, config, inputs)
+        input_id: int = self._id
         OutputItem.__init__(self, name, description, config, outputs)
-
+        WorkspaceModel.unite_ids(input_id, self)
+        print(self._id)
+        """self._outputs: List[Output] = []
+        for i in range(0, outputs):
+            self._outputs.append(Output(self._id, i))
+"""
 
 class DivisionOperatorItem(OperatorItem):
     """This class models a operator, which divides the first by the second data-stream

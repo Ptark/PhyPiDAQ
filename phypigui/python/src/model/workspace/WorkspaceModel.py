@@ -1,10 +1,6 @@
 from typing import Dict, NoReturn, List, Callable
 
-#from ..item.Input import Input
-#from ..item.InputItem import InputItem
-#from ..item.Output import Output
-#from ..item.OutputItem import OutputItem
-#from ..item.Connection import Connection
+from ..item.Connection import Connection
 
 
 class WorkspaceModel:
@@ -108,6 +104,7 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        print('i' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_list[id] = input
         return id
@@ -127,6 +124,7 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        print('o' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_list[id] = output
         return id
@@ -146,6 +144,7 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        print('ii' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_item_list[id] = item
         return id
@@ -165,9 +164,18 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        print('oi' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_item_list[id] = item
         return id
+
+    @staticmethod
+    def unite_ids(input_item_id: int, output_item: 'OutputItem') -> NoReturn:
+        item_id: int = output_item.id
+        assert(WorkspaceModel.__input_item_list[input_item_id] is output_item)
+        input_item: 'InputItem' = WorkspaceModel.__input_item_list[input_item_id]
+        WorkspaceModel.__input_item_list.pop(input_item_id)
+        WorkspaceModel.__input_item_list[item_id] = input_item
 
     @staticmethod
     def delete_item(item_id: int) -> NoReturn:
@@ -257,6 +265,7 @@ class WorkspaceModel:
         if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
             if input_id not in WorkspaceModel.__connection_list:
                 WorkspaceModel.__connection_list[input_id] = Connection(input_id, output_id)
+                print(str(input_id) +' ' + str(output_id))
                 return True
         return False
 
