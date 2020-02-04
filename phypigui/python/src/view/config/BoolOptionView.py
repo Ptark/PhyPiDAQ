@@ -1,14 +1,30 @@
-from ...model.config.BoolOption import BoolOption
-from .OptionView import OptionView
-from PyQt5 import QtWidgets, QtCore
+import copy
+
 from typing import NoReturn
+from PyQt5 import QtWidgets, QtCore
+
+from .OptionView import OptionView
+from ...model.config.BoolOption import BoolOption
 
 
 class BoolOptionView(OptionView):
+    """This class represents the GUI version of a boolean option
+
+    A BoolOptionView object is a QWidget.
+    It models a boolean option with two labels, for the name and the description and one checkbox.
+    """
 
     def __init__(self, parent: QtWidgets.QWidget, option: BoolOption):
+        """Initialising a BoolOptionView object
+
+        Args:
+            parent (QtWidgets.QWidget): The parent widget
+            option (BoolOption): Boolean option, which this BoolOptionView figures
+        """
         super().__init__(parent, option.name, option.description)
+
         self.__option: BoolOption = option
+
         # Checkbox
         self.__checkbox: QtWidgets.QCheckBox = QtWidgets.QCheckBox()
 
@@ -23,7 +39,8 @@ class BoolOptionView(OptionView):
 
     @property
     def option(self) -> BoolOption:
-        return self.__option
+        """Copy of the boolean option this BoolOptionView figures"""
+        return copy.deepcopy(self.__option)
 
     def __set_option_data(self, is_checked: bool) -> NoReturn:
         self.__option.enabled = is_checked

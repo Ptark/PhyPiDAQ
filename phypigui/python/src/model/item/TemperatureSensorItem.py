@@ -21,7 +21,7 @@ class TemperatureSensorItem(SensorItem):
         description: str = "Der Temperatursensor misst die Temperatur in Grad Celsius oder Kelvin"
 
         config: ConfigModel = ConfigModel()
-        config.add_enum_option(EnumOption("Einheit", self.__TemperatureUnit)) #TODO warum????
+        config.add_enum_option(EnumOption("Einheit", self.__TemperatureUnit))
         config.add_num_option(NumOption("Ausleserate", "", 100))
 
         super().__init__(name, description, config, 1, None)  # DS18B20Config())

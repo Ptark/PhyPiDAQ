@@ -1,14 +1,30 @@
-from ...model.config.EnumOption import EnumOption
-from .OptionView import OptionView
-from PyQt5 import QtWidgets, QtCore
+import copy
+
 from typing import NoReturn
+from PyQt5 import QtWidgets, QtCore
+
+from .OptionView import OptionView
+from ...model.config.EnumOption import EnumOption
 
 
 class EnumOptionView(OptionView):
+    """This class represents the GUI version of a enumerable option
+
+    A EnumOptionView object is a QWidget.
+    It models a enumerable option with two labels, for the name and the description and one combobox (Drop-down-menu).
+    """
 
     def __init__(self, parent: QtWidgets.QWidget, option: EnumOption):
-        self.__option: EnumOption = option
+        """Initialising an EnumOptionView object
+
+        Args:
+            parent (QtWidgets.QWidget): The parent widget
+            option (EnumOption): Enumerable option, which this EnumOptionView figures
+        """
         super().__init__(parent, option.name, option.description)
+
+        self.__option: EnumOption = option
+
         # Dropbox
         self.__dropbox: QtWidgets.QComboBox = QtWidgets.QComboBox(self)
 
@@ -28,8 +44,9 @@ class EnumOptionView(OptionView):
 
     @property
     def option(self) -> EnumOption:
-        return self.__option
+        """Copy of the enumerable option this EnumOptionView figures"""
+        return copy.deepcopy(self.__option)
 
     def __set_option_data(self, selection_index: int) -> NoReturn:
-        if 0 <= selection_index < len(self.option.samples):
-            self.option.selection = selection_index
+        if 0 <= selection_index < len(self.__option.samples):
+            self.__option.selection = selection_index

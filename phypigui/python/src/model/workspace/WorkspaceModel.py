@@ -219,7 +219,7 @@ class WorkspaceModel:
                     or if connected output doesn't exist
         """
         if input_id in WorkspaceModel.__connection_list:
-            input: Input = WorkspaceModel.__input_list[input_id]
+            input: 'Input' = WorkspaceModel.__input_list[input_id]
             WorkspaceModel.__connection_list.pop(input_id)
             if WorkspaceModel.__is_output_item(input.parent_item_id):
                 WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()

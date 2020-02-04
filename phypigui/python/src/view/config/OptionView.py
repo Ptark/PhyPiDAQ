@@ -1,13 +1,29 @@
-from PyQt5 import QtWidgets, QtCore
+from abc import ABC
+
 from typing import NoReturn, final
+from PyQt5 import QtWidgets, QtCore
 
 
-class OptionView(QtWidgets.QWidget):
+class OptionViewMeta(type(ABC), type(QtWidgets.QWidget)):
+    pass
+
+
+class OptionView(ABC, QtWidgets.QWidget, metaclass=OptionViewMeta):
+    """This class is a superclass for all kind of item-options in the view"""
+
     # style-sheet rgb value
     ERROR_COLOR: final(str) = 'rgb(255, 158, 158)'
 
     def __init__(self, parent: QtWidgets.QWidget, name: str, description: str):
+        """Initialising an OptionView object
+
+        Args:
+            parent (QtWidgets.QWidget): The parent widget
+            name (str): Name of the option, which will be figured by a label
+            description (str): Description of this option, which will be figured by a label
+        """
         super().__init__(parent)
+
         # Group-box and its layout
         self.__box = QtWidgets.QGroupBox()
         if name == '':

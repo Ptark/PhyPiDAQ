@@ -1,8 +1,10 @@
+from abc import ABC
+
 from ..NameableRO import NameableRO
 from ..Describable import Describable
 
 
-class OptionModel(NameableRO, Describable):
+class OptionModel(NameableRO, Describable, ABC):
     """This class contains the basic structure for all item-options
 
     Every option for Drag and Drop items extends from this class

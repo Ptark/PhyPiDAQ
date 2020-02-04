@@ -1,15 +1,32 @@
-from ...model.config.FileOption import FileOption
-from .OptionView import OptionView
-from PyQt5 import QtWidgets, QtCore
-from typing import NoReturn, List
+import copy
+
 from pathlib import PurePath
+from typing import NoReturn, List
+from PyQt5 import QtWidgets, QtCore
+
+from .OptionView import OptionView
+from ...model.config.FileOption import FileOption
 
 
 class FileOptionView(OptionView):
+    """This class represents the GUI version of a path-selecting option
+
+    A FileOptionView object is a QWidget.
+    It models a path-selecting option with two labels, for the name and the description, one textfield for the path-
+    preview and a button for opening the file-selection-dialog.
+    """
 
     def __init__(self, parent: QtWidgets.QWidget, option: FileOption):
-        self.__option: FileOption = option
+        """Initialising an FileOptionView object
+
+        Args:
+            parent (QtWidgets.QWidget): The parent widget
+            option (EnumOption): Path-selecting option, which this FileOptionView figures
+        """
         super().__init__(parent, option.name, option.description)
+
+        self.__option: FileOption = option
+
         # File-widget (widget for a text-field and a browse-button)
         self.__file_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
         # Layout for file-widget
@@ -50,6 +67,7 @@ class FileOptionView(OptionView):
 
     def __init_dialog(self) -> NoReturn:
         file_type: str = ''
+
         if self.__option.file_endings is not None:
             if self.__option.file_type == '':
                 file_type += 'Dateiformat'
@@ -71,10 +89,12 @@ class FileOptionView(OptionView):
 
     @property
     def option(self) -> FileOption:
-        return self.__option
+        """Copy of the option this FileOptionView figures"""
+        return copy.deepcopy(self.__option)
 
     def __on_click(self) -> NoReturn:
         paths: List[str] = []
+
         if self.__file_dialog.exec():
             self.__file_dialog.setDirectory(str(self.__option.path))
             paths = self.__file_dialog.selectedFiles()
@@ -83,6 +103,7 @@ class FileOptionView(OptionView):
     def __set_option_data(self, path: PurePath) -> NoReturn:
         s_path: str = str(path)
         text: str = ''
+
         if s_path == '':
             return
         elif len(s_path) > self.__l_count:

@@ -1,12 +1,13 @@
 from abc import ABC
 from typing import NoReturn, List
 
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
 from ..Translator import Translator
 from ...model.item.ItemModel import ItemModel
+from ...model.config.ConfigModel import ConfigModel
 from .InputView import InputView
 from .OutputView import OutputView
 from .Draggable import Draggable
@@ -81,6 +82,10 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def __update_text(self):
         self.setToolTip(Translator.tr(self._model.name))
 
+    @pyqtSlot(ConfigModel)
+    def __set_config_data(self, config: ConfigModel) -> NoReturn:
+        self._model.config = config
+
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
             self.selected = not self.selected
@@ -104,6 +109,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def open_config(self) -> NoReturn:
         """Creates and opens the settings-window for this Item"""
         self.__config_window = ConfigView(self._model.name, self._model.config)
+        self.__config_window.set_data.connect(self.__set_config_data)
 
     def get_info_widget(self) -> QWidget:
         widget = QWidget()

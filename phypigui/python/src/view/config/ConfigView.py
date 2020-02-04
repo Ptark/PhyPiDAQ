@@ -1,3 +1,8 @@
+import copy
+
+from PyQt5.QtCore import pyqtSignal
+
+from python.src.model.config.ConfigModel import ConfigModel
 from typing import List, NoReturn
 
 from PyQt5 import QtWidgets, QtCore, QtGui
@@ -10,7 +15,8 @@ from ...model.config.ConfigModel import ConfigModel
 
 
 class ConfigView(QtWidgets.QWidget):
-    __icon_source = "../resources/images/PhiPi_icon.png"
+    __icon_source = "../resources/images/buttons/settingsbutton.png"
+    set_data: pyqtSignal = pyqtSignal(ConfigModel)
 
     def __init__(self, name: str, config: ConfigModel):
         QtWidgets.QWidget.__init__(self)
@@ -97,6 +103,7 @@ class ConfigView(QtWidgets.QWidget):
             self.__config.set_num_option(self.__num_options.index(option), option.option.number)
         for option in self.__bool_options:
             self.__config.set_bool_option(self.__bool_options.index(option), option.option.enabled)
+        self.set_data.emit(copy.deepcopy(self.__config))
 
     def closeEvent(self, close_event: QtGui.QCloseEvent):
         self.__on_close()

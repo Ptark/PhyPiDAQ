@@ -6,6 +6,10 @@ from ..Model import Model
 from ..NameableRO import NameableRO
 from ..Describable import Describable
 from ..Identifiable import Identifiable
+from ..config.NumOption import NumOption
+from ..config.BoolOption import BoolOption
+from ..config.FileOption import FileOption
+from ..config.EnumOption import EnumOption
 from ..config.ConfigModel import ConfigModel
 
 
@@ -32,6 +36,10 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
     def config(self) -> ConfigModel:
         """Configuration of options for this item"""
         return self._config
+
+    @config.setter
+    def config(self, config: ConfigModel) -> NoReturn:
+        self._config = config
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
         """Sets the value of a BoolOption on a specific index
