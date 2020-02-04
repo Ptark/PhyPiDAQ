@@ -5,6 +5,7 @@ import time
 from abc import ABC
 from typing import List, Callable, Dict, NoReturn
 
+from ..manager.ManagerModel import ManagerModel
 from ..item.OutputItem import OutputItem
 from ..config.ConfigModel import ConfigModel
 
@@ -28,6 +29,8 @@ class SensorItem(OutputItem, ABC):
         # self._device.init()
         self._buffer: List[float] = []
         self._last_read_time: int = 0
+
+        ManagerModel.add_sensor(self)
 
     @property
     def device(self):

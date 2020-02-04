@@ -33,8 +33,7 @@ class DiagramView(FigureCanvas, View, metaclass=DiagramViewMeta):
         self.draw()
 
     def update_view(self) -> NoReturn:
-        pass
-        # self.__update_diagram(self.__item.data[0])
+        self.__update_diagram(self.__item.data[0])
 
 
 class TimeDiagram(DiagramView):

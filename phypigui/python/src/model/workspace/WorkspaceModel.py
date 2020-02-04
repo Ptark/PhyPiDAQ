@@ -304,7 +304,7 @@ class WorkspaceModel:
             str: Unit from output
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
             output.unit = WorkspaceModel.__output_item_list[output.parent_item_id].get_unit(output.number_of_output)
             return output.unit
         else:

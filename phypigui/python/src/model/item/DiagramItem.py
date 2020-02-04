@@ -25,7 +25,7 @@ class DiagramItem(InputItem):
         self._data: List[float] = []
         self._unit: List[str] = []
 
-        for i in range(0, inputs - 1):
+        for i in range(0, inputs):
             self._functions.append(lambda data: 0)
             self._data.append(0)
             self._unit.append('')
@@ -48,9 +48,9 @@ class DiagramItem(InputItem):
         Returns:
             bool: #TODO ....
         """
-        for i in range(0, self.get_count_of_inputs() - 1):
+        for i in range(0, self.get_count_of_inputs()):
             self._functions[i] = WorkspaceModel.calculate_function(self._inputs[i].id)
-            self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
+            # self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
         return True
 
     def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
@@ -62,7 +62,7 @@ class DiagramItem(InputItem):
         Returns:
             bool: #TODO ....
         """
-        for i in range(0, self.get_count_of_inputs() - 1):
+        for i in range(0, self.get_count_of_inputs()):
             self._data[i] = self._functions[i](sensor_data)
         return True
 
