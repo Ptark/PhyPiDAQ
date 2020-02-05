@@ -59,7 +59,7 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
 
         icon_path = "../resources/images/items/"
 
-        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 63px; }"
+        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 62px; }"
                                  "QTabWidget { border: 1px solid gray}")
 
         self.__tab.addTab(self.__sensor_list, QIcon(icon_path + "sensor/distance.svg"), "")
@@ -69,7 +69,7 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         layout = QVBoxLayout()
         layout.addWidget(self.__tab)
         self.setLayout(layout)
-        self.setFixedWidth(207)
+        self.setFixedWidth(206)
 
         self.__update_text()
 
