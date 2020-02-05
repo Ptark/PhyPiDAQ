@@ -1,4 +1,4 @@
-from typing import List, NoReturn
+from typing import List, NoReturn, Dict
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
@@ -29,6 +29,11 @@ class DiagramFieldView(QWidget):
         self.__dialog: Dialog = None
         self.__diagram_layout = QVBoxLayout()
         self.__maximize_button = QPushButton()
+        # TODO um die alternative version zu nutzen, muss alles mit der markierung 'C' auskommentiert werden
+        """ 
+        self.__group_list: List[QtWidgets.QGroupBox] = []
+        self.__group_layouts: List[QtWidgets.QVBoxLayout] = []
+        """
 
         self.__maximize_button.clicked.connect(self.__maximize_on_click)
         self.__init_ui()
@@ -37,6 +42,13 @@ class DiagramFieldView(QWidget):
         """ this method initialises the user interface of the diagram field"""
         self.__maximize_button.setFixedSize(31, 31)
         self.__maximize_button.setIcon(QIcon("../resources/images/buttons/maximize.svg"))
+
+        """for n in range(0, 3):
+            self.__group_list.append(QtWidgets.QGroupBox(self))
+            self.__group_list[n].setStyleSheet("QGroupBox { border: 1px solid gray; background: white; }")
+            self.__diagram_layout.addWidget(self.__group_list[n])
+            self.__group_layouts.append(QtWidgets.QVBoxLayout(self.__group_list[n]))
+        """
 
         buttons = QHBoxLayout()
         buttons.addWidget(StartButtonView(self))
@@ -61,21 +73,27 @@ class DiagramFieldView(QWidget):
         """adds diagrams in the diagram field view when maximized window is closed"""
         for diagram in self.__list:
             diagram.resize(280, 350)
-            self.__diagram_layout.addWidget(diagram)
+            #index_of_diagram: int = self.__list.index(diagram)
+            #self.__group_layouts[index_of_diagram].addWidget(diagram, 0, Qt.AlignTop)
+            self.__diagram_layout.addWidget(diagram) # C
 
     @staticmethod
     def add_diagram(diagram: DiagramView) -> NoReturn:
         """adds diagram to list of diagrams & add it to the layout """
         if len(DiagramFieldView.__diagram_field.__list) >= 3:
             raise DiagramMaximumReachedException
-        DiagramFieldView.__diagram_field.__list.append(diagram)
-        DiagramFieldView.__diagram_field.__diagram_layout.addWidget(diagram)
+        #DiagramFieldView.__diagram_field.__list.append(diagram)
+        #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)
+        #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].addWidget(diagram)
+        DiagramFieldView.__diagram_field.__diagram_layout.addWidget(diagram) # C
 
     @staticmethod
     def delete_diagram(diagram: DiagramView) -> NoReturn:
         """delete diagram from list of diagrams and then removes it from layout"""
-        DiagramFieldView.__diagram_field.__list.remove(diagram)
-        DiagramFieldView.__diagram_field.__diagram_layout.removeWidget(diagram)
+        #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)
+        #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].removeWidget(diagram)
+        #DiagramFieldView.__diagram_field.__list.remove(diagram)
+        DiagramFieldView.__diagram_field.__diagram_layout.removeWidget(diagram) # C
         diagram.close()
 
 
