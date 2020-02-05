@@ -12,10 +12,10 @@ class NumOptionView(OptionView):
         if self.__option.decimals == 0 and (self.__option.max - self.__option.min) <= 40:
             # Slider
             self.__slider: QtWidgets.QSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
-            # Slider-widget
-            self.__slider_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
+            # Slider-group
+            self.__slider_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)
             # Slider-layout
-            self.__slider_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self.__slider_widget)
+            self.__slider_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self.__slider_group)
             # Selection-label
             self.__selection_label: QtWidgets.QLabel = QtWidgets.QLabel(self)
 
@@ -68,11 +68,13 @@ class NumOptionView(OptionView):
         self.__slider.setMaximum(self.__option.max)
         self.__slider.valueChanged.connect(self.__set_slider_data)
 
+        self.__slider_group.setStyleSheet("QGroupBox { border: 1px solid gray; }")
+
         # Configure slider-label
         self.__selection_label.setText(str(self.__option.number))
 
-        # Add slider-widget to layout
-        self._option_layout.addWidget(self.__slider_widget)
+        # Add slider-group to layout
+        self._option_layout.addWidget(self.__slider_group)
 
         # Add slider and selection-label to slider-layout
         self.__slider_layout.addWidget(self.__selection_label, 0, QtCore.Qt.AlignCenter)
