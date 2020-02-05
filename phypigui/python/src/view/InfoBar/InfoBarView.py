@@ -19,6 +19,9 @@ class InfoBarView(QWidget):
 
         self.__horizontal_layout: QHBoxLayout = QHBoxLayout()
         self.__info_widget: QWidget = QWidget()
+        # TODO auskommentieren für alternativen style
+        self.__info_widget.setStyleSheet("QWidget#infowidget { background: white; border: 1px solid gray }")
+        self.__info_widget.setObjectName("infowidget")
 
         Translator.language_changed.signal.connect(InfoBarView.refresh_infobar)
         self.__init_ui()
@@ -38,6 +41,9 @@ class InfoBarView(QWidget):
         self.__horizontal_layout.replaceWidget(self.__info_widget, widget)
         self.__info_widget.close()
         self.__info_widget = widget
+        # TODO auskommentieren für alternativen style
+        self.__info_widget.setStyleSheet("QWidget#infowidget { background: white; border: 1px solid gray }")
+        self.__info_widget.setObjectName("infowidget")
 
     @staticmethod
     def refresh_infobar() -> NoReturn:

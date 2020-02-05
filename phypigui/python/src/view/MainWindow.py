@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtGui import QIcon, QKeyEvent
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QMainWindow
 
@@ -23,6 +23,14 @@ class MainWindow(QMainWindow):
         self.__infobar_field = InfoBarView(None)
         self.__diagram_field = DiagramFieldView(None)
 
+        self.__infobar_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)
+        self.__infobar_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout(self.__infobar_group)
+        self.__infobar_layout.addWidget(self.__infobar_field)
+
+        self.__diagram_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)
+        self.__diagram_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout(self.__diagram_group)
+        self.__diagram_layout.addWidget(self.__diagram_field)
+
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
@@ -40,12 +48,17 @@ class MainWindow(QMainWindow):
 
         layout_middle = QVBoxLayout()
         layout_middle.addWidget(self.__workspace_field, 7)
-        layout_middle.addWidget(self.__infobar_field, 2)
+        self.__workspace_field.setStyleSheet("QWidget { margin: 0px; }")
+        layout_middle.addWidget(self.__infobar_group, 2)
+
+        self.__infobar_group.setStyleSheet("QGroupBox { margin: 9px; border: 1px solid gray; }")
 
         layout = QHBoxLayout()
         layout.addWidget(self.__list_field, 2)
         layout.addLayout(layout_middle, 7)
-        layout.addWidget(self.__diagram_field, 3)
+        layout.addWidget(self.__diagram_group, 3)
+        self.__diagram_group.setStyleSheet("QGroupBox { margin-bottom: 9px; margin-top: 9px; margin-right: 4px;"
+                                           " border: 1px solid grey; }")
 
         self.__main_widget.setLayout(layout)
 
