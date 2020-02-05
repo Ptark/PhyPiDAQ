@@ -21,7 +21,7 @@ class WorkspaceModel:
 
     @staticmethod
     def __is_output_item(item_id: int) -> bool:
-        return item_id in WorkspaceModel.__output_item_list
+        return item_id in WorkspaceModel.__output_item_list.keys()
 
     @staticmethod
     def get_connection_to_input(input_id: int) -> int:
@@ -181,14 +181,18 @@ class WorkspaceModel:
 
     @staticmethod
     def delete_item(item_id: int) -> NoReturn:
-        """Deletes an item identified by its ID
+        """Deletes an item and all its components identified by its ID
 
         Args:
-            item_id (int):
+            item_id (int): ID of the item
         """
         if WorkspaceModel.__is_output_item(item_id):
+            for output_id in WorkspaceModel.__output_item_list[item_id].get_output_ids():
+                WorkspaceModel.delete_output(output_id)
             WorkspaceModel.__output_item_list.pop(item_id)
         if item_id in WorkspaceModel.__input_item_list:
+            for input_id in WorkspaceModel.__input_item_list[item_id].get_input_ids():
+                WorkspaceModel.delete_input(input_id)
             WorkspaceModel.__input_item_list.pop(item_id)
 
     @staticmethod
