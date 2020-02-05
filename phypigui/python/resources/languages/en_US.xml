@@ -127,4 +127,8 @@
 		<source>Ausleserate einstellen</source>
 		<translation>Set Read-out rate</translation>
 	</item>
+    <item>
+		<source>Daten</source>
+		<translation>Data</translation>
+	</item>
 </data>

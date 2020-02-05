@@ -41,6 +41,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.__config_window: ConfigView.ConfigView = None
         self.__info_widget: QWidget = QWidget()
         self._info_layout: QVBoxLayout = QVBoxLayout()
+        self.__name = QLabel()
+        self.__desc = QLabel()
 
         self.__lastPos: QPoint = None
 
@@ -74,15 +76,14 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         self.__update_text()
 
-        name = QLabel(Translator.tr(self._model.name))
-        desc = QLabel(Translator.tr(self._model.description))
-        desc.setWordWrap(True)
+        self.__desc.setWordWrap(True)
 
-        self._info_layout.setContentsMargins(0, 0, 0, 0)
-        self._info_layout.setSpacing(10)
+        self._info_layout.setContentsMargins(5, 5, 5, 5)
+        self._info_layout.setSpacing(5)
 
-        self._info_layout.addWidget(name)
-        self._info_layout.addWidget(desc)
+        self._info_layout.addWidget(self.__name)
+        self._info_layout.addSpacing(5)
+        self._info_layout.addWidget(self.__desc)
         self._info_layout.addStretch()
 
         self.__info_widget.setLayout(self._info_layout)
@@ -100,6 +101,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def __update_text(self):
         self.setToolTip(Translator.tr(self._model.name))
+        self.__name.setText(Translator.tr(self._model.name))
+        self.__desc.setText(Translator.tr(self._model.description))
 
     @pyqtSlot(ConfigModel)
     def __set_config_data(self, config: ConfigModel) -> NoReturn:

@@ -28,8 +28,15 @@ class DiagramItemView(WorkspaceItemView, ABC):
 
         super().__init__(parent, self._model.get_input_ids(), [])
 
-        self.__data_text = QLabel(Translator.tr("Daten") + ":")
-        self._info_layout.insertWidget(2, self.__data_text)
+        self.__data_text = QLabel()
+        self._info_layout.insertWidget(3, self.__data_text)
+
+        Translator.language_changed.signal.connect(self.__update_text)
+        self.__update_text()
+
+    def __update_text(self) -> NoReturn:
+        self.__data_text.setText(Translator.tr("Daten") + ":")
+        self.update_view()
 
     def update_view(self) -> NoReturn:
         if self.selected:
