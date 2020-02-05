@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
-from ..DiagramField.DiagramView import DiagramView
+from ..DiagramField.DiagramView import DiagramView, TimeDiagram, BarDiagram, DualDiagram
 from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
@@ -21,7 +21,7 @@ class DiagramItemView(WorkspaceItemView, ABC):
     """
     def __init__(self, parent: QWidget):
         self._model: DiagramItem
-        self._diagram = DiagramView(self._model)
+        self._diagram: DiagramView
         DiagramFieldView.add_diagram(self._diagram)
 
         super().__init__(parent, self._model.get_input_ids(), [])
@@ -42,6 +42,7 @@ class TimeDiagramItemView(DiagramItemView):
 
     def __init__(self, parent: QWidget):
         self._model: TimeDiagramItem = TimeDiagramItem()
+        self._diagram: TimeDiagram = TimeDiagram(self._model)
 
         super().__init__(parent)
 
@@ -56,6 +57,7 @@ class BarDiagramItemView(DiagramItemView):
 
     def __init__(self, parent: QWidget):
         self._model: BarDiagramItem = BarDiagramItem()
+        self._diagram: BarDiagram = BarDiagram(self._model)
 
         super().__init__(parent)
 
@@ -70,5 +72,6 @@ class DualDiagramItemView(DiagramItemView):
 
     def __init__(self, parent: QWidget):
         self._model: DualDiagramItem = DualDiagramItem()
+        self._diagram: DualDiagram = DualDiagram(self._model)
 
         super().__init__(parent)
