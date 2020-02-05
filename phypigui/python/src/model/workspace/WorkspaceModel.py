@@ -25,6 +25,10 @@ class WorkspaceModel:
         return item_id in WorkspaceModel.__output_item_list.keys()
 
     @staticmethod
+    def is_input_item(item_id: int) -> bool:
+        return item_id in WorkspaceModel.__input_item_list.keys()
+
+    @staticmethod
     def get_connection_to_input(input_id: int) -> int:
         """Returns the ID of the output, which is connected to this input identified by its ID
 

@@ -1,8 +1,10 @@
 from abc import ABC
 from typing import Final, NoReturn
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLabel
 
+from ..Translator import Translator
+from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..DiagramField.DiagramView import DiagramView, TimeDiagram, BarDiagram, DualDiagram
@@ -25,6 +27,17 @@ class DiagramItemView(WorkspaceItemView, ABC):
         DiagramFieldView.add_diagram(self._diagram)
 
         super().__init__(parent, self._model.get_input_ids(), [])
+
+        self.__data_text = QLabel(Translator.tr("Daten") + ":")
+        self._info_layout.insertWidget(2, self.__data_text)
+
+    def update_view(self) -> NoReturn:
+        if self.selected:
+            text = ""
+            for dat in self._model.data:
+                text += str(round(dat, 5)) + "\n\t"
+            self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
+            InfoBarView.refresh_infobar()
 
     def delete(self) -> NoReturn:
         DiagramFieldView.delete_diagram(self._diagram)
