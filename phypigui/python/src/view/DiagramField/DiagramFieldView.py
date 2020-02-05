@@ -82,7 +82,7 @@ class DiagramFieldView(QWidget):
         """adds diagram to list of diagrams & add it to the layout """
         if len(DiagramFieldView.__diagram_field.__list) >= 3:
             raise DiagramMaximumReachedException
-        #DiagramFieldView.__diagram_field.__list.append(diagram)
+        DiagramFieldView.__diagram_field.__list.append(diagram)
         #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)
         #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].addWidget(diagram)
         DiagramFieldView.__diagram_field.__diagram_layout.addWidget(diagram) # C
@@ -92,7 +92,7 @@ class DiagramFieldView(QWidget):
         """delete diagram from list of diagrams and then removes it from layout"""
         #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)
         #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].removeWidget(diagram)
-        #DiagramFieldView.__diagram_field.__list.remove(diagram)
+        DiagramFieldView.__diagram_field.__list.remove(diagram)
         DiagramFieldView.__diagram_field.__diagram_layout.removeWidget(diagram) # C
         diagram.close()
 
