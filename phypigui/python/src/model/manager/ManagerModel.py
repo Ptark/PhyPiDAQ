@@ -5,6 +5,8 @@ from typing import Dict, List, NoReturn
 
 from numpy import random
 
+from ..workspace.WorkspaceModel import WorkspaceModel
+
 
 class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
@@ -53,12 +55,14 @@ class ManagerModel:
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def set_selected_item(selected: 'OutputItem') -> NoReturn:
+    def set_selected_item(selected: 'ItemModel') -> NoReturn:
         """Sets current selected OutputItem
 
         Args:
             selected (OutputItem): Current selected OutputItem
         """
+        if selected is not None and not WorkspaceModel.is_input_item(selected.id):
+            return
         ManagerModel.__selected_item = selected
 
     @staticmethod
@@ -125,8 +129,8 @@ class ManagerModel:
             for diagram in ManagerModel.__diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
                 diagram.notify()
-            if ManagerModel.__selected_item is not None:
-                ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data.copy())
+            if ManagerModel.__selected_item is not None and ManagerModel.__selected_item not in ManagerModel.__diagrams:
+                ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
                 ManagerModel.__selected_item.notify()
             time.sleep(0.1)  # TODO: async
 

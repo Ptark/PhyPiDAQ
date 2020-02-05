@@ -1,8 +1,10 @@
 from abc import ABC
-from typing import Final
+from typing import Final, NoReturn
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLabel
 
+from ..Translator import Translator
+from ..InfoBar.InfoBarView import InfoBarView
 from ...model.item.OperatorItem import OperatorItem, AdditionOperatorItem, SubtractionOperatorItem, \
     MultiplicationOperatorItem, DivisionOperatorItem, AbsoluteOperatorItem
 from .WorkspaceItemView import WorkspaceItemView
@@ -21,6 +23,17 @@ class OperatorItemView(WorkspaceItemView, ABC):
         self._model: OperatorItem
 
         super().__init__(parent, self._model.get_input_ids(), self._model.get_output_ids())
+
+        self.__data_text = QLabel(Translator.tr("Daten") + ":")
+        self._info_layout.insertWidget(2, self.__data_text)
+
+    def update_view(self) -> NoReturn:
+        if self.selected:
+            text = ""
+            for dat in self._model.get_data():
+                text += str(round(dat, 5)) + "\n\t"
+            self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
+            InfoBarView.refresh_infobar()
 
 
 class AdditionOperatorItemView(OperatorItemView):

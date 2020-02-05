@@ -26,6 +26,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.__output: QPoint = output
         self.__input: QPoint = input
         self.__output_id: int = output_id
+        self.__input_id: int = None
 
     @property
     def output(self) -> QPoint:
@@ -38,6 +39,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         return self.__input
 
     def connect(self, input_id: int) -> NoReturn:
+        self.__input_id = input_id
         WorkspaceModel.connect(input_id, self.__output_id)
 
     def redraw(self, output: QPoint = None, input: QPoint = None) -> NoReturn:
@@ -111,6 +113,8 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
     def delete(self) -> NoReturn:
         """deletes the wire and sends a message then deletes wire from workspaceView """
         WorkspaceView.delete_wire(self)
+        if self.__input_id is not None:
+            WorkspaceModel.delete_connection(self.__input_id)
         super().delete()
         self.deletion_signal.emit(self)
         self.redraw()

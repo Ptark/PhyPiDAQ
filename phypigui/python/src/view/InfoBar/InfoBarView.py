@@ -38,12 +38,13 @@ class InfoBarView(QWidget):
 
     def update_info_widget(self, widget: QWidget) -> NoReturn:
         """adds the information about the selected WorkspaceItemView in the info bar"""
-        self.__horizontal_layout.replaceWidget(self.__info_widget, widget)
-        self.__info_widget.close()
-        self.__info_widget = widget
         # TODO auskommentieren für alternativen style
-        self.__info_widget.setStyleSheet("QWidget#infowidget { background: white; border: 1px solid gray }")
-        self.__info_widget.setObjectName("infowidget")
+        widget.setStyleSheet("QWidget#infowidget { background: white; border: 1px solid gray }")
+        widget.setObjectName("infowidget")
+        self.__horizontal_layout.replaceWidget(self.__info_widget, widget)
+        self.__info_widget.hide()
+        self.__info_widget = widget
+        self.__info_widget.show()
 
     @staticmethod
     def refresh_infobar() -> NoReturn:

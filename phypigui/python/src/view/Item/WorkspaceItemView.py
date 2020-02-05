@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
+from ...model.manager.ManagerModel import ManagerModel
 from ...model.workspace.WorkspaceModel import WorkspaceModel
 from ..Translator import Translator
 from ...model.item.ItemModel import ItemModel
@@ -32,10 +33,14 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         Selectable.__init__(self)
 
         self._model: ItemModel
+        self._model.attach(self)
+
         self.__inputs: List[InputView] = []
         self.__outputs: List[OutputView] = []
 
         self.__config_window: ConfigView.ConfigView = None
+        self.__info_widget: QWidget = QWidget()
+        self._info_layout: QVBoxLayout = QVBoxLayout()
 
         self.__lastPos: QPoint = None
 
@@ -69,6 +74,19 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         self.__update_text()
 
+        name = QLabel(Translator.tr(self._model.name))
+        desc = QLabel(Translator.tr(self._model.description))
+        desc.setWordWrap(True)
+
+        self._info_layout.setContentsMargins(0, 0, 0, 0)
+        self._info_layout.setSpacing(10)
+
+        self._info_layout.addWidget(name)
+        self._info_layout.addWidget(desc)
+        self._info_layout.addStretch()
+
+        self.__info_widget.setLayout(self._info_layout)
+
     def __context_menu(self, pos: QPoint) -> NoReturn:
         """Creates a context menu at the given position
 
@@ -90,6 +108,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
             self.selected = not self.selected
+            ManagerModel.set_selected_item(self._model if self.selected else None)
 
     def _update_selected_view(self) -> NoReturn:
         if self.selected:
@@ -113,22 +132,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.__config_window.set_data.connect(self.__set_config_data)
 
     def get_info_widget(self) -> QWidget:
-        widget = QWidget()
-
-        name = QLabel(Translator.tr(self._model.name))
-        desc = QLabel(Translator.tr(self._model.description))
-        desc.setWordWrap(True)
-
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(10)
-
-        layout.addWidget(name)
-        layout.addWidget(desc)
-        layout.addStretch()
-
-        widget.setLayout(layout)
-        return widget
+        return self.__info_widget
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
@@ -137,6 +141,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         for inout in (self.__inputs + self.__outputs):
             inout.delete_all_wires()
         self.close()
+
+    def update_view(self) -> NoReturn:
+        print(self._model.data)
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
