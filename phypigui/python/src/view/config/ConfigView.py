@@ -1,5 +1,5 @@
 import copy
-from typing import List, NoReturn
+from typing import List, NoReturn, final
 
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtCore import pyqtSignal
@@ -9,10 +9,11 @@ from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
 from .EnumOptionView import EnumOptionView
 from ...model.config.ConfigModel import ConfigModel
+from ..InfoBar.SettingsButtonView import SettingsButtonView
 
 
 class ConfigView(QtWidgets.QWidget):
-    __icon_source = "../resources/images/buttons/settingsbutton.png"
+    icon_path: final(str) = '../resources/images/Settings_window.png'
     set_data: pyqtSignal = pyqtSignal(ConfigModel)
 
     def __init__(self, name: str, config: ConfigModel):
@@ -43,7 +44,7 @@ class ConfigView(QtWidgets.QWidget):
 
     def __init_ui(self) -> NoReturn:
         self.resize(700, 900)
-        self.__icon.addPixmap(QtGui.QPixmap(self.__icon_source))
+        self.__icon.addPixmap(QtGui.QPixmap(self.icon_path))
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.setWindowTitle(self.__title)
         self.setWindowIcon(self.__icon)
