@@ -1,3 +1,4 @@
+from copy import copy
 from typing import Dict, NoReturn, List, Callable
 
 from ..item.Connection import Connection
@@ -216,8 +217,8 @@ class WorkspaceModel:
         Args:
             output_id (int): ID of output, which will be deleted
         """
-        if WorkspaceModel.delete_all_output_connections(output_id):
-            WorkspaceModel.__output_list.pop(output_id)
+        WorkspaceModel.delete_all_output_connections(output_id)
+        WorkspaceModel.__output_list.pop(output_id)
 
     @staticmethod
     def delete_connection(input_id: int) -> bool:
@@ -251,7 +252,7 @@ class WorkspaceModel:
             output_id (int): ID of output, which are part of all connections to be deleted
         """
         WorkspaceModel.invalidate_functions(output_id)
-        for connection in WorkspaceModel.__connection_list.values():
+        for connection in copy(WorkspaceModel.__connection_list).values():
             if connection.output == output_id:
                 WorkspaceModel.__connection_list.pop(connection.input)
 
@@ -289,9 +290,9 @@ class WorkspaceModel:
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
             output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
-            # if output.is_function_valid:
-            output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
-                get_rule(output.number_of_output)
+            if not output.is_function_valid:
+                output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
+                    get_rule(output.number_of_output)
             return output.function
         return lambda data: 0
 
