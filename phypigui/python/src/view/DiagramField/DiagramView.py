@@ -32,7 +32,10 @@ class DiagramView(FigureCanvas, View, metaclass=DiagramViewMeta):
         FigureCanvas.updateGeometry(self)
 
     def __update_diagram(self, data: float) -> NoReturn:
+        if len(self.__data) > 20:
+            self.__data.pop(0)
         self.__data.append(data)
+        self.__ax.clear()
         self.__ax.plot(self.__data, "r")
         self.draw()
 

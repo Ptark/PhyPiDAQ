@@ -50,7 +50,7 @@ class DiagramItem(InputItem):
         """
         for i in range(0, self.get_count_of_inputs()):
             self._functions[i] = WorkspaceModel.calculate_function(self._inputs[i].id)
-            # self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
+            self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
         return True
 
     def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:

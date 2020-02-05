@@ -285,12 +285,11 @@ class WorkspaceModel:
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
             output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
-            if not output.is_function_valid:
-                output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
-                    get_rule(output.number_of_output)
-                return output.function
-        else:
-            return lambda data: 0
+            # if output.is_function_valid:
+            output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
+                get_rule(output.number_of_output)
+            return output.function
+        return lambda data: 0
 
     @staticmethod
     def calculate_unit(input_id: int) -> str:
@@ -320,6 +319,6 @@ class WorkspaceModel:
         """
         for connection in WorkspaceModel.__connection_list.values():
             if connection.output == output_id:
-                input: Input = WorkspaceModel.__input_list[connection.input]
+                input: 'Input' = WorkspaceModel.__input_list[connection.input]
                 if WorkspaceModel.__is_output_item(input.parent_item_id):
                     WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()

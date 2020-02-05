@@ -30,4 +30,5 @@ class TemperatureSensorItem(SensorItem):
         assert self._config.enum_options[0] is not None
 
         enum_opt = self._config.enum_options[0]
-        return enum_opt.samples[enum_opt.selection]
+        enum_list = list(map(lambda opt: opt.value, enum_opt.samples))
+        return enum_list[enum_opt.selection]
