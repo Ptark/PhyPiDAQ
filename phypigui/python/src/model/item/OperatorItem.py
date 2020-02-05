@@ -5,6 +5,7 @@ from ..item.Output import Output
 from ..item.InputItem import InputItem
 from ..item.OutputItem import OutputItem
 from ..item.SensorItem import SensorItem
+from ..config.NumOption import NumOption
 from ..config.ConfigModel import ConfigModel
 from ..workspace.WorkspaceModel import WorkspaceModel
 
@@ -183,53 +184,53 @@ class NegativeOperatorItem(OperatorItem):
 
 
 class PowerOperatorItem(OperatorItem):
-    """This class models an operator, which exponentiates a data-stream with an other
+    """This class models an operator, which exponentiates a data-stream with an adjustable number
 
-    A PowerOperatorItem has two inputs and one output.
+    A PowerOperatorItem has one input and one output.
     """
 
     def __init__(self):
         """Initialising a PowerOperatorItem object"""
         name: str = "Exponentialsoperator"
-        description: str = "Dieser Operator potenziert einen Datenstrom mit einem anderen"
+        description: str = "Dieser Operator potenziert einen Datenstrom mit einer einstellbaren Zahl"
         config: ConfigModel = ConfigModel()
+        config.add_num_option(NumOption("Exponent", "Mit dieser Zahl wird der\nDaten-Strom potenziert", 0, -20, 20, 0))
 
-        super().__init__(name, description, config, 2, 1)
+        super().__init__(name, description, config, 1, 1)
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
             WorkspaceModel.calculate_function(self._inputs[0].id)(data)
-        second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
-            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
-        return lambda data: pow(first_function(data), second_function(data))
+        return lambda data: pow(first_function(data), self.config.num_options[0].number)
 
     def get_unit(self, output_number: int = 0) -> str:
-        return '' #TODO entweder 2. Eingang nur mit Konstantenelement verbinden oder keinen 2. Eingang und dafür NumOption
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + "^" + str(self.config.num_options[0].number) \
+               + ")"
 
 
 class RootOperatorItem(OperatorItem):
-    """This class models an operator, which exponentiates a data-stream with 1 divided through an second data-streom
+    """This class models an operator, which exponentiates a data-stream with 1 divided through an adjustable number
 
-    A OperatorItem has two inputs and one output.
+    A OperatorItem has one input and one output.
     """
 
     def __init__(self):
         """Initialising a RootOperatorItem object"""
         name: str = "Wurzeloperator"
-        description: str = "Dieser Operator potenziert einen Datenstrom mit 1 geteilt durch den 2. Datenstrom"
+        description: str = "Dieser Operator potenziert einen Datenstrom mit 1 geteilt durch eine einstellbare Zahl"
         config: ConfigModel = ConfigModel()
+        config.add_num_option(NumOption("n-te Wurzel", "Hier kann man die Zahl n\neinstellen", 0, -20, 20, 0))
 
-        super().__init__(name, description, config, 2, 1)
+        super().__init__(name, description, config, 1, 1)
 
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
             WorkspaceModel.calculate_function(self._inputs[0].id)(data)
-        second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
-            WorkspaceModel.calculate_function(self._inputs[1].id)(data)
-        return lambda data: pow(first_function(data), 1 / second_function(data))
+        return lambda data: pow(first_function(data), 1 / self.config.num_options[0].number)
 
     def get_unit(self, output_number: int = 0) -> str:
-        return '' #TODO entweder 2. Eingang nur mit Konstantenelement verbinden oder keinen 2. Eingang und dafür NumOption
+        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + "^ 1/" \
+                + str(self.config.num_options[0].number) + ")"
 
 
 class CloneItem(OperatorItem):
