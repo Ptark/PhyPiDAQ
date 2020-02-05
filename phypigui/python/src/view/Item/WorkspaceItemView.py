@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
+from ...model.workspace.WorkspaceModel import WorkspaceModel
 from ..Translator import Translator
 from ...model.item.ItemModel import ItemModel
 from ...model.config.ConfigModel import ConfigModel
@@ -131,6 +132,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def delete(self) -> NoReturn:
         WorkspaceView.delete_item(self)
+        WorkspaceModel.delete_item(self._model.id)
         super().delete()
         for inout in (self.__inputs + self.__outputs):
             inout.delete_all_wires()

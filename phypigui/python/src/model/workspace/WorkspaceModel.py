@@ -104,7 +104,6 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
-        print('i' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_list[id] = input
         return id
@@ -124,7 +123,6 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
-        print('o' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_list[id] = output
         return id
@@ -144,7 +142,6 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
-        print('ii' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_item_list[id] = item
         return id
@@ -164,7 +161,6 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
-        print('oi' + ' ' +str(id))
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_item_list[id] = item
         return id
@@ -271,7 +267,6 @@ class WorkspaceModel:
         if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
             if input_id not in WorkspaceModel.__connection_list:
                 WorkspaceModel.__connection_list[input_id] = Connection(input_id, output_id)
-                print(str(input_id) +' ' + str(output_id))
                 return True
         return False
 
@@ -289,7 +284,7 @@ class WorkspaceModel:
             Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function composed of all previous items
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
             if not output.is_function_valid:
                 output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
                     get_rule(output.number_of_output)
@@ -310,7 +305,7 @@ class WorkspaceModel:
             str: Unit from output
         """
         if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: Output = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+            output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
             output.unit = WorkspaceModel.__output_item_list[output.parent_item_id].get_unit(output.number_of_output)
             return output.unit
         else:

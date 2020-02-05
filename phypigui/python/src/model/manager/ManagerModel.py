@@ -1,6 +1,9 @@
 import copy
+import time
 
 from typing import Dict, List, NoReturn
+
+from numpy import random
 
 
 class ManagerModel:
@@ -28,7 +31,7 @@ class ManagerModel:
     @staticmethod
     def __read_data() -> NoReturn:
         for sensor in ManagerModel.__sensor_data:
-            ManagerModel.__sensor_data[sensor] = sensor.read()
+            ManagerModel.__sensor_data[sensor] = [random.random()]  # sensor.read()
 
     @staticmethod
     def is_running() -> bool:
@@ -120,11 +123,12 @@ class ManagerModel:
         while ManagerModel.__running:
             ManagerModel.__read_data()
             for diagram in ManagerModel.__diagrams:
-                diagram.calculate(ManagerModel.__sensor_data.copy())
+                diagram.calculate(ManagerModel.__sensor_data)
                 diagram.notify()
             if ManagerModel.__selected_item is not None:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data.copy())
                 ManagerModel.__selected_item.notify()
+            time.sleep(0.1)  # TODO: async
 
     @staticmethod
     def stop() -> NoReturn:

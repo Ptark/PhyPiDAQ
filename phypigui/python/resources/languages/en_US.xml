@@ -39,4 +39,92 @@
 		<source>Entfernen</source>
 		<translation>Delete</translation>
 	</item>
+    <item>
+		<source>Sensoren</source>
+		<translation>Sensors</translation>
+	</item>
+    <item>
+		<source>Operatoren</source>
+		<translation>Operators</translation>
+	</item>
+    <item>
+		<source>Diagramme</source>
+		<translation>Diagrams</translation>
+	</item>
+    <item>
+		<source>Start</source>
+		<translation>Start</translation>
+	</item>
+    <item>
+		<source>Stop</source>
+		<translation>Stop</translation>
+	</item>
+    <item>
+		<source>Temperatursensor</source>
+		<translation>Temperature Sensor</translation>
+	</item>
+    <item>
+		<source>Kraftsensor</source>
+		<translation>Force Sensor</translation>
+	</item>
+    <item>
+		<source>Abstandssensor</source>
+		<translation>Distance Sensor</translation>
+	</item>
+    <item>
+		<source>Beschleunigungssensor</source>
+		<translation>Accelerometer</translation>
+	</item>
+    <item>
+		<source>Additionsoperator</source>
+		<translation>Addition Operator</translation>
+	</item>
+    <item>
+		<source>Subtraktionsoperator</source>
+		<translation>Subtraction Operator</translation>
+	</item>
+    <item>
+		<source>Multiplikationsoperator</source>
+		<translation>Multiplication Operator</translation>
+	</item>
+    <item>
+		<source>Divisionsoperator</source>
+		<translation>Division Operator</translation>
+	</item>
+    <item>
+		<source>Absolutoperator</source>
+		<translation>Absolute Operator</translation>
+	</item>
+    <item>
+		<source>Zeitdiagramm</source>
+		<translation>Time Diagram</translation>
+	</item>
+    <item>
+		<source>Balkendiagramm</source>
+		<translation>Bar Chart</translation>
+	</item>
+    <item>
+		<source>2D-Diagramm</source>
+		<translation>2D Diagram</translation>
+	</item>
+    <item>
+		<source>Einstellungsfenster</source>
+		<translation>Settings Window</translation>
+	</item>
+    <item>
+		<source>Einheit</source>
+		<translation>Unit</translation>
+	</item>
+    <item>
+		<source>Ausleserate</source>
+		<translation>Read-out rate</translation>
+	</item>
+    <item>
+		<source>Einheit einstellen</source>
+		<translation>Set Unit</translation>
+	</item>
+    <item>
+		<source>Ausleserate einstellen</source>
+		<translation>Set Read-out rate</translation>
+	</item>
 </data>

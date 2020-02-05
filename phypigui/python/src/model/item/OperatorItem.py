@@ -1,7 +1,6 @@
 from abc import ABC
 from typing import List, Callable, Dict
 
-from ..item.Output import Output
 from ..item.InputItem import InputItem
 from ..item.OutputItem import OutputItem
 from ..item.SensorItem import SensorItem
@@ -27,11 +26,7 @@ class OperatorItem(InputItem, OutputItem, ABC):
         input_id: int = self._id
         OutputItem.__init__(self, name, description, config, outputs)
         WorkspaceModel.unite_ids(input_id, self)
-        print(self._id)
-        """self._outputs: List[Output] = []
-        for i in range(0, outputs):
-            self._outputs.append(Output(self._id, i))
-"""
+
 
 class DivisionOperatorItem(OperatorItem):
     """This class models a operator, which divides the first by the second data-stream
@@ -169,7 +164,7 @@ class NegativeOperatorItem(OperatorItem):
     def __init__(self):
         """Initialising a NegativeOperatorItem object"""
         name: str = "Negativer Betragsoperator"
-        description: str = "Dieser Operator macht alle einkommenden Werte negative"
+        description: str = "Dieser Operator negiert alle einkommenden Werte"
         config: ConfigModel = ConfigModel()
 
         super().__init__(name, description, config, 1, 1)
