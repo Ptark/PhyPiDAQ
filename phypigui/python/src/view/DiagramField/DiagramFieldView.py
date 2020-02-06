@@ -83,7 +83,7 @@ class DiagramFieldView(QWidget):
             #index_of_diagram: int = self.__list.index(diagram)                                         # 2
             #self.__group_layouts[index_of_diagram].addWidget(diagram, 0, Qt.AlignTop)                  # 2
             #self.__diagram_layout.addWidget(diagram)                                                   # 1
-            self.__group_layout.addWidget(diagram)                                                      # 3
+            self.__group_layout.addWidget(diagram, 10, Qt.AlignTop)                                                      # 3
         if self.__diagram_count == 1:                                                                   # 3
             self.add_stretch()                                                                          # 3
 
