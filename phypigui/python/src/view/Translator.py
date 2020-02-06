@@ -3,6 +3,8 @@ from xml.dom import minidom
 
 from PyQt5.QtCore import QLocale, pyqtSignal, QObject
 
+from ..SystemInfo import SystemInfo
+
 
 class Translator:
     """Static class for getting translations and changing languages
@@ -32,7 +34,7 @@ class Translator:
             Translator.__translator = None
         else:
             try:
-                items = minidom.parse('../resources/languages/' + QLocale(language).name() + '.xml').getElementsByTagName('item')
+                items = minidom.parse(SystemInfo.RESOURCES + 'languages/' + QLocale(language).name() + '.xml').getElementsByTagName('item')
             except FileNotFoundError:
                 return False
 
