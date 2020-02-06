@@ -1,10 +1,10 @@
 from typing import NoReturn
 
-from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
 from ..Translator import Translator
+from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..Workspace.WorkspaceView import WorkspaceView
 
 
@@ -26,10 +26,10 @@ class DeleteButtonView(QPushButton):
     def __update_text(self) -> NoReturn:
         self.setToolTip(Translator.tr("Entfernen"))
 
-    @pyqtSlot()
     def __on_click(self) -> NoReturn:
         if WorkspaceView.selection is not None:
             WorkspaceView.selection.delete()
+            DiagramFieldView.interrupt_mp()
 
         self.clearFocus()
 
