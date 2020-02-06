@@ -1,4 +1,5 @@
 from typing import NoReturn
+import time
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
@@ -28,8 +29,9 @@ class DeleteButtonView(QPushButton):
 
     def __on_click(self) -> NoReturn:
         if WorkspaceView.selection is not None:
-            WorkspaceView.selection.delete()
             DiagramFieldView.interrupt_mp()
+            time.sleep(0.2)     # TODO Thread Deadlock oder sowas
+            WorkspaceView.selection.delete()
 
         self.clearFocus()
 

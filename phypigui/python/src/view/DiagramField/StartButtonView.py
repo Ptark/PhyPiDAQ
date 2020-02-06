@@ -66,7 +66,7 @@ class StartButtonView(QPushButton):
         """
         was_running: bool = StartButtonView.__button.__is_started
         if was_running:
-            StartButtonView.click()
+            StartButtonView.__button.__on_click()
         return was_running
 
     @staticmethod

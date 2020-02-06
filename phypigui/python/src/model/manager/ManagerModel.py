@@ -124,9 +124,10 @@ class ManagerModel:
         """
         ManagerModel.__init_functions()
         ManagerModel.__running = True
+        diagrams: List['DiagramItem'] = ManagerModel.__diagrams.copy()
         while ManagerModel.__running:
             ManagerModel.__read_data()
-            for diagram in ManagerModel.__diagrams:
+            for diagram in diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
                 diagram.notify()
             if ManagerModel.__selected_item is not None and ManagerModel.__selected_item not in ManagerModel.__diagrams:

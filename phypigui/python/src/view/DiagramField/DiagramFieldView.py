@@ -103,7 +103,6 @@ class DiagramFieldView(QWidget):
         DiagramFieldView.__diagram_field.__group_layout.addWidget(diagram, 10, Qt.AlignTop)             # 3
         if DiagramFieldView.__diagram_field.__diagram_count == 1:                                       # 3
             DiagramFieldView.add_stretch()                                                              # 3
-
         #DiagramFieldView.__diagram_field.__diagram_layout.addWidget(diagram)                           # 1
 
     @staticmethod
