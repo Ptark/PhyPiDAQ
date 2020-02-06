@@ -106,9 +106,11 @@ class FileOptionView(OptionView):
 
         if s_path == '':
             return
-        elif len(s_path) > self.__l_count:
-            self.__option.path = path
-            self.__text_field.setToolTip(s_path)
+
+        self.__option.path = path
+        self.__text_field.setToolTip(s_path)
+
+        if len(s_path) > self.__l_count:
             file_name: str = path.name
             print(file_name)
             print(self.__l_count)
