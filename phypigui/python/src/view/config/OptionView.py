@@ -1,6 +1,6 @@
 from abc import ABC
 
-from typing import NoReturn, final
+from typing import NoReturn
 from PyQt5 import QtWidgets, QtCore
 
 from ..Translator import Translator
@@ -14,7 +14,7 @@ class OptionView(ABC, QtWidgets.QWidget, metaclass=OptionViewMeta):
     """This class is a superclass for all kind of item-options in the view"""
 
     # style-sheet rgb value
-    ERROR_COLOR: final(str) = 'rgb(255, 158, 158)'
+    ERROR_COLOR: str = 'rgb(255, 158, 158)'
 
     def __init__(self, parent: QtWidgets.QWidget, name: str, description: str):
         """Initialising an OptionView object

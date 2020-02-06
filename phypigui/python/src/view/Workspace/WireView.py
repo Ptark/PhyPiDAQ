@@ -1,4 +1,4 @@
-from typing import NoReturn, Final
+from typing import NoReturn
 
 from PyQt5.QtCore import pyqtSignal, QObject, QPoint
 from PyQt5.QtWidgets import QWidget, QMenu, QLabel
@@ -15,7 +15,7 @@ class WireViewMeta(type(Selectable), type(QObject)):
 
 class WireView(Selectable, QObject, metaclass=WireViewMeta):
     """This class represents a Wire connecting two WorkspaceItemViews """
-    __CLICKABLE_MARGIN: Final[int] = 1400
+    __CLICKABLE_MARGIN: int = 1400
     redraw_signal = pyqtSignal()
     deletion_signal = pyqtSignal(QObject)
 

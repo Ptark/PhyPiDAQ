@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import Final, NoReturn
+from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
@@ -49,7 +49,7 @@ class AdditionOperatorItemView(OperatorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = operator_path + 'addition.svg'
+    icon_path: str = operator_path + 'addition.svg'
 
     def __init__(self, parent: QWidget):
         self._model: AdditionOperatorItem = AdditionOperatorItem()
@@ -63,7 +63,7 @@ class SubtractionOperatorItemView(OperatorItemView):
         Attributes (QWidget):
             parent: A parent widget.
     """
-    icon_path: Final[str] = operator_path + 'subtraction.svg'
+    icon_path: str = operator_path + 'subtraction.svg'
 
     def __init__(self, parent: QWidget):
         self._model: SubtractionOperatorItem = SubtractionOperatorItem()
@@ -77,7 +77,7 @@ class MultiplicationOperatorItemView(OperatorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = operator_path + 'multiplication.svg'
+    icon_path: str = operator_path + 'multiplication.svg'
 
     def __init__(self, parent: QWidget):
         self._model: MultiplicationOperatorItem = MultiplicationOperatorItem()
@@ -91,7 +91,7 @@ class DivisionOperatorItemView(OperatorItemView):
         Attributes:
             parent: A parent widget.
     """
-    icon_path: Final[str] = operator_path + 'division.svg'
+    icon_path: str = operator_path + 'division.svg'
 
     def __init__(self, parent: QWidget):
         self._model: DivisionOperatorItem = DivisionOperatorItem()
@@ -105,7 +105,7 @@ class AbsoluteOperatorItemView(OperatorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = operator_path + 'absolute.svg'
+    icon_path: str = operator_path + 'absolute.svg'
 
     def __init__(self, parent: QWidget):
         self._model: AbsoluteOperatorItem = AbsoluteOperatorItem()
