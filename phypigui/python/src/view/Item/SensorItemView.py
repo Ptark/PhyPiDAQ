@@ -3,6 +3,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from ...SystemInfo import SystemInfo
 from ...model.manager.ManagerModel import ManagerModel
 from ...model.item.AccelerationSensorItem import AccelerationSensorItem
 from ...model.item.DistanceSensorItem import DistanceSensorItem
@@ -12,7 +13,7 @@ from ...model.item.TemperatureSensorItem import TemperatureSensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 
-sensor_path = "../resources/images/items/sensor/"
+sensor_path = SystemInfo.RESOURCES + 'images/items/sensor/'
 
 
 class SensorItemView(WorkspaceItemView, ABC):

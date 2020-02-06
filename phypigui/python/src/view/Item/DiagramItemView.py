@@ -3,6 +3,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
@@ -12,7 +13,7 @@ from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramIt
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 
-diagram_path = "../resources/images/items/diagram/"
+diagram_path = SystemInfo.RESOURCES + 'images/items/diagram/'
 
 
 class DiagramItemView(WorkspaceItemView, ABC):

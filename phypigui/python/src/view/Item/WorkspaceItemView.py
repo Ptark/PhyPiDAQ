@@ -102,7 +102,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def __update_text(self):
         self.setToolTip(Translator.tr(self._model.name))
         self.__name.setText(Translator.tr(self._model.name))
-        self.__desc.setText(Translator.tr(self._model.description))
+        self.__desc.setText(Translator.tr(self._model.description) + ".")
 
     @pyqtSlot(ConfigModel)
     def __set_config_data(self, config: ConfigModel) -> NoReturn:

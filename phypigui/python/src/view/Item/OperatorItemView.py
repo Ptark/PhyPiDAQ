@@ -3,6 +3,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
 from ...model.item.OperatorItem import OperatorItem, AdditionOperatorItem, SubtractionOperatorItem, \
@@ -10,7 +11,7 @@ from ...model.item.OperatorItem import OperatorItem, AdditionOperatorItem, Subtr
 from .WorkspaceItemView import WorkspaceItemView
 
 
-operator_path = "../resources/images/items/operator/"
+operator_path = SystemInfo.RESOURCES + 'images/items/operator/'
 
 
 class OperatorItemView(WorkspaceItemView, ABC):
