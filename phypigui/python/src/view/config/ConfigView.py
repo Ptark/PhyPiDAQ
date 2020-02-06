@@ -1,8 +1,7 @@
 import copy
-from typing import List, NoReturn, final
 
+from typing import List, NoReturn, final
 from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import pyqtSignal
 
 from ..Translator import Translator
 from .NumOptionView import NumOptionView
@@ -10,14 +9,24 @@ from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
 from .EnumOptionView import EnumOptionView
 from ...model.config.ConfigModel import ConfigModel
-from ..InfoBar.SettingsButtonView import SettingsButtonView
 
 
 class ConfigView(QtWidgets.QWidget):
+    """This class represents the settings-window of every item
+
+    It creates all GUI versions of the options for the selected item and builds a new Window, which is always on top.
+    """
+
     icon_path: final(str) = '../resources/images/Settings_window.png'
-    set_data: pyqtSignal = pyqtSignal(ConfigModel)
+    set_data: QtCore.pyqtSignal = QtCore.pyqtSignal(ConfigModel)
 
     def __init__(self, name: str, config: ConfigModel):
+        """Initialising a ConfigView object and the whole window
+
+        Args:
+            name (str): Name of the item
+            config (ConfigModel): The config of the item, which contains all adjustable options
+        """
         QtWidgets.QWidget.__init__(self)
 
         self.__config: ConfigModel = config
