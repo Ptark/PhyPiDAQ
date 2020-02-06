@@ -4,6 +4,7 @@ import time
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..Workspace.WorkspaceView import WorkspaceView
@@ -19,7 +20,7 @@ class DeleteButtonView(QPushButton):
         DeleteButtonView.__button = self
 
         self.setFixedSize(31, 31)
-        self.setIcon(QIcon("../resources/images/buttons/delete.svg"))
+        self.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/delete.svg'))
         self.clicked.connect(self.__on_click)
         Translator.language_changed.signal.connect(self.__update_text)
         self.__update_text()

@@ -2,6 +2,7 @@ from PyQt5.QtCore import pyqtSlot, QLocale
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 
 
@@ -11,7 +12,7 @@ class LanguageAction(QAction):
         super().__init__(parent)
 
         self.__locale: int = locale
-        self.setIcon(QIcon("../resources/images/flags/" + QLocale(self.__locale).name() + ".png"))
+        self.setIcon(QIcon(SystemInfo.RESOURCES + 'images/flags/' + QLocale(self.__locale).name() + '.png'))
 
         self.triggered.connect(self.__on_click)
 

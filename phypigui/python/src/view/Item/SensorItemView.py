@@ -1,8 +1,9 @@
 from abc import ABC
-from typing import Final, NoReturn
+from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from ...SystemInfo import SystemInfo
 from ...model.manager.ManagerModel import ManagerModel
 from ...model.item.AccelerationSensorItem import AccelerationSensorItem
 from ...model.item.DistanceSensorItem import DistanceSensorItem
@@ -12,7 +13,7 @@ from ...model.item.TemperatureSensorItem import TemperatureSensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 
-sensor_path = "../resources/images/items/sensor/"
+sensor_path = SystemInfo.RESOURCES + 'images/items/sensor/'
 
 
 class SensorItemView(WorkspaceItemView, ABC):
@@ -36,7 +37,7 @@ class TemperatureSensorItemView(SensorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = sensor_path + 'temperature.svg'
+    icon_path: str = sensor_path + 'temperature.svg'
 
     def __init__(self, parent: QWidget):
         self._model: TemperatureSensorItem = TemperatureSensorItem()
@@ -50,7 +51,7 @@ class ForceSensorItemView(SensorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = sensor_path + 'force.svg'
+    icon_path: str = sensor_path + 'force.svg'
 
     def __init__(self, parent: QWidget):
         self._model: ForceSensorItem = ForceSensorItem()
@@ -64,7 +65,7 @@ class DistanceSensorItemView(SensorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = sensor_path + 'distance.svg'
+    icon_path: str = sensor_path + 'distance.svg'
 
     def __init__(self, parent: QWidget):
         self._model: DistanceSensorItem = DistanceSensorItem()
@@ -78,7 +79,7 @@ class AccelerationSensorItemView(SensorItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = sensor_path + 'acceleration.svg'
+    icon_path: str = sensor_path + 'acceleration.svg'
 
     def __init__(self, parent: QWidget):
         self._model: AccelerationSensorItem = AccelerationSensorItem()

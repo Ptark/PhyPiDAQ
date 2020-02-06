@@ -1,10 +1,7 @@
-from typing import NoReturn
-
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QTabWidget, QVBoxLayout
 
-from ..Translator import Translator
 from ..Item.DiagramItemView import *
 from ..Item.ListItemView import ListItemView
 from ..Item.OperatorItemView import *
@@ -57,7 +54,7 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__tab.setElideMode(Qt.ElideRight)
         self.__tab.setIconSize(QSize(35, 35))
 
-        icon_path = "../resources/images/items/"
+        icon_path = SystemInfo.RESOURCES + 'images/items/'
 
         self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 62px; }"
                                  "QTabWidget { border: 1px solid gray}")

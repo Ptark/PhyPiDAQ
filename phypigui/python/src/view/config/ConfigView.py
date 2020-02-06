@@ -1,8 +1,9 @@
 import copy
 
-from typing import List, NoReturn, final
+from typing import List, NoReturn
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from .NumOptionView import NumOptionView
 from .BoolOptionView import BoolOptionView
@@ -18,7 +19,7 @@ class ConfigView(QtWidgets.QWidget):
     It creates all GUI versions of the options for the selected item and builds a new Window, which is always on top.
     """
 
-    icon_path: final(str) = '../resources/images/Settings_window.png'
+    icon_path: str = SystemInfo.RESOURCES + 'images/Settings_window.png'
     set_data: QtCore.pyqtSignal = QtCore.pyqtSignal(ConfigModel)
 
     def __init__(self, name: str, config: ConfigModel):

@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from PyQt5.QtGui import QCloseEvent, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QGridLayout
 
+from ...SystemInfo import SystemInfo
 from ...model.manager.ManagerModel import ManagerModel
 from ...Exceptions import DiagramMaximumReachedException
 from .DiagramView import DiagramView
@@ -46,7 +47,7 @@ class DiagramFieldView(QWidget):
     def __init_ui(self):
         """ this method initialises the user interface of the diagram field"""
         self.__maximize_button.setFixedSize(31, 31)
-        self.__maximize_button.setIcon(QIcon("../resources/images/buttons/maximize.svg"))
+        self.__maximize_button.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/maximize.svg'))
 
 
         """for n in range(0, 3):                                                                            # 2
@@ -157,7 +158,7 @@ class Dialog(QWidget):
     def __init_ui(self, list: List[DiagramView]):
         """initialises the user interface of the dialog window"""
         minimize_button = QtWidgets.QPushButton()
-        minimize_button.setIcon(QIcon("../resources/images/buttons/minimize.svg"))
+        minimize_button.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/minimize.svg'))
         minimize_button.setFixedSize(31, 31)
         minimize_button.clicked.connect(self.__minimize_on_click)
 

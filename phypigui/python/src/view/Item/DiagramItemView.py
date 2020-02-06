@@ -1,8 +1,9 @@
 from abc import ABC
-from typing import Final, NoReturn
+from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
+from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
@@ -12,7 +13,7 @@ from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramIt
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 
-diagram_path = "../resources/images/items/diagram/"
+diagram_path = SystemInfo.RESOURCES + 'images/items/diagram/'
 
 
 class DiagramItemView(WorkspaceItemView, ABC):
@@ -58,7 +59,7 @@ class TimeDiagramItemView(DiagramItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = diagram_path + 'time.svg'
+    icon_path: str = diagram_path + 'time.svg'
 
     def __init__(self, parent: QWidget):
         self._model: TimeDiagramItem = TimeDiagramItem()
@@ -73,7 +74,7 @@ class BarDiagramItemView(DiagramItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = diagram_path + 'bar.svg'
+    icon_path: str = diagram_path + 'bar.svg'
 
     def __init__(self, parent: QWidget):
         self._model: BarDiagramItem = BarDiagramItem()
@@ -88,7 +89,7 @@ class DualDiagramItemView(DiagramItemView):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    icon_path: Final[str] = diagram_path + 'dual.svg'
+    icon_path: str = diagram_path + 'dual.svg'
 
     def __init__(self, parent: QWidget):
         self._model: DualDiagramItem = DualDiagramItem()

@@ -1,7 +1,7 @@
 import copy
 
-from typing import NoReturn, List, final
-from pathlib import PurePath, Path
+from typing import NoReturn, List
+from pathlib import Path, PurePath
 
 from .OptionModel import OptionModel
 from ..ModelExceptions import PathDoesntExist
@@ -10,9 +10,9 @@ from ..ModelExceptions import PathDoesntExist
 class FileOption(OptionModel):
     """This class represents a path-selecting option"""
 
-    ANYFILE: final(int) = 0
-    EXISTINGFILE: final(int) = 1
-    DIR: final(int) = 2
+    ANYFILE: int = 0
+    EXISTINGFILE: int = 1
+    DIR: int = 2
 
     def __init__(self, name: str, description: str = '', file_opening_mode: int = 0
                  , file_type: str = '', file_endings: List[str] = None):
