@@ -3,6 +3,7 @@ from typing import NoReturn
 from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QMenu, QWidget
 
+from ..AboutWindow import AboutWindow
 from ..Translator import Translator
 from ..Workspace.WorkspaceView import WorkspaceView
 from .LanguageAction import LanguageAction
@@ -53,7 +54,8 @@ class HelpMenuView(QMenu):
     def __init__(self, parent: QWidget):
         super().__init__(parent)
 
-        self.addAction("", self.__show_info)
+        self.addAction("", self.__show_about)
+        self.__about_window = None
 
         Translator.language_changed.signal.connect(self.__update_text)
         self.__update_text()
@@ -62,5 +64,6 @@ class HelpMenuView(QMenu):
         self.setTitle(Translator.tr("Hilfe"))
         self.actions()[0].setText(Translator.tr("Über"))
 
-    def __show_info(self) -> NoReturn:
-        pass  # TODO
+    def __show_about(self) -> NoReturn:
+        self.__about_window = AboutWindow()
+        self.__about_window.show()

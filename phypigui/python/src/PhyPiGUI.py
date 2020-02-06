@@ -12,11 +12,12 @@ from .view.Translator import Translator
 def run():
     app = QApplication(sys.argv)
 
-    SystemInfo.init()
-
     locale = QLocale.system().language()
     Translator.install_translator(locale)
 
     window = MainWindow()
+
+    SystemInfo.init(window.font())
+
     app.aboutToQuit.connect(GlobalSignals.about_to_quit.signal.emit)
     sys.exit(app.exec_())

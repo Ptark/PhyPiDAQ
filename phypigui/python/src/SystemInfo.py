@@ -2,6 +2,7 @@ import sys
 import math
 
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QFont
 
 
 class SystemInfo:
@@ -13,11 +14,13 @@ class SystemInfo:
     SCREEN_HEIGHT: int
 
     RESOURCES: str = 'phypigui/python/resources/'
+    FONT: QFont
 
     @staticmethod
-    def init():
+    def init(font: QFont):
         SystemInfo.SCREEN_WIDTH = QtWidgets.QDesktopWidget().screenGeometry(-1).width()
         SystemInfo.SCREEN_HEIGHT = QtWidgets.QDesktopWidget().screenGeometry(-1).height()
+        SystemInfo.FONT = font
 
     @staticmethod
     def h():
