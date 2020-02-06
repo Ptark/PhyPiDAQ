@@ -33,7 +33,7 @@ class EnumOption(OptionModel):
         """Index of selected value in the enum
 
         Raises:
-            IndexError: If the selected index smaller than zero or greater then the length of samples
+            OutOfRange: If the selected index is smaller than zero or greater than the length of samples
         """
         return self.__selection
 

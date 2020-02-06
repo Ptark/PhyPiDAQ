@@ -24,22 +24,22 @@ class ConfigModel:
 
     @property
     def bool_options(self) -> List[BoolOption]:
-        """List of all boolean options in this config"""
+        """Copy of List of all boolean options in this config"""
         return copy.deepcopy(self.__bool_options)
 
     @property
     def file_options(self) -> List[FileOption]:
-        """List of all path-selecting options in this config"""
+        """Copy of List of all path-selecting options in this config"""
         return copy.deepcopy(self.__file_options)
 
     @property
     def enum_options(self) -> List[EnumOption]:
-        """List of all enumerable options in this config"""
+        """Copy of List of all enumerable options in this config"""
         return copy.deepcopy(self.__enum_options)
 
     @property
     def num_options(self) -> List[NumOption]:
-        """List of all numerical options in this config"""
+        """Copy of List of all numerical options in this config"""
         return copy.deepcopy(self.__num_options)
 
     def add_bool_option(self, option: BoolOption) -> int:
@@ -119,9 +119,13 @@ class ConfigModel:
         Args:
             index (int): Index of option, which will be set
             value (bool): Value on which the option will be set
+
+        Raises:
+            IndexError: If the index of the option is out of range
         """
-        if 0 <= index < len(self.__bool_options):
-            self.__bool_options[index].enabled = value
+        if index < 0 or index >= len(self.bool_options):
+            raise IndexError("The index %d for this boolean option is out of range." % (index,))
+        self.__bool_options[index].enabled = value
 
     def set_file_option(self, index: int, path: PurePath) -> NoReturn:
         """Sets the path of a FileOption
@@ -131,9 +135,14 @@ class ConfigModel:
         Args:
             index (int): Index of option, which will be set
             path (PurePath): Path on which the option will be set
+
+        Raises:
+            IndexError: If the index of the option is out of range
+            PathDoesntExist: If the path doesn't exist
         """
-        if 0 <= index < len(self.__file_options):
-            self.__file_options[index].path = path
+        if index < 0 or index >= len(self.__file_options):
+            raise IndexError("The index %d for this path-selecting option is out of range." % (index,))
+        self.__file_options[index].path = path
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
         """Sets the selection of an EnumOption
@@ -143,10 +152,14 @@ class ConfigModel:
         Args:
             index (int): Index of option, which will be set
             selection (int): Selection on which the option will be set
+
+        Raises:
+            IndexError: If the index of the option is out of range
+            OutOfRange: If the index of the selection in the enum is out of range
         """
-        if 0 <= index < len(self.__enum_options):
-            if 0 <= selection < len(self.__enum_options[index].samples):
-                self.__enum_options[index].selection = selection
+        if index < 0 or index >= len(self.__enum_options):
+            raise IndexError("The index %d for this enumerable option is out of range." % (index,))
+        self.__enum_options[index].selection = selection
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
         """Sets the number of a NumOption
@@ -156,6 +169,12 @@ class ConfigModel:
         Args:
             index (int): Index of option, which will be set
             number (float): Number on which the option will be set
+
+        Raises:
+            IndexError: If the index of the option is out of range
+            NumberTooLarge: If the number is greater than the maximum allowed number for this option
+            NumberTooSmall: If the number is smaller than the minimum allowed number for this option
         """
-        if 0 <= index < len(self.__num_options):
-            self.__num_options[index].number = number
+        if index < 0 or index >= len(self.__num_options):
+            raise IndexError("The index %d for this numerical option is out of range." % (index,))
+        self.__num_options[index].number = number
