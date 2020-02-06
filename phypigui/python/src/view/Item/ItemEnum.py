@@ -6,14 +6,20 @@ from PyQt5.QtWidgets import QWidget
 
 from ...SystemInfo import SystemInfo
 from ...model.item.AccelerationSensorItem import AccelerationSensorItem
+from ...model.item.ConstantItems import ConstantItem, NatureConstantItem
+from ...model.item.CurrentSensorItem import CurrentSensorItem
 from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, DualDiagramItem, BarDiagramItem
 from ...model.item.DistanceSensorItem import DistanceSensorItem
 from ...model.item.ForceSensorItem import ForceSensorItem
 from ...model.item.ItemModel import ItemModel
 from ...model.item.OperatorItem import AdditionOperatorItem, SubtractionOperatorItem, \
-    MultiplicationOperatorItem, DivisionOperatorItem, AbsoluteOperatorItem, OperatorItem
+    MultiplicationOperatorItem, DivisionOperatorItem, AbsoluteOperatorItem, OperatorItem, NegativeOperatorItem, \
+    PowerOperatorItem, RootOperatorItem, CloneItem
+from ...model.item.ProxySensorItem import ProxySensorItem
+from ...model.item.RGBSensorItem import RGBSensorItem
 from ...model.item.SensorItem import SensorItem
 from ...model.item.TemperatureSensorItem import TemperatureSensorItem
+from ...model.item.VoltageSensorItem import VoltageSensorItem
 from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram
 from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
@@ -46,10 +52,16 @@ class ItemEnum(ABC, Enum, metaclass=ItemEnumMeta):
 
 @unique
 class SensorEnum(ItemEnum):
+    PROXY_SENSOR = (ProxySensorItem, '')
+    CONSTANT = (ConstantItem, '')
+    NATURE_CONSTANT = (NatureConstantItem, '')
     TEMPERATURE_SENSOR = (TemperatureSensorItem, 'temperature')
     FORCE_SENSOR = (ForceSensorItem, 'force')
     DISTANCE_SENSOR = (DistanceSensorItem, 'distance')
     ACCELERATION_SENSOR = (AccelerationSensorItem, 'acceleration')
+    CURRENT_SENSOR = (CurrentSensorItem, '')
+    RGB_SENSOR = (RGBSensorItem, '')
+    VOLTAGE_SENSOR = (VoltageSensorItem, '')
 
     def __init__(self, model: Type[SensorItem], file: str):
         super().__init__(SensorItemView, model, 'sensor/' + file)
@@ -62,6 +74,10 @@ class OperatorEnum(ItemEnum):
     MULTIPLICATION_OPERATOR = (MultiplicationOperatorItem, 'multiplication')
     DIVISION_OPERATOR = (DivisionOperatorItem, 'division')
     ABSOLUTE_OPERATOR = (AbsoluteOperatorItem, 'absolute')
+    NEGATIVE_OPERATOR = (NegativeOperatorItem, '')
+    POWER_OPERATOR = (PowerOperatorItem, '')
+    ROOT_OPERATOR = (RootOperatorItem, '')
+    CLONE_OPERATOR = (CloneItem, '')
 
     def __init__(self, model: Type[OperatorItem], file: str):
         super().__init__(OperatorItemView, model, 'operator/' + file)
