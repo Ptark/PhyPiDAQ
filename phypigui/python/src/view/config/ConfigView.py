@@ -9,6 +9,7 @@ from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
 from .EnumOptionView import EnumOptionView
 from ...model.config.ConfigModel import ConfigModel
+from ..DiagramField.DiagramFieldView import DiagramFieldView
 
 
 class ConfigView(QtWidgets.QWidget):
@@ -28,6 +29,8 @@ class ConfigView(QtWidgets.QWidget):
             config (ConfigModel): The config of the item, which contains all adjustable options
         """
         QtWidgets.QWidget.__init__(self)
+
+        self.__has_interrupted_mp: bool = DiagramFieldView.interrupt_mp()
 
         self.__config: ConfigModel = config
         self.__num_options: List[NumOptionView] = []
@@ -101,6 +104,9 @@ class ConfigView(QtWidgets.QWidget):
         for option in self.__bool_options:
             self.__config.set_bool_option(self.__bool_options.index(option), option.option.enabled)
         self.set_data.emit(copy.deepcopy(self.__config))
+
+        if self.__has_interrupted_mp:
+            DiagramFieldView.start_mp()
 
     def closeEvent(self, close_event: QtGui.QCloseEvent):
         self.__on_close()

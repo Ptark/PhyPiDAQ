@@ -5,6 +5,7 @@ from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
 from PyQt5.QtGui import QCloseEvent, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QGridLayout
 
+from ...model.manager.ManagerModel import ManagerModel
 from ...Exceptions import DiagramMaximumReachedException
 from .DiagramView import DiagramView
 from .StartButtonView import StartButtonView
@@ -122,6 +123,28 @@ class DiagramFieldView(QWidget):
     def add_stretch() -> NoReturn:
         DiagramFieldView.__diagram_field.__group_layout.addWidget(
             DiagramFieldView.__diagram_field.__stretch_widget, 10, Qt.AlignBottom)
+
+    @staticmethod
+    def clear() -> NoReturn:
+        """Clears the DiagramViews"""
+        # TODO
+        pass
+
+    @staticmethod
+    def interrupt_mp() -> bool:
+        """Interrupt a measurement process in the model and set StartButtonView on 'stop-state'
+
+        Returns:
+            bool: True, if there was a measurement process running
+        """
+        return StartButtonView.interrupt_mp()
+
+    @staticmethod
+    def start_mp() -> NoReturn:
+        """Clears the DiagramViews and starts a measurement process in the model"""
+        DiagramFieldView.clear()
+        StartButtonView.start_mp()
+
 
 class Dialog(QWidget):
     close_signal = pyqtSignal()

@@ -1,6 +1,6 @@
 from typing import NoReturn
 
-from PyQt5.QtCore import pyqtSlot, QRunnable, QThreadPool
+from PyQt5.QtCore import QRunnable, QThreadPool
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
@@ -39,7 +39,6 @@ class StartButtonView(QPushButton):
         tooltip = "Stop" if self.__is_started else "Start"
         self.setToolTip(Translator.tr(tooltip))
 
-    @pyqtSlot()
     def __on_click(self) -> NoReturn:
         if self.__is_started:
             ManagerModel.stop()
@@ -57,3 +56,30 @@ class StartButtonView(QPushButton):
     def click() -> NoReturn:
         """a static method of on_click that executes the running of the program on the Managermodel"""
         StartButtonView.__button.__on_click()
+
+    @staticmethod
+    def interrupt_mp() -> bool:
+        """Interrupt a measurement process in the model and set StartButtonView on 'stop-state'
+
+        Returns:
+            bool: True, if there was a measurement process running
+        """
+        was_running: bool = StartButtonView.__button.__is_started
+        if was_running:
+            StartButtonView.click()
+        return was_running
+
+    @staticmethod
+    def start_mp() -> NoReturn:
+        """Starts a measurement process in the model and set StartButtonView on 'start-state'"""
+        if not StartButtonView.__button.__is_started:
+            StartButtonView.click()
+
+    @staticmethod
+    def restart() -> NoReturn:
+        """Restarts a measurement process in the model"""
+        ManagerModel.stop()
+        QThreadPool.globalInstance().start(StartButtonView.__button.Start())
+        StartButtonView.__button.__is_started = True
+        StartButtonView.__button.__update_text()
+        StartButtonView.__button.clearFocus()

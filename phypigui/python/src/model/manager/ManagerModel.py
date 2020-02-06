@@ -141,3 +141,12 @@ class ManagerModel:
         Typically called if the stop button was clicked.
         """
         ManagerModel.__running = False
+
+    @staticmethod
+    def restart() -> NoReturn:
+        """Restarts the measuring process
+
+        Typically called if a item or connection was deleted.
+        """
+        ManagerModel.stop()
+        ManagerModel.start()
