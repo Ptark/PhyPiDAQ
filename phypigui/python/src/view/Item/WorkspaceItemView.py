@@ -26,10 +26,10 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     """
     icon_path: str
 
-    def __init__(self, parent: QWidget, model_input_ids: List[int], model_output_ids: List[int], unique: bool = False):
+    def __init__(self, parent: QWidget, icon_path: str, model_input_ids: List[int], model_output_ids: List[int], unique: bool = False):
         WorkspaceView.add_item(self, unique)
 
-        Draggable.__init__(self, parent, self.icon_path)
+        Draggable.__init__(self, parent, icon_path)
         Selectable.__init__(self)
 
         self._model: ItemModel

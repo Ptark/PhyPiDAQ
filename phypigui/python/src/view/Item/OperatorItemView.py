@@ -3,15 +3,10 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
-from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
-from ...model.item.OperatorItem import OperatorItem, AdditionOperatorItem, SubtractionOperatorItem, \
-    MultiplicationOperatorItem, DivisionOperatorItem, AbsoluteOperatorItem
+from ...model.item.OperatorItem import OperatorItem
 from .WorkspaceItemView import WorkspaceItemView
-
-
-operator_path = SystemInfo.RESOURCES + 'images/items/operator/'
 
 
 class OperatorItemView(WorkspaceItemView, ABC):
@@ -20,10 +15,10 @@ class OperatorItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget):
-        self._model: OperatorItem
+    def __init__(self, parent: QWidget, operator: 'OperatorEnum'):
+        self._model: OperatorItem = operator.model()
 
-        super().__init__(parent, self._model.get_input_ids(), self._model.get_output_ids())
+        super().__init__(parent, operator.path, self._model.get_input_ids(), self._model.get_output_ids())
 
         self.__data_text = QLabel()
         self._info_layout.insertWidget(3, self.__data_text)
@@ -42,73 +37,3 @@ class OperatorItemView(WorkspaceItemView, ABC):
                 text += str(round(dat, 5)) + "\n\t"
             self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
             InfoBarView.refresh_infobar()
-
-
-class AdditionOperatorItemView(OperatorItemView):
-    """Class for displaying an item of an addition operator on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = operator_path + 'addition.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: AdditionOperatorItem = AdditionOperatorItem()
-
-        super().__init__(parent)
-
-
-class SubtractionOperatorItemView(OperatorItemView):
-    """Class for displaying an item of an subtraction operator on the workspace
-
-        Attributes (QWidget):
-            parent: A parent widget.
-    """
-    icon_path: str = operator_path + 'subtraction.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: SubtractionOperatorItem = SubtractionOperatorItem()
-
-        super().__init__(parent)
-
-
-class MultiplicationOperatorItemView(OperatorItemView):
-    """Class for displaying an item of an multiplication operator on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = operator_path + 'multiplication.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: MultiplicationOperatorItem = MultiplicationOperatorItem()
-
-        super().__init__(parent)
-
-
-class DivisionOperatorItemView(OperatorItemView):
-    """Class for displaying an item of an division operator on the workspace
-
-        Attributes:
-            parent: A parent widget.
-    """
-    icon_path: str = operator_path + 'division.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: DivisionOperatorItem = DivisionOperatorItem()
-
-        super().__init__(parent)
-
-
-class AbsoluteOperatorItemView(OperatorItemView):
-    """Class for displaying an item of an absolute operator on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = operator_path + 'absolute.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: AbsoluteOperatorItem = AbsoluteOperatorItem()
-
-        super().__init__(parent)

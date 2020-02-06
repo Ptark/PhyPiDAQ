@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
+from .ItemEnum import ItemEnum
 from ..Translator import Translator
 from ..DialogView import DialogView
 from ...Exceptions import DuplicateWorkspaceItemException, DiagramMaximumReachedException
@@ -22,11 +23,11 @@ class DragItemView(Draggable, ABC):
             item (Type[WorkspaceItemView]): A subclass of WorkspaceItemView to define which item type to represent.
                   It holds the actual class and not an instance of it.
     """
-    def __init__(self, main: QWidget, pos: QPoint, item: Type[WorkspaceItemView]):
-        super().__init__(main, item.icon_path)
+    def __init__(self, main: QWidget, pos: QPoint, item: ItemEnum):
+        super().__init__(main, item.path)
 
         self.__main = main
-        self.__item: Type[WorkspaceItemView] = item
+        self.__item: ItemEnum = item
 
         self._save_position(pos)
 
@@ -42,7 +43,7 @@ class DragItemView(Draggable, ABC):
 
         if WorkspaceView.is_on_workspace(self):
             try:
-                item = self.__item(WorkspaceView.widget)
+                item = self.__item.create_workspace_item(WorkspaceView.widget)
             except DuplicateWorkspaceItemException:
                 DialogView.show_warning(Translator.tr("Element schon auf Arbeitsfläche"),
                                         Translator.tr("Dieses Element kann nur einmal auf der Arbeitsfläche existieren."))

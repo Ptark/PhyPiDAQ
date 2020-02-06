@@ -3,17 +3,9 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
-from ...SystemInfo import SystemInfo
 from ...model.manager.ManagerModel import ManagerModel
-from ...model.item.AccelerationSensorItem import AccelerationSensorItem
-from ...model.item.DistanceSensorItem import DistanceSensorItem
-from ...model.item.ForceSensorItem import ForceSensorItem
 from ...model.item.SensorItem import SensorItem
-from ...model.item.TemperatureSensorItem import TemperatureSensorItem
 from .WorkspaceItemView import WorkspaceItemView
-
-
-sensor_path = SystemInfo.RESOURCES + 'images/items/sensor/'
 
 
 class SensorItemView(WorkspaceItemView, ABC):
@@ -22,66 +14,11 @@ class SensorItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget):
-        self._model: SensorItem
+    def __init__(self, parent: QWidget, sensor: 'SensorEnum'):
+        self._model: SensorItem = sensor.model()
 
-        super().__init__(parent, [], self._model.get_output_ids(), True)
+        super().__init__(parent, sensor.path, [], self._model.get_output_ids(), False)
 
     def delete(self) -> NoReturn:
         ManagerModel.delete_sensor(self._model)
         super().delete()
-
-class TemperatureSensorItemView(SensorItemView):
-    """Class for displaying an item of a temperature sensor on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = sensor_path + 'temperature.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: TemperatureSensorItem = TemperatureSensorItem()
-
-        super().__init__(parent)
-
-
-class ForceSensorItemView(SensorItemView):
-    """Class for displaying an item of a force sensor on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = sensor_path + 'force.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: ForceSensorItem = ForceSensorItem()
-
-        super().__init__(parent)
-
-
-class DistanceSensorItemView(SensorItemView):
-    """Class for displaying an item of a distance sensor on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = sensor_path + 'distance.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: DistanceSensorItem = DistanceSensorItem()
-
-        super().__init__(parent)
-
-
-class AccelerationSensorItemView(SensorItemView):
-    """Class for displaying an item of an acceleration sensor on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = sensor_path + 'acceleration.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: AccelerationSensorItem = AccelerationSensorItem()
-
-        super().__init__(parent)

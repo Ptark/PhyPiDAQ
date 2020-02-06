@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
+from .ItemEnum import ItemEnum
 from .DragItemView import DragItemView
 from .ItemView import ItemView
 from .WorkspaceItemView import WorkspaceItemView
@@ -18,11 +19,11 @@ class ListItemView(ItemView, ABC):
             item (Type[WorkspaceItemView]): A subclass of WorkspaceItemView to define which item type to represent.
                   It holds the actual class and not an instance of it.
     """
-    def __init__(self, main: QWidget, item: Type[WorkspaceItemView]):
-        super().__init__(main, item.icon_path)
+    def __init__(self, main: QWidget, item: ItemEnum):
+        super().__init__(main, item.path)
 
         self.__main = main
-        self.__item: Type[WorkspaceItemView] = item
+        self.__item: ItemEnum = item
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:

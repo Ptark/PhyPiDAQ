@@ -3,17 +3,13 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
-from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
-from ..DiagramField.DiagramView import DiagramView, TimeDiagram, BarDiagram, DualDiagram
-from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
+from ..DiagramField.DiagramView import DiagramView
+from ...model.item.DiagramItem import DiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
-
-
-diagram_path = SystemInfo.RESOURCES + 'images/items/diagram/'
 
 
 class DiagramItemView(WorkspaceItemView, ABC):
@@ -22,12 +18,12 @@ class DiagramItemView(WorkspaceItemView, ABC):
         Attributes:
             parent (QWidget): A parent widget.
     """
-    def __init__(self, parent: QWidget):
-        self._model: DiagramItem
-        self._diagram: DiagramView
+    def __init__(self, parent: QWidget, diagram: 'DiagramEnum'):
+        self._model: DiagramItem = diagram.model()
+        self._diagram: DiagramView = diagram.diagram(self._model)
         DiagramFieldView.add_diagram(self._diagram)
 
-        super().__init__(parent, self._model.get_input_ids(), [])
+        super().__init__(parent, diagram.path, self._model.get_input_ids(), [])
 
         self.__data_text = QLabel()
         self._info_layout.insertWidget(3, self.__data_text)
@@ -51,48 +47,3 @@ class DiagramItemView(WorkspaceItemView, ABC):
         DiagramFieldView.delete_diagram(self._diagram)
         ManagerModel.delete_diagram(self._model)
         super().delete()
-
-
-class TimeDiagramItemView(DiagramItemView):
-    """Class for displaying an item of an time diagram on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = diagram_path + 'time.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: TimeDiagramItem = TimeDiagramItem()
-        self._diagram: TimeDiagram = TimeDiagram(self._model)
-
-        super().__init__(parent)
-
-
-class BarDiagramItemView(DiagramItemView):
-    """Class for displaying an item of an bar diagram on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = diagram_path + 'bar.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: BarDiagramItem = BarDiagramItem()
-        self._diagram: BarDiagram = BarDiagram(self._model)
-
-        super().__init__(parent)
-
-
-class DualDiagramItemView(DiagramItemView):
-    """Class for displaying an item of an dual diagram on the workspace
-
-        Attributes:
-            parent (QWidget): A parent widget.
-    """
-    icon_path: str = diagram_path + 'dual.svg'
-
-    def __init__(self, parent: QWidget):
-        self._model: DualDiagramItem = DualDiagramItem()
-        self._diagram: DualDiagram = DualDiagram(self._model)
-
-        super().__init__(parent)

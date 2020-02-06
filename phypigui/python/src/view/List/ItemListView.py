@@ -1,7 +1,8 @@
-from typing import NoReturn, List
+from typing import List, Type
 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
+from ..Item.ItemEnum import ItemEnum
 from ..Item.ListItemView import ListItemView
 from ..View import View
 
@@ -12,24 +13,23 @@ class ItemListViewMeta(type(QWidget), type(View)):
 
 class ItemListView(QWidget, View, metaclass=ItemListViewMeta):
     """Class for displaying a list of items"""
-    def __init__(self):
+    def __init__(self, main: QWidget, type: Type[ItemEnum]):
         super().__init__()
 
         self.__items: List[ListItemView] = []
-        self.__layout = QVBoxLayout()
-        self.__layout.addSpacing(10)
-        self.__layout.addStretch(1)
+
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 20, 0, 0)
+        layout.setSpacing(20)
+
+        for item in list(type):
+            new = ListItemView(main, item)
+            self.__items.append(new)
+            layout.addWidget(new)
+
+        layout.addStretch(1)
 
         centering = QHBoxLayout()
-        centering.addLayout(self.__layout)
+        centering.setContentsMargins(0, 0, 0, 0)
+        centering.addLayout(layout)
         self.setLayout(centering)
-
-    def add_item(self, item: ListItemView) -> NoReturn:
-        """Adds an item to the list
-
-            Args:
-                item (ListItemView): Item to be added.
-        """
-        self.__items.append(item)
-        self.__layout.insertWidget(1, item)
-        self.__layout.insertSpacing(2, 20)
