@@ -3,12 +3,16 @@ import sys
 from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QApplication
 
-from phypigui.python.src.GlobalSignals import GlobalSignals
-from phypigui.python.src.view.MainWindow import MainWindow
-from phypigui.python.src.view.Translator import Translator
+from .SystemInfo import SystemInfo
+from .GlobalSignals import GlobalSignals
+from .view.MainWindow import MainWindow
+from .view.Translator import Translator
 
-if __name__ == '__main__':
+
+def run():
     app = QApplication(sys.argv)
+
+    SystemInfo.init()
 
     locale = QLocale.system().language()
     Translator.install_translator(locale)
