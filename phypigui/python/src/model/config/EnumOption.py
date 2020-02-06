@@ -1,9 +1,10 @@
-from enum import Enum
 import copy
+from enum import Enum
 
 from typing import NoReturn, Type
 
 from .OptionModel import OptionModel
+from ..ModelExceptions import OutOfRange
 
 
 class EnumOption(OptionModel):
@@ -29,13 +30,18 @@ class EnumOption(OptionModel):
 
     @property
     def selection(self) -> int:
-        """Index of selected value in the enum"""
+        """Index of selected value in the enum
+
+        Raises:
+            IndexError: If the selected index smaller than zero or greater then the length of samples
+        """
         return self.__selection
 
     @selection.setter
     def selection(self, selection_index: int) -> NoReturn:
-        if selection_index >= 0:
-            self.__selection = selection_index
+        if 0 > selection_index or selection_index >= len(self.__samples):
+            raise OutOfRange("The selected index %d of option %s is out of range" % (selection_index, self._name, ))
+        self.__selection = selection_index
 
     @property
     def samples(self) -> Type[Enum]:

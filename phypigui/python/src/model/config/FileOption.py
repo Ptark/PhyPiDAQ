@@ -1,9 +1,10 @@
 import copy
 
 from typing import NoReturn, List, final
-from pathlib import Path, PurePath
+from pathlib import PurePath, Path
 
 from .OptionModel import OptionModel
+from ..ModelExceptions import PathDoesntExist
 
 
 class FileOption(OptionModel):
@@ -20,7 +21,7 @@ class FileOption(OptionModel):
         Args:
             name (str): Name of this option
             description (str): Description of this option
-            file_opening_mode (int): Indicates, what should be selectable
+            file_opening_mode (int): Indicates, what should be selectable. If it is out of range it will be 0.
                 0: Every file (existing or not)
                 1: Only existing files
                 2: Only directories
@@ -28,8 +29,9 @@ class FileOption(OptionModel):
             file_endings (List[str]): List of all allowed file-endings (without the dot)
         """
         super().__init__(name, description)
-
-        self.__file_mode: int = file_opening_mode
+        self.__file_mode: int = 0
+        if 0 < file_opening_mode < 3:
+            self.__file_mode = file_opening_mode
         self.__file_type: str = file_type
         self.__file_endings: List[str] = file_endings
 
@@ -59,10 +61,15 @@ class FileOption(OptionModel):
 
     @property
     def path(self) -> PurePath:
-        """Path of an file/directory, which is part of this option"""
+        """Path of an file/directory, which is part of this option
+
+        Raises:
+            PathDoesntExist: If the path doesn't exist
+        """
         return copy.deepcopy(self.__path)
 
     @path.setter
-    def path(self, new_path: str) -> NoReturn:
-        if Path(new_path).is_file():
-            self.__path = new_path
+    def path(self, new_path: PurePath) -> NoReturn:
+        if self.__file_mode != 0 and not Path(str(new_path)).exists():
+            raise PathDoesntExist("The selected path %s from the option %s doesn't exist" % (str(new_path), self._name, ))
+        self.__path = new_path
