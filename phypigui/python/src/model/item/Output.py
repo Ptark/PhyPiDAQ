@@ -75,30 +75,6 @@ class Output(Identifiable):
         """Last calculated value for this output"""
         return self.__data
 
-    def calculate_function(self) -> Callable[[Dict['SensorItem', List[float]]], float]:
-        """Calculates lambda-function for this output and returns it
-
-        Calculates lambda-function for this output recursively and stores it.
-
-        Returns:
-            Callable[[Dict[SensorItem.SensorItem, List[float]]], float]: Calculated lambda-function for this output
-        """
-        if not self.__is_function_valid:
-            self.__function = WorkspaceModel.calculate_function(self._id)
-            self.__is_function_valid = True
-        return self.__function
-
-    def calculate_unit(self) -> str:
-        """Calculates unit for this output and returns it
-
-        Calculates unit for this output recursively and stores it.
-
-        Returns:
-            str: Calculated unit for this output
-        """
-        self.__unit = WorkspaceModel.calculate_unit(self._id)
-        return self.__unit
-
     def invalidate_function(self) -> NoReturn:
         """Invalidates the lambda-function of this output and all sequel items"""
         self.__is_function_valid = False
