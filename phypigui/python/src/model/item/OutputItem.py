@@ -3,7 +3,6 @@ from typing import NoReturn, List, Dict, Callable
 
 from ..item.Output import Output
 from ..item.ItemModel import ItemModel
-#from ..item.SensorItem import SensorItem
 from ..config.ConfigModel import ConfigModel
 from ..workspace.WorkspaceModel import WorkspaceModel
 
@@ -27,7 +26,7 @@ class OutputItem(ItemModel, ABC):
             self._outputs.append(Output(self._id, i))
 
     @abstractmethod
-    def get_rule(self, output_number: int = 0) -> NoReturn: #Callable[[Dict[SensorItem, List[float]]], float]: # TODO Cange SensorItem to OutputItem?
+    def get_rule(self, output_number: int = 0) -> Callable[[Dict['SensorItem', List[float]]], float]:
         """Construct for an output on a specific index its lambda-function and returns it
 
         This method calls all previous items to construct their lambda-functions and constructs with these a new
@@ -61,6 +60,17 @@ class OutputItem(ItemModel, ABC):
                 Empty string, if this item has no valid connections to enough SensorItems.
         """
         pass
+
+    def set_config(self, config: ConfigModel) -> NoReturn:
+        """Sets all values of the config of this item to values of a given configuration
+
+        This method also invalidates all stored lambda-functions in the outputs of this item and sequel items, too
+
+        Args:
+            config (ConfigModel): The Configuration, which contains the new values for every option of this item
+        """
+        super().set_config(config)
+        self.invalidate_functions()
 
     def get_data(self) -> List[float]:
         """Returns a list of the last values all the outputs of this item had at the last calculation-cycle

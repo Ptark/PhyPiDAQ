@@ -106,7 +106,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     @pyqtSlot(ConfigModel)
     def __set_config_data(self, config: ConfigModel) -> NoReturn:
-        self._model.config = config
+        self._model.set_config(config)
 
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:

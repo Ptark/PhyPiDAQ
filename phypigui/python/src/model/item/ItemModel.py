@@ -1,6 +1,8 @@
+import copy
+
 from abc import ABC
-from typing import NoReturn
 from pathlib import PurePath
+from typing import NoReturn, List
 
 from ..Model import Model
 from ..NameableRO import NameableRO
@@ -35,11 +37,26 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
     @property
     def config(self) -> ConfigModel:
         """Configuration of options for this item"""
-        return self._config
+        return copy.deepcopy(self._config)
 
-    @config.setter
-    def config(self, config: ConfigModel) -> NoReturn:
-        self._config = config
+    def set_config(self, config: ConfigModel) -> NoReturn:
+        """Sets all values of the config of this item to values of a given configuration
+
+        Args:
+            config (ConfigModel): The Configuration, which contains the new values for every option of this item
+        """
+        file_options: List[FileOption] = config.file_options
+        enum_options: List[EnumOption] = config.enum_options
+        num_options: List[NumOption] = config.num_options
+        bool_options: List[BoolOption] = config.bool_options
+        for option in file_options:
+            self._config.set_file_option(file_options.index(option), option.path)
+        for option in enum_options:
+            self._config.set_enum_option(enum_options.index(option), option.selection)
+        for option in num_options:
+            self._config.set_num_option(num_options.index(option), option.number)
+        for option in bool_options:
+            self._config.set_bool_option(bool_options.index(option), option.enabled)
 
     def set_bool_option(self, index: int, value: bool) -> NoReturn:
         """Sets the value of a BoolOption on a specific index

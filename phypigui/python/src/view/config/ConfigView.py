@@ -103,7 +103,7 @@ class ConfigView(QtWidgets.QWidget):
             self.__config.set_num_option(self.__num_options.index(option), option.option.number)
         for option in self.__bool_options:
             self.__config.set_bool_option(self.__bool_options.index(option), option.option.enabled)
-        self.set_data.emit(copy.deepcopy(self.__config))
+        self.set_data.emit(self.__config)
 
         if self.__has_interrupted_mp:
             DiagramFieldView.start_mp()
