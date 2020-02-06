@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import NoReturn, List
 
-import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from PyQt5.QtWidgets import QSizePolicy
 
+from ..Translator import Translator
 from ..View import View
 from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
 
@@ -50,7 +50,7 @@ class TimeDiagram(DiagramView):
 
         self.__ax = self.figure.add_subplot(111)
 
-        self.__ax.set_title(self._item.name)
+        self.__ax.set_title(Translator.tr(self._item.name))
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         if len(self.__data) > 20:
@@ -77,7 +77,7 @@ class DualDiagram(DiagramView):
 
         self.__ax = self.figure.add_subplot(111)
 
-        self.__ax.set_title(self._item.name)
+        self.__ax.set_title(Translator.tr(self._item.name))
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         if len(self.__data_x) > 10:
@@ -106,7 +106,7 @@ class BarDiagram(DiagramView):
 
         self.__ax = self.figure.add_subplot(111)
 
-        self.__ax.set_title(self._item.name)
+        self.__ax.set_title(Translator.tr(self._item.name))
 
         self.__ax.bar(self.__labels, self.__data)
         self.draw()
