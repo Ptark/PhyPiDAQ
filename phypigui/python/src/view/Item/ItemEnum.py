@@ -25,6 +25,7 @@ from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
 from .SensorItemView import SensorItemView
 from .WorkspaceItemView import WorkspaceItemView
+from ...model.item.WriteToFileItem import WriteToFileItem
 
 
 class ItemEnumMeta(type(ABC), type(Enum)):
@@ -52,16 +53,16 @@ class ItemEnum(ABC, Enum, metaclass=ItemEnumMeta):
 
 @unique
 class SensorEnum(ItemEnum):
-    PROXY_SENSOR = (ProxySensorItem, '')
-    CONSTANT = (ConstantItem, '')
-    NATURE_CONSTANT = (NatureConstantItem, '')
+    PROXY_SENSOR = (ProxySensorItem, 'file_read')
+    CONSTANT = (ConstantItem, 'constant')
+    NATURE_CONSTANT = (NatureConstantItem, 'nature_constant')
     TEMPERATURE_SENSOR = (TemperatureSensorItem, 'temperature')
     FORCE_SENSOR = (ForceSensorItem, 'force')
     DISTANCE_SENSOR = (DistanceSensorItem, 'distance')
     ACCELERATION_SENSOR = (AccelerationSensorItem, 'acceleration')
-    CURRENT_SENSOR = (CurrentSensorItem, '')
-    RGB_SENSOR = (RGBSensorItem, '')
-    VOLTAGE_SENSOR = (VoltageSensorItem, '')
+    CURRENT_SENSOR = (CurrentSensorItem, 'current')
+    RGB_SENSOR = (RGBSensorItem, 'rgb')
+    VOLTAGE_SENSOR = (VoltageSensorItem, 'voltage')
 
     def __init__(self, model: Type[SensorItem], file: str):
         super().__init__(SensorItemView, model, 'sensor/' + file)
@@ -74,10 +75,10 @@ class OperatorEnum(ItemEnum):
     MULTIPLICATION_OPERATOR = (MultiplicationOperatorItem, 'multiplication')
     DIVISION_OPERATOR = (DivisionOperatorItem, 'division')
     ABSOLUTE_OPERATOR = (AbsoluteOperatorItem, 'absolute')
-    NEGATIVE_OPERATOR = (NegativeOperatorItem, '')
-    POWER_OPERATOR = (PowerOperatorItem, '')
-    ROOT_OPERATOR = (RootOperatorItem, '')
-    CLONE_OPERATOR = (CloneItem, '')
+    NEGATIVE_OPERATOR = (NegativeOperatorItem, 'negative')
+    POWER_OPERATOR = (PowerOperatorItem, 'power')
+    ROOT_OPERATOR = (RootOperatorItem, 'root')
+    CLONE_OPERATOR = (CloneItem, 'clone')
 
     def __init__(self, model: Type[OperatorItem], file: str):
         super().__init__(OperatorItemView, model, 'operator/' + file)
