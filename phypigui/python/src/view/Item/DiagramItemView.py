@@ -20,8 +20,9 @@ class DiagramItemView(WorkspaceItemView, ABC):
     """
     def __init__(self, parent: QWidget, diagram: 'DiagramEnum'):
         self._model: DiagramItem = diagram.model()
-        self._diagram: DiagramView = diagram.diagram(self._model)
-        DiagramFieldView.add_diagram(self._diagram)
+        if diagram.diagram is not None:
+            self._diagram: DiagramView = diagram.diagram(self._model)
+            DiagramFieldView.add_diagram(self._diagram)
 
         super().__init__(parent, diagram.path, self._model.get_input_ids(), [])
 

@@ -86,6 +86,7 @@ class OperatorEnum(ItemEnum):
 
 @unique
 class DiagramEnum(ItemEnum):
+    WRITE_TO_FILE = (WriteToFileItem, 'file_write', None)
     TIME_DIAGRAM = (TimeDiagramItem, 'time', TimeDiagram)
     DUAL_DIAGRAM = (DualDiagramItem, 'dual', DualDiagram)
     BAR_DIAGRAM = (BarDiagramItem, 'bar', BarDiagram)
