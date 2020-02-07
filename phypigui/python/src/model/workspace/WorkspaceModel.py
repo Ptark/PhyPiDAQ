@@ -2,6 +2,7 @@ from copy import copy
 from typing import Dict, NoReturn, List, Callable
 
 from ..item.Connection import Connection
+from ..ModelExceptions import IDNotFound, InputAlreadyConnected
 
 
 class WorkspaceModel:
@@ -22,11 +23,11 @@ class WorkspaceModel:
 
     @staticmethod
     def __is_output_item(item_id: int) -> bool:
-        return item_id in WorkspaceModel.__output_item_list.keys()
+        return item_id in WorkspaceModel.__output_item_list
 
     @staticmethod
     def is_input_item(item_id: int) -> bool:
-        return item_id in WorkspaceModel.__input_item_list.keys()
+        return item_id in WorkspaceModel.__input_item_list
 
     @staticmethod
     def get_connection_to_input(input_id: int) -> int:
@@ -108,7 +109,6 @@ class WorkspaceModel:
         Returns:
             int: Next free ID
         """
-        print("i")
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_list[id] = input
@@ -128,7 +128,6 @@ class WorkspaceModel:
         Returns:
             int: Next free ID
         """
-        print("o")
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_list[id] = output
@@ -186,15 +185,23 @@ class WorkspaceModel:
 
         Args:
             item_id (int): ID of the item
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
+        id_exists: bool = False
         if WorkspaceModel.__is_output_item(item_id):
+            id_exists = True
             for output_id in WorkspaceModel.__output_item_list[item_id].get_output_ids():
                 WorkspaceModel.delete_output(output_id)
             WorkspaceModel.__output_item_list.pop(item_id)
-        if item_id in WorkspaceModel.__input_item_list:
+        if WorkspaceModel.is_input_item(item_id):
+            id_exists = True
             for input_id in WorkspaceModel.__input_item_list[item_id].get_input_ids():
                 WorkspaceModel.delete_input(input_id)
             WorkspaceModel.__input_item_list.pop(item_id)
+        if not id_exists:
+            raise IDNotFound("""The item-ID %d of the item to delete doesn't exist""" % (item_id,))
 
     @staticmethod
     def delete_input(input_id: int) -> NoReturn:
@@ -204,9 +211,14 @@ class WorkspaceModel:
 
         Args:
             input_id (int): ID of input, which will be deleted
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
-        if WorkspaceModel.delete_connection(input_id):
-            WorkspaceModel.__input_list.pop(input_id)
+        WorkspaceModel.delete_connection(input_id)
+        if not WorkspaceModel.check_input_id(input_id):
+            raise IDNotFound("The input-ID %d of the input to delete doesn't exist" % (input_id,))
+        WorkspaceModel.__input_list.pop(input_id)
 
     @staticmethod
     def delete_output(output_id: int) -> NoReturn:
@@ -216,8 +228,13 @@ class WorkspaceModel:
 
         Args:
             output_id (int): ID of output, which will be deleted
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
         WorkspaceModel.delete_all_output_connections(output_id)
+        if not WorkspaceModel.check_output_id(output_id):
+            raise IDNotFound("The output-ID %d of the output to delete doesn't exist" % (output_id,))
         WorkspaceModel.__output_list.pop(output_id)
 
     @staticmethod
@@ -231,8 +248,13 @@ class WorkspaceModel:
 
         Returns:
             bool: False, if there is no connection from this input
-                    or if connected output doesn't exist
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
+        if not WorkspaceModel.check_input_id(input_id):
+            raise IDNotFound("The input-ID %d of the input, whose connection should be deleted"
+                             " doesn't exist" % (input_id,))
         if input_id in WorkspaceModel.__connection_list:
             input: 'Input' = WorkspaceModel.__input_list[input_id]
             WorkspaceModel.__connection_list.pop(input_id)
@@ -250,14 +272,20 @@ class WorkspaceModel:
 
         Args:
             output_id (int): ID of output, which are part of all connections to be deleted
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
+        if not WorkspaceModel.check_output_id(output_id):
+            raise IDNotFound("The output-ID %d of the output, whose connection should be deleted "
+                             "doesn't exist" % (output_id,))
         WorkspaceModel.invalidate_functions(output_id)
         for connection in copy(WorkspaceModel.__connection_list).values():
             if connection.output == output_id:
                 WorkspaceModel.__connection_list.pop(connection.input)
 
     @staticmethod
-    def connect(input_id: int, output_id: int) -> bool:
+    def connect(input_id: int, output_id: int) -> NoReturn:
         """Connects two items
 
         Connects two items and updates there attributes
@@ -266,14 +294,17 @@ class WorkspaceModel:
             input_id (int): ID of input, which is part of connection
             output_id (int): ID of output, which is part of connection
 
-        Returns:
-            bool: False, if no input with input_id or output with output_id exists or if input is already connected
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
+            InputAlreadyConnected: If the input is already connected
         """
-        if input_id in WorkspaceModel.__input_list and output_id in WorkspaceModel.__output_list:
-            if input_id not in WorkspaceModel.__connection_list:
-                WorkspaceModel.__connection_list[input_id] = Connection(input_id, output_id)
-                return True
-        return False
+        if WorkspaceModel.check_input_id(input_id) and WorkspaceModel.check_output_id(output_id):
+            if input_id in WorkspaceModel.__connection_list:
+                raise InputAlreadyConnected("The input with ID %d is already connected" % (input_id,))
+            WorkspaceModel.__connection_list[input_id] = Connection(input_id, output_id)
+        else:
+            raise IDNotFound("The output-ID %d or input-ID %d of the output and input, which should be connected"
+                             " doesn't exist", (output_id, input_id,))
 
     @staticmethod
     def calculate_function(input_id: int) -> Callable[[Dict['SensorItem', List[float]]], float]:
@@ -286,11 +317,22 @@ class WorkspaceModel:
             input_id (int): ID of the input
 
         Returns:
-            Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function composed of all previous items
+            Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function composed of all previous items.
+                If the input has no connection, it will return constant zero lambda-function.
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
-        if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+        if not WorkspaceModel.check_input_id(input_id):
+            raise IDNotFound("The input with ID %d doesn't exist" % (input_id,))
+        if input_id in WorkspaceModel.__connection_list:
+            output_id: int = WorkspaceModel.__connection_list[input_id].output
+            if not WorkspaceModel.check_output_id(output_id):
+                raise IDNotFound("The output with ID %d doesn't exist" % (output_id,))
+            output: 'Output' = WorkspaceModel.__output_list[output_id]
             if not output.is_function_valid:
+                if not WorkspaceModel.__is_output_item(output.parent_item_id):
+                    raise IDNotFound("The item with ID %d doesn't exist" % (output.parent_item_id,))
                 output.function = WorkspaceModel.__output_item_list[output.parent_item_id].\
                     get_rule(output.number_of_output)
             return output.function
@@ -306,10 +348,20 @@ class WorkspaceModel:
             input_id (int): ID of the input
 
         Returns:
-            str: Unit from output
+            str: Unit from output. It will return an empty string, if this input is not connected.
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
-        if input_id in WorkspaceModel.__input_list and input_id in WorkspaceModel.__connection_list:
-            output: 'Output' = WorkspaceModel.__output_list[WorkspaceModel.__connection_list[input_id].output]
+        if not WorkspaceModel.check_input_id(input_id):
+            raise IDNotFound("The input with ID %d doesn't exist" % (input_id,))
+        if input_id in WorkspaceModel.__connection_list:
+            output_id: int = WorkspaceModel.__connection_list[input_id].output
+            if not WorkspaceModel.check_output_id(output_id):
+                raise IDNotFound("The output with ID %d doesn't exist" % (output_id,))
+            output: 'Output' = WorkspaceModel.__output_list[output_id]
+            if not WorkspaceModel.__is_output_item(output.parent_item_id):
+                raise IDNotFound("The item with ID %d doesn't exist" % (output.parent_item_id,))
             output.unit = WorkspaceModel.__output_item_list[output.parent_item_id].get_unit(output.number_of_output)
             return output.unit
         else:
@@ -321,9 +373,16 @@ class WorkspaceModel:
 
         Args:
             output_id (int): ID of the output
+
+        Raises:
+            IDNotFound: If the ID of an item/input/output is not found
         """
+        if not WorkspaceModel.check_output_id(output_id):
+            raise IDNotFound("The output with ID %d doesn't exist" % (output_id,))
         for connection in WorkspaceModel.__connection_list.values():
             if connection.output == output_id:
+                if not WorkspaceModel.check_input_id(connection.input):
+                    raise IDNotFound("The item with ID %d doesn't exist" % (connection.input,))
                 input: 'Input' = WorkspaceModel.__input_list[connection.input]
                 if WorkspaceModel.__is_output_item(input.parent_item_id):
                     WorkspaceModel.__output_item_list[input.parent_item_id].invalidate_functions()

@@ -6,6 +6,7 @@ from typing import Dict, List, NoReturn
 from numpy import random
 
 from ..workspace.WorkspaceModel import WorkspaceModel
+from ..ModelExceptions import IDNotFound
 
 
 class ManagerModel:
@@ -27,6 +28,11 @@ class ManagerModel:
 
     @staticmethod
     def __init_functions() -> NoReturn:
+        """Initialises and constructs all lambda-functions and unit recursively starting at the DiagramItems
+
+        Raises:
+            IDNotFound: If something went wrong with the recursion
+        """
         for diagram in ManagerModel.__diagrams:
             diagram.calculate_functions()
 
@@ -74,8 +80,9 @@ class ManagerModel:
         Args:
             sensor (SensorItem): SensorItem to be added
         """
-        ManagerModel.__sensors.append(sensor)
-        ManagerModel.__sensor_data[sensor] = []
+        if sensor is not None:
+            ManagerModel.__sensors.append(sensor)
+            ManagerModel.__sensor_data[sensor] = []
 
     @staticmethod
     def delete_sensor(sensor: 'SensorItem') -> NoReturn:
@@ -86,8 +93,9 @@ class ManagerModel:
         Args:
             sensor (SensorItem): SensorItem to be deleted
         """
-        ManagerModel.__sensors.remove(sensor)
-        ManagerModel.__sensor_data.pop(sensor)
+        if sensor is not None:
+            ManagerModel.__sensors.remove(sensor)
+            ManagerModel.__sensor_data.pop(sensor)
 
     @staticmethod
     def add_diagram(diagram: 'DiagramItem') -> NoReturn:
@@ -98,7 +106,8 @@ class ManagerModel:
         Args:
             diagram (DiagramItem): DiagramItem to be added
         """
-        ManagerModel.__diagrams.append(diagram)
+        if diagram is not None:
+            ManagerModel.__diagrams.append(diagram)
 
     @staticmethod
     def delete_diagram(diagram: 'DiagramItem') -> NoReturn:
@@ -109,10 +118,11 @@ class ManagerModel:
         Args:
             diagram (DiagramItem): DiagramItem to be deleted
         """
-        ManagerModel.__diagrams.remove(diagram)
+        if diagram is not None:
+            ManagerModel.__diagrams.remove(diagram)
 
     @staticmethod
-    def start() -> NoReturn:
+    def start() -> NoReturn:    # TODO Exceptions
         """Starts a measuring process and calculates for all DiagramItems and the selected item their data
 
         Typically called if the start button was clicked.

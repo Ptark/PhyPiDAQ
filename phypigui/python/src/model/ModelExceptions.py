@@ -16,3 +16,13 @@ class OutOfRange(Exception):
 class PathDoesntExist(Exception):
     """Raises if a file or directory doesn't exist"""
     pass
+
+
+class IDNotFound(Exception):
+    """Raises if a given ID is not founded in this context"""
+    pass
+
+
+class InputAlreadyConnected(Exception):
+    """Raises if you trying to connect a input, which is already connected"""
+    pass
