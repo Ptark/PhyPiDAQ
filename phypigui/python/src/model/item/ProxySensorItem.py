@@ -13,7 +13,7 @@ class ProxySensorItem(SensorItem):
         name: str = "Proxysensor"
         description: str = "Der Proxysensor lädt Einheit und Daten aus einer Datei und gibt sie aus."
         config: ConfigModel = ConfigModel()
-        config.add_file_option(FileOption(name, description))
+        config.add_file_option(FileOption(name, description)) # TODO Optionsbeschreibung
         super().__init__(name, description, config, 1, None)
 
     def set_file(self, path: str):
