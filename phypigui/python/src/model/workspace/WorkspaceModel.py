@@ -108,6 +108,7 @@ class WorkspaceModel:
         Returns:
             int: Next free ID
         """
+        print("i")
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_list[id] = input
@@ -127,6 +128,7 @@ class WorkspaceModel:
         Returns:
             int: Next free ID
         """
+        print("o")
         id: int = WorkspaceModel.__next_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_list[id] = output
@@ -147,6 +149,10 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        for output_item_id in WorkspaceModel.__output_item_list:
+            if WorkspaceModel.__output_item_list[output_item_id] is item:
+                WorkspaceModel.__input_item_list[output_item_id] = item
+                return output_item_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__input_item_list[id] = item
         return id
@@ -166,23 +172,13 @@ class WorkspaceModel:
             int: Next free ID
         """
         id: int = WorkspaceModel.__next_id
+        for input_item_id in WorkspaceModel.__input_item_list:
+            if WorkspaceModel.__input_item_list[input_item_id] is item:
+                WorkspaceModel.__output_item_list[input_item_id] = item
+                return input_item_id
         WorkspaceModel.__next_id += 1
         WorkspaceModel.__output_item_list[id] = item
         return id
-
-    @staticmethod
-    def unite_ids(input_item_id: int, output_item: 'OutputItem') -> NoReturn:
-        """Corrects the ID of an InputItem, if it is an OutputItem too
-
-        Args:
-            input_item_id (int): ID the added InputItem-version of the item has
-            output_item (OutputItem): The item, which is the same as the InputItem with the input_item_id
-        """
-        item_id: int = output_item.id
-        assert(WorkspaceModel.__input_item_list[input_item_id] is output_item)
-        input_item: 'InputItem' = WorkspaceModel.__input_item_list[input_item_id]
-        WorkspaceModel.__input_item_list.pop(input_item_id)
-        WorkspaceModel.__input_item_list[item_id] = input_item
 
     @staticmethod
     def delete_item(item_id: int) -> NoReturn:

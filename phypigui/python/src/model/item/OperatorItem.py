@@ -23,9 +23,7 @@ class OperatorItem(InputItem, OutputItem, ABC):
             outputs (int): Count of outputs for this OperatorItem
         """
         InputItem.__init__(self, name, description, config, inputs)
-        input_id: int = self._id
         OutputItem.__init__(self, name, description, config, outputs)
-        WorkspaceModel.unite_ids(input_id, self)
 
 
 class DivisionOperatorItem(OperatorItem):
