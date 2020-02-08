@@ -12,3 +12,7 @@ class WriteToFileItem(DiagramItem):
         description: str = "Schreibt die gemessenen Daten in eine Datei " \
                            "und speichert diese am Ende des Messduchlaufes ab"
         super().__init__(name, description, config, 1)
+
+    def set_file(self):
+        pass
+
