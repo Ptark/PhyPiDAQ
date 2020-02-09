@@ -23,6 +23,8 @@ class DiagramItemView(WorkspaceItemView, ABC):
         if diagram.diagram is not None:
             self._diagram: DiagramView = diagram.diagram(self._model)
             DiagramFieldView.add_diagram(self._diagram)
+        else:
+            self._diagram: DiagramView = None
 
         super().__init__(parent, diagram.path, self._model.get_input_ids(), [])
 
@@ -45,6 +47,7 @@ class DiagramItemView(WorkspaceItemView, ABC):
             InfoBarView.refresh_infobar()
 
     def delete(self) -> NoReturn:
-        DiagramFieldView.delete_diagram(self._diagram)
+        if self._diagram is not None:
+            DiagramFieldView.delete_diagram(self._diagram)
         ManagerModel.delete_diagram(self._model)
         super().delete()
