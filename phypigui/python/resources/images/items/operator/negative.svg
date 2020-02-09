@@ -12,7 +12,7 @@
    viewBox="0 0 24 24"
    version="1.1"
    id="svg4"
-   sodipodi:docname="multiplication.svg"
+   sodipodi:docname="negative.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
   <metadata
      id="metadata10">
@@ -22,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -40,9 +41,9 @@
      inkscape:window-height="1699"
      id="namedview6"
      showgrid="false"
-     inkscape:zoom="39.333333"
-     inkscape:cx="13.822068"
-     inkscape:cy="12.323754"
+     inkscape:zoom="27.812867"
+     inkscape:cx="-3.0583734"
+     inkscape:cy="18.259029"
      inkscape:window-x="-13"
      inkscape:window-y="-13"
      inkscape:window-maximized="1"
@@ -51,26 +52,25 @@
      d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12z"
      id="path2" />
   <rect
-     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.52727979"
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.64578325"
      id="rect4526"
-     width="1"
+     width="1.5"
      height="12"
-     x="11.499521"
+     x="5.5"
      y="6" />
   <rect
-     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.52727979"
-     id="rect4526-6"
-     width="1"
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.64578325"
+     id="rect4526-7"
+     width="1.5"
      height="12"
-     x="2.6072364"
-     y="-22.683334"
-     transform="rotate(124.4508)" />
+     x="17"
+     y="6" />
   <rect
-     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.52727979"
-     id="rect4526-67"
-     width="1"
-     height="12"
-     x="16.191938"
-     y="-9.0606623"
-     transform="rotate(55.391572)" />
+     style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke-width:0.34456098"
+     id="rect4526-4"
+     width="0.99999911"
+     height="5.1242647"
+     x="-12.467057"
+     y="9.5950384"
+     transform="matrix(0.00111197,-0.99999938,0.99999633,0.00271026,0,0)" />
 </svg>
