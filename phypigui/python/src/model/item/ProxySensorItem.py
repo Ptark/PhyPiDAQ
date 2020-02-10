@@ -35,7 +35,7 @@ class ProxySensorItem(SensorItem):
         # readout_rate: float = loaded_json.get("readout_rate", 0)
         data_json: List[float] = loaded_json.get("data", None)
         # assert valid data format
-        assert unit is not ""
+        # assert unit is not ""
         # assert readout_rate is not 0
         assert data_json is not None
         # set attributes
@@ -46,7 +46,7 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
-        assert self.unit is not ""
+        # assert self.unit != ""
         return self.unit
         # return unit read from file
 
