@@ -40,7 +40,9 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
 
         icon = QSvgWidget(self)
         icon.load(self.__icon_path)
+        icon.setFixedSize(40, 40)
 
         layout = QHBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(icon)
         self.setLayout(layout)
