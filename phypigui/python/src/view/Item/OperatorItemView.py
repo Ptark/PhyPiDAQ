@@ -1,10 +1,10 @@
 from abc import ABC
-from typing import NoReturn
+from typing import NoReturn, List
 
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtWidgets import QWidget
 
-from ..Translator import Translator
-from ..InfoBar.InfoBarView import InfoBarView
+from ...model.manager.ManagerModel import ManagerModel
+from ..Workspace.WorkspaceView import WorkspaceView
 from ...model.item.OperatorItem import OperatorItem
 from .WorkspaceItemView import WorkspaceItemView
 
@@ -20,20 +20,10 @@ class OperatorItemView(WorkspaceItemView, ABC):
 
         super().__init__(parent, operator.path, self._model.get_input_ids(), self._model.get_output_ids())
 
-        self.__data_text = QLabel()
-        self._info_layout.insertWidget(3, self.__data_text)
+    def _on_click(self) -> NoReturn:
+        if WorkspaceView.wire_in_hand is None:
+            ManagerModel.set_selected_item(self._model if not self.selected else None)
+        super()._on_click()
 
-        Translator.language_changed.signal.connect(self.__update_text)
-        self.__update_text()
-
-    def __update_text(self) -> NoReturn:
-        self.__data_text.setText(Translator.tr("Daten") + ":")
-        self.update_view()
-
-    def update_view(self) -> NoReturn:
-        if self.selected:
-            text = ""
-            for dat in self._model.get_data():
-                text += str(round(dat, 5)) + "\n\t"
-            self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
-            InfoBarView.refresh_infobar()
+    def get_data(self) -> List[float]:
+        return self._model.get_data()
