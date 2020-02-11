@@ -1,8 +1,8 @@
 from abc import ABC
 
-from phypigui.python.src.model.item.InputItem import InputItem
-from phypigui.python.src.model.item.OutputItem import OutputItem
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
+from ..InputItem import InputItem
+from ..OutputItem import OutputItem
+from ...config.ConfigModel import ConfigModel
 
 
 class OperatorItem(InputItem, OutputItem, ABC):

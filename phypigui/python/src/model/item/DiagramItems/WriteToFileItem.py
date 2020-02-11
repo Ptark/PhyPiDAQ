@@ -2,9 +2,9 @@ import time
 import json
 from typing import Dict, List
 
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
-from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
+from ..SensorItems.SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ..DiagramItems.DiagramItem import DiagramItem
 
 
 class WriteToFileItem(DiagramItem):

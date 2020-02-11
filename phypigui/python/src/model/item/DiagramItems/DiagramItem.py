@@ -1,10 +1,10 @@
 from typing import List, Callable, Dict
 
-from phypigui.python.src.model.manager.ManagerModel import ManagerModel
-from phypigui.python.src.model.item.InputItem import InputItem
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
-from phypigui.python.src.model.workspace.WorkspaceModel import WorkspaceModel
+from ...manager.ManagerModel import ManagerModel
+from ..InputItem import InputItem
+from ..SensorItems.SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ...workspace.WorkspaceModel import WorkspaceModel
 
 
 class DiagramItem(InputItem):

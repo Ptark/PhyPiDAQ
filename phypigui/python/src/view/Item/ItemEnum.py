@@ -5,37 +5,37 @@ from typing import Type
 from PyQt5.QtWidgets import QWidget
 
 from ...SystemInfo import SystemInfo
-from phypigui.python.src.model.item.SensorItems.AccelerationSensorItem import AccelerationSensorItem
-from phypigui.python.src.model.item.SensorItems.ConstantItems import ConstantItem, NatureConstantItem
-from phypigui.python.src.model.item.SensorItems.CurrentSensorItem import CurrentSensorItem
-from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
-from phypigui.python.src.model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
-from phypigui.python.src.model.item.DiagramItems.DualDiagramItem import DualDiagramItem
-from phypigui.python.src.model.item.DiagramItems.BarDiagramItem import BarDiagramItem
-from phypigui.python.src.model.item.SensorItems.DistanceSensorItem import DistanceSensorItem
-from phypigui.python.src.model.item.SensorItems.ForceSensorItem import ForceSensorItem
+from ...model.item.SensorItems.AccelerationSensorItem import AccelerationSensorItem
+from ...model.item.SensorItems.ConstantItems import ConstantItem, NatureConstantItem
+from ...model.item.SensorItems.CurrentSensorItem import CurrentSensorItem
+from ...model.item.DiagramItems.DiagramItem import DiagramItem
+from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
+from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
+from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
+from ...model.item.SensorItems.DistanceSensorItem import DistanceSensorItem
+from ...model.item.SensorItems.ForceSensorItem import ForceSensorItem
 from ...model.item.ItemModel import ItemModel
-from phypigui.python.src.model.item.OperatorItems.OperatorItem import OperatorItem
-from phypigui.python.src.model.item.OperatorItems.AdditionOperatorItem import AdditionOperatorItem
-from phypigui.python.src.model.item.OperatorItems.SubtractionOperatorItem import SubtractionOperatorItem
-from phypigui.python.src.model.item.OperatorItems.MultiplicationOperatorItem import MultiplicationOperatorItem
-from phypigui.python.src.model.item.OperatorItems.DivisionOperatorItem import DivisionOperatorItem
-from phypigui.python.src.model.item.OperatorItems.AbsoluteOperatorItem import AbsoluteOperatorItem
-from phypigui.python.src.model.item.OperatorItems.NegativeOperatorItem import NegativeOperatorItem
-from phypigui.python.src.model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem
-from phypigui.python.src.model.item.OperatorItems.RootOperatorItem import RootOperatorItem
-from phypigui.python.src.model.item.OperatorItems.CloneItem import CloneItem
-from phypigui.python.src.model.item.SensorItems.ProxySensorItem import ProxySensorItem
-from phypigui.python.src.model.item.SensorItems.RGBSensorItem import RGBSensorItem
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.item.SensorItems.TemperatureSensorItem import TemperatureSensorItem
-from phypigui.python.src.model.item.SensorItems.VoltageSensorItem import VoltageSensorItem
+from ...model.item.OperatorItems.OperatorItem import OperatorItem
+from ...model.item.OperatorItems.AdditionOperatorItem import AdditionOperatorItem
+from ...model.item.OperatorItems.SubtractionOperatorItem import SubtractionOperatorItem
+from ...model.item.OperatorItems.MultiplicationOperatorItem import MultiplicationOperatorItem
+from ...model.item.OperatorItems.DivisionOperatorItem import DivisionOperatorItem
+from ...model.item.OperatorItems.AbsoluteOperatorItem import AbsoluteOperatorItem
+from ...model.item.OperatorItems.NegativeOperatorItem import NegativeOperatorItem
+from ...model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem
+from ...model.item.OperatorItems.RootOperatorItem import RootOperatorItem
+from ...model.item.OperatorItems.CloneItem import CloneItem
+from ...model.item.SensorItems.ProxySensorItem import ProxySensorItem
+from ...model.item.SensorItems.RGBSensorItem import RGBSensorItem
+from ...model.item.SensorItems.SensorItem import SensorItem
+from ...model.item.SensorItems.TemperatureSensorItem import TemperatureSensorItem
+from ...model.item.SensorItems.VoltageSensorItem import VoltageSensorItem
 from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram
 from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
 from .SensorItemView import SensorItemView
 from .WorkspaceItemView import WorkspaceItemView
-from phypigui.python.src.model.item.DiagramItems.WriteToFileItem import WriteToFileItem
+from ...model.item.DiagramItems.WriteToFileItem import WriteToFileItem
 
 
 class ItemEnumMeta(type(ABC), type(Enum)):

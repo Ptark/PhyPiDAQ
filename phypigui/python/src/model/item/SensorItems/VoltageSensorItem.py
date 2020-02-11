@@ -1,6 +1,6 @@
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.config.NumOption import NumOption
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
+from ...config.ConfigModel import ConfigModel
+from ...config.NumOption import NumOption
+from ..SensorItems.SensorItem import SensorItem
 # from ......phypidaq import INA219Config
 
 

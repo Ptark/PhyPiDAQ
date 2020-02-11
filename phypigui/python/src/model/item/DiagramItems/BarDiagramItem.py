@@ -1,5 +1,5 @@
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
-from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
+from ...config.ConfigModel import ConfigModel
+from ..DiagramItems.DiagramItem import DiagramItem
 
 
 class BarDiagramItem(DiagramItem):

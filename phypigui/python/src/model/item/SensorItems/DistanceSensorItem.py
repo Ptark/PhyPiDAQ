@@ -1,5 +1,6 @@
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.config import ConfigModel, NumOption
+from .SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ...config.NumOption import NumOption
 # from phypidaq.VL53LxConfig import VL53LxConfig
 
 
@@ -11,8 +12,8 @@ class DistanceSensorItem(SensorItem):
         name: str = "Abstandssensor"
         description: str = "Der Abstandssensor misst den Abstand zu einem Objekt"
 
-        config: ConfigModel = ConfigModel.ConfigModel()
-        config.add_num_option(NumOption.NumOption("Ausleserate", "", 100))
+        config: ConfigModel = ConfigModel()
+        config.add_num_option(NumOption("Ausleserate", "", 100))
 
         super().__init__(name, description, config, 1, None)  # VL53LxConfig())
 

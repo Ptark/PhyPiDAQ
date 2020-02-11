@@ -5,9 +5,9 @@ import time
 from abc import ABC
 from typing import List, Callable, Dict, NoReturn
 
-from phypigui.python.src.model.manager.ManagerModel import ManagerModel
-from phypigui.python.src.model.item.OutputItem import OutputItem
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
+from ...manager.ManagerModel import ManagerModel
+from ..OutputItem import OutputItem
+from ...config.ConfigModel import ConfigModel
 
 
 class SensorItem(OutputItem, ABC):

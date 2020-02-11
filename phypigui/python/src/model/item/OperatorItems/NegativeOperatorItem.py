@@ -1,9 +1,9 @@
 from typing import Callable, Dict, List
 
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
-from phypigui.python.src.model.item.OperatorItems.OperatorItem import OperatorItem
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.workspace.WorkspaceModel import WorkspaceModel
+from ...config.ConfigModel import ConfigModel
+from ..OperatorItems.OperatorItem import OperatorItem
+from ..SensorItems.SensorItem import SensorItem
+from ...workspace.WorkspaceModel import WorkspaceModel
 
 
 class NegativeOperatorItem(OperatorItem):

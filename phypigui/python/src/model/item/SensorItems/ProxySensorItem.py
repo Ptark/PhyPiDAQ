@@ -2,9 +2,9 @@ from typing import List
 import os
 import json
 
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
-from phypigui.python.src.model.config.ConfigModel import ConfigModel
-from phypigui.python.src.model.config.FileOption import FileOption
+from .SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ...config.FileOption import FileOption
 
 
 class ProxySensorItem(SensorItem):
