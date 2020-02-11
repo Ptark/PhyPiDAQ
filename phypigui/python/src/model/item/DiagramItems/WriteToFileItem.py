@@ -49,4 +49,8 @@ class WriteToFileItem(DiagramItem):
             file.close()
         return success
 
+    @staticmethod
+    def get_name() -> str:
+        return "In Datei schreiben"
+
 

@@ -33,6 +33,10 @@ class NatureConstantItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return ""
 
+    @staticmethod
+    def get_name() -> str:
+        return "Naturkonstantenelement"
+
 
 class ConstantItem(SensorItem):
     """This class models an item, which has a constant value set by the user"""
@@ -53,3 +57,7 @@ class ConstantItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         return ""
+
+    @staticmethod
+    def get_name() -> str:
+        return "Konstantenelement"

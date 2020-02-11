@@ -19,3 +19,7 @@ class RGBSensorItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         return "rot grün blau"
+
+    @staticmethod
+    def get_name() -> str:
+        return "RGB Sensor"

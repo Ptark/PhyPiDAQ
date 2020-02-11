@@ -10,8 +10,8 @@ class CurrentSensorItem(SensorItem):
 
     def __init__(self):
         """Initialising current sensor"""
-        name: str = "Stromsensor"
-        description: str = "Der Stromsensor misst den Strom in milliampere"
+        name: str = "Stromstärkesensor"
+        description: str = "Der Stromstärkesensor misst die Stromstärke in milliampere"
 
         config: ConfigModel = ConfigModel()
         config.add_num_option(NumOption("Ausleserate", "", 100))
@@ -21,3 +21,6 @@ class CurrentSensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return "mA"
 
+    @staticmethod
+    def get_name() -> str:
+        return "Stromstärkesensor"

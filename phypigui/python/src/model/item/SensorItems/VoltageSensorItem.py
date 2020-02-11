@@ -19,3 +19,7 @@ class VoltageSensorItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         return "V"
+
+    @staticmethod
+    def get_name() -> str:
+        return "Spannungssensor"

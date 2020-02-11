@@ -12,3 +12,7 @@ class TimeDiagramItem(DiagramItem):
         config = ConfigModel()
 
         super().__init__(name, description, config, 1)
+
+    @staticmethod
+    def get_name() -> str:
+        return "Zeitdiagramm"

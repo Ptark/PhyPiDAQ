@@ -30,3 +30,7 @@ class PowerOperatorItem(OperatorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + "^" + str(self.config.num_options[0].number) \
                + ")"
+
+    @staticmethod
+    def get_name() -> str:
+        return "Exponentialsoperator"

@@ -12,3 +12,7 @@ class DualDiagramItem(DiagramItem):
         config = ConfigModel()
 
         super().__init__(name, description, config, 2)
+
+    @staticmethod
+    def get_name() -> str:
+        return "2D-Diagramm"

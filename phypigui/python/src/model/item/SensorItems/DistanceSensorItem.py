@@ -19,3 +19,7 @@ class DistanceSensorItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         return "mm"
+
+    @staticmethod
+    def get_name() -> str:
+        return "Abstandssensor"

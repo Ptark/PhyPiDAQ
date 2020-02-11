@@ -73,5 +73,3 @@ class SensorItem(OutputItem, ABC):
             int: Last read time
         """
         return self._last_read_time
-
-

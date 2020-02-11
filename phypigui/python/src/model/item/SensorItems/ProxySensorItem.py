@@ -62,3 +62,7 @@ class ProxySensorItem(SensorItem):
         else:
             self.current_index = 0
         return self.data[current]
+
+    @staticmethod
+    def get_name() -> str:
+        return "Proxysensor"

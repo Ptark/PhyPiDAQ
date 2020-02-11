@@ -21,3 +21,6 @@ class AccelerationSensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return "m*s^2"
 
+    @staticmethod
+    def get_name() -> str:
+        return "Beschleunigungssensor"

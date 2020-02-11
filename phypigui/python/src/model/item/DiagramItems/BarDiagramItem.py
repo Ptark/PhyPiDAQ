@@ -12,3 +12,7 @@ class BarDiagramItem(DiagramItem):
         description: str = "Stellt die gemessenen Daten als Balkendiagramm dar"
 
         super().__init__(name, description, config, 3)
+
+    @staticmethod
+    def get_name() -> str:
+        return "Balkendiagramm"

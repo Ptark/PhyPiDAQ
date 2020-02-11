@@ -19,3 +19,7 @@ class ForceSensorItem(SensorItem):
 
     def get_unit(self, output_number: int = 0) -> str:
         return "N"
+
+    @staticmethod
+    def get_name() -> str:
+        return "Kraftsensor"

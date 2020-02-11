@@ -31,3 +31,7 @@ class TemperatureSensorItem(SensorItem):
 
         enum_opt = self._config.enum_options[0]
         return list(enum_opt.samples)[enum_opt.selection].value
+
+    @staticmethod
+    def get_name() -> str:
+        return "Temperatursensor"

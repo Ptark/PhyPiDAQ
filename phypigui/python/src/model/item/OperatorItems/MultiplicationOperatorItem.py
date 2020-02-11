@@ -30,3 +30,7 @@ class MultiplicationOperatorItem(OperatorItem):
     def get_unit(self, output_number: int = 0) -> str:
         return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") * (" +\
             WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
+
+    @staticmethod
+    def get_name() -> str:
+        return "Multiplikationsoperator"
