@@ -5,27 +5,37 @@ from typing import Type
 from PyQt5.QtWidgets import QWidget
 
 from ...SystemInfo import SystemInfo
-from ...model.item.AccelerationSensorItem import AccelerationSensorItem
-from ...model.item.ConstantItems import ConstantItem, NatureConstantItem
-from ...model.item.CurrentSensorItem import CurrentSensorItem
-from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, DualDiagramItem, BarDiagramItem
-from ...model.item.DistanceSensorItem import DistanceSensorItem
-from ...model.item.ForceSensorItem import ForceSensorItem
+from ...model.item.SensorItems.AccelerationSensorItem import AccelerationSensorItem
+from ...model.item.SensorItems.ConstantItems import ConstantItem, NatureConstantItem
+from ...model.item.SensorItems.CurrentSensorItem import CurrentSensorItem
+from ...model.item.DiagramItems.DiagramItem import DiagramItem
+from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
+from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
+from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
+from ...model.item.SensorItems.DistanceSensorItem import DistanceSensorItem
+from ...model.item.SensorItems.ForceSensorItem import ForceSensorItem
 from ...model.item.ItemModel import ItemModel
-from ...model.item.OperatorItem import AdditionOperatorItem, SubtractionOperatorItem, \
-    MultiplicationOperatorItem, DivisionOperatorItem, AbsoluteOperatorItem, OperatorItem, NegativeOperatorItem, \
-    PowerOperatorItem, RootOperatorItem, CloneItem
-from ...model.item.ProxySensorItem import ProxySensorItem
-from ...model.item.RGBSensorItem import RGBSensorItem
-from ...model.item.SensorItem import SensorItem
-from ...model.item.TemperatureSensorItem import TemperatureSensorItem
-from ...model.item.VoltageSensorItem import VoltageSensorItem
+from ...model.item.OperatorItems.OperatorItem import OperatorItem
+from ...model.item.OperatorItems.AdditionOperatorItem import AdditionOperatorItem
+from ...model.item.OperatorItems.SubtractionOperatorItem import SubtractionOperatorItem
+from ...model.item.OperatorItems.MultiplicationOperatorItem import MultiplicationOperatorItem
+from ...model.item.OperatorItems.DivisionOperatorItem import DivisionOperatorItem
+from ...model.item.OperatorItems.AbsoluteOperatorItem import AbsoluteOperatorItem
+from ...model.item.OperatorItems.NegativeOperatorItem import NegativeOperatorItem
+from ...model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem
+from ...model.item.OperatorItems.RootOperatorItem import RootOperatorItem
+from ...model.item.OperatorItems.CloneItem import CloneItem
+from ...model.item.SensorItems.ProxySensorItem import ProxySensorItem
+from ...model.item.SensorItems.RGBSensorItem import RGBSensorItem
+from ...model.item.SensorItems.SensorItem import SensorItem
+from ...model.item.SensorItems.TemperatureSensorItem import TemperatureSensorItem
+from ...model.item.SensorItems.VoltageSensorItem import VoltageSensorItem
 from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram
 from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
 from .SensorItemView import SensorItemView
 from .WorkspaceItemView import WorkspaceItemView
-from ...model.item.WriteToFileItem import WriteToFileItem
+from ...model.item.DiagramItems.WriteToFileItem import WriteToFileItem
 
 
 class ItemEnumMeta(type(ABC), type(Enum)):

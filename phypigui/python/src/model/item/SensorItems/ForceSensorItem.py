@@ -1,6 +1,6 @@
-from ..item.SensorItem import SensorItem
-from ..config.NumOption import NumOption
-from ..config.ConfigModel import ConfigModel
+from ...config.ConfigModel import ConfigModel
+from ...config.NumOption import NumOption
+from ..SensorItems.SensorItem import SensorItem
 # from ......phypidaq.MMA845xConfig import MMA845xConfig
 
 

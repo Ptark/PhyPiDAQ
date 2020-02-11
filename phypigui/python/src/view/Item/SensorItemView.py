@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 
 from ..Workspace.WorkspaceView import WorkspaceView
 from ...model.manager.ManagerModel import ManagerModel
-from ...model.item.SensorItem import SensorItem
+from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 

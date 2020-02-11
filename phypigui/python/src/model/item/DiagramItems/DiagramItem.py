@@ -1,10 +1,10 @@
 from typing import List, Callable, Dict
 
-from ..manager.ManagerModel import ManagerModel
-from ..item.InputItem import InputItem
-from ..item.SensorItem import SensorItem
-from ..config.ConfigModel import ConfigModel
-from ..workspace.WorkspaceModel import WorkspaceModel
+from ...manager.ManagerModel import ManagerModel
+from ..InputItem import InputItem
+from ..SensorItems.SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ...workspace.WorkspaceModel import WorkspaceModel
 
 
 class DiagramItem(InputItem):
@@ -65,40 +65,3 @@ class DiagramItem(InputItem):
         for i in range(0, self.get_count_of_inputs()):
             self._data[i] = self._functions[i](sensor_data)
         return True
-
-
-class BarDiagramItem(DiagramItem):
-    """This class models a bar diagram item"""
-    
-    def __init__(self):
-        """Initialising a BarDiagramItem object"""
-        name: str = "Balkendiagramm"
-        config: ConfigModel = ConfigModel()
-        description: str = "Stellt die gemessenen Daten als Balkendiagramm dar"
-
-        super().__init__(name, description, config, 3)
-
-
-class TimeDiagramItem(DiagramItem):
-    """This class models a timing diagram item"""
-    
-    def __init__(self):
-        """Initialising a TimeDiagramItem object"""
-        name: str = "Zeitdiagramm"
-        description = "Stellt die gemessenen Daten als Zeitdiagramm dar"
-        config = ConfigModel()
-
-        super().__init__(name, description, config, 1)
-
-
-class DualDiagramItem(DiagramItem):
-    """This class models a plot diagram item"""
-
-    def __init__(self):
-        """Initialising a DualDiagramItem object"""
-        name: str = "2D-Diagramm"
-        description = "Stellt die gemessenen Daten als 2D-Diagramm dar"
-        config = ConfigModel()
-
-        super().__init__(name, description, config, 2)
-

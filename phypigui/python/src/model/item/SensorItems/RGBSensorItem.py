@@ -1,7 +1,7 @@
-from ..item.SensorItem import SensorItem
-from ..config.NumOption import NumOption
+from ...config.ConfigModel import ConfigModel
+from ...config.NumOption import NumOption
+from ..SensorItems.SensorItem import SensorItem
 # from ......phypidaq import TCS34725Config
-from ..config.ConfigModel import ConfigModel
 
 
 class RGBSensorItem(SensorItem):

@@ -2,9 +2,9 @@ from typing import List
 import os
 import json
 
-from ..item.SensorItem import SensorItem
-from ..config.ConfigModel import ConfigModel
-from ..config.FileOption import FileOption
+from .SensorItem import SensorItem
+from ...config.ConfigModel import ConfigModel
+from ...config.FileOption import FileOption
 
 
 class ProxySensorItem(SensorItem):

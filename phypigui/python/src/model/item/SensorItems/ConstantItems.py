@@ -4,9 +4,9 @@ from enum import Enum
 from typing import List, Dict, Callable
 
 from .SensorItem import SensorItem
-from ..config.ConfigModel import ConfigModel
-from ..config.EnumOption import EnumOption
-from ..config.NumOption import NumOption
+from ...config.ConfigModel import ConfigModel
+from ...config.EnumOption import EnumOption
+from ...config.NumOption import NumOption
 
 
 class NatureConstantItem(SensorItem):

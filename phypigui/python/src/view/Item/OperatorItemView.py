@@ -3,9 +3,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget
 
-from ...model.manager.ManagerModel import ManagerModel
-from ..Workspace.WorkspaceView import WorkspaceView
-from ...model.item.OperatorItem import OperatorItem
+from ...model.item.OperatorItems.OperatorItem import OperatorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 

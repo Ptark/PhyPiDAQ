@@ -8,7 +8,10 @@ from PyQt5.QtWidgets import QSizePolicy
 
 from ..Translator import Translator
 from ..View import View
-from ...model.item.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
+from ...model.item.DiagramItems.DiagramItem import DiagramItem
+from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
+from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
+from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
 
 
 class DiagramViewMeta(type(FigureCanvas), type(View)):
