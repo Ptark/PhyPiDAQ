@@ -31,15 +31,11 @@ class DiagramFieldView(QWidget):
         self.__dialog: Dialog = None
         self.__diagram_layout = QVBoxLayout()
         self.__maximize_button = QPushButton()
-        # TODO Es gibt 3 Versionen für das Diagramfeld. Alle zielen zu den Versionen sind gekennzeichnet (Aktiv: v3)
-        """                                                                                                 # 2
-        self.__group_list: List[QtWidgets.QGroupBox] = []
-        self.__group_layouts: List[QtWidgets.QVBoxLayout] = []
-        """
-        self.__diagram_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)                               # 3
-        self.__group_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self.__diagram_group)            # 3
-        self.__stretch_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)                                  # 3
-        self.__diagram_count: int = 0                                                                       # 3
+
+        self.__diagram_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)
+        self.__group_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self.__diagram_group)
+        self.__stretch_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
+        self.__diagram_count: int = 0
 
         self.__maximize_button.clicked.connect(self.__maximize_on_click)
         self.__init_ui()
@@ -49,15 +45,8 @@ class DiagramFieldView(QWidget):
         self.__maximize_button.setFixedSize(31, 31)
         self.__maximize_button.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/maximize.svg'))
 
-
-        """for n in range(0, 3):                                                                            # 2
-            self.__group_list.append(QtWidgets.QGroupBox(self))
-            self.__group_list[n].setStyleSheet("QGroupBox { border: 1px solid gray; background: white; }")
-            self.__diagram_layout.addWidget(self.__group_list[n])
-            self.__group_layouts.append(QtWidgets.QVBoxLayout(self.__group_list[n]))
-        """
-        self.__diagram_group.setStyleSheet("QGroupBox { border: 1px solid gray; background: white; }")      # 3
-        self.__diagram_layout.addWidget(self.__diagram_group)                                               # 3
+        self.__diagram_group.setStyleSheet("QGroupBox { border: 1px solid gray; background: white; }")
+        self.__diagram_layout.addWidget(self.__diagram_group)
 
         buttons = QHBoxLayout()
         buttons.addWidget(StartButtonView(self))
@@ -72,7 +61,7 @@ class DiagramFieldView(QWidget):
         self.setLayout(main_layout)
 
     def __maximize_on_click(self):
-        """ if maximize button clicked open dialog that contains diagrams on screen"""
+        """if maximize button clicked open dialog that contains diagrams on screen"""
         self.__dialog = Dialog(self.__list)
         self.__dialog.close_signal.connect(self.__update_diagrams)
         self.__maximize_button.clearFocus()
@@ -82,12 +71,9 @@ class DiagramFieldView(QWidget):
         """adds diagrams in the diagram field view when maximized window is closed"""
         for diagram in self.__list:
             diagram.resize(280, 350)
-            #index_of_diagram: int = self.__list.index(diagram)                                         # 2
-            #self.__group_layouts[index_of_diagram].addWidget(diagram, 0, Qt.AlignTop)                  # 2
-            #self.__diagram_layout.addWidget(diagram)                                                   # 1
-            self.__group_layout.addWidget(diagram, 10, Qt.AlignTop)                                                      # 3
-        if self.__diagram_count == 1:                                                                   # 3
-            self.add_stretch()                                                                          # 3
+            self.__group_layout.addWidget(diagram, 10, Qt.AlignTop)
+        if self.__diagram_count == 1:
+            self.add_stretch()
 
     @staticmethod
     def add_diagram(diagram: DiagramView) -> NoReturn:
@@ -95,28 +81,22 @@ class DiagramFieldView(QWidget):
         if len(DiagramFieldView.__diagram_field.__list) >= 3:
             raise DiagramMaximumReachedException
         DiagramFieldView.__diagram_field.__list.append(diagram)
-        #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)                 # 2
-        #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].addWidget(diagram)          # 2
-        DiagramFieldView.__diagram_field.__diagram_count += 1                                           # 3
-        if DiagramFieldView.__diagram_field.__diagram_count == 2:                                       # 3
+        DiagramFieldView.__diagram_field.__diagram_count += 1
+        if DiagramFieldView.__diagram_field.__diagram_count == 2:
             DiagramFieldView.__diagram_field.__group_layout.removeWidget(
-                DiagramFieldView.__diagram_field.__stretch_widget)                                      # 3
-        DiagramFieldView.__diagram_field.__group_layout.addWidget(diagram, 10, Qt.AlignTop)             # 3
-        if DiagramFieldView.__diagram_field.__diagram_count == 1:                                       # 3
-            DiagramFieldView.add_stretch()                                                              # 3
-        #DiagramFieldView.__diagram_field.__diagram_layout.addWidget(diagram)                           # 1
+                DiagramFieldView.__diagram_field.__stretch_widget)
+        DiagramFieldView.__diagram_field.__group_layout.addWidget(diagram, 10, Qt.AlignTop)
+        if DiagramFieldView.__diagram_field.__diagram_count == 1:
+            DiagramFieldView.add_stretch()
 
     @staticmethod
     def delete_diagram(diagram: DiagramView) -> NoReturn:
         """delete diagram from list of diagrams and then removes it from layout"""
-        #index_of_diagram: int = DiagramFieldView.__diagram_field.__list.index(diagram)                 # 2
-        #DiagramFieldView.__diagram_field.__group_layouts[index_of_diagram].removeWidget(diagram)       # 2
         DiagramFieldView.__diagram_field.__list.remove(diagram)
-        DiagramFieldView.__diagram_field.__diagram_count -= 1                                           # 3
-        DiagramFieldView.__diagram_field.__group_layout.removeWidget(diagram)                           # 3
-        if DiagramFieldView.__diagram_field.__diagram_count == 1:                                       # 3
-            DiagramFieldView.add_stretch()                                                              # 3
-        #DiagramFieldView.__diagram_field.__diagram_layout.removeWidget(diagram)                        # 1
+        DiagramFieldView.__diagram_field.__diagram_count -= 1
+        DiagramFieldView.__diagram_field.__group_layout.removeWidget(diagram)
+        if DiagramFieldView.__diagram_field.__diagram_count == 1:
+            DiagramFieldView.add_stretch()
         diagram.close()
 
     @staticmethod
