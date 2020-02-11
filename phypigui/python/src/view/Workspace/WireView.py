@@ -3,6 +3,7 @@ from typing import NoReturn
 from PyQt5.QtCore import pyqtSignal, QObject, QPoint
 from PyQt5.QtWidgets import QWidget, QMenu, QLabel
 
+from ...model.ModelExceptions import IDNotFound
 from ..Selectable import Selectable
 from .WorkspaceView import WorkspaceView
 from ..Translator import Translator
@@ -114,7 +115,11 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         """deletes the wire and sends a message then deletes wire from workspaceView """
         WorkspaceView.delete_wire(self)
         if self.__input_id is not None:
-            WorkspaceModel.delete_connection(self.__input_id)
+            try:
+                WorkspaceModel.delete_connection(self.__input_id)
+            except IDNotFound:
+                pass
+
         super().delete()
         self.deletion_signal.emit(self)
         self.redraw()
