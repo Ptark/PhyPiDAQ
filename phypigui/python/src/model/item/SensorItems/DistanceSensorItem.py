@@ -1,5 +1,5 @@
-from ..item.SensorItem import SensorItem
-from ..config import ConfigModel, NumOption
+from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
+from phypigui.python.src.model.config import ConfigModel, NumOption
 # from phypidaq.VL53LxConfig import VL53LxConfig
 
 

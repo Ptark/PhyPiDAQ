@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QLabel
 
 from ..Translator import Translator
 from ..InfoBar.InfoBarView import InfoBarView
-from ...model.item.OperatorItem import OperatorItem
+from phypigui.python.src.model.item.OperatorItems.OperatorItem import OperatorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 

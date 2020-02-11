@@ -3,10 +3,10 @@ import math
 from enum import Enum
 from typing import List, Dict, Callable
 
-from .SensorItem import SensorItem
-from ..config.ConfigModel import ConfigModel
-from ..config.EnumOption import EnumOption
-from ..config.NumOption import NumOption
+from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
+from phypigui.python.src.model.config.ConfigModel import ConfigModel
+from phypigui.python.src.model.config.EnumOption import EnumOption
+from phypigui.python.src.model.config.NumOption import NumOption
 
 
 class NatureConstantItem(SensorItem):

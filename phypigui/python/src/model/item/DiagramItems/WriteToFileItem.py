@@ -2,9 +2,9 @@ import time
 import json
 from typing import Dict, List
 
-from ..item.SensorItem import SensorItem
-from ..config.ConfigModel import ConfigModel
-from .DiagramItem import DiagramItem
+from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
+from phypigui.python.src.model.config.ConfigModel import ConfigModel
+from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
 
 
 class WriteToFileItem(DiagramItem):
@@ -16,7 +16,7 @@ class WriteToFileItem(DiagramItem):
         config: ConfigModel = ConfigModel()
         description: str = "Schreibt die gemessenen Daten in eine Datei " \
                            "und speichert diese am Ende des Messdurchlaufes ab"
-        self.folder_path: str = "../../../resources/data/"
+        self.folder_path: str = "../../../../resources/data/"
         self.path: str = ""
         self.file = None
         super().__init__(name, description, config, 1)

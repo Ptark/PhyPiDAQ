@@ -1,6 +1,6 @@
-from ..item.SensorItem import SensorItem
-from ..config.NumOption import NumOption
-from ..config.ConfigModel import ConfigModel
+from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
+from phypigui.python.src.model.config.NumOption import NumOption
+from phypigui.python.src.model.config.ConfigModel import ConfigModel
 # from ......phypidaq.MMA845xConfig import MMA845xConfig
 
 

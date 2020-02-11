@@ -8,9 +8,8 @@ from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..DiagramField.DiagramView import DiagramView
-from ...model.item.DiagramItem import DiagramItem
+from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
-
 
 class DiagramItemView(WorkspaceItemView, ABC):
     """Abstract class for displaying an item of an diagram on the workspace
