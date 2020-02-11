@@ -12,8 +12,8 @@ class TemperatureSensorItem(SensorItem):
 
     class __TemperatureUnit(Enum):
         """Enum which holds the possible units"""
-        KELVIN = 'Kelvin'
-        CELSIUS = 'Celsius'
+        Kelvin = 'K'
+        Celsius = '°C'
 
     def __init__(self):
         """Initialising a TemperatureSensorItem object"""
@@ -30,5 +30,4 @@ class TemperatureSensorItem(SensorItem):
         assert self._config.enum_options[0] is not None
 
         enum_opt = self._config.enum_options[0]
-        enum_list = list(map(lambda opt: opt.value, enum_opt.samples))
-        return enum_list[enum_opt.selection]
+        return list(enum_opt.samples)[enum_opt.selection].value

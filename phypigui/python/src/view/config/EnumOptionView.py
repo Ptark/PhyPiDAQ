@@ -35,7 +35,7 @@ class EnumOptionView(OptionView):
         self.__dropbox.setFixedSize(280, 40)
         # Add all samples from this option to the dropbox and set selected-index
         for entry in self.option.samples:
-            self.__dropbox.addItem(entry.value)
+            self.__dropbox.addItem(str(entry.name))
         self.__dropbox.setCurrentIndex(self.option.selection)
         # Connect change-event to __set_option_data()
         self.__dropbox.currentIndexChanged.connect(self.__set_option_data)
