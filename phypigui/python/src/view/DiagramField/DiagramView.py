@@ -8,7 +8,10 @@ from PyQt5.QtWidgets import QSizePolicy
 
 from ..Translator import Translator
 from ..View import View
-from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem, TimeDiagramItem, BarDiagramItem, DualDiagramItem
+from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
+from phypigui.python.src.model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
+from phypigui.python.src.model.item.DiagramItems.BarDiagramItem import BarDiagramItem
+from phypigui.python.src.model.item.DiagramItems.DualDiagramItem import DualDiagramItem
 
 
 class DiagramViewMeta(type(FigureCanvas), type(View)):
