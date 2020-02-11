@@ -1,8 +1,9 @@
 from abc import ABC
-from typing import NoReturn
+from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget
 
+from ..Workspace.WorkspaceView import WorkspaceView
 from ...model.manager.ManagerModel import ManagerModel
 from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
 from .WorkspaceItemView import WorkspaceItemView
@@ -22,3 +23,11 @@ class SensorItemView(WorkspaceItemView, ABC):
     def delete(self) -> NoReturn:
         ManagerModel.delete_sensor(self._model)
         super().delete()
+
+    def _on_click(self) -> NoReturn:
+        if WorkspaceView.wire_in_hand is None:
+            ManagerModel.set_selected_item(self._model if not self.selected else None)
+        super()._on_click()
+
+    def get_data(self) -> List[float]:
+        return self._model.get_data()

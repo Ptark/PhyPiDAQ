@@ -5,9 +5,6 @@ from typing import Dict, List, NoReturn
 
 from numpy import random
 
-from ..workspace.WorkspaceModel import WorkspaceModel
-from ..ModelExceptions import IDNotFound
-
 
 class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
@@ -61,14 +58,12 @@ class ManagerModel:
         return copy.deepcopy(ManagerModel.__selected_item)
 
     @staticmethod
-    def set_selected_item(selected: 'ItemModel') -> NoReturn:
+    def set_selected_item(selected: 'OutputItem') -> NoReturn:
         """Sets current selected OutputItem
 
         Args:
             selected (OutputItem): Current selected OutputItem
         """
-        if selected is not None and not WorkspaceModel.is_input_item(selected.id):
-            return
         ManagerModel.__selected_item = selected
 
     @staticmethod

@@ -1,10 +1,11 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import NoReturn, List
 
 from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
+from ..InfoBar.InfoBarView import InfoBarView
 from ...model.manager.ManagerModel import ManagerModel
 from ...model.workspace.WorkspaceModel import WorkspaceModel
 from ..Translator import Translator
@@ -43,6 +44,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self._info_layout: QVBoxLayout = QVBoxLayout()
         self.__name = QLabel()
         self.__desc = QLabel()
+        self.__data_text = QLabel()
 
         self.__lastPos: QPoint = None
 
@@ -84,6 +86,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self._info_layout.addWidget(self.__name)
         self._info_layout.addSpacing(5)
         self._info_layout.addWidget(self.__desc)
+        self._info_layout.addWidget(self.__data_text)
         self._info_layout.addStretch()
 
         self.__info_widget.setLayout(self._info_layout)
@@ -103,6 +106,8 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.setToolTip(Translator.tr(self._model.name))
         self.__name.setText(Translator.tr(self._model.name))
         self.__desc.setText(Translator.tr(self._model.description) + ".")
+        self.__data_text.setText(Translator.tr("Daten") + ":")
+        self.update_view()
 
     @pyqtSlot(ConfigModel)
     def __set_config_data(self, config: ConfigModel) -> NoReturn:
@@ -111,7 +116,6 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
             self.selected = not self.selected
-            ManagerModel.set_selected_item(self._model if self.selected else None)
 
     def _update_selected_view(self) -> NoReturn:
         if self.selected:
@@ -146,7 +150,16 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.close()
 
     def update_view(self) -> NoReturn:
-        print(self._model.data)
+        if self.selected:
+            text = ""
+            for dat in self.get_data():
+                text += str(round(dat, 5)) + "\n\t"
+            self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
+            InfoBarView.refresh_infobar()
+
+    @abstractmethod
+    def get_data(self) -> List[float]:
+        pass
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
