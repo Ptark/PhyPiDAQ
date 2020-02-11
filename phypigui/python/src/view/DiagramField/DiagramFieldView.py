@@ -107,8 +107,8 @@ class DiagramFieldView(QWidget):
     @staticmethod
     def clear() -> NoReturn:
         """Clears the DiagramViews"""
-        # TODO
-        pass
+        for diagram in DiagramFieldView.__diagram_field.__list:
+            diagram.clear_diagram()
 
     @staticmethod
     def interrupt_mp() -> bool:

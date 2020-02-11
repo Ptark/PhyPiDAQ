@@ -32,6 +32,10 @@ class DiagramView(FigureCanvas, View, ABC, metaclass=DiagramViewMeta):
     def _update_diagram(self, data: List[float]) -> NoReturn:
         pass
 
+    @abstractmethod
+    def clear_diagram(self) -> NoReturn:
+        pass
+
     def update_view(self) -> NoReturn:
         self._update_diagram(self._item.data)
 
@@ -56,6 +60,13 @@ class TimeDiagram(DiagramView):
         if len(self.__data) > 20:
             self.__data.pop(0)
         self.__data.append(data[0])
+
+        self.__ax.clear()
+        self.__ax.plot(self.__data)
+        self.draw()
+
+    def clear_diagram(self) -> NoReturn:
+        self.__data.clear()
 
         self.__ax.clear()
         self.__ax.plot(self.__data)
@@ -90,6 +101,13 @@ class DualDiagram(DiagramView):
         self.__ax.plot(self.__data_x, self.__data_y)
         self.draw()
 
+    def clear_diagram(self) -> NoReturn:
+        self.__data.clear()
+
+        self.__ax.clear()
+        self.__ax.plot(self.__data_x, self.__data_y)
+        self.draw()
+
 
 class BarDiagram(DiagramView):
     """this class represents a bar diagram """
@@ -119,3 +137,9 @@ class BarDiagram(DiagramView):
         self.__ax.bar(self.__labels, self.__data)
         self.draw()
 
+    def clear_diagram(self) -> NoReturn:
+        self.__data.clear()
+
+        self.__ax.clear()
+        self.__ax.bar(self.__labels, self.__data)
+        self.draw()
