@@ -29,14 +29,16 @@ class DiagramFieldView(QWidget):
 
         self.__list: List[DiagramView] = []
         self.__dialog: Dialog = None
-        self.__diagram_layout = QVBoxLayout()
-        self.__maximize_button = QPushButton()
+        self.__diagram_layout: QVBoxLayout = QVBoxLayout()
+        self.__start_button: StartButtonView = StartButtonView(self)
+        self.__maximize_button: QPushButton = QPushButton()
 
         self.__diagram_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)
         self.__group_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self.__diagram_group)
         self.__stretch_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
         self.__diagram_count: int = 0
 
+        self.__start_button.start.connect(self.__clear_diagrams)
         self.__maximize_button.clicked.connect(self.__maximize_on_click)
         self.__init_ui()
 
@@ -49,7 +51,7 @@ class DiagramFieldView(QWidget):
         self.__diagram_layout.addWidget(self.__diagram_group)
 
         buttons = QHBoxLayout()
-        buttons.addWidget(StartButtonView(self))
+        buttons.addWidget(self.__start_button)
         buttons.addStretch()
         buttons.addWidget(self.__maximize_button)
 
@@ -59,6 +61,11 @@ class DiagramFieldView(QWidget):
         main_layout.addStretch(0)
 
         self.setLayout(main_layout)
+
+    def __clear_diagrams(self) -> NoReturn:
+        """Clears the DiagramViews"""
+        for diagram in self.__list:
+            diagram.clear_diagram()
 
     def __maximize_on_click(self):
         """if maximize button clicked open dialog that contains diagrams on screen"""
@@ -103,27 +110,6 @@ class DiagramFieldView(QWidget):
     def add_stretch() -> NoReturn:
         DiagramFieldView.__diagram_field.__group_layout.addWidget(
             DiagramFieldView.__diagram_field.__stretch_widget, 10, Qt.AlignBottom)
-
-    @staticmethod
-    def clear() -> NoReturn:
-        """Clears the DiagramViews"""
-        for diagram in DiagramFieldView.__diagram_field.__list:
-            diagram.clear_diagram()
-
-    @staticmethod
-    def interrupt_mp() -> bool:
-        """Interrupt a measurement process in the model and set StartButtonView on 'stop-state'
-
-        Returns:
-            bool: True, if there was a measurement process running
-        """
-        return StartButtonView.interrupt_mp()
-
-    @staticmethod
-    def start_mp() -> NoReturn:
-        """Clears the DiagramViews and starts a measurement process in the model"""
-        DiagramFieldView.clear()
-        StartButtonView.start_mp()
 
 
 class Dialog(QWidget):

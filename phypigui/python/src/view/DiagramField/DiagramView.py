@@ -14,6 +14,7 @@ from ...model.item.DiagramItems.DiagramItem import DiagramItem
 from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
 from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
 from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
+from .StartButtonView import StartButtonView
 
 
 class DiagramViewMeta(type(FigureCanvas), type(View)):
@@ -58,20 +59,17 @@ class TimeDiagram(DiagramView):
         self.__data: List[float] = []
 
         self.__time: List[float] = []
-        self.__start_time: float
 
         self.__ax: Subplot = self.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        if len(self.__data) == 0:
-            self.__start_time = time.time()
-        elif len(self.__data) > 20:
+        if len(self.__data) > 20:
             self.__time.pop(0)
             self.__data.pop(0)
 
-        self.__time.append(time.time() - self.__start_time)
+        self.__time.append(time.time() - StartButtonView.start_time)
         self.__data.append(data[0])
 
         self.__ax.clear()
@@ -79,6 +77,7 @@ class TimeDiagram(DiagramView):
         self.draw()
 
     def clear_diagram(self) -> NoReturn:
+        self.__time.clear()
         self.__data.clear()
 
         self.__ax.clear()

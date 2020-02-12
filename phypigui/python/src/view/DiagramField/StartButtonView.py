@@ -1,6 +1,7 @@
+import time
 from typing import NoReturn
 
-from PyQt5.QtCore import QRunnable, QThreadPool
+from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
@@ -17,6 +18,8 @@ class StartButtonView(QPushButton):
             ManagerModel.start()
 
     __button: 'StartButtonView'
+    start = pyqtSignal()
+    start_time: float = 0.0
 
     def __init__(self, parent):
         super().__init__(parent)
@@ -47,6 +50,8 @@ class StartButtonView(QPushButton):
             ManagerModel.stop()
             self.setIcon(self.__start_icon)
         else:
+            self.start.emit()
+            StartButtonView.start_time = time.time()
             QThreadPool.globalInstance().start(self.Start())
             self.setIcon(self.__stop_icon)
 
@@ -82,6 +87,7 @@ class StartButtonView(QPushButton):
     def restart() -> NoReturn:
         """Restarts a measurement process in the model"""
         ManagerModel.stop()
+        StartButtonView.__button.start.emit()
         QThreadPool.globalInstance().start(StartButtonView.__button.Start())
         StartButtonView.__button.__is_started = True
         StartButtonView.__button.__update_text()

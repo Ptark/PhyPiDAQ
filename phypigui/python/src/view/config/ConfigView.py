@@ -1,8 +1,7 @@
-import copy
-
 from typing import List, NoReturn
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+from ..DiagramField.StartButtonView import StartButtonView
 from ...SystemInfo import SystemInfo
 from ..Translator import Translator
 from .NumOptionView import NumOptionView
@@ -10,7 +9,6 @@ from .BoolOptionView import BoolOptionView
 from .FileOptionView import FileOptionView
 from .EnumOptionView import EnumOptionView
 from ...model.config.ConfigModel import ConfigModel
-from ..DiagramField.DiagramFieldView import DiagramFieldView
 
 
 class ConfigView(QtWidgets.QWidget):
@@ -31,7 +29,7 @@ class ConfigView(QtWidgets.QWidget):
         """
         QtWidgets.QWidget.__init__(self)
 
-        self.__has_interrupted_mp: bool = DiagramFieldView.interrupt_mp()
+        self.__has_interrupted_mp: bool = StartButtonView.interrupt_mp()
 
         self.__config: ConfigModel = config
         self.__num_options: List[NumOptionView] = []
@@ -107,7 +105,7 @@ class ConfigView(QtWidgets.QWidget):
         self.set_data.emit(self.__config)
 
         if self.__has_interrupted_mp:
-            DiagramFieldView.start_mp()
+            StartButtonView.start_mp()
 
     def closeEvent(self, close_event: QtGui.QCloseEvent):
         self.__on_close()
