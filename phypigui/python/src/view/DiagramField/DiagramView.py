@@ -6,7 +6,7 @@ from matplotlib.axes import Subplot
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QSizePolicy, QFrame, QGridLayout
 
 from ..Translator import Translator
 from ..View import View
@@ -17,16 +17,22 @@ from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
 from .StartButtonView import StartButtonView
 
 
-class DiagramViewMeta(type(FigureCanvas), type(View)):
+class DiagramViewMeta(type(QFrame), type(View)):
     pass
 
 
-class DiagramView(FigureCanvas, View, ABC, metaclass=DiagramViewMeta):
+class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
     """the super class of Time diagram, bar diagram and Dual diagram"""
     def __init__(self, item: DiagramItem):
+        super().__init__()
+
         fig = Figure(figsize=(4, 5), dpi=70)
 
-        super().__init__(fig)
+        self._canvas = FigureCanvas(fig)
+        layout = QGridLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self._canvas)
+        self.setLayout(layout)
 
         self._item: DiagramItem = item
         self._item.attach(self)
@@ -45,6 +51,10 @@ class DiagramView(FigureCanvas, View, ABC, metaclass=DiagramViewMeta):
     def update_view(self) -> NoReturn:
         self._update_diagram(self._item.data)
 
+    def update_selected_view(self, selected: bool):
+        border = "2" if selected else "0"
+        self.setStyleSheet("QFrame { border: %spx solid blue; border-radius: 4px }" % border)
+
 
 class TimeDiagram(DiagramView):
     """this class represents a time diagram"""
@@ -59,7 +69,7 @@ class TimeDiagram(DiagramView):
         self.__time: List[float] = [i / 5.0 for i in range(-50, 0)]
         self.__data: List[float] = [0.0] * 50
 
-        self.__ax: Subplot = self.figure.add_subplot(111)
+        self.__ax: Subplot = self._canvas.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
@@ -74,7 +84,7 @@ class TimeDiagram(DiagramView):
 
         self.__ax.clear()
         self.__ax.plot(self.__time, self.__data)
-        self.draw()
+        self._canvas.draw()
 
     def clear_diagram(self) -> NoReturn:
         self.__time = [i / 5.0 for i in range(-50, 0)]
@@ -82,7 +92,7 @@ class TimeDiagram(DiagramView):
 
         self.__ax.clear()
         self.__ax.plot(self.__time, self.__data)
-        self.draw()
+        self._canvas.draw()
 
 
 class DualDiagram(DiagramView):
@@ -98,7 +108,7 @@ class DualDiagram(DiagramView):
         self.__data_x: List[float] = []
         self.__data_y: List[float] = []
 
-        self.__ax: Subplot = self.figure.add_subplot(111)
+        self.__ax: Subplot = self._canvas.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
@@ -111,7 +121,7 @@ class DualDiagram(DiagramView):
 
         self.__ax.clear()
         self.__ax.plot(self.__data_x, self.__data_y)
-        self.draw()
+        self._canvas.draw()
 
     def clear_diagram(self) -> NoReturn:
         self.__data_x.clear()
@@ -119,7 +129,7 @@ class DualDiagram(DiagramView):
 
         self.__ax.clear()
         self.__ax.plot(self.__data_x, self.__data_y)
-        self.draw()
+        self._canvas.draw()
 
 
 class BarDiagram(DiagramView):
@@ -135,12 +145,12 @@ class BarDiagram(DiagramView):
         self.__data: List[float] = [0.0, 0.0, 0.0]
         self.__labels: List[str] = ["first input", "second input", "third input"]
 
-        self.__ax: Subplot = self.figure.add_subplot(111)
+        self.__ax: Subplot = self._canvas.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
         self.__ax.bar(self.__labels, self.__data)
-        self.draw()
+        self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         for i in range(0, 3):
@@ -148,11 +158,11 @@ class BarDiagram(DiagramView):
 
         self.__ax.clear()
         self.__ax.bar(self.__labels, self.__data)
-        self.draw()
+        self._canvas.draw()
 
     def clear_diagram(self) -> NoReturn:
         self.__data.clear()
 
         self.__ax.clear()
         self.__ax.bar(self.__labels, self.__data)
-        self.draw()
+        self._canvas.draw()
