@@ -16,8 +16,8 @@ class ProxySensorItem(SensorItem):
         self.data: List[float] = []
         self.current_index: int = 0
         # self.readout_rate: int = 0
-        name: str = "Proxysensor"
-        description: str = "Der Proxysensor lädt Einheit und Daten aus einer Datei und gibt sie aus."
+        name: str = "Von Datei Lesen"
+        description: str = "Lädt Einheit und Daten aus einer Datei und gibt sie aus."
         config: ConfigModel = ConfigModel()
         config.add_file_option(FileOption(name, description))  # TODO Optionsbeschreibung
         super().__init__(name, description, config, 1, None)
@@ -65,4 +65,4 @@ class ProxySensorItem(SensorItem):
 
     @staticmethod
     def get_name() -> str:
-        return "Proxysensor"
+        return "Von Datei Lesen"
