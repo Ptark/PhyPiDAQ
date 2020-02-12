@@ -13,8 +13,8 @@ class NatureConstantItem(SensorItem):
     """This class models an item, which has a constant value (pi or e)"""
 
     class NatureConstants(Enum):
-        e = math.pi
-        pi = math.e
+        pi = math.pi
+        e = math.e
 
     def __init__(self):
         """Initialising an NatureConstantItem object"""
