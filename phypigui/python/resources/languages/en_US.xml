@@ -131,4 +131,52 @@
 		<source>Daten</source>
 		<translation>Data</translation>
 	</item>
+    <item>
+		<source>Von Datei Lesen</source>
+		<translation>Read From File</translation>
+	</item>
+    <item>
+		<source>Konstantenelement</source>
+		<translation>Constant</translation>
+	</item>
+    <item>
+		<source>Naturkonstantenelement</source>
+		<translation>Nature Constant</translation>
+	</item>
+    <item>
+		<source>Stromstärkesensor</source>
+		<translation>Current Sensor</translation>
+	</item>
+    <item>
+		<source>RGB Sensor</source>
+		<translation>RGB Sensor</translation>
+	</item>
+    <item>
+		<source>Spannungssensor</source>
+		<translation>Voltage Sensor</translation>
+	</item>
+    <item>
+		<source>Negativer Betragsoperator</source>
+		<translation>Negative Absolute Operator</translation>
+	</item>
+    <item>
+		<source>Exponentialsoperator</source>
+		<translation>Power Operator</translation>
+	</item>
+    <item>
+		<source>Wurzeloperator</source>
+		<translation>Root Operator</translation>
+	</item>
+    <item>
+		<source>Klonoperator</source>
+		<translation>Clone Operator</translation>
+	</item>
+    <item>
+		<source>In Datei schreiben</source>
+		<translation>Write To File</translation>
+	</item>
+    <item>
+		<source>Suchen</source>
+		<translation>Search</translation>
+	</item>
 </data>
