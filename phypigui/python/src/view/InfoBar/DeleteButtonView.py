@@ -4,9 +4,9 @@ import time
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
+from ..DiagramField.StartButtonView import StartButtonView
 from ...SystemInfo import SystemInfo
 from ..Translator import Translator
-from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..Workspace.WorkspaceView import WorkspaceView
 
 
@@ -30,7 +30,7 @@ class DeleteButtonView(QPushButton):
 
     def __on_click(self) -> NoReturn:
         if WorkspaceView.selection is not None:
-            DiagramFieldView.interrupt_mp()
+            StartButtonView.interrupt_mp()
             time.sleep(0.2)     # TODO Thread Deadlock oder sowas
             WorkspaceView.selection.delete()
 
