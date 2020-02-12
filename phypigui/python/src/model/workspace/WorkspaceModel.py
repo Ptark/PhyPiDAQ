@@ -26,7 +26,7 @@ class WorkspaceModel:
         return item_id in WorkspaceModel.__output_item_list
 
     @staticmethod
-    def is_input_item(item_id: int) -> bool:
+    def __is_input_item(item_id: int) -> bool:
         return item_id in WorkspaceModel.__input_item_list
 
     @staticmethod
@@ -195,7 +195,7 @@ class WorkspaceModel:
             for output_id in WorkspaceModel.__output_item_list[item_id].get_output_ids():
                 WorkspaceModel.delete_output(output_id)
             WorkspaceModel.__output_item_list.pop(item_id)
-        if WorkspaceModel.is_input_item(item_id):
+        if WorkspaceModel.__is_input_item(item_id):
             id_exists = True
             for input_id in WorkspaceModel.__input_item_list[item_id].get_input_ids():
                 WorkspaceModel.delete_input(input_id)

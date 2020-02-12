@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import List, NoReturn
 
 from .Input import Input
@@ -6,7 +7,7 @@ from ..config.ConfigModel import ConfigModel
 from ..workspace.WorkspaceModel import WorkspaceModel
 
 
-class InputItem(ItemModel):
+class InputItem(ItemModel, ABC):
     """This class represents a Drag and Drop item, which has inputs"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int):
