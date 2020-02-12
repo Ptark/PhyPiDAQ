@@ -23,10 +23,8 @@ class SensorItemView(WorkspaceItemView):
         ManagerModel.delete_sensor(self._model)
         super().delete()
 
-    def _on_click(self) -> NoReturn:
-        if WorkspaceView.wire_in_hand is None:
-            ManagerModel.set_selected_item(self._model if not self.selected else None)
-        super()._on_click()
+    def select(self) -> NoReturn:
+        ManagerModel.set_selected_item(self._model if self.selected else None)
 
     def get_data(self) -> List[float]:
         return self._model.get_data()

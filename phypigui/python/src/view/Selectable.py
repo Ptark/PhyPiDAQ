@@ -39,6 +39,7 @@ class Selectable(ABC):
             return
 
         self.__selected = new_selected
+        self.select()
 
         if self.selected:
             if WorkspaceView.selection is not None:
@@ -78,3 +79,6 @@ class Selectable(ABC):
             ManagerModel.set_selected_item(None)
             WorkspaceView.selection = None
             InfoBarView.refresh_infobar()
+
+    def select(self):
+        pass
