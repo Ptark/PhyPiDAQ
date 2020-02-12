@@ -1,4 +1,4 @@
-from typing import List, Type
+from typing import List
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea
@@ -14,7 +14,7 @@ class ItemListViewMeta(type(QWidget), type(View)):
 
 class ItemListView(QScrollArea, View, metaclass=ItemListViewMeta):
     """Class for displaying a list of items"""
-    def __init__(self, main: QWidget, type: Type[ItemEnum]):
+    def __init__(self, main: QWidget, items: List[ItemEnum]):
         super().__init__()
 
         self.__items: List[ListItemView] = []
@@ -23,7 +23,7 @@ class ItemListView(QScrollArea, View, metaclass=ItemListViewMeta):
         layout.setContentsMargins(0, 15, 0, 15)
         layout.setSpacing(20)
 
-        for item in list(type):
+        for item in items:
             new = ListItemView(main, item)
             self.__items.append(new)
             layout.addWidget(new)
