@@ -9,6 +9,7 @@ from .ItemEnum import ItemEnum
 from .DragItemView import DragItemView
 from .ItemView import ItemView
 from .WorkspaceItemView import WorkspaceItemView
+from ..Translator import Translator
 
 
 class ListItemView(ItemView, ABC):
@@ -24,6 +25,12 @@ class ListItemView(ItemView, ABC):
 
         self.__main = main
         self.__item: ItemEnum = item
+
+        Translator.language_changed.signal.connect(self.__update_text)
+        self.__update_text()
+
+    def __update_text(self) -> NoReturn:
+        self.setToolTip(Translator.tr(self.__item.model.get_name()))
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:

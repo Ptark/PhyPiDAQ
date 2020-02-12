@@ -1,6 +1,6 @@
 import copy
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from pathlib import PurePath
 from typing import NoReturn, List
 
@@ -109,3 +109,8 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
         """
         assert(len(self._config.num_options) > index)
         self._config.set_num_option(index, number)
+
+    @staticmethod
+    @abstractmethod
+    def get_name() -> str:
+        return ""
