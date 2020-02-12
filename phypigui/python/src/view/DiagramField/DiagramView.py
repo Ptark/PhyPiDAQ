@@ -56,20 +56,20 @@ class TimeDiagram(DiagramView):
         """
         super().__init__(item)
 
-        self.__data: List[float] = []
-
-        self.__time: List[float] = []
+        self.__time: List[float] = [i / 5.0 for i in range(-50, 0)]
+        self.__data: List[float] = [0.0] * 50
 
         self.__ax: Subplot = self.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        if len(self.__data) > 20:
+        t = time.time() - StartButtonView.start_time
+        while t - self.__time[0] > 10:
             self.__time.pop(0)
             self.__data.pop(0)
 
-        self.__time.append(time.time() - StartButtonView.start_time)
+        self.__time.append(t)
         self.__data.append(data[0])
 
         self.__ax.clear()
@@ -77,11 +77,11 @@ class TimeDiagram(DiagramView):
         self.draw()
 
     def clear_diagram(self) -> NoReturn:
-        self.__time.clear()
-        self.__data.clear()
+        self.__time = [i / 5.0 for i in range(-50, 0)]
+        self.__data = [0.0] * 50
 
         self.__ax.clear()
-        self.__ax.plot(self.__data)
+        self.__ax.plot(self.__time, self.__data)
         self.draw()
 
 
