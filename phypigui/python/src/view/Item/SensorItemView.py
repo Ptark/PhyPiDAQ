@@ -1,15 +1,14 @@
-from abc import ABC
 from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget
 
 from ..Workspace.WorkspaceView import WorkspaceView
 from ...model.manager.ManagerModel import ManagerModel
-from phypigui.python.src.model.item.SensorItems.SensorItem import SensorItem
+from ...model.item.SensorItems.SensorItem import SensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 
-class SensorItemView(WorkspaceItemView, ABC):
+class SensorItemView(WorkspaceItemView):
     """Abstract class for displaying an item of a sensor on the workspace
 
         Attributes:
@@ -31,3 +30,6 @@ class SensorItemView(WorkspaceItemView, ABC):
 
     def get_data(self) -> List[float]:
         return self._model.get_data()
+
+    def get_units(self) -> List[str]:
+        return self._model.get_units()

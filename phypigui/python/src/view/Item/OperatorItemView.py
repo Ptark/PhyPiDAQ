@@ -1,4 +1,3 @@
-from abc import ABC
 from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget
@@ -9,7 +8,7 @@ from ...model.item.OperatorItems.OperatorItem import OperatorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 
-class OperatorItemView(WorkspaceItemView, ABC):
+class OperatorItemView(WorkspaceItemView):
     """Abstract class for displaying an item of an operator on the workspace
 
         Attributes:
@@ -27,3 +26,6 @@ class OperatorItemView(WorkspaceItemView, ABC):
 
     def get_data(self) -> List[float]:
         return self._model.get_data()
+
+    def get_units(self) -> List[str]:
+        return self._model.get_units()

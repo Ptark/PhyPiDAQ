@@ -151,14 +151,20 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def update_view(self) -> NoReturn:
         if self.selected:
+            str_data = list(map(lambda x: str(round(x, 5)), self.get_data()))
+            data_units = [str_data[i] + ' ' + self.get_units()[i] for i in range(len(str_data))]
             text = ""
-            for dat in self.get_data():
-                text += str(round(dat, 5)) + "\n\t"
+            for s in data_units:
+                text += s + "\n\t"
             self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
             InfoBarView.refresh_infobar()
 
     @abstractmethod
     def get_data(self) -> List[float]:
+        pass
+
+    @abstractmethod
+    def get_units(self) -> List[str]:
         pass
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:

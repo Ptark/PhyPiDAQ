@@ -1,4 +1,3 @@
-from abc import ABC
 from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget
@@ -6,10 +5,11 @@ from PyQt5.QtWidgets import QWidget
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..DiagramField.DiagramView import DiagramView
-from phypigui.python.src.model.item.DiagramItems.DiagramItem import DiagramItem
+from ...model.item.DiagramItems.DiagramItem import DiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
-class DiagramItemView(WorkspaceItemView, ABC):
+
+class DiagramItemView(WorkspaceItemView):
     """Abstract class for displaying an item of an diagram on the workspace
 
         Attributes:
@@ -33,3 +33,6 @@ class DiagramItemView(WorkspaceItemView, ABC):
 
     def get_data(self) -> List[float]:
         return self._model.data
+
+    def get_units(self) -> List[str]:
+        return self._model.unit

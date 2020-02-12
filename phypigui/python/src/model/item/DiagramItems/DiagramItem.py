@@ -40,6 +40,10 @@ class DiagramItem(InputItem):
         """
         return self._data
 
+    @property
+    def unit(self) -> List[str]:
+        return self._unit
+
     def calculate_functions(self) -> bool:
         """Constructs recursively all lambda-functions and units from previous item starting at this DiagramItem
 
