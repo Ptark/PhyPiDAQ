@@ -1,6 +1,8 @@
+import time
 from abc import ABC, abstractmethod
 from typing import NoReturn, List
 
+from matplotlib.axes import Subplot
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -44,28 +46,36 @@ class DiagramView(FigureCanvas, View, ABC, metaclass=DiagramViewMeta):
 
 
 class TimeDiagram(DiagramView):
-    """this class represents time diagram"""
+    """this class represents a time diagram"""
     def __init__(self, item: TimeDiagramItem):
-        """Initialising an DualDiagram object
+        """Initialising an TimeDiagram object
 
          Args:
-             item (DualDiagramItem): time plot diagram item
+             item (TimeDiagramItem): time plot diagram item
         """
         super().__init__(item)
 
-        self.__data = []
+        self.__data: List[float] = []
 
-        self.__ax = self.figure.add_subplot(111)
+        self.__time: List[float] = []
+        self.__start_time: float
+
+        self.__ax: Subplot = self.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        if len(self.__data) > 20:
+        if len(self.__data) == 0:
+            self.__start_time = time.time()
+        elif len(self.__data) > 20:
+            self.__time.pop(0)
             self.__data.pop(0)
+
+        self.__time.append(time.time() - self.__start_time)
         self.__data.append(data[0])
 
         self.__ax.clear()
-        self.__ax.plot(self.__data)
+        self.__ax.plot(self.__time, self.__data)
         self.draw()
 
     def clear_diagram(self) -> NoReturn:
@@ -77,7 +87,7 @@ class TimeDiagram(DiagramView):
 
 
 class DualDiagram(DiagramView):
-    """this class represents the dual diagram"""
+    """this class represents a dual diagram"""
     def __init__(self, item: DualDiagramItem):
         """Initialising an DualDiagram object
 
@@ -86,10 +96,10 @@ class DualDiagram(DiagramView):
         """
         super().__init__(item)
 
-        self.__data_x = []
-        self.__data_y = []
+        self.__data_x: List[float] = []
+        self.__data_y: List[float] = []
 
-        self.__ax = self.figure.add_subplot(111)
+        self.__ax: Subplot = self.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
@@ -115,17 +125,17 @@ class DualDiagram(DiagramView):
 class BarDiagram(DiagramView):
     """this class represents a bar diagram """
     def __init__(self, item: BarDiagramItem):
-        """Initialising an DualDiagram object
+        """Initialising an BarDiagram object
 
         Args:
-                   item (DualDiagramItem): dual plot diagram item
+            item (BarDiagramItem): bar chart diagram item
         """
         super().__init__(item)
 
-        self.__data = [0.0, 0.0, 0.0]
-        self.__labels = ["first input", "second input", "third input"]
+        self.__data: List[float] = [0.0, 0.0, 0.0]
+        self.__labels: List[str] = ["first input", "second input", "third input"]
 
-        self.__ax = self.figure.add_subplot(111)
+        self.__ax: Subplot = self.figure.add_subplot(111)
 
         self.__ax.set_title(Translator.tr(self._item.name))
 
