@@ -114,7 +114,8 @@ class DualDiagram(DiagramView):
         self.draw()
 
     def clear_diagram(self) -> NoReturn:
-        self.__data.clear()
+        self.__data_x.clear()
+        self.__data_y.clear()
 
         self.__ax.clear()
         self.__ax.plot(self.__data_x, self.__data_y)
