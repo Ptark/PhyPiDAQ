@@ -1,5 +1,6 @@
 import time
 import json
+from pathlib import Path
 from typing import Dict, List
 
 from ..SensorItems.SensorItem import SensorItem
@@ -16,7 +17,8 @@ class WriteToFileItem(DiagramItem):
         config: ConfigModel = ConfigModel()
         description: str = "Schreibt die gemessenen Daten in eine Datei " \
                            "und speichert diese am Ende des Messdurchlaufes ab"
-        self.folder_path: str = "../../../../resources/data/"
+        dir_path = Path('.')
+        self.dir_path: str = str(dir_path.resolve()) + "/phypigui/python/resources/data/"
         self.path: str = ""
         self.file = None
         super().__init__(name, description, config, 1)
@@ -25,7 +27,7 @@ class WriteToFileItem(DiagramItem):
         """Override method in superclass to add path creation of file"""
         success = super().calculate_functions()
         if success:
-            self.path = self.folder_path + str(time.time())
+            self.path = self.dir_path + "data_" + str(time.time())
             file_stub = {
                 "unit": self._unit[0],
                 # "readout_rate": 100,
@@ -40,11 +42,13 @@ class WriteToFileItem(DiagramItem):
         """Override method in superclass to add writing to file"""
         success = super().calculate(sensor_data)
         if success:
-            file = open(self.path, "w")
+            file = open(self.path, "r")
             raw_json = file.read()
             loaded_json = json.loads(raw_json)
             loaded_json["data"].append(self._data[0])
             raw_json = json.dumps(loaded_json)
+            file.close()
+            file = open(self.path, "w")
             file.write(raw_json)
             file.close()
         return success

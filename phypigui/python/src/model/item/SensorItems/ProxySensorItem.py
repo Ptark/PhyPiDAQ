@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 import os
 import json
@@ -22,13 +23,11 @@ class ProxySensorItem(SensorItem):
         config.add_file_option(FileOption(name, description))  # TODO Optionsbeschreibung
         super().__init__(name, description, config, 1, None)
 
-    def set_file(self, path: str):
+    def set_file(self, path: Path):
         """Sets file, unit and data if the given path leads to a valid json file"""
-        print(path)
-        assert(os.path.isfile(path))
         # self.readout_rate = 0
         self.current_index = 0
-        file = open(path, "r")
+        file = path.open('r')
         raw_json: str = file.read()
         file.close()
         loaded_json: dict = json.loads(raw_json)
@@ -36,7 +35,6 @@ class ProxySensorItem(SensorItem):
         # readout_rate: float = loaded_json.get("readout_rate", 0)
         data_json: List[float] = loaded_json.get("data", None)
         # assert valid data format
-        # assert unit is not ""
         # assert readout_rate is not 0
         assert data_json is not None
         # set attributes
@@ -47,7 +45,7 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
-        self.set_file(str(self._config.file_options[0].path))
+        self.set_file(Path(self._config.file_options[0].path))
         # assert self.unit != ""
         return self.unit
         # return unit read from file
