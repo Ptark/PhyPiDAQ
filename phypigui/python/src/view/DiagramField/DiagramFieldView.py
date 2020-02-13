@@ -30,6 +30,7 @@ class DiagramFieldView(QWidget):
         self.__list: List[DiagramView] = []
         self.__dialog: Dialog = None
         self.__diagram_layout: QVBoxLayout = QVBoxLayout()
+        self.__button_layout: QHBoxLayout = QHBoxLayout()
         self.__start_button: StartButtonView = StartButtonView(self)
         self.__maximize_button: QPushButton = QPushButton()
 
@@ -50,13 +51,13 @@ class DiagramFieldView(QWidget):
         self.__diagram_group.setStyleSheet("QGroupBox { border: 1px solid gray; background: white; }")
         self.__diagram_layout.addWidget(self.__diagram_group)
 
-        buttons = QHBoxLayout()
-        buttons.addWidget(self.__start_button)
-        buttons.addStretch()
-        buttons.addWidget(self.__maximize_button)
+        self.__button_layout = QHBoxLayout()
+        self.__button_layout.addWidget(self.__start_button)
+        self.__button_layout.addStretch()
+        self.__button_layout.addWidget(self.__maximize_button)
 
         main_layout = QVBoxLayout()
-        main_layout.addLayout(buttons, 1)
+        main_layout.addLayout(self.__button_layout, 1)
         main_layout.addLayout(self.__diagram_layout, 1)
         main_layout.addStretch(0)
 
@@ -69,7 +70,7 @@ class DiagramFieldView(QWidget):
 
     def __maximize_on_click(self):
         """if maximize button clicked open dialog that contains diagrams on screen"""
-        self.__dialog = Dialog(self.__list)
+        self.__dialog = Dialog(self.__list, self.__start_button)
         self.__dialog.close_signal.connect(self.__update_diagrams)
         self.__maximize_button.clearFocus()
 
@@ -81,6 +82,7 @@ class DiagramFieldView(QWidget):
             self.__group_layout.addWidget(diagram, 10, Qt.AlignTop)
         if self.__diagram_count == 1:
             self.add_stretch()
+        self.__button_layout.insertWidget(0, self.__start_button)
 
     @staticmethod
     def add_diagram(diagram: DiagramView) -> NoReturn:
@@ -115,13 +117,13 @@ class DiagramFieldView(QWidget):
 class Dialog(QWidget):
     close_signal = pyqtSignal()
 
-    def __init__(self, list: List[DiagramView]):
+    def __init__(self, list: List[DiagramView], start_button: StartButtonView):
         """initialising of he dialog that will be popped when maximized button is clicked"""
         super().__init__()
 
-        self.__init_ui(list)
+        self.__init_ui(list, start_button)
 
-    def __init_ui(self, list: List[DiagramView]):
+    def __init_ui(self, list: List[DiagramView], start_button: StartButtonView):
         """initialises the user interface of the dialog window"""
         minimize_button = QtWidgets.QPushButton()
         minimize_button.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/minimize.svg'))
@@ -135,8 +137,9 @@ class Dialog(QWidget):
         central_layout = QGridLayout()
         central_widget = QtWidgets.QWidget()
         central_widget.setLayout(horizontal_layout)
-        central_layout.addWidget(central_widget, 1, 0)
-        central_layout.addWidget(minimize_button, 0, 1)
+        central_layout.addWidget(central_widget, 1, 0, 1, -1)
+        central_layout.addWidget(start_button, 0, 1)
+        central_layout.addWidget(minimize_button, 0, 2)
 
         self.setLayout(central_layout)
 
