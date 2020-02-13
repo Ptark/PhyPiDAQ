@@ -161,7 +161,7 @@ class BarDiagram(DiagramView):
         self._canvas.draw()
 
     def clear_diagram(self) -> NoReturn:
-        self.__data.clear()
+        self.__data = [0.0, 0.0, 0.0]
 
         self.__ax.clear()
         self.__ax.bar(self.__labels, self.__data)
