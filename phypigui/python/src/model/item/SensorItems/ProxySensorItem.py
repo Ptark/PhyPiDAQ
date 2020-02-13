@@ -52,7 +52,7 @@ class ProxySensorItem(SensorItem):
         return self.unit
         # return unit read from file
 
-    def read(self) -> float:
+    def read(self) -> List[float]:
         """Read the current value from the file and increase current value by 1 or loop if too big
 
         Returns:
@@ -63,7 +63,7 @@ class ProxySensorItem(SensorItem):
             self.current_index += 1
         else:
             self.current_index = 0
-        return self.data[current]
+        return [self.data[current]]
 
     @staticmethod
     def get_name() -> str:
