@@ -36,7 +36,8 @@ class ManagerModel:
     @staticmethod
     def __read_data() -> NoReturn:
         for sensor in ManagerModel.__sensor_data:
-            ManagerModel.__sensor_data[sensor] = [random.random()]  # sensor.read()
+            # ManagerModel.__sensor_data[sensor] = [random.random()]  # sensor.read()
+            ManagerModel.__sensor_data[sensor] = sensor.read()
 
     @staticmethod
     def is_running() -> bool:

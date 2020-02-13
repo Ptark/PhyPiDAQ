@@ -24,6 +24,7 @@ class ProxySensorItem(SensorItem):
 
     def set_file(self, path: str):
         """Sets file, unit and data if the given path leads to a valid json file"""
+        print(path)
         assert(os.path.isfile(path))
         # self.readout_rate = 0
         self.current_index = 0
@@ -46,6 +47,7 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
+        self.set_file(str(self._config.file_options[0].path))
         # assert self.unit != ""
         return self.unit
         # return unit read from file
