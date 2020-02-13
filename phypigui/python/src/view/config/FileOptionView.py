@@ -112,8 +112,6 @@ class FileOptionView(OptionView):
 
         if len(s_path) > self.__l_count:
             file_name: str = path.name
-            print(file_name)
-            print(self.__l_count)
             if len(file_name) > self.__l_count:
                 text = file_name
             else:
