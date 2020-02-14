@@ -2,6 +2,7 @@ import time
 from abc import ABC, abstractmethod
 from typing import NoReturn, List, Dict
 
+from mpl_toolkits import mplot3d
 from matplotlib.axes import Subplot
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -14,6 +15,7 @@ from ...model.item.DiagramItems.DiagramItem import DiagramItem
 from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
 from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
 from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
+from ...model.item.DiagramItems.ThreeDimDiagramItem import ThreeDimDiagramItem
 from .StartButtonView import StartButtonView
 
 
@@ -177,5 +179,46 @@ class BarDiagram(DiagramView):
 
     def clear_diagram(self) -> NoReturn:
         self._data['data'] = [0.0] * 3
+
+        self._draw_diagram()
+
+
+class ThreeDimDiagram(DiagramView):
+    """this class represents a 3D diagram"""
+    def __init__(self, item: ThreeDimDiagramItem):
+        """Initialising a ThreeDimDiagram object
+
+        Args:
+            item (ThreeDimDiagramItem): plot diagram item
+        """
+        data: type_data = {'x': [], 'y': [], 'z': []}
+
+        super().__init__(data, item, '3d')
+
+    def _draw_diagram(self) -> NoReturn:
+        self._ax.clear()
+
+        self._ax.set_title(Translator.tr(self._item.name))
+        self._ax.set_xlabel(self._item.unit[0])
+        self._ax.set_ylabel(self._item.unit[1])
+        self._ax.set_zlabel(self._item.unit[2])
+
+        self._ax.plot3D(self._data['x'], self._data['y'], self._data['z'])
+
+        self._canvas.draw()
+
+    def _update_diagram(self, data: List[float]) -> NoReturn:
+        if len(self._data['x']) > 10:
+            for i in ['x', 'y', 'z']:
+                self._data[i].pop(0)
+
+        for i, j in [['x', 0], ['y', 1], ['z', 2]]:
+            self._data[i].append(data[j])
+
+        self._draw_diagram()
+
+    def clear_diagram(self) -> NoReturn:
+        for i in ['x', 'y', 'z']:
+            self._data[i].clear()
 
         self._draw_diagram()

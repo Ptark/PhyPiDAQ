@@ -11,6 +11,7 @@ from ...model.item.SensorItems.CurrentSensorItem import CurrentSensorItem
 from ...model.item.DiagramItems.DiagramItem import DiagramItem
 from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
 from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
+from ...model.item.DiagramItems.ThreeDimDiagramItem import ThreeDimDiagramItem
 from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
 from ...model.item.SensorItems.DistanceSensorItem import DistanceSensorItem
 from ...model.item.SensorItems.ForceSensorItem import ForceSensorItem
@@ -30,7 +31,7 @@ from ...model.item.SensorItems.RGBSensorItem import RGBSensorItem
 from ...model.item.SensorItems.SensorItem import SensorItem
 from ...model.item.SensorItems.TemperatureSensorItem import TemperatureSensorItem
 from ...model.item.SensorItems.VoltageSensorItem import VoltageSensorItem
-from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram
+from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram, ThreeDimDiagram
 from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
 from .SensorItemView import SensorItemView
@@ -100,6 +101,7 @@ class DiagramEnum(ItemEnum):
     TIME_DIAGRAM = (TimeDiagramItem, 'time', TimeDiagram)
     DUAL_DIAGRAM = (DualDiagramItem, 'dual', DualDiagram)
     BAR_DIAGRAM = (BarDiagramItem, 'bar', BarDiagram)
+    THREE_DIM_DIAGRAM = (ThreeDimDiagramItem, 'three_dim', ThreeDimDiagram)
 
     def __init__(self, model: Type[DiagramItem], file: str, diagram: Type[DiagramView]):
         self.__diagram: Type[DiagramView] = diagram
