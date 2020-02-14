@@ -1,6 +1,6 @@
 import time
 from abc import ABC, abstractmethod
-from typing import NoReturn, List
+from typing import NoReturn, List, Dict
 
 from matplotlib.axes import Subplot
 from matplotlib.figure import Figure
@@ -17,13 +17,16 @@ from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
 from .StartButtonView import StartButtonView
 
 
+type_data = Dict[str, List[float]]
+
+
 class DiagramViewMeta(type(QFrame), type(View)):
     pass
 
 
 class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
     """the super class of Time diagram, bar diagram and Dual diagram"""
-    def __init__(self, item: DiagramItem, projection: str = 'rectilinear'):
+    def __init__(self, data: type_data, item: DiagramItem, projection: str = 'rectilinear'):
         super().__init__()
 
         self._canvas = FigureCanvas(Figure(figsize=(4, 5), dpi=70))
@@ -36,12 +39,13 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
         self.setLayout(layout)
 
         self._ax: Subplot = self._canvas.figure.add_subplot(111, projection=projection)
+        self._data: type_data = data
         self._item: DiagramItem = item
         self._item.attach(self)
 
         self.setStyleSheet("QFrame { border: 2px solid white; border-radius: 4px }")
         Translator.language_changed.signal.connect(self._draw_diagram)
-        self._draw_diagram()
+        self.clear_diagram()
 
     @abstractmethod
     def _draw_diagram(self) -> NoReturn:
@@ -71,10 +75,9 @@ class TimeDiagram(DiagramView):
          Args:
              item (TimeDiagramItem): time plot diagram item
         """
-        self.__time: List[float] = [i / 5.0 for i in range(-50, 0)]
-        self.__data: List[float] = [0.0] * 50
+        data: type_data = {'time': [], 'data': []}
 
-        super().__init__(item)
+        super().__init__(data, item)
 
     def _draw_diagram(self) -> NoReturn:
         self._ax.clear()
@@ -83,24 +86,24 @@ class TimeDiagram(DiagramView):
         self._ax.set_xlabel("s")
         self._ax.set_ylabel(self._item.unit[0])
 
-        self._ax.plot(self.__time, self.__data)
+        self._ax.plot(self._data['time'], self._data['data'])
 
         self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         t = time.time() - StartButtonView.start_time
-        while t - self.__time[0] > 10:
-            self.__time.pop(0)
-            self.__data.pop(0)
+        while t - self._data['time'][0] > 10:
+            for i in ['time', 'data']:
+                self._data[i].pop(0)
 
-        self.__time.append(t)
-        self.__data.append(data[0])
+        self._data['time'].append(t)
+        self._data['data'].append(data[0])
 
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
-        self.__time = [i / 5.0 for i in range(-50, 0)]
-        self.__data = [0.0] * 50
+        self._data['time'] = [i / 5.0 for i in range(-50, 0)]
+        self._data['data'] = [0.0] * 50
 
         self._draw_diagram()
 
@@ -113,10 +116,9 @@ class DualDiagram(DiagramView):
         Args:
             item (DualDiagramItem): plot diagram item
         """
-        self.__data_x: List[float] = []
-        self.__data_y: List[float] = []
+        data: type_data = {'x': [0.0], 'y': [0.0]}
 
-        super().__init__(item)
+        super().__init__(data, item)
 
     def _draw_diagram(self) -> NoReturn:
         self._ax.clear()
@@ -125,22 +127,23 @@ class DualDiagram(DiagramView):
         self._ax.set_xlabel(self._item.unit[0])
         self._ax.set_ylabel(self._item.unit[1])
 
-        self._ax.plot(self.__data_x, self.__data_y)
+        self._ax.plot(self._data['x'], self._data['y'])
 
         self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        if len(self.__data_x) > 10:
-            self.__data_x.pop(0)
-            self.__data_y.pop(0)
-        self.__data_x.append(data[0])
-        self.__data_y.append(data[1])
+        if len(self._data['x']) > 10:
+            for i in ['x', 'y']:
+                self._data[i].pop(0)
+
+        for i, j in [['x', 0], ['y', 1]]:
+            self._data[i].append(data[j])
 
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
-        self.__data_x.clear()
-        self.__data_y.clear()
+        for i in ['x', 'y']:
+            self._data[i].clear()
 
         self._draw_diagram()
 
@@ -153,27 +156,26 @@ class BarDiagram(DiagramView):
         Args:
             item (BarDiagramItem): bar chart diagram item
         """
-        self.__data: List[float] = [0.0, 0.0, 0.0]
+        data: type_data = {'data': []}
         self.__labels: List[str] = ["first input", "second input", "third input"]
 
-        super().__init__(item)
+        super().__init__(data, item)
 
     def _draw_diagram(self):
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
 
-        self._ax.bar(self.__labels, self.__data)
+        self._ax.bar(self.__labels, self._data['data'])
 
         self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        for i in range(0, 3):
-            self.__data[i] = data[i]
+        self._data['data'] = data
 
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
-        self.__data = [0.0, 0.0, 0.0]
+        self._data['data'] = [0.0] * 3
 
         self._draw_diagram()
