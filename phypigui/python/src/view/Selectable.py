@@ -45,8 +45,10 @@ class Selectable(ABC):
             if WorkspaceView.selection is not None:
                 WorkspaceView.selection.selected = False
             WorkspaceView.selection = self
+            DeleteButtonView.set_enabled(True)
         else:
             WorkspaceView.selection = None
+            DeleteButtonView.set_enabled(False)
 
         self._select()
         self._update_selected_view()

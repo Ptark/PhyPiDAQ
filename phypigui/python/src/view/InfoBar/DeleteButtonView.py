@@ -21,6 +21,7 @@ class DeleteButtonView(QPushButton):
 
         self.setFixedSize(31, 31)
         self.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/delete.svg'))
+        self.setEnabled(False)
         self.clicked.connect(self.__on_click)
         Translator.language_changed.signal.connect(self.__update_text)
         self.__update_text()
@@ -40,3 +41,7 @@ class DeleteButtonView(QPushButton):
     def click() -> NoReturn:
         """a static method to execute the deletion of the selected workspaceItemView"""
         DeleteButtonView.__button.__on_click()
+
+    @staticmethod
+    def set_enabled(enabled: bool) -> NoReturn:
+        DeleteButtonView.__button.setEnabled(enabled)
