@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import random
 import time
 
 from abc import ABC
@@ -48,6 +49,7 @@ class SensorItem(OutputItem, ABC):
 
     def read(self) -> List[float]:
         """read data from physical sensor and return _buffer which holds the measured data""" # TODO doc
+        return [random.random()] * self.get_count_of_outputs()  # for testing
         data: [float] = [0][1][2]   # TODO watttt?
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
