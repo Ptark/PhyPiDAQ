@@ -20,6 +20,7 @@ class SettingsButtonView(QPushButton):
 
         self.setFixedSize(31, 31)
         self.setIcon(QIcon(SystemInfo.RESOURCES + 'images/buttons/settings.svg'))
+        self.setEnabled(False)
         self.clicked.connect(self.__on_click)
         Translator.language_changed.signal.connect(self.__update_text)
         self.__update_text()
@@ -38,3 +39,7 @@ class SettingsButtonView(QPushButton):
     def click() -> NoReturn:
         """a static method of the on click method that opens a window with the settings of the selected WorkspaceItemView"""
         SettingsButtonView.__button.__on_click()
+
+    @staticmethod
+    def set_enabled(enabled: bool) -> NoReturn:
+        SettingsButtonView.__button.setEnabled(enabled)

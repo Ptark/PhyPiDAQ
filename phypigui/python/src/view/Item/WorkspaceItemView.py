@@ -6,7 +6,7 @@ from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
 
 from ..InfoBar.InfoBarView import InfoBarView
-from ...model.manager.ManagerModel import ManagerModel
+from ..InfoBar.SettingsButtonView import SettingsButtonView
 from ...model.workspace.WorkspaceModel import WorkspaceModel
 from ..Translator import Translator
 from ...model.item.ItemModel import ItemModel
@@ -98,7 +98,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
                 pos (QPoint): Position at which the menu should appear.
         """
         menu = QMenu()
-        menu.addAction(Translator.tr("Einstellungen"), self.open_config)
+        menu.addAction(Translator.tr("Einstellungen"), self.open_config).setEnabled(not self._model.config.empty)
         menu.addAction(Translator.tr("Entfernen"), self.delete)
         menu.exec(self.mapToGlobal(pos))
 
@@ -116,6 +116,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def _on_click(self) -> NoReturn:
         if WorkspaceView.wire_in_hand is None:
             self.selected = not self.selected
+
+    def _select(self) -> NoReturn:
+        SettingsButtonView.set_enabled(not self._model.config.empty if self.selected else False)
 
     def _update_selected_view(self) -> NoReturn:
         if self.selected:

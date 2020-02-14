@@ -42,6 +42,12 @@ class ConfigModel:
         """Copy of List of all numerical options in this config"""
         return copy.deepcopy(self.__num_options)
 
+    @property
+    def empty(self) -> bool:
+        bool, file, enum, num = [len(options) is 0 for options in
+                      [self.__bool_options, self.__file_options, self.__enum_options, self.__num_options]]
+        return bool and file and enum and num
+
     def add_bool_option(self, option: BoolOption) -> int:
         """Adds an boolean option to this config
 

@@ -31,9 +31,11 @@ class DiagramItemView(WorkspaceItemView):
         ManagerModel.delete_diagram(self._model)
         super().delete()
 
-    def select(self) -> NoReturn:
+    def _select(self) -> NoReturn:
         if self._diagram is not None:
             self._diagram.update_selected_view(self.selected)
+
+        super()._select()
 
     def get_data(self) -> List[float]:
         return self._model.data

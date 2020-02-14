@@ -3,6 +3,7 @@ from typing import NoReturn
 
 from PyQt5.QtWidgets import QWidget
 
+from .InfoBar.DeleteButtonView import DeleteButtonView
 from ..model.manager.ManagerModel import ManagerModel
 from .InfoBar.InfoBarView import InfoBarView
 from .Workspace.WorkspaceView import WorkspaceView
@@ -39,7 +40,6 @@ class Selectable(ABC):
             return
 
         self.__selected = new_selected
-        self.select()
 
         if self.selected:
             if WorkspaceView.selection is not None:
@@ -48,6 +48,7 @@ class Selectable(ABC):
         else:
             WorkspaceView.selection = None
 
+        self._select()
         self._update_selected_view()
         InfoBarView.refresh_infobar()
 
@@ -80,5 +81,5 @@ class Selectable(ABC):
             WorkspaceView.selection = None
             InfoBarView.refresh_infobar()
 
-    def select(self):
+    def _select(self) -> NoReturn:
         pass

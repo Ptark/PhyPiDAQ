@@ -23,8 +23,9 @@ class SensorItemView(WorkspaceItemView):
         ManagerModel.delete_sensor(self._model)
         super().delete()
 
-    def select(self) -> NoReturn:
+    def _select(self) -> NoReturn:
         ManagerModel.set_selected_item(self._model if self.selected else None)
+        super()._select()
 
     def get_data(self) -> List[float]:
         return self._model.get_data()

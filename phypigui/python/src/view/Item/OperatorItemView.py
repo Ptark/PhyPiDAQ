@@ -19,8 +19,9 @@ class OperatorItemView(WorkspaceItemView):
 
         super().__init__(parent, operator.path, self._model.get_input_ids(), self._model.get_output_ids())
 
-    def select(self) -> NoReturn:
+    def _select(self) -> NoReturn:
         ManagerModel.set_selected_item(self._model if self.selected else None)
+        super()._select()
 
     def get_data(self) -> List[float]:
         return self._model.get_data()
