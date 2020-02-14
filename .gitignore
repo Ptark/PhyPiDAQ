@@ -1,4 +1,4 @@
 **/venv
 **/.idea
 **/__pycache__
-**/python/resources/data_*
+**/python/resources/data/data_*

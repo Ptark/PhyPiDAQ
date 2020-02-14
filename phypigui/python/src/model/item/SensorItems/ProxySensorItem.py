@@ -27,10 +27,9 @@ class ProxySensorItem(SensorItem):
         """Sets file, unit and data if the given path leads to a valid json file"""
         # self.readout_rate = 0
         self.current_index = 0
-        file = path.open('r')
-        raw_json: str = file.read()
+        file = path.open("r")
+        loaded_json: dict = json.load(file)
         file.close()
-        loaded_json: dict = json.loads(raw_json)
         unit: str = loaded_json.get("unit", "")
         # readout_rate: float = loaded_json.get("readout_rate", 0)
         data_json: List[float] = loaded_json.get("data", None)
