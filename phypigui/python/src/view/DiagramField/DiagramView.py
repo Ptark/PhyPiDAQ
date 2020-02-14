@@ -23,7 +23,7 @@ class DiagramViewMeta(type(QFrame), type(View)):
 
 class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
     """the super class of Time diagram, bar diagram and Dual diagram"""
-    def __init__(self, item: DiagramItem):
+    def __init__(self, item: DiagramItem, projection: str = 'rectilinear'):
         super().__init__()
 
         self._canvas = FigureCanvas(Figure(figsize=(4, 5), dpi=70))
@@ -35,11 +35,12 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
         layout.addWidget(self._canvas)
         self.setLayout(layout)
 
-        self._ax: Subplot = self._canvas.figure.add_subplot(111)
+        self._ax: Subplot = self._canvas.figure.add_subplot(111, projection=projection)
         self._item: DiagramItem = item
         self._item.attach(self)
 
         self.setStyleSheet("QFrame { border: 2px solid white; border-radius: 4px }")
+        Translator.language_changed.signal.connect(self._draw_diagram)
         self._draw_diagram()
 
     @abstractmethod
@@ -79,7 +80,7 @@ class TimeDiagram(DiagramView):
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
-        self._ax.set_xlabel(Translator.tr("Zeit"))
+        self._ax.set_xlabel("s")
         self._ax.set_ylabel(self._item.unit[0])
 
         self._ax.plot(self.__time, self.__data)

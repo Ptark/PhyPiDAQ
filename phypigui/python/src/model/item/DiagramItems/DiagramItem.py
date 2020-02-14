@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import List, Callable, Dict
 
 from ...manager.ManagerModel import ManagerModel
@@ -7,7 +8,7 @@ from ...config.ConfigModel import ConfigModel
 from ...workspace.WorkspaceModel import WorkspaceModel
 
 
-class DiagramItem(InputItem):
+class DiagramItem(InputItem, ABC):
     """This class is a superclass for all kind of DiagramItems"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int):
