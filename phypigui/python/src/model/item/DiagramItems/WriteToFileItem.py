@@ -42,7 +42,7 @@ class WriteToFileItem(DiagramItem):
         """Override method in superclass to add writing to file"""
         success = super().calculate(sensor_data)
         if success:
-            self.loaded_json["data"].append(self.data[0])
+            self.loaded_json["data"].append(self._data[0])
         return success
 
     def stop(self):
