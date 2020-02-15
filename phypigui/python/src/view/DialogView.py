@@ -4,6 +4,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMessageBox
 
+from ..SystemInfo import SystemInfo
+from .Translator import Translator
+
 
 class DialogView:
     """Static class for showing info, warning or error message boxes"""
@@ -11,8 +14,7 @@ class DialogView:
     @staticmethod
     def __new_dialog() -> QMessageBox:
         dialog = QMessageBox()
-        dialog.setIcon(QMessageBox.Critical)
-        dialog.setWindowIcon(QIcon('../resources/images/PhiPi_icon.png'))
+        dialog.setWindowIcon(QIcon(SystemInfo.RESOURCES + 'images/PhiPi_icon.png'))
         return dialog
 
     @staticmethod
@@ -28,7 +30,7 @@ class DialogView:
         dialog.setIcon(QMessageBox.Information)
         dialog.addButton(QMessageBox.Ok)
 
-        dialog.setWindowTitle(dialog.tr("Information"))
+        dialog.setWindowTitle(Translator.tr("Information"))
         dialog.setText(title)
         dialog.setInformativeText(description)
 
@@ -47,7 +49,7 @@ class DialogView:
         dialog.setIcon(QMessageBox.Warning)
         dialog.addButton(QMessageBox.Close)
 
-        dialog.setWindowTitle(dialog.tr("Warnung"))
+        dialog.setWindowTitle(Translator.tr("Warnung"))
         dialog.setText(title)
         dialog.setInformativeText(description)
 
@@ -66,7 +68,7 @@ class DialogView:
         dialog.setIcon(QMessageBox.Critical)
         dialog.addButton(QMessageBox.Close)
 
-        dialog.setWindowTitle(dialog.tr("Fehler"))
+        dialog.setWindowTitle(Translator.tr("Fehler"))
         dialog.setText(title)
         dialog.setInformativeText(description)
         dialog.setAttribute(Qt.WA_QuitOnClose)
