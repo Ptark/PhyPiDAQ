@@ -20,7 +20,7 @@ class WriteToFileItem(DiagramItem):
         dir_path = Path('.')
         self.dir_path: str = str(dir_path.resolve()) + "/phypigui/python/resources/data/"
         self.path: str = ""
-        self.file = None
+        self.loaded_json: dict = {}
         super().__init__(name, description, config, 1)
 
     def calculate_functions(self) -> bool:
@@ -28,30 +28,23 @@ class WriteToFileItem(DiagramItem):
         success = super().calculate_functions()
         if success:
             self.path = self.dir_path + self._unit[0] + str(time.time()) + ".ppg"
-            file_stub = {
+            self.loaded_json = {
                 "unit": self._unit[0],
-                # "readout_rate": 100,
                 "data": []
             }
-            file = open(self.path, "w")
-            file.write(json.dumps(file_stub))
-            file.close()
         return success
 
     def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
         """Override method in superclass to add writing to file"""
         success = super().calculate(sensor_data)
         if success:
-            file = open(self.path, "r")
-            raw_json = file.read()
-            loaded_json = json.loads(raw_json)
-            loaded_json["data"].append(self._data[0])
-            raw_json = json.dumps(loaded_json)
-            file.close()
-            file = open(self.path, "w")
-            file.write(raw_json)
-            file.close()
+            self.loaded_json["data"].append(self.data[0])
         return success
+
+    def stop(self):
+        """Override method in superclass. Write accumulated json to file"""
+        with open(self.path, "w+") as file:
+            json.dump(self.loaded_json, file)
 
     @staticmethod
     def get_name() -> str:

@@ -138,6 +138,8 @@ class ManagerModel:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
                 ManagerModel.__selected_item.notify()
             time.sleep(0.1)  # TODO: async
+        for d in diagrams:
+            d.stop()
 
     @staticmethod
     def stop() -> NoReturn:

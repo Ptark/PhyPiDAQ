@@ -70,3 +70,7 @@ class DiagramItem(InputItem, ABC):
         for i in range(0, self.get_count_of_inputs()):
             self._data[i] = self._functions[i](sensor_data)
         return True
+
+    def stop(self):
+        """Allows WriteToFileItem to write json to file"""
+        pass
