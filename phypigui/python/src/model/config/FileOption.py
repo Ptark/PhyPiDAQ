@@ -15,7 +15,7 @@ class FileOption(OptionModel):
     DIR: int = 2
 
     def __init__(self, name: str, description: str = '', file_opening_mode: int = 0
-                 , file_type: str = '', file_endings: List[str] = None):
+                 , file_type: str = '', file_endings: List[str] = ["ppg"]):
         """Initialising a FileOption object
 
         Args:

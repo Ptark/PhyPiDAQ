@@ -285,6 +285,49 @@ class WorkspaceModel:
                 WorkspaceModel.__connection_list.pop(connection.input)
 
     @staticmethod
+    def get_output_item_name(output_id: int) -> str:
+        """Returns the name of the OutputItem of a output identified by its ID
+
+        Args:
+            output_id (int): ID of the Output
+
+        Returns:
+            str: Name of the Item
+
+        Raises:
+            IDNotFound: If the output or his parent-item doesn't exist
+        """
+        if output_id not in WorkspaceModel.__output_list:
+            raise IDNotFound("The output-ID %d of the output doesn't exist" % (output_id,))
+        parent_item_id: int = WorkspaceModel.__output_list[output_id].parent_item_id
+        if parent_item_id not in WorkspaceModel.__output_item_list:
+            raise IDNotFound("The OutputItem-ID %d of the item, whose name should be returned, doesn't exist" % (parent_item_id,))
+        parent_item: 'OutputItem' = WorkspaceModel.__output_item_list[parent_item_id]
+        return parent_item.name
+
+    @staticmethod
+    def get_input_item_name(input_id: int) -> str:
+        """Returns the name of the InputItem of a output identified by its ID
+
+        Args:
+            input_id (int): ID of the Input
+
+        Returns:
+            str: Name of the Item
+
+        Raises:
+            IDNotFound: If the input or his parent-item doesn't exist
+        """
+        if input_id not in WorkspaceModel.__input_list:
+            raise IDNotFound("The input-ID %d of the input doesn't exist" % (input_id,))
+        parent_item_id: int = WorkspaceModel.__input_list[input_id].parent_item_id
+        if parent_item_id not in WorkspaceModel.__input_item_list:
+            raise IDNotFound(
+                "The InputItem-ID %d of the item, whose name should be returned, doesn't exist" % (parent_item_id,))
+        parent_item: 'InputItem' = WorkspaceModel.__input_item_list[parent_item_id]
+        return parent_item.name
+
+    @staticmethod
     def connect(input_id: int, output_id: int) -> NoReturn:
         """Connects two items
 

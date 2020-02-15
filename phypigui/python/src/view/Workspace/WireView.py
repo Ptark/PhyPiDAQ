@@ -102,9 +102,14 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
 
     def get_info_widget(self) -> QWidget:
         """show the input and output of wire in info bar"""
-        # TODO: infobar erstellen
+
         widget = QWidget()
-        QLabel("Wire", widget)
+
+        input = WorkspaceModel.get_input_item_name(self.__input_id)
+        output= WorkspaceModel.get_output_item_name(self.__output_id)
+
+        QLabel("input: " + input + "\noutput: " + output, widget)
+
         return widget
 
     def open_config(self) -> NoReturn:
