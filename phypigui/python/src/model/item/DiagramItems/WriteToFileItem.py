@@ -1,3 +1,4 @@
+import os
 import time
 import json
 from pathlib import Path
@@ -31,7 +32,7 @@ class WriteToFileItem(DiagramItem):
         """Override method in superclass to add path creation of file"""
         success = super().calculate_functions()
         if success:
-            self.path = str(self._config.file_options[0].path) + self._unit[0] + str(time.time()) + ".ppg"
+            self.path = str(self._config.file_options[0].path) + os.path.sep + self._unit[0] + str(time.time()) + ".ppg"
             self.loaded_json = {
                 "unit": self._unit[0],
                 "data": []
