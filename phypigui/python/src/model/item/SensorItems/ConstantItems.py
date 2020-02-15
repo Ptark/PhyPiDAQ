@@ -20,7 +20,7 @@ class NatureConstantItem(SensorItem):
         """Initialising an NatureConstantItem object"""
 
         name: str = "Naturkonstantenelement"
-        description: str = "Dieses Element gibt eine der folgenden Naturkonstanten aus."
+        description: str = "Dieses Element gibt eine der folgenden Naturkonstanten aus"
 
         config: ConfigModel = ConfigModel()
         config.add_enum_option(EnumOption("Konstante", self.NatureConstants))
@@ -45,7 +45,7 @@ class ConstantItem(SensorItem):
         """Initialising a ConstantItem object"""
 
         name: str = "Konstantenelement"
-        description: str = "Dieses Element gibt eine der vom Benutzer einstellbare Konstante aus."
+        description: str = "Dieses Element gibt eine der vom Benutzer einstellbare Konstante aus"
 
         config: ConfigModel = ConfigModel()
         config.add_num_option(NumOption("Konstante"))
