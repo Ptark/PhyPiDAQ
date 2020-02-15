@@ -5,6 +5,7 @@ from PyQt5.QtCore import QRunnable, QThreadPool, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
+from ...model.ModelExceptions import PathDoesntExist
 from ...SystemInfo import SystemInfo
 from ...GlobalSignals import GlobalSignals
 from ..Translator import Translator
@@ -15,7 +16,14 @@ class StartButtonView(QPushButton):
     """This class represents the start button"""
     class Start(QRunnable):
         def run(self) -> NoReturn:
-            ManagerModel.start()
+            try:
+                ManagerModel.start()
+            except PathDoesntExist as e:
+                print(e)
+            except Exception as e:
+                print(e)
+            else:
+                return
 
     __button: 'StartButtonView'
     start = pyqtSignal()
