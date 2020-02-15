@@ -3,8 +3,6 @@ import time
 
 from typing import Dict, List, NoReturn
 
-from numpy import random
-
 
 class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
@@ -22,6 +20,7 @@ class ManagerModel:
     __sensor_data: Dict['SensorItem', List[float]] = {}
     __running: bool = False
     __selected_item: 'OutputItem' = None
+    __diagram_notifier: 'View' = None
 
     @staticmethod
     def __init_functions() -> NoReturn:
@@ -36,7 +35,6 @@ class ManagerModel:
     @staticmethod
     def __read_data() -> NoReturn:
         for sensor in ManagerModel.__sensor_data:
-            # ManagerModel.__sensor_data[sensor] = [random.random()]  # sensor.read()
             ManagerModel.__sensor_data[sensor] = sensor.read()
 
     @staticmethod
@@ -135,7 +133,7 @@ class ManagerModel:
             ManagerModel.__read_data()
             for diagram in diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
-                diagram.notify()
+            ManagerModel.__diagram_notifier.update_view()
             if ManagerModel.__selected_item is not None and ManagerModel.__selected_item not in ManagerModel.__diagrams:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
                 ManagerModel.__selected_item.notify()
@@ -157,3 +155,8 @@ class ManagerModel:
         """
         ManagerModel.stop()
         ManagerModel.start()
+
+    @staticmethod
+    def set_diagram_notifier(new_notifier: 'View'):
+        if ManagerModel.__diagram_notifier is None:
+            ManagerModel.__diagram_notifier = new_notifier

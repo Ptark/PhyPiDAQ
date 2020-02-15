@@ -1,4 +1,4 @@
 **/venv
 **/.idea
 **/__pycache__
-**/python/resources/data/data_*
+**/python/resources/data/*[1-9].ppg

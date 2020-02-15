@@ -27,7 +27,7 @@ class WriteToFileItem(DiagramItem):
         """Override method in superclass to add path creation of file"""
         success = super().calculate_functions()
         if success:
-            self.path = self.dir_path + "data_" + str(time.time())
+            self.path = self.dir_path + self._unit[0] + str(time.time()) + ".ppg"
             file_stub = {
                 "unit": self._unit[0],
                 # "readout_rate": 100,
