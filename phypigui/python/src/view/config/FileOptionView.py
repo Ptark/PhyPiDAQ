@@ -35,10 +35,10 @@ class FileOptionView(OptionView):
         self.__text_field: QtWidgets.QLineEdit = QtWidgets.QLineEdit()
         self.__browse_button: QtWidgets.QPushButton = QtWidgets.QPushButton()
 
-        self.__init_ui()
-
         # Calculate letters per text-field
-        self.__l_count: int = int(self.__text_field.width() / 12)
+        self.__l_count: int = 0
+
+        self.__init_ui()
 
         # Configure file-dialog
         self.__file_dialog: QtWidgets.QFileDialog = QtWidgets.QFileDialog(self)
@@ -48,9 +48,14 @@ class FileOptionView(OptionView):
         # Configure text-field
         self.__text_field.setText('')
         self.__text_field.setFixedSize(300, 40)
+        self.__l_count = int(self.__text_field.width() / 12)
         self.__text_field.setEnabled(False)
-        self.__text_field.setText('Select path')
-        self.__text_field.setToolTip('No path')
+        if self.option.path is None:
+            self.__text_field.setText('Select path')
+            self.__text_field.setToolTip('No path')
+        else:
+            self.__set_text_field(self.option.path)
+
         self.__text_field.setStyleSheet("QLineEdit { color: rgb(90, 90, 90); }")
 
         # Configure browse-button
@@ -101,14 +106,10 @@ class FileOptionView(OptionView):
             paths = self.__file_dialog.selectedFiles()
             self.__set_option_data(Path(str(paths[0])))
 
-    def __set_option_data(self, path: Path) -> NoReturn:
+    def __set_text_field(self, path: Path) -> NoReturn:
         s_path: str = str(path)
         text: str = ''
 
-        if s_path == '':
-            return
-
-        self.__option.path = path
         self.__text_field.setToolTip(s_path)
 
         if len(s_path) > self.__l_count:
@@ -120,3 +121,11 @@ class FileOptionView(OptionView):
         else:
             text = s_path
         self.__text_field.setText(text)
+
+    def __set_option_data(self, path: Path) -> NoReturn:
+        if str(path) == '':
+            return
+
+        self.__set_text_field(path)
+
+        self.__option.path = path
