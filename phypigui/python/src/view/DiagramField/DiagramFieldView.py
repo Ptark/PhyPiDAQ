@@ -1,7 +1,7 @@
 from typing import List, NoReturn
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThreadPool, QRunnable
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 from PyQt5.QtGui import QCloseEvent, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QGridLayout
 
@@ -18,7 +18,7 @@ class DiagramFieldView(QWidget):
             main (QWidget): The main widget.
     """
 
-    class Draw(QRunnable):
+    class Draw(QThread):
         def __init__(self, diagram: DiagramView):
             super().__init__()
             self.__diagram: DiagramView = diagram
@@ -85,8 +85,9 @@ class DiagramFieldView(QWidget):
         self.__maximize_button.clearFocus()
 
     def update_view(self):
-        for diagram in self.__list:
-            QThreadPool.globalInstance().start(self.Draw(diagram))
+        threads = [self.Draw(diagram) for diagram in self.__list]
+        [thread.start() for thread in threads]
+        [thread.wait() for thread in threads]
 
     @pyqtSlot()
     def __update_diagrams(self):
