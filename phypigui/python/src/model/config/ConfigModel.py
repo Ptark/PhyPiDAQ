@@ -44,7 +44,7 @@ class ConfigModel:
 
     @property
     def empty(self) -> bool:
-        bool, file, enum, num = [len(options) is 0 for options in
+        bool, file, enum, num = [len(options) == 0 for options in
                       [self.__bool_options, self.__file_options, self.__enum_options, self.__num_options]]
         return bool and file and enum and num
 
