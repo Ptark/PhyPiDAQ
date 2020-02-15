@@ -14,25 +14,24 @@ class WriteToFileItem(DiagramItem):
 
     def __init__(self):
         """Initialising a WriteToFileItem object"""
-        name: str = "In Datei schreiben"
-
-        config: ConfigModel = ConfigModel()
-        config.add_file_option(FileOption("Speicherpfad", "Ordner, indem die\nAuslesedatei erstellt wird",
-                                          FileOption.DIR))
-
-        description: str = "Schreibt die gemessenen Daten in eine Datei " \
-                           "und speichert diese am Ende des Messdurchlaufes ab"
-        dir_path = Path('.')
-        self.dir_path: str = str(dir_path.resolve()) + "/phypigui/python/resources/data/"
         self.path: str = ""
         self.loaded_json: dict = {}
+
+        name: str = "In Datei schreiben"
+        description: str = "Schreibt die gemessenen Daten in eine Datei " \
+                           "und speichert diese am Ende des Messdurchlaufes ab"
+
+        dir_path: str = str(Path(".").resolve()) + "/phypigui/python/resources/data/"
+        config: ConfigModel = ConfigModel()
+        config.add_file_option(FileOption("Speicherpfad", "Ordner, indem die\nAuslesedatei erstellt wird",
+                                          FileOption.DIR, "", None, Path(dir_path)))
         super().__init__(name, description, config, 1)
 
     def calculate_functions(self) -> bool:
         """Override method in superclass to add path creation of file"""
         success = super().calculate_functions()
         if success:
-            self.path = self.dir_path + self._unit[0] + str(time.time()) + ".ppg"
+            self.path = str(self._config.file_options[0].path) + self._unit[0] + str(time.time()) + ".ppg"
             self.loaded_json = {
                 "unit": self._unit[0],
                 "data": []
