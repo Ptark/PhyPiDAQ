@@ -36,12 +36,7 @@ class Output(Identifiable):
 
     @property
     def unit(self) -> str:
-        """Unit of the calculated data this output supplies
-
-        It is an empty string, if the parent item has no valid connections to enough SensorItems.
-        """
-        if not self.__is_function_valid:
-            self.__unit = ''
+        """Unit of the calculated data this output supplies"""
         return self.__unit
 
     @unit.setter

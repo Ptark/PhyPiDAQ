@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import List, Callable, Dict
+from typing import List, Callable, Dict, NoReturn
 
 from ...manager.ManagerModel import ManagerModel
 from ..InputItem import InputItem
@@ -45,31 +45,23 @@ class DiagramItem(InputItem, ABC):
     def unit(self) -> List[str]:
         return self._unit
 
-    def calculate_functions(self) -> bool:
+    def calculate_functions(self) -> NoReturn:
         """Constructs recursively all lambda-functions and units from previous item starting at this DiagramItem
 
         This method is typically called every time the ManagerModel is starting a measuring process.
-
-        Returns:
-            bool: #TODO ....
         """
         for i in range(0, self.get_count_of_inputs()):
             self._functions[i] = WorkspaceModel.calculate_function(self._inputs[i].id)
             self._unit[i] = WorkspaceModel.calculate_unit(self._inputs[i].id)
-        return True
 
-    def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
+    def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> NoReturn:
         """Plugs data in all lambda-functions of this DiagramItem und stores the result
 
         Args:
             sensor_data (Dict[SensorItem.SensorItem, List[float]]): Data, which will be plugged in the lambda-functions
-
-        Returns:
-            bool: #TODO ....
         """
         for i in range(0, self.get_count_of_inputs()):
             self._data[i] = self._functions[i](sensor_data)
-        return True
 
     def stop(self):
         """Allows WriteToFileItem to write json to file"""
