@@ -1,7 +1,7 @@
-from typing import List, NoReturn, Dict
+from typing import List, NoReturn
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThreadPool, QRunnable
 from PyQt5.QtGui import QCloseEvent, QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QGridLayout
 
@@ -17,6 +17,15 @@ class DiagramFieldView(QWidget):
         Attributes:
             main (QWidget): The main widget.
     """
+
+    class Draw(QRunnable):
+        def __init__(self, diagram: DiagramView):
+            super().__init__()
+            self.__diagram: DiagramView = diagram
+
+        def run(self) -> NoReturn:
+            self.__diagram.update_view()
+
     __diagram_field: 'DiagramFieldView'
 
     def __init__(self, parent:QWidget):
@@ -41,6 +50,7 @@ class DiagramFieldView(QWidget):
 
         self.__start_button.start.connect(self.__clear_diagrams)
         self.__maximize_button.clicked.connect(self.__maximize_on_click)
+        ManagerModel.set_diagram_notifier(self)
         self.__init_ui()
 
     def __init_ui(self):
@@ -73,6 +83,10 @@ class DiagramFieldView(QWidget):
         self.__dialog = Dialog(self.__list, self.__start_button)
         self.__dialog.close_signal.connect(self.__update_diagrams)
         self.__maximize_button.clearFocus()
+
+    def update_view(self):
+        for diagram in self.__list:
+            QThreadPool.globalInstance().start(self.Draw(diagram))
 
     @pyqtSlot()
     def __update_diagrams(self):
