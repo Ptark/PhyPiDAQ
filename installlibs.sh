@@ -16,5 +16,3 @@ sudo pip3 install installlibs/tgz/*.tar.gz # python packages
 
 sudo dpkg -i installlibs/picoscopelibs/*.deb # picoscope 
 sudo usermod -a -G tty pi # grant acces to USB for user pi
-
-chmod +x run_phypigui.py
