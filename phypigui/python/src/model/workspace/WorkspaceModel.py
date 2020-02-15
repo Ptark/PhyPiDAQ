@@ -288,6 +288,9 @@ class WorkspaceModel:
     def get_output_item_name(output_id: int) -> str:
         """Returns the name of the OutputItem of a output identified by its ID
 
+        Args:
+            output_id (int): ID of the Output
+
         Returns:
             str: Name of the Item
 
@@ -305,6 +308,9 @@ class WorkspaceModel:
     @staticmethod
     def get_input_item_name(input_id: int) -> str:
         """Returns the name of the InputItem of a output identified by its ID
+
+        Args:
+            input_id (int): ID of the Input
 
         Returns:
             str: Name of the Item
