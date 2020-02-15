@@ -22,8 +22,3 @@ class SystemInfo:
         SystemInfo.SCREEN_WIDTH = QtWidgets.QDesktopWidget().screenGeometry(-1).width()
         SystemInfo.SCREEN_HEIGHT = QtWidgets.QDesktopWidget().screenGeometry(-1).height()
         SystemInfo.FONT = font
-
-    @staticmethod
-    def h():
-        print(SystemInfo.SCREEN_WIDTH)
-        print(SystemInfo.SCREEN_HEIGHT)
