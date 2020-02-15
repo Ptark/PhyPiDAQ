@@ -17,10 +17,14 @@ class ProxySensorItem(SensorItem):
         self.data: List[float] = []
         self.current_index: int = 0
         # self.readout_rate: int = 0
-        name: str = "Von Datei Lesen"
-        description: str = "Lädt Einheit und Daten aus\neiner Datei und gibt sie aus."
+        # Config
+        start_path: str = str(Path(".").resolve()) + "/phypigui/python/resources/data/"
         config: ConfigModel = ConfigModel()
-        config.add_file_option(FileOption(name, description))  # TODO Optionsbeschreibung
+        config.add_file_option(FileOption("Dateipfad", "Der Dateipfad der\neinzulesenden Datei",
+                                          FileOption.EXISTINGFILE, "PhyPiGUI-Dateien", ["ppg"], Path(start_path)))
+
+        name: str = "Von Datei Lesen"
+        description: str = "Lädt Einheit und Daten aus einer Datei und gibt sie aus."
         super().__init__(name, description, config, 1, None)
 
     def set_file(self, path: Path):
@@ -44,7 +48,7 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
-        self.set_file(Path(self._config.file_options[0].path))
+        self.set_file(self._config.file_options[0].path)
         # assert self.unit != ""
         return self.unit
         # return unit read from file

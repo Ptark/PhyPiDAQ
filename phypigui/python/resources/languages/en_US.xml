@@ -183,4 +183,112 @@
 		<source>3D-Diagramm</source>
 		<translation>3D Diagram</translation>
 	</item>
+	<item>
+		<source>Stellt die gemessenen Daten als Balkendiagramm dar</source>
+		<translation>Displays the measured data as a bar chart</translation>
+	</item>
+	<item>
+		<source>Stellt die gemessenen Daten als 2D-Diagramm dar</source>
+		<translation>Displays the measured data as a 2D chart</translation>
+	</item>
+	<item>
+		<source>Stellt die gemessenen Daten als 3D-Diagramm dar</source>
+		<translation>Displays the measured data as a 3D chart</translation>
+	</item>
+	<item>
+		<source>Stellt die gemessenen Daten als Zeitdiagramm dar</source>
+		<translation>Displays the measured data as a time diagram</translation>
+	</item>
+	<item>
+		<source>Schreibt die gemessenen Daten in eine Datei und speichert diese am Ende des Messdurchlaufes ab</source>
+		<translation>Writes the measured data to a file and stores them at the end of the measurement run</translation>
+	</item>
+	<item>
+		<source>Dieser Operator addiert zwei Werte</source>
+		<translation>This operator adds two values</translation>
+	</item>
+	<item>
+		<source>Dieser Operator subtrahiert zwei Werte</source>
+		<translation>This operator subtracts two values</translation>
+	</item>
+	<item>
+		<source>Dieser Operator berechnet den Absolutbetrag</source>
+		<translation>This operator calculates the absolute value</translation>
+	</item>
+	<item>
+		<source>Dieser Operator multipliziert zwei Werte</source>
+		<translation>This operator multiplies two values</translation>
+	</item>
+	<item>
+		<source>Dieser Operator dividiert zwei Werte</source>
+		<translation>This operator divides two values</translation>
+	</item>
+	<item>
+		<source>Dieser Operator negiert alle einkommenden Werte</source>
+		<translation>This operator negates all incoming values</translation>
+	</item>
+	<item>
+		<source>Dieser Operator potenziert einen Datenstrom mit einer einstellbaren Zahl</source>
+		<translation>This operator exponentiates a data stream with an adjustable number</translation>
+	</item>
+	<item>
+		<source>Dieser Operator potenziert einen Datenstrom mit 1 geteilt durch eine einstellbare Zahl</source>
+		<translation>This operator exponentiates a data stream with 1 divided by an adjustable number</translation>
+	</item>
+	<item>
+		<source>Dieser Operator vordoppelt einen Datenstrom</source>
+		<translation>This operator duplicates a data stream</translation>
+	</item>
+	<item>
+		<source>Der Spannungssensor misst die Spannung in Volt</source>
+		<translation>The voltage sensor measures the voltage in volts</translation>
+	</item>
+	<item>
+		<source>Der RGB Sensor detektiert Farben und gibt ihre Farbanteile für rot, grün und blau an</source>
+		<translation>The RGB sensor detects colors and indicates their color components for red, green and blue</translation>
+	</item>
+	<item>
+		<source>Der Stromstärkesensor misst die Stromstärke in milliampere</source>
+		<translation>The current sensor measures the current in milliampere</translation>
+	</item>
+	<item>
+		<source>Der Beschleunigungssensor misst die Beschleunigung in 3 Richtungen: x,y,z</source>
+		<translation>The acceleration sensor measures the acceleration in 3 directions: x,y,z</translation>
+	</item>
+	<item>
+		<source>Der Abstandssensor misst den Abstand zu einem Objekt</source>
+		<translation>The distance sensor measures the distance to an object</translation>
+	</item>
+	<item>
+		<source>Der Kraftsensor misst die Kraft in Newton</source>
+		<translation>The force sensor measures the force in Newton</translation>
+	</item>
+	<item>
+		<source>Der Temperatursensor misst die Temperatur in Grad Celsius oder Kelvin</source>
+		<translation>The temperature sensor measures the temperature in degrees Celsius or Kelvin</translation>
+	</item>
+	<item>
+		<source>Dieses Element gibt eine der folgenden Naturkonstanten aus</source>
+		<translation>This element outputs one of the following natural constants</translation>
+	</item>
+	<item>
+		<source>Dieses Element gibt eine der vom Benutzer einstellbare Konstante aus</source>
+		<translation>This element outputs one of the constants set by the user</translation>
+	</item>
+	<item>
+		<source>Lädt Einheit und Daten aus einer Datei und gibt sie aus</source>
+		<translation>Loads unit and data from a file and outputs them</translation>
+	</item>
+	<item>
+		<source>Maximum an Diagrammen erreicht</source>
+		<translation>Maximum of diagrams reached</translation>
+	</item>
+	<item>
+		<source>Es können nur drei Diagramme gleichzeitig verwendet werden</source>
+		<translation>Only three diagrams can be used simultaneously</translation>
+	</item>
+	<item>
+		<source>Lösche ein anderes Diagramm um ein neues zu verwenden</source>
+		<translation>Delete a diagram to use a new one</translation>
+	</item>
 </data>

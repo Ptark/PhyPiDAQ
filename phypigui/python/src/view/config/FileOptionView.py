@@ -1,6 +1,6 @@
 import copy
 
-from pathlib import PurePath
+from pathlib import Path
 from typing import NoReturn, List
 from PyQt5 import QtWidgets, QtCore
 
@@ -86,6 +86,7 @@ class FileOptionView(OptionView):
         else:
             self.__file_dialog.setOption(QtWidgets.QFileDialog.ShowDirsOnly, True)
             self.__file_dialog.setFileMode(QtWidgets.QFileDialog.Directory)
+        self.__file_dialog.setDirectory(str(self.__option.start_path))
 
     @property
     def option(self) -> FileOption:
@@ -98,9 +99,9 @@ class FileOptionView(OptionView):
         if self.__file_dialog.exec():
             self.__file_dialog.setDirectory(str(self.__option.path))
             paths = self.__file_dialog.selectedFiles()
-            self.__set_option_data(PurePath(str(paths[0])))
+            self.__set_option_data(Path(str(paths[0])))
 
-    def __set_option_data(self, path: PurePath) -> NoReturn:
+    def __set_option_data(self, path: Path) -> NoReturn:
         s_path: str = str(path)
         text: str = ''
 
@@ -115,7 +116,7 @@ class FileOptionView(OptionView):
             if len(file_name) > self.__l_count:
                 text = file_name
             else:
-                text = s_path[:self.__l_count - len(file_name)] + ' [...] \\' + file_name
+                text = s_path[:self.__l_count - len(file_name)] + ' [...] /' + file_name
         else:
             text = s_path
         self.__text_field.setText(text)

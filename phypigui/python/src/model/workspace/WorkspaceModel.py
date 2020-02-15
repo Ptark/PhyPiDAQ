@@ -301,7 +301,8 @@ class WorkspaceModel:
             raise IDNotFound("The output-ID %d of the output doesn't exist" % (output_id,))
         parent_item_id: int = WorkspaceModel.__output_list[output_id].parent_item_id
         if parent_item_id not in WorkspaceModel.__output_item_list:
-            raise IDNotFound("The OutputItem-ID %d of the item, whose name should be returned, doesn't exist" % (parent_item_id,))
+            raise IDNotFound("The OutputItem-ID %d of the item, whose name should be returned, doesn't exist"
+                             % (parent_item_id,))
         parent_item: 'OutputItem' = WorkspaceModel.__output_item_list[parent_item_id]
         return parent_item.name
 
