@@ -3,7 +3,7 @@ from typing import NoReturn
 from PyQt5.QtCore import QLocale
 from PyQt5.QtWidgets import QMenu, QWidget
 
-from ..AboutWindow import AboutWindow
+from ..MenuBar.AboutWindow import AboutWindow
 from ..Translator import Translator
 from ..Workspace.WorkspaceView import WorkspaceView
 from .LanguageAction import LanguageAction

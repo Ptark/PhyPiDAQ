@@ -15,6 +15,7 @@ class SystemInfo:
 
     RESOURCES: str = 'phypigui/python/resources/'
     FONT: QFont
+    VERSION: str = "1.0"
 
     @staticmethod
     def init(font: QFont):
