@@ -40,7 +40,7 @@ class DiagramFieldView(QWidget):
         self.__dialog: Dialog = None
         self.__diagram_layout: QVBoxLayout = QVBoxLayout()
         self.__button_layout: QHBoxLayout = QHBoxLayout()
-        self.__start_button: StartButtonView = StartButtonView(self)
+        self.__start_button: StartButtonView = StartButtonView()
         self.__maximize_button: QPushButton = QPushButton()
 
         self.__diagram_group: QtWidgets.QGroupBox = QtWidgets.QGroupBox(self)

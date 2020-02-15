@@ -21,8 +21,8 @@ class StartButtonView(QPushButton):
     start = pyqtSignal()
     start_time: float = 0.0
 
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
 
         StartButtonView.__button = self
 
