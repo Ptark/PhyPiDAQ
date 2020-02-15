@@ -37,7 +37,7 @@ class FileOption(OptionModel):
         self.__file_type: str = file_type
         self.__file_endings: List[str] = file_endings
 
-        self.__path: Path = Path()
+        self.__path: Path = None
 
         self.__start_path = Path()
         if start_path is not None:
