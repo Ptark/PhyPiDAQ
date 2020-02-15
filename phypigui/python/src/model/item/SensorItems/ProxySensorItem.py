@@ -18,9 +18,10 @@ class ProxySensorItem(SensorItem):
         self.current_index: int = 0
         # self.readout_rate: int = 0
         # Config
+        start_path: str = str(Path(".").resolve()) + "/phypigui/python/resources/data/"
         config: ConfigModel = ConfigModel()
-        config.add_file_option(FileOption("Dateipfad", "Der Dateipfad der\neinzulesenden Datei", FileOption.EXISTINGFILE
-                                          , "PhyPiGUI-Dateien", ["ppg"]))
+        config.add_file_option(FileOption("Dateipfad", "Der Dateipfad der\neinzulesenden Datei",
+                                          FileOption.EXISTINGFILE, "PhyPiGUI-Dateien", ["ppg"], Path(start_path)))
 
         name: str = "Von Datei Lesen"
         description: str = "Lädt Einheit und Daten aus einer Datei und gibt sie aus."

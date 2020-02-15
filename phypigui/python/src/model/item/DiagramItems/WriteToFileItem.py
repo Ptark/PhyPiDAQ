@@ -5,6 +5,7 @@ from typing import Dict, List
 
 from ..SensorItems.SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
+from ...config.FileOption import FileOption
 from ..DiagramItems.DiagramItem import DiagramItem
 
 
@@ -14,7 +15,11 @@ class WriteToFileItem(DiagramItem):
     def __init__(self):
         """Initialising a WriteToFileItem object"""
         name: str = "In Datei schreiben"
+
         config: ConfigModel = ConfigModel()
+        config.add_file_option(FileOption("Speicherpfad", "Ordner, indem die\nAuslesedatei erstellt wird",
+                                          FileOption.DIR))
+
         description: str = "Schreibt die gemessenen Daten in eine Datei " \
                            "und speichert diese am Ende des Messdurchlaufes ab"
         dir_path = Path('.')

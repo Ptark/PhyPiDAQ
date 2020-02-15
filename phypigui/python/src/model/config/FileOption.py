@@ -15,8 +15,8 @@ class FileOption(OptionModel):
     EXISTINGFILE: int = 1
     DIR: int = 2
 
-    def __init__(self, name: str, description: str = '', file_opening_mode: int = 0
-                 , file_type: str = '', file_endings: List[str] = None, start_path: Path = None):
+    def __init__(self, name: str, description: str = '', file_opening_mode: int = 0,
+                 file_type: str = '', file_endings: List[str] = None, start_path: Path = None):
         """Initialising a FileOption object
 
         Args:
