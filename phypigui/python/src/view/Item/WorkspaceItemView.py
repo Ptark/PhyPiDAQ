@@ -136,7 +136,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     def _update_selected_view(self) -> NoReturn:
         if self.selected:
             border = "blue"
-            background = "#CCCCEE"
+            background = self._enum.background_color[:-2] + "FF"
         else:
             border = "black"
             background = self._enum.background_color

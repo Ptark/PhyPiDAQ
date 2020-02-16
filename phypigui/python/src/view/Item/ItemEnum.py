@@ -81,7 +81,7 @@ class SensorEnum(ItemEnum):
     VOLTAGE_SENSOR = (VoltageSensorItem, 'voltage')
 
     def __init__(self, model: Type[SensorItem], file: str):
-        super().__init__(SensorItemView, "#009999", model, 'sensor/' + file)
+        super().__init__(SensorItemView, "#999999", model, 'sensor/' + file)
 
 
 @unique
@@ -97,7 +97,7 @@ class OperatorEnum(ItemEnum):
     CLONE_OPERATOR = (CloneItem, 'clone')
 
     def __init__(self, model: Type[OperatorItem], file: str):
-        super().__init__(OperatorItemView, "#00CCCC", model, 'operator/' + file)
+        super().__init__(OperatorItemView, "#BBBBBB", model, 'operator/' + file)
 
 
 @unique
@@ -110,7 +110,7 @@ class DiagramEnum(ItemEnum):
 
     def __init__(self, model: Type[DiagramItem], file: str, diagram: Type[DiagramView]):
         self.__diagram: Type[DiagramView] = diagram
-        super().__init__(DiagramItemView, "#00FFFF", model, 'diagram/' + file)
+        super().__init__(DiagramItemView, "#DDDDDD", model, 'diagram/' + file)
 
     @property
     def diagram(self) -> Type[DiagramView]:
