@@ -58,7 +58,7 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
 
         self.__tab.setElideMode(Qt.ElideRight)
         self.__tab.setIconSize(QSize(35, 35))
-        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 68px; }")
+        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 56px; }")
 
         for i in range(0, 3):
             self.__tab.addTab(self.__lists[i], self.__icons[i], "")
