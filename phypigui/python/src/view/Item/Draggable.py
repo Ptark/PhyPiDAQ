@@ -15,8 +15,8 @@ class Draggable(ItemView, ABC):
             parent (QWidget): The main widget of the window.
             icon_path (str): A file path of the icon displayed on the item.
     """
-    def __init__(self, parent: QWidget, icon_path: str):
-        super().__init__(parent, icon_path)
+    def __init__(self, parent: QWidget, item: 'ItemEnum'):
+        super().__init__(parent, item)
 
         self.__mousePressPos: QPoint = None
         self.__mouseMovePos: QPoint = None

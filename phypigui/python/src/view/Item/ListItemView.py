@@ -21,20 +21,19 @@ class ListItemView(ItemView, ABC):
                   It holds the actual class and not an instance of it.
     """
     def __init__(self, main: QWidget, item: ItemEnum):
-        super().__init__(main, item.path)
+        super().__init__(main, item)
 
         self.__main = main
-        self.__item: ItemEnum = item
 
         Translator.language_changed.signal.connect(self.__update_text)
         self.__update_text()
 
     def __update_text(self) -> NoReturn:
-        self.setToolTip(Translator.tr(self.__item.model.get_name()))
+        self.setToolTip(Translator.tr(self._enum.model.get_name()))
 
     def mousePressEvent(self, event: QMouseEvent) -> NoReturn:
         if event.buttons() == Qt.LeftButton:
-            item = DragItemView(self.__main, event.globalPos(), self.__item)
+            item = DragItemView(self.__main, event.globalPos(), self._enum)
             item.move(self.mapTo(self.__main, QPoint(0, 0)))
             item.show()
             item.grabMouse()

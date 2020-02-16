@@ -5,7 +5,6 @@ from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel, QHBoxLayout
 
-from ..InfoBar.InfoBarView import InfoBarView
 from ..InfoBar.SettingsButtonView import SettingsButtonView
 from ...model.workspace.WorkspaceModel import WorkspaceModel
 from ..Translator import Translator
@@ -27,10 +26,10 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
     """
     icon_path: str
 
-    def __init__(self, parent: QWidget, icon_path: str, model_input_ids: List[int], model_output_ids: List[int], unique: bool = False):
+    def __init__(self, parent: QWidget, item: 'ItemEnum', model_input_ids: List[int], model_output_ids: List[int], unique: bool = False):
         WorkspaceView.add_item(self, unique)
 
-        Draggable.__init__(self, parent, icon_path)
+        Draggable.__init__(self, parent, item)
         Selectable.__init__(self)
 
         self._model: ItemModel
@@ -63,6 +62,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         in_layout = QVBoxLayout()
         for i in range(len(self.__inputs)):
             lab = QLabel(['x', 'y', 'z'][i])
+            lab.setFixedHeight(10)
             lab.setAlignment(Qt.AlignBottom)
             lay = QHBoxLayout()
             lay.setContentsMargins(0, 0, 0, 0)
@@ -77,6 +77,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         out_layout = QVBoxLayout()
         for i in range(len(self.__outputs)):
             lab = QLabel(['x', 'y', 'z'][i])
+            lab.setFixedHeight(10)
             lab.setAlignment(Qt.AlignBottom)
             lay = QHBoxLayout()
             lay.setContentsMargins(0, 0, 0, 0)
@@ -138,7 +139,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             background = "#CCCCEE"
         else:
             border = "black"
-            background = "#CCCCCC"
+            background = self._enum.background_color
 
         self.setStyleSheet("""
             QFrame#item {

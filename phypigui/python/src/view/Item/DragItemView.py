@@ -24,10 +24,9 @@ class DragItemView(Draggable, ABC):
                   It holds the actual class and not an instance of it.
     """
     def __init__(self, main: QWidget, pos: QPoint, item: ItemEnum):
-        super().__init__(main, item.path)
+        super().__init__(main, item)
 
         self.__main = main
-        self.__item: ItemEnum = item
 
         self._save_position(pos)
 
@@ -43,7 +42,7 @@ class DragItemView(Draggable, ABC):
 
         if WorkspaceView.is_on_workspace(self):
             try:
-                item = self.__item.create_workspace_item(WorkspaceView.widget)
+                item = self._enum.create_workspace_item(WorkspaceView.widget)
             except DuplicateWorkspaceItem:
                 DialogView.show_warning(Translator.tr("Element schon auf Arbeitsfläche"),
                                         Translator.tr("Dieses Element kann nur einmal auf der Arbeitsfläche existieren."))

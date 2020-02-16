@@ -17,7 +17,7 @@ class SensorItemView(WorkspaceItemView):
     def __init__(self, parent: QWidget, sensor: 'SensorEnum'):
         self._model: SensorItem = sensor.model()
 
-        super().__init__(parent, sensor.path, [], self._model.get_output_ids(), False)
+        super().__init__(parent, sensor, [], self._model.get_output_ids(), False)
 
         self.__init_ui()
 
