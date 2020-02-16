@@ -16,7 +16,6 @@ class ProxySensorItem(SensorItem):
         self.unit: str = ""
         self.data: List[float] = []
         self.current_index: int = 0
-        # self.readout_rate: int = 0
         # Config
         start_path: str = str(Path(".").resolve()) + "/phypigui/python/resources/data/"
         config: ConfigModel = ConfigModel()
@@ -29,7 +28,6 @@ class ProxySensorItem(SensorItem):
 
     def __set_file(self, path: Path):
         """Sets file, unit and data if the given path leads to a valid json file"""
-        # self.readout_rate = 0
         if path is None or not path.exists():
             raise PathDoesntExist(str(path), self.name)
         self.current_index = 0
@@ -37,14 +35,11 @@ class ProxySensorItem(SensorItem):
         loaded_json: dict = json.load(file)
         file.close()
         unit: str = loaded_json.get("unit", "")
-        # readout_rate: float = loaded_json.get("readout_rate", 0)
         data_json: List[float] = loaded_json.get("data", None)
         # assert valid data format
-        # assert readout_rate is not 0
         assert data_json is not None
         # set attributes
         self.unit = unit
-        # self.readout_rate = readout_rate
         self.data = data_json
 
     def get_unit(self, output_number: int = 0) -> str:
