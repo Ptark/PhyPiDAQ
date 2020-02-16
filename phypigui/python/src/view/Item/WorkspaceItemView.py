@@ -160,7 +160,6 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             for s in data_units:
                 text += s + "\n\t"
             self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
-            InfoBarView.refresh_infobar()
 
     @abstractmethod
     def get_data(self) -> List[float]:

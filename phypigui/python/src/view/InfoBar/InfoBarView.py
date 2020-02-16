@@ -15,7 +15,7 @@ class InfoBarView(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
 
-        InfoBarView.infobar = self
+        InfoBarView.__infobar = self
 
         self.__horizontal_layout: QHBoxLayout = QHBoxLayout()
         self.__info_widget: QWidget = QWidget()
@@ -51,4 +51,4 @@ class InfoBarView(QWidget):
             widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
         else:
             widget = QWidget()
-        InfoBarView.infobar.update_info_widget(widget)
+        InfoBarView.__infobar.update_info_widget(widget)

@@ -134,7 +134,7 @@ class ManagerModel:
             for diagram in diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
             ManagerModel.__diagram_notifier.update_view()
-            if ManagerModel.__selected_item is not None and ManagerModel.__selected_item not in ManagerModel.__diagrams:
+            if ManagerModel.__selected_item is not None:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
                 ManagerModel.__selected_item.notify()
             time.sleep(0.1)  # TODO: async
