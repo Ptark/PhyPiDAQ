@@ -45,8 +45,9 @@ class ItemEnumMeta(type(ABC), type(Enum)):
 
 @unique
 class ItemEnum(ABC, Enum, metaclass=ItemEnumMeta):
-    def __init__(self, view: Type[WorkspaceItemView], model: Type[ItemModel], file: str):
+    def __init__(self, view: Type[WorkspaceItemView], color: str, model: Type[ItemModel], file: str):
         self.__view: Type[WorkspaceItemView] = view
+        self.__color: str = color
         self.__model: Type[ItemModel] = model
         self.__path: str = SystemInfo.RESOURCES + 'images/items/' + file + '.svg'
 
@@ -57,6 +58,10 @@ class ItemEnum(ABC, Enum, metaclass=ItemEnumMeta):
     @property
     def path(self) -> str:
         return self.__path
+
+    @property
+    def background_color(self) -> str:
+        return self.__color
 
     def create_workspace_item(self, parent: QWidget) -> WorkspaceItemView:
         return self.__view(parent, self)
@@ -76,7 +81,7 @@ class SensorEnum(ItemEnum):
     VOLTAGE_SENSOR = (VoltageSensorItem, 'voltage')
 
     def __init__(self, model: Type[SensorItem], file: str):
-        super().__init__(SensorItemView, model, 'sensor/' + file)
+        super().__init__(SensorItemView, "#CCCCCC", model, 'sensor/' + file)
 
 
 @unique
@@ -92,7 +97,7 @@ class OperatorEnum(ItemEnum):
     CLONE_OPERATOR = (CloneItem, 'clone')
 
     def __init__(self, model: Type[OperatorItem], file: str):
-        super().__init__(OperatorItemView, model, 'operator/' + file)
+        super().__init__(OperatorItemView, "#AAAAAA", model, 'operator/' + file)
 
 
 @unique
@@ -105,7 +110,7 @@ class DiagramEnum(ItemEnum):
 
     def __init__(self, model: Type[DiagramItem], file: str, diagram: Type[DiagramView]):
         self.__diagram: Type[DiagramView] = diagram
-        super().__init__(DiagramItemView, model, 'diagram/' + file)
+        super().__init__(DiagramItemView, "#888888", model, 'diagram/' + file)
 
     @property
     def diagram(self) -> Type[DiagramView]:
