@@ -31,16 +31,11 @@ class ProxySensorItem(SensorItem):
         if path is None or not path.exists():
             raise PathDoesntExist(str(path), self.name)
         self.current_index = 0
-        file = path.open("r")
-        loaded_json: dict = json.load(file)
-        file.close()
-        unit: str = loaded_json.get("unit", "")
-        data_json: List[float] = loaded_json.get("data", None)
-        # assert valid data format
-        assert data_json is not None
-        # set attributes
-        self.unit = unit
-        self.data = data_json
+        with path.open("r") as file:
+            loaded_json = json.load(file)
+            assert loaded_json.get("data", None) is not None
+            self.unit = loaded_json.get("unit", "")
+            self.data = loaded_json.get("data", None)
 
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
