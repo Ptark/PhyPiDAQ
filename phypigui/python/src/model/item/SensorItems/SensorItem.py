@@ -29,6 +29,8 @@ class SensorItem(OutputItem, ABC):
         self._device = sensor_config
         # self._device.init()
         self._buffer: List[float] = []
+        for n in range(3):
+            self._buffer.append(0)
         self._last_read_time: int = 0
 
         ManagerModel.add_sensor(self)
@@ -48,30 +50,26 @@ class SensorItem(OutputItem, ABC):
         return function
 
     def read(self) -> List[float]:
-        """read data from physical sensor and return _buffer which holds the measured data""" # TODO doc
+        """Read data from physical sensor and returns a List of every measured value of the sensor
+
+        Returns:
+            List[float]: List of measured values
+        """
         return [random.random()] * self.get_count_of_outputs()  # for testing
-        data: [float] = [0][1][2]   # TODO watttt?
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
-
-        if read_diff < self._config.num_options[0].number:
-            return self._buffer
-
-        self._device.acquireData(data)
-        self._buffer = data
-        self._last_read_time = int(time.time() * 1000)
+        if read_diff >= self._config.num_options[0].number:
+            data: List[float] = []
+            self._device.acquireData(data)
+            self._buffer = data
+            self._last_read_time = read_time
         return self._buffer
 
     def close(self) -> NoReturn:
-        """Close sensor if needed""" # TODO doc
+        """Close sensor if needed"""
         self._device.closeDevice()
 
-    def get_last_read_time(self) -> int:    # TODO unit of time??
-        """Returns the last read time of this SensorItem
-
-        This method return the last time read() was called for this SensorItem
-
-        Returns:
-            int: Last read time
-        """
+    @property
+    def last_read_time(self) -> int:
+        """Last read time of this SensorItem in milliseconds"""
         return self._last_read_time
