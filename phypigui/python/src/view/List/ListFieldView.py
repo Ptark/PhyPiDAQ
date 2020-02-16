@@ -55,7 +55,7 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__group_layout.addWidget(self.__tab)
         self.__group_layout.addWidget(self.__search)
         self.setLayout(self.__layout)
-        self.setFixedWidth(260)
+        self.setFixedWidth(244)
 
         self.__tab.setElideMode(Qt.ElideRight)
         self.__tab.setIconSize(QSize(35, 35))
