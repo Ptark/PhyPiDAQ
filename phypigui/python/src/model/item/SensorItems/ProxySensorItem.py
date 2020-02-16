@@ -1,5 +1,6 @@
+import time
 from pathlib import Path
-from typing import List
+from typing import List, NoReturn
 import json
 
 from .SensorItem import SensorItem
@@ -35,7 +36,7 @@ class ProxySensorItem(SensorItem):
             loaded_json = json.load(file)
             assert loaded_json.get("data", None) is not None
             self.unit = loaded_json.get("unit", "")
-            self.data = loaded_json.get("data", None)
+            self.data = loaded_json.get("data", {})
 
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
@@ -56,7 +57,12 @@ class ProxySensorItem(SensorItem):
             self.current_index += 1
         else:
             self.current_index = 0
-        return [self.data[current]]
+        self._buffer = [self.data[current]]
+        return self._buffer
+
+    def close(self) -> NoReturn:
+        """Implements parent method because there is no device"""
+        pass
 
     @staticmethod
     def get_name() -> str:
