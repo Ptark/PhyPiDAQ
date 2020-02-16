@@ -94,7 +94,7 @@ class NumOptionView(OptionView):
             # Check for edge-cases
             try:
                 if QtCore.QRegularExpression("^[-+]?\\.?$").match(text).hasMatch():
-                    self.__option.number = 0.0
+                    self.__option.number = 0
                 else:
                     self.__option.number = round(float(text), self.__option.decimals - 1)
                 self.__error_label.setVisible(False)

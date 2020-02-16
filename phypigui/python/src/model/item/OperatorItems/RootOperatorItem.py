@@ -25,7 +25,8 @@ class RootOperatorItem(OperatorItem):
     def get_rule(self, output_number: int = 0):
         first_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: + \
             WorkspaceModel.calculate_function(self._inputs[0].id)(data)
-        return lambda data: pow(first_function(data), 1 / self.config.num_options[0].number)
+        return lambda data: pow(first_function(data), 1 / self.config.num_options[0].number) \
+            if first_function(data) >= 0 else None
 
     def get_unit(self, output_number: int = 0) -> str:
         unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
