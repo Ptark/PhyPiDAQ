@@ -36,7 +36,7 @@ class AdditionOperatorItem(OperatorItem):
             return right_unit
         if right_unit == "":
             return left_unit
-        return "(" + left_unit + ") + (" + right_unit + ")"
+        return "(" + left_unit + "+" + right_unit + ")"
 
     @staticmethod
     def get_name() -> str:

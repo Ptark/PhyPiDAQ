@@ -31,7 +31,7 @@ class MultiplicationOperatorItem(OperatorItem):
         left_unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
         right_unit = WorkspaceModel.calculate_unit(self._inputs[1].id)
         if left_unit == right_unit:
-            return "(" + left_unit + " ^ 2)"
+            return left_unit + " ^ 2"
         if left_unit == "":
             return right_unit
         if right_unit == "":

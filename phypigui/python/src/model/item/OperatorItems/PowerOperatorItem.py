@@ -28,8 +28,10 @@ class PowerOperatorItem(OperatorItem):
         return lambda data: pow(first_function(data), self.config.num_options[0].number)
 
     def get_unit(self, output_number: int = 0) -> str:
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + "^" + str(self.config.num_options[0].number) \
-               + ")"
+        unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
+        number = str(self.config.num_options[0].number)
+        return unit + "^" + number
+
 
     @staticmethod
     def get_name() -> str:
