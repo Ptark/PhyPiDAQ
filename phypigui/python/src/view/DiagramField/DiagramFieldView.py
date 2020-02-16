@@ -28,7 +28,7 @@ class DiagramFieldView(QWidget):
 
     __diagram_field: 'DiagramFieldView'
 
-    def __init__(self, parent:QWidget):
+    def __init__(self, parent: QWidget):
         """Initialising of a diagram field view
         Args:
             parent(QWidget)
@@ -48,7 +48,7 @@ class DiagramFieldView(QWidget):
         self.__stretch_widget: QtWidgets.QWidget = QtWidgets.QWidget(self)
         self.__diagram_count: int = 0
 
-        self.__start_button.start.connect(self.__clear_diagrams)
+        self.__start_button.start_signal.connect(self.__clear_diagrams)
         self.__maximize_button.clicked.connect(self.__maximize_on_click)
         ManagerModel.set_diagram_notifier(self)
         self.__init_ui()

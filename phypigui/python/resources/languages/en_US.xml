@@ -291,4 +291,16 @@
 		<source>Lösche ein anderes Diagramm um ein neues zu verwenden</source>
 		<translation>Delete a diagram to use a new one</translation>
 	</item>
+	<item>
+		<source>Dateipfad nicht gefunden</source>
+		<translation>File not found</translation>
+	</item>
+	<item>
+		<source>Kein Dateipfad in "%s" ausgewählt</source>
+		<translation>No file path in the item "%s" selected</translation>
+	</item>
+	<item>
+		<source>Der ausgewählte Dateipfad "%s" in "%s" wurde nicht gefunden</source>
+		<translation>The selected path "%s" from the item "%s" was not found</translation>
+	</item>
 </data>

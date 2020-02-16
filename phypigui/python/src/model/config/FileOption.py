@@ -83,8 +83,7 @@ class FileOption(OptionModel):
             self.__path = None
         else:
             if self.__file_mode != 0 and not new_path.exists():
-                raise PathDoesntExist("The selected path %s from the option %s doesn't exist"
-                                      % (str(new_path), self._name,))
+                raise PathDoesntExist(str(new_path), self._name)
             self.__path = new_path
             if self.__file_mode == self.DIR:
                 self.__start_path = new_path

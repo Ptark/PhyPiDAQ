@@ -32,7 +32,7 @@ class ProxySensorItem(SensorItem):
         """Sets file, unit and data if the given path leads to a valid json file"""
         # self.readout_rate = 0
         if path is None or not path.exists():
-            raise PathDoesntExist("The selected Path %s from the item %s was not found" % (str(path), self.name,))
+            raise PathDoesntExist(str(path), self.name)
         self.current_index = 0
         file = path.open("r")
         loaded_json: dict = json.load(file)
