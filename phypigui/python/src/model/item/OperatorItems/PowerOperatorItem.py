@@ -32,7 +32,6 @@ class PowerOperatorItem(OperatorItem):
         number = str(self.config.num_options[0].number)
         return unit + "^" + number
 
-
     @staticmethod
     def get_name() -> str:
         return "Exponentialsoperator"
