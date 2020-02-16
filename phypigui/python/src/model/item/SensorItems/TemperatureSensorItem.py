@@ -25,7 +25,7 @@ class TemperatureSensorItem(SensorItem):
         config.add_enum_option(EnumOption("Einheit", self.__TemperatureUnit))
         config.add_num_option(NumOption("Ausleserate", "", 100))
 
-        pins: List[int] = []
+        pins: List[int] = [1, 2, 5]
 
         super().__init__(name, description, config, 1, pins, None)  # DS18B20Config())
 

@@ -1,8 +1,8 @@
 from typing import NoReturn, List
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLabel
 
-from ..Workspace.WorkspaceView import WorkspaceView
+from ..Translator import Translator
 from ...model.manager.ManagerModel import ManagerModel
 from ...model.item.SensorItems.SensorItem import SensorItem
 from .WorkspaceItemView import WorkspaceItemView
@@ -18,6 +18,17 @@ class SensorItemView(WorkspaceItemView):
         self._model: SensorItem = sensor.model()
 
         super().__init__(parent, sensor.path, [], self._model.get_output_ids(), False)
+
+        self.__init_ui()
+
+    def __init_ui(self) -> NoReturn:
+        pins = self._model.pins
+        if pins is not None and len(pins) != 0:
+            text = Translator.tr("Steckplätze auf dem Raspberry Pi") + ": "
+            for pin in pins:
+                text += str(pin) + ", "
+            pin_label: QLabel = QLabel(text[:-2])
+            self._info_layout.insertWidget(3, pin_label)
 
     def delete(self) -> NoReturn:
         ManagerModel.delete_sensor(self._model)
