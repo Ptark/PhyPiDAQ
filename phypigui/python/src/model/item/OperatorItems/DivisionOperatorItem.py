@@ -25,7 +25,7 @@ class DivisionOperatorItem(OperatorItem):
             WorkspaceModel.calculate_function(self._inputs[0].id)(data)
         second_function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: +\
             WorkspaceModel.calculate_function(self._inputs[1].id)(data)
-        return lambda data: first_function(data) / second_function(data)
+        return lambda data: first_function(data) / second_function(data) if second_function(data) != 0 else None
 
     def get_unit(self, output_number: int = 0) -> str:
         left_unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
