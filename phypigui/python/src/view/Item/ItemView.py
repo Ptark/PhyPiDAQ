@@ -19,10 +19,10 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
             parent (QWidget): A parent widget.
             icon_path (str): A file path of the icon displayed on the item.
     """
-    def __init__(self, parent: QWidget, icon_path: str):
+    def __init__(self, parent: QWidget, item: 'ItemEnum'):
         super().__init__(parent)
 
-        self.__icon_path = icon_path
+        self._enum: 'ItemEnum' = item
 
         self.__init_ui()
 
@@ -35,12 +35,12 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
             QFrame#item {
                 border: 2px solid black;
                 border-radius: 5px;
-                background-color: #CCCCCC;
+                background-color: """ + self._enum.background_color + """;
                 }
             """)
 
         icon = QSvgWidget(self)
-        icon.load(self.__icon_path)
+        icon.load(self._enum.path)
         icon.setFixedSize(40, 40)
 
         layout = QHBoxLayout()

@@ -23,7 +23,7 @@ class DiagramItemView(WorkspaceItemView):
         else:
             self._diagram: DiagramView = None
 
-        super().__init__(parent, diagram.path, self._model.get_input_ids(), [])
+        super().__init__(parent, diagram, self._model.get_input_ids(), [])
 
     def delete(self) -> NoReturn:
         if self._diagram is not None:
