@@ -90,13 +90,16 @@ class TimeDiagram(DiagramView):
         self._ax.set_xlabel("s")
         self._ax.set_ylabel(self._item.unit[0])
 
+        t = self._data['time'][-1] if len(self._data['time']) > 0 else 0
+        self._ax.set_xlim([t - self.__displayed_seconds, t])
+
         self._ax.plot(self._data['time'], self._data['data'])
 
         self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         t = time.time() - StartButtonView.start_time
-        while t - self._data['time'][0] > self.__displayed_seconds:
+        while len(self._data['time']) > 0 and t - self._data['time'][0] > self.__displayed_seconds:
             for i in ['time', 'data']:
                 self._data[i].pop(0)
 
@@ -108,10 +111,8 @@ class TimeDiagram(DiagramView):
     def clear_diagram(self) -> NoReturn:
         self.__displayed_seconds = self._item.config.num_options[0].number
 
-        density = 5.0
-        repetitions = int(density * self.__displayed_seconds)
-        self._data['time'] = [i / density for i in range(-repetitions, 0)]
-        self._data['data'] = [0.0] * repetitions
+        self._data['time'].clear()
+        self._data['data'].clear()
 
         self._draw_diagram()
 
