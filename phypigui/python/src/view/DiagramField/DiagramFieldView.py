@@ -85,10 +85,9 @@ class DiagramFieldView(QWidget):
         self.__maximize_button.clearFocus()
 
     def update_view(self):
-        [diagram.update_view() for diagram in self.__list]
-        # threads = [self.Draw(diagram) for diagram in self.__list]
-        # [thread.start() for thread in threads]
-        # [thread.wait() for thread in threads]
+        threads = [self.Draw(diagram) for diagram in self.__list]
+        [thread.start() for thread in threads]
+        [thread.wait() for thread in threads]
 
     @pyqtSlot()
     def __update_diagrams(self):
