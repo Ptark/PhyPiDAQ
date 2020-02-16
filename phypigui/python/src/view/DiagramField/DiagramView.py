@@ -85,7 +85,7 @@ class TimeDiagram(DiagramView):
 
     def _draw_diagram(self) -> NoReturn:
         self._ax.clear()
-
+        
         self._ax.set_title(Translator.tr(self._item.name))
         self._ax.set_xlabel("s")
         self._ax.set_ylabel(self._item.unit[0])
@@ -95,7 +95,11 @@ class TimeDiagram(DiagramView):
 
         self._ax.plot(self._data['time'], self._data['data'])
 
-        self._canvas.draw()
+        # TODO Wired exception in matplotlib
+        try:
+            self._canvas.draw()
+        except Exception:
+            pass
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         t = time.time() - StartButtonView.start_time

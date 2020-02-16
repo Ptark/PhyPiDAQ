@@ -32,7 +32,6 @@ class DeleteButtonView(QPushButton):
     def __on_click(self) -> NoReturn:
         if WorkspaceView.selection is not None:
             StartButtonView.interrupt_mp()
-            time.sleep(0.2)     # TODO Thread Deadlock oder sowas
             WorkspaceView.selection.delete()
 
         self.clearFocus()

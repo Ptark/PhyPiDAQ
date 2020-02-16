@@ -35,6 +35,10 @@ class SensorItem(OutputItem, ABC):
 
         ManagerModel.add_sensor(self)
 
+    def __del__(self):
+        #self.close()
+        pass
+
     @property
     def device(self):
         """Configuration (from PhyPiDAQ) of a sensor, this SensorItem represents"""

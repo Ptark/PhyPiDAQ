@@ -37,7 +37,9 @@ class SettingsButtonView(QPushButton):
 
     @staticmethod
     def click() -> NoReturn:
-        """a static method of the on click method that opens a window with the settings of the selected WorkspaceItemView"""
+        """a static method of the on click method that opens a window with the settings of the selected
+        WorkspaceItemView
+        """
         SettingsButtonView.__button.__on_click()
 
     @staticmethod

@@ -64,6 +64,9 @@ class ProxySensorItem(SensorItem):
         """Implements parent method because there is no device"""
         pass
 
+    def close(self) -> NoReturn:
+        pass
+
     @staticmethod
     def get_name() -> str:
         return "Von Datei Lesen"
