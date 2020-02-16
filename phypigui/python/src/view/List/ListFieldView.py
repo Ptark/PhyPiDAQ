@@ -50,15 +50,16 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
-        self.__group.setStyleSheet("QGroupBox { border: 1px solid gray }")
+        self.__group.setStyleSheet("QGroupBox { border: 1px solid gray ; margin: 0px; }")
         self.__layout.addWidget(self.__group)
         self.__group_layout.addWidget(self.__tab)
         self.__group_layout.addWidget(self.__search)
         self.setLayout(self.__layout)
+        self.setFixedWidth(260)
 
         self.__tab.setElideMode(Qt.ElideRight)
         self.__tab.setIconSize(QSize(35, 35))
-        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 56px; }")
+        self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 68px; }")
 
         for i in range(0, 3):
             self.__tab.addTab(self.__lists[i], self.__icons[i], "")
