@@ -55,7 +55,6 @@ class StartButtonView(QPushButton):
         Translator.language_changed.signal.connect(self.__update_text)
 
         self.__update_text()
-        print(DialogView.show_warning)
 
     def __update_text(self):
         tooltip = "Stop" if self.__is_started else "Start"
