@@ -28,8 +28,15 @@ class SubtractionOperatorItem(OperatorItem):
         return lambda data: first_function(data) - second_function(data)
 
     def get_unit(self, output_number: int = 0) -> str:
-        return "(" + WorkspaceModel.calculate_unit(self._inputs[0].id) + ") - (" +\
-            WorkspaceModel.calculate_unit(self._inputs[1].id) + ")"
+        left_unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
+        right_unit = WorkspaceModel.calculate_unit(self._inputs[1].id)
+        if left_unit == right_unit:
+            return left_unit
+        if left_unit == "":
+            return right_unit
+        if right_unit == "":
+            return left_unit
+        return "(" + left_unit + ") - (" + right_unit + ")"
 
     @staticmethod
     def get_name() -> str:
