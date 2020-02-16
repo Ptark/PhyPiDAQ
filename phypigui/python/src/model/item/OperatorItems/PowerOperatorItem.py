@@ -37,18 +37,18 @@ class PowerOperatorItem(OperatorItem):
         return "Exponentialsoperator"
 
 
-class PowerTenOperatorItem(OperatorItem):
-    """This class models an operator, which exponentiates a data-stream with an adjustable number
+class MagnitudeOperatorItem(OperatorItem):
+    """This class models an operator, which multiplies a data-stream with 10 to the power of an adjustable number
 
-    A PowerOperatorItem has one input and one output.
+    A MagnitudeOperatorItem has one input and one output.
     """
 
     def __init__(self):
-        """Initialising a PowerOperatorItem object"""
-        name: str = "Exponentialsoperator"
-        description: str = "Dieser Operator potenziert einen Datenstrom mit einer einstellbaren Zahl"
+        """Initialising a MagnitudeOperatorItem object"""
+        name: str = "Zehnerpotenzoperator"
+        description: str = "Dieser Operator multipliziert einen Datenstrom mit 10 hoch einer einstellbaren Zahl"
         config: ConfigModel = ConfigModel()
-        config.add_num_option(NumOption("Exponent", "Mit dieser Zahl wird der\nDaten-Strom potenziert", 0, -20, 20, 0))
+        config.add_num_option(NumOption("Exponent", "Mit dieser Zahl wird 10 potenziert", 0, -20, 20, 0))
 
         super().__init__(name, description, config, 1, 1)
 
@@ -60,8 +60,12 @@ class PowerTenOperatorItem(OperatorItem):
     def get_unit(self, output_number: int = 0) -> str:
         unit = WorkspaceModel.calculate_unit(self._inputs[0].id)
         number = str(self.config.num_options[0].number)
+        if number == '0':
+            return unit
+        if number == '1':
+            return unit + '*10'
         return unit + "*10^" + number
 
     @staticmethod
     def get_name() -> str:
-        return "Exponentialsoperator"
+        return "Zehnerpotenzoperator"

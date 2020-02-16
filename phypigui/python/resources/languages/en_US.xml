@@ -343,4 +343,8 @@
 		<source>Verbindung</source>
 		<translation>Connection</translation>
 	</item>
+	<item>
+		<source>Zehnerpotenzoperator</source>
+		<translation>Magnitude Operator</translation>
+	</item>
 </data>
