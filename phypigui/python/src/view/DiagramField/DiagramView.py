@@ -85,7 +85,7 @@ class TimeDiagram(DiagramView):
 
     def _draw_diagram(self) -> NoReturn:
         self._ax.clear()
-        
+
         self._ax.set_title(Translator.tr(self._item.name))
         self._ax.set_xlabel("s")
         self._ax.set_ylabel(self._item.unit[0])

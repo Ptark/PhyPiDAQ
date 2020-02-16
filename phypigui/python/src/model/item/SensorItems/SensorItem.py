@@ -14,13 +14,14 @@ from ...config.ConfigModel import ConfigModel
 class SensorItem(OutputItem, ABC):
     """This class is a superclass for all kind of SensorItems"""
 
-    def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, sensor_config):
+    def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, pins: List[int], sensor_config):
         """Initialising a SensorItem object
 
         Args:
             name (str): Name of this SensorItem
             description (str): Description of this SensorItem
             config (ConfigModel): A configuration of adjustable options for this SensorItem
+            pins (List[int]): List of pin-numbers, which the hardware-sensor should be connected to
             outputs (int): Count of outputs for this SensorItem
             sensor_config: Configuration of a sensor from PhyPiDAQ
         """
@@ -32,6 +33,7 @@ class SensorItem(OutputItem, ABC):
         for n in range(3):
             self._buffer.append(0)
         self._last_read_time: int = 0
+        self._pins: List[int] = pins
 
         ManagerModel.add_sensor(self)
 
@@ -48,6 +50,11 @@ class SensorItem(OutputItem, ABC):
     def buffer(self) -> List[float]:
         """Buffer, which contains the last read data from the hardware sensor"""
         return self._buffer
+
+    @property
+    def pins(self) -> List[int]:
+        """List of pin-numbers, which the hardware-sensor should be connected to"""
+        return self._pins
 
     def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         function: Callable[[Dict[SensorItem, List[float]]], float] = lambda data: data[self][output_number]

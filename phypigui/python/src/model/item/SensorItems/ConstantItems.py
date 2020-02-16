@@ -25,7 +25,9 @@ class NatureConstantItem(SensorItem):
         config: ConfigModel = ConfigModel()
         config.add_enum_option(EnumOption("Konstante", self.NatureConstants))
 
-        super().__init__(name, description, config, 1, None)
+        pins: List[int] = []
+
+        super().__init__(name, description, config, 1, pins, None)
 
     def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         return lambda data: list(self._config.enum_options[0].samples)[self._config.enum_options[0].selection].value

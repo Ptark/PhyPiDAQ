@@ -1,3 +1,5 @@
+from typing import List
+
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..SensorItems.SensorItem import SensorItem
@@ -16,7 +18,9 @@ class CurrentSensorItem(SensorItem):
         config: ConfigModel = ConfigModel()
         config.add_num_option(NumOption("Ausleserate", "", 100))
 
-        super().__init__(name, description, config, 1, None)  # INA219Config()
+        pins: List[int] = []
+
+        super().__init__(name, description, config, 1, pins, None)  # INA219Config()
 
     def get_unit(self, output_number: int = 0) -> str:
         return "mA"

@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import List
 
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
@@ -24,7 +25,9 @@ class TemperatureSensorItem(SensorItem):
         config.add_enum_option(EnumOption("Einheit", self.__TemperatureUnit))
         config.add_num_option(NumOption("Ausleserate", "", 100))
 
-        super().__init__(name, description, config, 1, None)  # DS18B20Config())
+        pins: List[int] = []
+
+        super().__init__(name, description, config, 1, pins, None)  # DS18B20Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         assert self._config.enum_options[0] is not None

@@ -23,9 +23,11 @@ class ProxySensorItem(SensorItem):
         config.add_file_option(FileOption("Dateipfad", "Der Dateipfad der\neinzulesenden Datei",
                                           FileOption.EXISTINGFILE, "PhyPiGUI-Dateien", ["ppg"], Path(start_path)))
 
+        pins: List[int] = []
+
         name: str = "Von Datei Lesen"
         description: str = "Lädt Einheit und Daten aus einer Datei und gibt sie aus."
-        super().__init__(name, description, config, 1, None)
+        super().__init__(name, description, config, 1, pins, None)
 
     def __set_file(self, path: Path):
         """Sets file, unit and data if the given path leads to a valid json file"""

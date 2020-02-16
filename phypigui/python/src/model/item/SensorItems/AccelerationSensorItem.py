@@ -1,3 +1,5 @@
+from typing import List
+
 from ...config.NumOption import NumOption
 from .SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
@@ -16,7 +18,9 @@ class AccelerationSensorItem(SensorItem):
         config: ConfigModel = ConfigModel()
         config.add_num_option(NumOption("Ausleserate", "", 100))
 
-        super().__init__(name, description, config, 3, None)  # MMA8451Config())
+        pins: List[int] = []
+
+        super().__init__(name, description, config, 3, pins, None)  # MMA8451Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         return "m*s^2"
