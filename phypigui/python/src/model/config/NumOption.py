@@ -3,7 +3,7 @@ import sys
 from typing import NoReturn
 
 from .OptionModel import OptionModel
-from ..ModelExceptions import NumberTooLarge, NumberTooSmall
+from ...Exceptions import NumberTooLarge, NumberTooSmall
 
 
 class NumOption(OptionModel):
@@ -44,9 +44,9 @@ class NumOption(OptionModel):
     @number.setter
     def number(self, value: float) -> NoReturn:
         if value > self.__max:
-            raise NumberTooLarge("The number for the option %s should be smaller equal %d." % (self._name, value, ))
+            raise NumberTooLarge(self._name, self.__max)
         elif value < self.__min:
-            raise NumberTooSmall("The number for the option %s should be greater equal %d." % (self._name, value, ))
+            raise NumberTooSmall(self._name, self.__min)
         self.__number = round(value, self.decimals)
 
     @property

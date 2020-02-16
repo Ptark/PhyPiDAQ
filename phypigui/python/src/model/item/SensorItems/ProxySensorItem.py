@@ -1,12 +1,11 @@
 from pathlib import Path
 from typing import List
-import os
 import json
 
 from .SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
 from ...config.FileOption import FileOption
-from ...ModelExceptions import PathDoesntExist
+from ....Exceptions import PathDoesntExist
 
 
 class ProxySensorItem(SensorItem):

@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt, QRect, QPointF
 from PyQt5.QtGui import QMouseEvent, QPaintEvent, QResizeEvent, QPainter, QPen, QWheelEvent
 from PyQt5.QtWidgets import QWidget, QGridLayout, QScrollArea, QScrollBar
 
-from ...Exceptions import DuplicateWorkspaceItemException
+from ...Exceptions import DuplicateWorkspaceItem
 
 
 class WorkspaceContentView(QWidget):
@@ -144,7 +144,7 @@ class WorkspaceView(QWidget):
         if unique:
             for i in WorkspaceView.items:
                 if i.__class__ is item.__class__:
-                    raise DuplicateWorkspaceItemException
+                    raise DuplicateWorkspaceItem
         WorkspaceView.items.append(item)
 
     @staticmethod

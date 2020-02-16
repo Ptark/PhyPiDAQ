@@ -303,4 +303,40 @@
 		<source>Der ausgewählte Dateipfad "%s" in "%s" wurde nicht gefunden</source>
 		<translation>The selected path "%s" from the item "%s" was not found</translation>
 	</item>
+	<item>
+		<source>Der Eingang mit der ID %d ist schon verbunden</source>
+		<translation>The input with ID %d is already connected</translation>
+	</item>
+	<item>
+		<source>Ungültige Eingabe bei der Option "%s"</source>
+		<translation>Invalid selection at option "%s"</translation>
+	</item>
+	<item>
+		<source>Index %d außerhalb des Bereichs</source>
+		<translation>index %d out of range</translation>
+	</item>
+	<item>
+		<source>Zahl sollte größer gleich %d sein</source>
+		<translation>number should be greater or equals %d</translation>
+	</item>
+	<item>
+		<source>Zahl sollte kleiner gleich %d sein</source>
+		<translation>number should be smaller or equals %d</translation>
+	</item>
+	<item>
+		<source>Die ID %d existiert nicht im Kontext "%s"</source>
+		<translation>The ID %d doesn't exist in the context "%s"</translation>
+	</item>
+	<item>
+		<source>Element</source>
+		<translation>item</translation>
+	</item>
+	<item>
+		<source>Eingang</source>
+		<translation>input</translation>
+	</item>
+	<item>
+		<source>Ausgang</source>
+		<translation>output</translation>
+	</item>
 </data>

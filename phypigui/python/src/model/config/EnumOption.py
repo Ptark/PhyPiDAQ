@@ -4,7 +4,7 @@ from enum import Enum
 from typing import NoReturn, Type
 
 from .OptionModel import OptionModel
-from ..ModelExceptions import OutOfRange
+from ...Exceptions import OutOfRange
 
 
 class EnumOption(OptionModel):
@@ -40,7 +40,7 @@ class EnumOption(OptionModel):
     @selection.setter
     def selection(self, selection_index: int) -> NoReturn:
         if 0 > selection_index or selection_index >= len(self.__samples):
-            raise OutOfRange("The selected index %d of option %s is out of range" % (selection_index, self._name, ))
+            raise OutOfRange(self._name, selection_index)
         self.__selection = selection_index
 
     @property

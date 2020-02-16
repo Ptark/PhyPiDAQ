@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget
 from .ItemEnum import ItemEnum
 from ..Translator import Translator
 from ..DialogView import DialogView
-from ...Exceptions import DuplicateWorkspaceItemException, DiagramMaximumReachedException
+from ...Exceptions import DuplicateWorkspaceItem, DiagramMaximumReached
 from .Draggable import Draggable
 from .WorkspaceItemView import WorkspaceItemView
 from ..Workspace.WorkspaceView import WorkspaceView
@@ -44,10 +44,10 @@ class DragItemView(Draggable, ABC):
         if WorkspaceView.is_on_workspace(self):
             try:
                 item = self.__item.create_workspace_item(WorkspaceView.widget)
-            except DuplicateWorkspaceItemException:
+            except DuplicateWorkspaceItem:
                 DialogView.show_warning(Translator.tr("Element schon auf Arbeitsfläche"),
                                         Translator.tr("Dieses Element kann nur einmal auf der Arbeitsfläche existieren."))
-            except DiagramMaximumReachedException:
+            except DiagramMaximumReached:
                 DialogView.show_warning(Translator.tr("Maximum an Diagrammen erreicht"),
                                         Translator.tr("Es können nur drei Diagramme gleichzeitig verwendet werden.\n"
                                                       "Lösche ein anderes Diagramm um ein neues zu verwenden."))

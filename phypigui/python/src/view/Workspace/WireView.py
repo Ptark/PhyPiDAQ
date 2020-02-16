@@ -3,7 +3,7 @@ from typing import NoReturn
 from PyQt5.QtCore import pyqtSignal, QObject, QPoint
 from PyQt5.QtWidgets import QWidget, QMenu, QLabel
 
-from ...model.ModelExceptions import IDNotFound
+from ...Exceptions import IDNotFound
 from ..Selectable import Selectable
 from .WorkspaceView import WorkspaceView
 from ..Translator import Translator

@@ -1,11 +1,10 @@
-import os
 import copy
 
 from typing import NoReturn, List
-from pathlib import Path, PurePath
+from pathlib import Path
 
 from .OptionModel import OptionModel
-from ..ModelExceptions import PathDoesntExist
+from ...Exceptions import PathDoesntExist
 
 
 class FileOption(OptionModel):

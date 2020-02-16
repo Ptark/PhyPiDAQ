@@ -6,7 +6,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QPushButton
 
 from ..DialogView import DialogView
-from ...model.ModelExceptions import PathDoesntExist
+from ...Exceptions import PathDoesntExist
 from ...SystemInfo import SystemInfo
 from ...GlobalSignals import GlobalSignals
 from ..Translator import Translator

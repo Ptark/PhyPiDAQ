@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QGri
 
 from ...SystemInfo import SystemInfo
 from ...model.manager.ManagerModel import ManagerModel
-from ...Exceptions import DiagramMaximumReachedException
+from ...Exceptions import DiagramMaximumReached
 from .DiagramView import DiagramView
 from .StartButtonView import StartButtonView
 
@@ -103,7 +103,7 @@ class DiagramFieldView(QWidget):
     def add_diagram(diagram: DiagramView) -> NoReturn:
         """adds diagram to list of diagrams & add it to the layout """
         if len(DiagramFieldView.__diagram_field.__list) >= 3:
-            raise DiagramMaximumReachedException
+            raise DiagramMaximumReached
         DiagramFieldView.__diagram_field.__list.append(diagram)
         DiagramFieldView.__diagram_field.__diagram_count += 1
         if DiagramFieldView.__diagram_field.__diagram_count == 2:
