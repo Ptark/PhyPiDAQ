@@ -52,7 +52,9 @@ class ConstantItem(SensorItem):
         config: ConfigModel = ConfigModel()
         config.add_num_option(NumOption("Konstante"))
 
-        super().__init__(name, description, config, 1, None)
+        pins: List[int] = []
+
+        super().__init__(name, description, config, 1, pins, None)
 
     def get_rule(self, output_number: int = 0) -> Callable[[Dict[SensorItem, List[float]]], float]:
         return lambda data: self._config.num_options[0].number
