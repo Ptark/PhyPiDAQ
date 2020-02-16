@@ -2,6 +2,7 @@ from ...model.config.NumOption import NumOption
 from .OptionView import OptionView
 from PyQt5 import QtWidgets, QtGui, QtCore
 from typing import NoReturn
+from ...Exceptions import NumberTooSmall, NumberTooLarge
 
 
 class NumOptionView(OptionView):
@@ -91,18 +92,19 @@ class NumOptionView(OptionView):
         # Validate input
         if self.__validator.validate(text, 0):
             # Check for edge-cases
-            if QtCore.QRegularExpression("^[-+]?\\.?$").match(text).hasMatch():
-                self.__option.number = 0
-                self.__error_label.setVisible(False)
-            else:
-                if float(text) > self.__option.max or float(text) < self.__option.min:
-                    self.__option.number = \
-                        str(self.__option.max) if float(text) > self.__option.max else str(self.__option.min)
-                    style_sheet = 'QLineEdit { background-color: ' + OptionView.ERROR_COLOR + '; }'
-                    self.__error_label.setVisible(True)
+            try:
+                if QtCore.QRegularExpression("^[-+]?\\.?$").match(text).hasMatch():
+                    self.__option.number = 0.0
                 else:
-                    self.option.number = round(float(text), self.__option.decimals - 1)
-                    self.__error_label.setVisible(False)
+                    self.__option.number = round(float(text), self.__option.decimals - 1)
+                self.__error_label.setVisible(False)
+            except Exception:
+                style_sheet = 'QLineEdit { background-color: ' + OptionView.ERROR_COLOR + '; }'
+                self.__error_label.setVisible(True)
+            except NumberTooLarge:
+                self.__option.number = self.__option.max
+            except NumberTooSmall:
+                self.__option.number = self.__option.min
             self.__text_field.setStyleSheet(style_sheet)
 
     def __set_slider_data(self, number: int) -> NoReturn:
