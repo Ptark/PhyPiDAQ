@@ -76,7 +76,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
         out_layout = QVBoxLayout()
         for i in range(len(self.__outputs)):
-            lab = QLabel(['x', 'y', 'z'][i])
+            lab = QLabel(['a', 'b', 'c'][i])
             lab.setFixedHeight(10)
             lab.setAlignment(Qt.AlignBottom)
             lay = QHBoxLayout()
