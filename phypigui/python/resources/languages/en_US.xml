@@ -333,10 +333,14 @@
 	</item>
 	<item>
 		<source>Eingang</source>
-		<translation>input</translation>
+		<translation>Input</translation>
 	</item>
 	<item>
 		<source>Ausgang</source>
-		<translation>output</translation>
+		<translation>Output</translation>
+	</item>
+	<item>
+		<source>Verbindung</source>
+		<translation>Connection</translation>
 	</item>
 </data>
