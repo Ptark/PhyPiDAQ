@@ -3,7 +3,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtCore import QPoint, Qt, pyqtSlot
 from PyQt5.QtGui import QMouseEvent
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMenu, QLabel, QHBoxLayout
 
 from ..InfoBar.InfoBarView import InfoBarView
 from ..InfoBar.SettingsButtonView import SettingsButtonView
@@ -61,20 +61,32 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
 
     def __init_ui(self) -> NoReturn:
         in_layout = QVBoxLayout()
-        for input in self.__inputs:
-            in_layout.addWidget(input)
+        for i in range(len(self.__inputs)):
+            lab = QLabel(['x', 'y', 'z'][i])
+            lab.setAlignment(Qt.AlignBottom)
+            lay = QHBoxLayout()
+            lay.setContentsMargins(0, 0, 0, 0)
+            lay.addWidget(self.__inputs[i])
+            lay.addWidget(lab)
+            in_layout.addLayout(lay)
         in_widget = QWidget(self)
-        in_widget.setFixedSize(30, 60)
+        in_widget.setFixedSize(50, 60)
         in_widget.setLayout(in_layout)
-        in_widget.move(-19, 0)
+        in_widget.move(-18, 0)
 
         out_layout = QVBoxLayout()
-        for output in self.__outputs:
-            out_layout.addWidget(output)
+        for i in range(len(self.__outputs)):
+            lab = QLabel(['x', 'y', 'z'][i])
+            lab.setAlignment(Qt.AlignBottom)
+            lay = QHBoxLayout()
+            lay.setContentsMargins(0, 0, 0, 0)
+            lay.addWidget(lab)
+            lay.addWidget(self.__outputs[i])
+            out_layout.addLayout(lay)
         out_widget = QWidget(self)
-        out_widget.setFixedSize(20, 60)
+        out_widget.setFixedSize(40, 60)
         out_widget.setLayout(out_layout)
-        out_widget.move(101, 0)
+        out_widget.move(88, 0)
 
         self.__update_text()
 
@@ -129,7 +141,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             background = "#CCCCCC"
 
         self.setStyleSheet("""
-            QFrame {
+            QFrame#item {
                 border: 2px solid """ + border + """;
                 border-radius: 5px;
                 background-color: """ + background + """;

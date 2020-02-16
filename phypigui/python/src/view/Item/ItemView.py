@@ -29,9 +29,10 @@ class ItemView(QFrame, View, ABC, metaclass=ItemViewMeta):
     def __init_ui(self) -> NoReturn:
         self.setFixedSize(120, 60)
         self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setObjectName("item")
 
         self.setStyleSheet("""
-            QFrame {
+            QFrame#item {
                 border: 2px solid black;
                 border-radius: 5px;
                 background-color: #CCCCCC;
