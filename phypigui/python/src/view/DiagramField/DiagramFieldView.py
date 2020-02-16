@@ -24,7 +24,7 @@ class DiagramFieldView(QWidget):
             self.__diagram: DiagramView = diagram
 
         def run(self) -> NoReturn:
-            self.__diagram.update_view()
+            self.__diagram.update_diagram()
 
     __diagram_field: 'DiagramFieldView'
 

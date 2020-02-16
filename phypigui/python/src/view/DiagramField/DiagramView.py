@@ -43,7 +43,6 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
         self._ax: Subplot = self._canvas.figure.add_subplot(111, projection=projection)
         self._data: type_data = data
         self._item: DiagramItem = item
-        self._item.attach(self)
 
         self.setStyleSheet("QFrame { border: 2px solid white; border-radius: 4px }")
         Translator.language_changed.signal.connect(self._draw_diagram)
@@ -54,15 +53,12 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
         pass
 
     @abstractmethod
-    def _update_diagram(self, data: List[float]) -> NoReturn:
+    def update_diagram(self) -> NoReturn:
         pass
 
     @abstractmethod
     def clear_diagram(self) -> NoReturn:
         pass
-
-    def update_view(self) -> NoReturn:
-        self._update_diagram(self._item.data)
 
     def update_selected_view(self, selected: bool):
         border = "blue" if selected else "white"
@@ -101,14 +97,14 @@ class TimeDiagram(DiagramView):
         except Exception:
             pass
 
-    def _update_diagram(self, data: List[float]) -> NoReturn:
+    def update_diagram(self) -> NoReturn:
         t = time.time() - StartButtonView.start_time
         while len(self._data['time']) > 0 and t - self._data['time'][0] > self.__displayed_seconds:
             for i in ['time', 'data']:
                 self._data[i].pop(0)
 
         self._data['time'].append(t)
-        self._data['data'].append(data[0])
+        self._data['data'].append(self._item.data[0])
 
         self._draw_diagram()
 
@@ -154,13 +150,13 @@ class DualDiagram(DiagramView):
 
         self._canvas.draw()
 
-    def _update_diagram(self, data: List[float]) -> NoReturn:
+    def update_diagram(self) -> NoReturn:
         if len(self._data['x']) >= self.__max_points:
             for i in ['x', 'y']:
                 self._data[i].pop(0)
 
         for i, j in [['x', 0], ['y', 1]]:
-            self._data[i].append(data[j])
+            self._data[i].append(self._item.data[j])
 
         self._draw_diagram()
 
@@ -172,7 +168,6 @@ class DualDiagram(DiagramView):
 
         if self.__max_points == 1:
             self.__points_connected = False
-
 
         for i in ['x', 'y']:
             self._data[i].clear()
@@ -207,8 +202,8 @@ class BarDiagram(DiagramView):
 
         self._canvas.draw()
 
-    def _update_diagram(self, data: List[float]) -> NoReturn:
-        self._data['data'] = data
+    def update_diagram(self) -> NoReturn:
+        self._data['data'] = self._item.data[:3]
 
         self._draw_diagram()
 
@@ -246,13 +241,13 @@ class ThreeDimDiagram(DiagramView):
 
         self._canvas.draw()
 
-    def _update_diagram(self, data: List[float]) -> NoReturn:
+    def update_diagram(self) -> NoReturn:
         if len(self._data['x']) > 10:
             for i in ['x', 'y', 'z']:
                 self._data[i].pop(0)
 
         for i, j in [['x', 0], ['y', 1], ['z', 2]]:
-            self._data[i].append(data[j])
+            self._data[i].append(self._item.data[j])
 
         self._draw_diagram()
 

@@ -133,6 +133,7 @@ class ManagerModel:
             ManagerModel.__read_data()
             for diagram in diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
+                diagram.notify()
             ManagerModel.__diagram_notifier.update_view()
             if ManagerModel.__selected_item is not None:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
