@@ -2,7 +2,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtCore import Qt, QSize, pyqtSlot
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QLineEdit
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QWidget, QLineEdit, QGroupBox
 
 from ...SystemInfo import SystemInfo
 from ..Item.ItemEnum import SensorEnum, OperatorEnum, DiagramEnum
@@ -30,6 +30,9 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__main = main
         self.__tab: QTabWidget = QTabWidget()
         self.__search: QLineEdit = QLineEdit()
+        self.__group: QGroupBox = QGroupBox()
+        self.__layout: QVBoxLayout = QVBoxLayout(self)
+        self.__group_layout: QVBoxLayout = QVBoxLayout(self.__group)
 
         self.__lists: List[ItemListView] = [
             ItemListView(main, list(SensorEnum)),
@@ -47,6 +50,12 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
+        self.__group.setStyleSheet("QGroupBox { border: 1px solid gray }")
+        self.__layout.addWidget(self.__group)
+        self.__group_layout.addWidget(self.__tab)
+        self.__group_layout.addWidget(self.__search)
+        self.setLayout(self.__layout)
+
         self.__tab.setElideMode(Qt.ElideRight)
         self.__tab.setIconSize(QSize(35, 35))
         self.__tab.setStyleSheet("QTabBar::tab { height: 45px; width: 62px; }"
@@ -57,13 +66,6 @@ class ListFieldView(QWidget, View, metaclass=ListFieldViewMeta):
 
         self.__search.setClearButtonEnabled(True)
         self.__search.textChanged.connect(self.__update_search)
-
-        layout = QVBoxLayout()
-        layout.setSpacing(0)
-        layout.addWidget(self.__tab)
-        layout.addWidget(self.__search)
-        self.setLayout(layout)
-        self.setFixedWidth(206)
 
         self.__update_text()
 
