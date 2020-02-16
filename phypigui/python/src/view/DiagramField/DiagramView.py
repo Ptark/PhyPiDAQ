@@ -79,6 +79,8 @@ class TimeDiagram(DiagramView):
         """
         data: type_data = {'time': [], 'data': []}
 
+        self.__displayed_seconds: float = 10.0
+
         super().__init__(data, item)
 
     def _draw_diagram(self) -> NoReturn:
@@ -94,7 +96,7 @@ class TimeDiagram(DiagramView):
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
         t = time.time() - StartButtonView.start_time
-        while t - self._data['time'][0] > 10:
+        while t - self._data['time'][0] > self.__displayed_seconds:
             for i in ['time', 'data']:
                 self._data[i].pop(0)
 
@@ -104,8 +106,12 @@ class TimeDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
-        self._data['time'] = [i / 5.0 for i in range(-50, 0)]
-        self._data['data'] = [0.0] * 50
+        self.__displayed_seconds = self._item.config.num_options[0].number
+
+        density = 5.0
+        repetitions = int(density * self.__displayed_seconds)
+        self._data['time'] = [i / density for i in range(-repetitions, 0)]
+        self._data['data'] = [0.0] * repetitions
 
         self._draw_diagram()
 
@@ -119,6 +125,10 @@ class DualDiagram(DiagramView):
             item (DualDiagramItem): plot diagram item
         """
         data: type_data = {'x': [0.0], 'y': [0.0]}
+        self.__dynamic = True
+        self.__points_connected = True
+        self.__limit = [-10.0, 10.0, -10.0, 10.0]
+        self.__max_points = 10
 
         super().__init__(data, item)
 
@@ -129,12 +139,18 @@ class DualDiagram(DiagramView):
         self._ax.set_xlabel(self._item.unit[0])
         self._ax.set_ylabel(self._item.unit[1])
 
-        self._ax.plot(self._data['x'], self._data['y'])
+        if not self.__dynamic:
+            self._ax.axis(self.__limit)
+
+        if self.__points_connected:
+            self._ax.plot(self._data['x'], self._data['y'])
+        else:
+            self._ax.scatter(self._data['x'], self._data['y'])
 
         self._canvas.draw()
 
     def _update_diagram(self, data: List[float]) -> NoReturn:
-        if len(self._data['x']) > 10:
+        if len(self._data['x']) >= self.__max_points:
             for i in ['x', 'y']:
                 self._data[i].pop(0)
 
@@ -144,6 +160,15 @@ class DualDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        self.__dynamic = self._item.config.bool_options[0].enabled
+        self.__points_connected = self._item.config.bool_options[1].enabled
+        self.__limit = [self._item.config.num_options[i].number for i in range(4)]
+        self.__max_points = self._item.config.num_options[4].number
+
+        if self.__max_points == 1:
+            self.__points_connected = False
+
+
         for i in ['x', 'y']:
             self._data[i].clear()
 
@@ -160,6 +185,8 @@ class BarDiagram(DiagramView):
         """
         data: type_data = {'data': []}
         self.__labels: List[str] = ["first input", "second input", "third input"]
+        self.__dynamic: bool = True
+        self.__limits: List[float] = [0.0, 10.0]
 
         super().__init__(data, item)
 
@@ -167,6 +194,9 @@ class BarDiagram(DiagramView):
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
+
+        if not self.__dynamic:
+            self._ax.axis([-0.5, 2.5] + self.__limits)
 
         self._ax.bar(self.__labels, self._data['data'])
 
@@ -178,6 +208,10 @@ class BarDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        self.__dynamic = self._item.config.bool_options[0].enabled
+        self.__limits[0] = self._item.config.num_options[0].number
+        self.__limits[1] = self._item.config.num_options[1].number
+
         self._data['data'] = [0.0] * 3
 
         self._draw_diagram()
