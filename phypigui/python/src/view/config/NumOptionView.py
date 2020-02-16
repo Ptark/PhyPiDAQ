@@ -10,7 +10,7 @@ class NumOptionView(OptionView):
     def __init__(self, parent: QtWidgets.QWidget, option: NumOption):
         super().__init__(parent, option.name, option.description)
         self.__option: NumOption = option
-        if self.__option.decimals == 0 and (self.__option.max - self.__option.min) <= 40:
+        if self.__option.decimals == 0 and (self.__option.max - self.__option.min) <= 41:
             # Slider
             self.__slider: QtWidgets.QSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
             # Slider-group
