@@ -23,7 +23,7 @@ from ...model.item.OperatorItems.MultiplicationOperatorItem import Multiplicatio
 from ...model.item.OperatorItems.DivisionOperatorItem import DivisionOperatorItem
 from ...model.item.OperatorItems.AbsoluteOperatorItem import AbsoluteOperatorItem
 from ...model.item.OperatorItems.NegativeOperatorItem import NegativeOperatorItem
-from ...model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem
+from ...model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem, PowerTenOperatorItem
 from ...model.item.OperatorItems.RootOperatorItem import RootOperatorItem
 from ...model.item.OperatorItems.CloneItem import CloneItem
 from ...model.item.SensorItems.ProxySensorItem import ProxySensorItem
@@ -93,6 +93,7 @@ class OperatorEnum(ItemEnum):
     ABSOLUTE_OPERATOR = (AbsoluteOperatorItem, 'absolute')
     NEGATIVE_OPERATOR = (NegativeOperatorItem, 'negative')
     POWER_OPERATOR = (PowerOperatorItem, 'power')
+    POWER_TEN_OPERATOR = (PowerTenOperatorItem, 'power_ten')
     ROOT_OPERATOR = (RootOperatorItem, 'root')
     CLONE_OPERATOR = (CloneItem, 'clone')
 
