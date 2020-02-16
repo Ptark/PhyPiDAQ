@@ -1,7 +1,7 @@
 from typing import NoReturn
 
 from PyQt5.QtCore import pyqtSignal, QObject, QPoint
-from PyQt5.QtWidgets import QWidget, QMenu, QLabel
+from PyQt5.QtWidgets import QWidget, QMenu, QLabel, QVBoxLayout
 
 from ...Exceptions import IDNotFound
 from ..Selectable import Selectable
@@ -28,6 +28,25 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.__input: QPoint = input
         self.__output_id: int = output_id
         self.__input_id: int = None
+
+        self.__info_widget: QWidget = QWidget()
+        self.__input_label: QLabel = QLabel()
+        self.__output_label: QLabel = QLabel()
+
+        self.__init_ui()
+
+    def __init_ui(self) -> NoReturn:
+        info_layout = QVBoxLayout()
+        info_layout.setContentsMargins(5, 5, 5, 5)
+        info_layout.setSpacing(5)
+
+        info_layout.addWidget(QLabel(Translator.tr("Verbindung")))
+        info_layout.addSpacing(5)
+        info_layout.addWidget(self.__output_label)
+        info_layout.addWidget(self.__input_label)
+        info_layout.addStretch()
+
+        self.__info_widget.setLayout(info_layout)
 
     @property
     def output(self) -> QPoint:
@@ -103,14 +122,13 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
     def get_info_widget(self) -> QWidget:
         """show the input and output of wire in info bar"""
 
-        widget = QWidget()
+        output_name = WorkspaceModel.get_output_item_name(self.__output_id)
+        input_name = WorkspaceModel.get_input_item_name(self.__input_id)
 
-        input = WorkspaceModel.get_input_item_name(self.__input_id)
-        output= WorkspaceModel.get_output_item_name(self.__output_id)
+        self.__output_label.setText(Translator.tr("Ausgang") + ": " + output_name)
+        self.__input_label.setText(Translator.tr("Eingang") + ": " + input_name)
 
-        QLabel("input: " + input + "\noutput: " + output, widget)
-
-        return widget
+        return self.__info_widget
 
     def open_config(self) -> NoReturn:
         """configuration of the Wire can not be opened because there is nothing to set in WireView"""
