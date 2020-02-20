@@ -3,6 +3,9 @@ import time
 
 from typing import Dict, List, NoReturn
 
+from ..config.ConfigModel import ConfigModel
+from ..config.NumOption import NumOption
+
 
 class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
@@ -21,6 +24,17 @@ class ManagerModel:
     __running: bool = False
     __selected_item: 'OutputItem' = None
     __diagram_notifier: 'View' = None
+    __settings: ConfigModel = ConfigModel()
+
+    @staticmethod
+    def init_config():
+        ManagerModel.__settings.add_num_option(NumOption("Aktualisierungsrate",
+                                                        "Aktualisierungsrate der Daten und Diagramme in "
+                                                        "Aktualisierungen pro Sekunde", 10, min=0.1, max=100))
+
+    @staticmethod
+    def get_settings() -> ConfigModel:
+        return ManagerModel.__settings
 
     @staticmethod
     def __init_functions() -> NoReturn:
@@ -129,7 +143,9 @@ class ManagerModel:
         ManagerModel.__init_functions()
         ManagerModel.__running = True
         diagrams: List['DiagramItem'] = ManagerModel.__diagrams.copy()
+        update_rate = ManagerModel.__settings.num_options[0].number
         while ManagerModel.__running:
+            start_time = time.time()
             ManagerModel.__read_data()
             for diagram in diagrams:
                 diagram.calculate(ManagerModel.__sensor_data)
@@ -138,7 +154,9 @@ class ManagerModel:
             if ManagerModel.__selected_item is not None:
                 ManagerModel.__selected_item.calculate(ManagerModel.__sensor_data)
                 ManagerModel.__selected_item.notify()
-            time.sleep(0.1)  # TODO: async
+            time_to_wait = 1/update_rate - time.time() + start_time
+            if time_to_wait > 0:
+                time.sleep(time_to_wait)
         for d in diagrams:
             d.stop()
 

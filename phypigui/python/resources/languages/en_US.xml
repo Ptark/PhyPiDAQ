@@ -4,10 +4,6 @@
 		<translation>File</translation>
 	</item>
     <item>
-		<source>Optionen</source>
-		<translation>Settings</translation>
-	</item>
-    <item>
 		<source>Hilfe</source>
 		<translation>Help</translation>
 	</item>
@@ -346,5 +342,21 @@
 	<item>
 		<source>Zehnerpotenzoperator</source>
 		<translation>Magnitude Operator</translation>
+	</item>
+	<item>
+		<source>Globales</source>
+		<translation>Global</translation>
+	</item>
+	<item>
+		<source>Globale Einstellungen</source>
+		<translation>Global Settings</translation>
+	</item>
+	<item>
+		<source>Aktualisierungsrate</source>
+		<translation>Update Rate</translation>
+	</item>
+	<item>
+		<source>Aktualisierungsrate der Daten und Diagramme in Aktualisierungen pro Sekunde</source>
+		<translation>Update rate of data and charts in updates per second</translation>
 	</item>
 </data>
