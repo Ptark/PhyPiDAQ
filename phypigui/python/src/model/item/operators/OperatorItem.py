@@ -6,7 +6,7 @@ from ...config.ConfigModel import ConfigModel
 
 
 class OperatorItem(InputItem, OutputItem, ABC):
-    """This class is a superclass for all kind of OperatorItems"""
+    """This class is a superclass for all kind of operators"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int, outputs: int):
         """Initialising a OperatorItem object

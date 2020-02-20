@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget
 from ...model.manager.ManagerModel import ManagerModel
 from ..DiagramField.DiagramFieldView import DiagramFieldView
 from ..DiagramField.DiagramView import DiagramView
-from ...model.item.DiagramItems.DiagramItem import DiagramItem
+from ...model.item.diagrams.DiagramItem import DiagramItem
 from ..Item.WorkspaceItemView import WorkspaceItemView
 
 

@@ -1,8 +1,8 @@
 from typing import Callable, Dict, List
 
 from ...config.ConfigModel import ConfigModel
-from ..OperatorItems.OperatorItem import OperatorItem
-from ..SensorItems.SensorItem import SensorItem
+from ..operators.OperatorItem import OperatorItem
+from ..sensors.SensorItem import SensorItem
 from ...workspace.WorkspaceModel import WorkspaceModel
 
 

@@ -4,7 +4,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ...config.EnumOption import EnumOption
-from ..SensorItems.SensorItem import SensorItem
+from ..sensors.SensorItem import SensorItem
 # from ......phypidaq import DS18B20Config
 
 

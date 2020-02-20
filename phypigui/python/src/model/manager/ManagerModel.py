@@ -11,8 +11,8 @@ class ManagerModel:
     """This class manages the initialising of the lambda-functions, the reading of data from all sensors
     and the calculating of the results
 
-    ManagerModel has only static attributes and methods and holds lists from all SensorItems for reading data and all
-    DiagramItems for calculating its data.
+    ManagerModel has only static attributes and methods and holds lists from all sensors for reading data and all
+    diagrams for calculating its data.
     This class holds also the current, from the user, selected OutputItem to calculate its data too.
     If no OutputItem is selected, the Manager will ignore it.
     The main methods of this class are start() and stop().
@@ -38,7 +38,7 @@ class ManagerModel:
 
     @staticmethod
     def __init_functions() -> NoReturn:
-        """Initialises and constructs all lambda-functions and unit recursively starting at the DiagramItems
+        """Initialises and constructs all lambda-functions and unit recursively starting at the diagrams
 
         Raises:
             IDNotFound: If something went wrong with the recursion
@@ -81,7 +81,7 @@ class ManagerModel:
 
     @staticmethod
     def add_sensor(sensor: 'SensorItem') -> NoReturn:
-        """Adds a SensorItem to the global list of SensorItems
+        """Adds a SensorItem to the global list of sensors
 
         This method is typically called in the constructor of a SensorItem to add it to the list.
 
@@ -94,7 +94,7 @@ class ManagerModel:
 
     @staticmethod
     def delete_sensor(sensor: 'SensorItem') -> NoReturn:
-        """Deletes a SensorItem from the global list of SensorItems
+        """Deletes a SensorItem from the global list of sensors
 
         This method is typically called in the destructor af a SensorItem.
 
@@ -107,7 +107,7 @@ class ManagerModel:
 
     @staticmethod
     def add_diagram(diagram: 'DiagramItem') -> NoReturn:
-        """Adds a DiagramItem to the global list of DiagramItems
+        """Adds a DiagramItem to the global list of diagrams
 
         This method is typically called in the constructor of a DiagramItem to add it to the list.
 
@@ -119,7 +119,7 @@ class ManagerModel:
 
     @staticmethod
     def delete_diagram(diagram: 'DiagramItem') -> NoReturn:
-        """Deletes a DiagramItem from the global list of DiagramItems
+        """Deletes a DiagramItem from the global list of diagrams
 
         This method is typically called in the destructor af a DiagramItem.
 
@@ -131,10 +131,10 @@ class ManagerModel:
 
     @staticmethod
     def start() -> NoReturn:    # TODO Exceptions
-        """Starts a measuring process and calculates for all DiagramItems and the selected item their data
+        """Starts a measuring process and calculates for all diagrams and the selected item their data
 
         Typically called if the start button was clicked.
-        First this method calculates all lambda-functions and units recursively starting in the DiagramItems.
+        First this method calculates all lambda-functions and units recursively starting in the diagrams.
         Second this method continuously reads the current data from each SensorItem in its list and and put it in the
         lambda-function of every DiagramItem. Also it notify the View. After that the method puts in the read data in
         the selected OutputItem and notify the View.

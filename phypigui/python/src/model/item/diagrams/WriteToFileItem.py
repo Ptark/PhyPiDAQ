@@ -4,10 +4,10 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from ..SensorItems.SensorItem import SensorItem
+from ..sensors.SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
 from ...config.FileOption import FileOption
-from ..DiagramItems.DiagramItem import DiagramItem
+from ..diagrams.DiagramItem import DiagramItem
 
 
 class WriteToFileItem(DiagramItem):

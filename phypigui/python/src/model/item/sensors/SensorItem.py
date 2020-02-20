@@ -12,7 +12,7 @@ from ...config.ConfigModel import ConfigModel
 
 
 class SensorItem(OutputItem, ABC):
-    """This class is a superclass for all kind of SensorItems"""
+    """This class is a superclass for all kind of sensors"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, pins: List[int], sensor_config):
         """Initialising a SensorItem object

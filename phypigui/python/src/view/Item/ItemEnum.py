@@ -5,38 +5,38 @@ from typing import Type
 from PyQt5.QtWidgets import QWidget
 
 from ...SystemInfo import SystemInfo
-from ...model.item.SensorItems.AccelerationSensorItem import AccelerationSensorItem
-from ...model.item.SensorItems.ConstantItems import ConstantItem, NatureConstantItem
-from ...model.item.SensorItems.CurrentSensorItem import CurrentSensorItem
-from ...model.item.DiagramItems.DiagramItem import DiagramItem
-from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
-from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
-from ...model.item.DiagramItems.ThreeDimDiagramItem import ThreeDimDiagramItem
-from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
-from ...model.item.SensorItems.DistanceSensorItem import DistanceSensorItem
-from ...model.item.SensorItems.ForceSensorItem import ForceSensorItem
+from ...model.item.sensors.AccelerationSensorItem import AccelerationSensorItem
+from ...model.item.sensors.ConstantItems import ConstantItem, NatureConstantItem
+from ...model.item.sensors.CurrentSensorItem import CurrentSensorItem
+from ...model.item.diagrams.DiagramItem import DiagramItem
+from ...model.item.diagrams.TimeDiagramItem import TimeDiagramItem
+from ...model.item.diagrams.DualDiagramItem import DualDiagramItem
+from ...model.item.diagrams.ThreeDimDiagramItem import ThreeDimDiagramItem
+from ...model.item.diagrams.BarDiagramItem import BarDiagramItem
+from ...model.item.sensors.DistanceSensorItem import DistanceSensorItem
+from ...model.item.sensors.ForceSensorItem import ForceSensorItem
 from ...model.item.ItemModel import ItemModel
-from ...model.item.OperatorItems.OperatorItem import OperatorItem
-from ...model.item.OperatorItems.AdditionOperatorItem import AdditionOperatorItem
-from ...model.item.OperatorItems.SubtractionOperatorItem import SubtractionOperatorItem
-from ...model.item.OperatorItems.MultiplicationOperatorItem import MultiplicationOperatorItem
-from ...model.item.OperatorItems.DivisionOperatorItem import DivisionOperatorItem
-from ...model.item.OperatorItems.AbsoluteOperatorItem import AbsoluteOperatorItem
-from ...model.item.OperatorItems.NegativeOperatorItem import NegativeOperatorItem
-from ...model.item.OperatorItems.PowerOperatorItem import PowerOperatorItem, MagnitudeOperatorItem
-from ...model.item.OperatorItems.RootOperatorItem import RootOperatorItem
-from ...model.item.OperatorItems.CloneItem import CloneItem
-from ...model.item.SensorItems.ProxySensorItem import ProxySensorItem
-from ...model.item.SensorItems.RGBSensorItem import RGBSensorItem
-from ...model.item.SensorItems.SensorItem import SensorItem
-from ...model.item.SensorItems.TemperatureSensorItem import TemperatureSensorItem
-from ...model.item.SensorItems.VoltageSensorItem import VoltageSensorItem
+from ...model.item.operators.OperatorItem import OperatorItem
+from ...model.item.operators.AdditionOperatorItem import AdditionOperatorItem
+from ...model.item.operators.SubtractionOperatorItem import SubtractionOperatorItem
+from ...model.item.operators.MultiplicationOperatorItem import MultiplicationOperatorItem
+from ...model.item.operators.DivisionOperatorItem import DivisionOperatorItem
+from ...model.item.operators.AbsoluteOperatorItem import AbsoluteOperatorItem
+from ...model.item.operators.NegativeOperatorItem import NegativeOperatorItem
+from ...model.item.operators.PowerOperatorItem import PowerOperatorItem, MagnitudeOperatorItem
+from ...model.item.operators.RootOperatorItem import RootOperatorItem
+from ...model.item.operators.CloneItem import CloneItem
+from ...model.item.sensors.ProxySensorItem import ProxySensorItem
+from ...model.item.sensors.RGBSensorItem import RGBSensorItem
+from ...model.item.sensors.SensorItem import SensorItem
+from ...model.item.sensors.TemperatureSensorItem import TemperatureSensorItem
+from ...model.item.sensors.VoltageSensorItem import VoltageSensorItem
 from ..DiagramField.DiagramView import DiagramView, TimeDiagram, DualDiagram, BarDiagram, ThreeDimDiagram
 from .DiagramItemView import DiagramItemView
 from .OperatorItemView import OperatorItemView
 from .SensorItemView import SensorItemView
 from .WorkspaceItemView import WorkspaceItemView
-from ...model.item.DiagramItems.WriteToFileItem import WriteToFileItem
+from ...model.item.diagrams.WriteToFileItem import WriteToFileItem
 
 
 class ItemEnumMeta(type(ABC), type(Enum)):

@@ -3,13 +3,13 @@ from typing import List, Callable, Dict, NoReturn
 
 from ...manager.ManagerModel import ManagerModel
 from ..InputItem import InputItem
-from ..SensorItems.SensorItem import SensorItem
+from ..sensors.SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
 from ...workspace.WorkspaceModel import WorkspaceModel
 
 
 class DiagramItem(InputItem, ABC):
-    """This class is a superclass for all kind of DiagramItems"""
+    """This class is a superclass for all kind of diagrams"""
 
     def __init__(self, name: str, description: str, config: ConfigModel, inputs: int):
         """Initialising a DiagramItem object

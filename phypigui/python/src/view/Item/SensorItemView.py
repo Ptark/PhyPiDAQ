@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QLabel
 
 from ..Translator import Translator
 from ...model.manager.ManagerModel import ManagerModel
-from ...model.item.SensorItems.SensorItem import SensorItem
+from ...model.item.sensors.SensorItem import SensorItem
 from .WorkspaceItemView import WorkspaceItemView
 
 

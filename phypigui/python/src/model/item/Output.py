@@ -48,7 +48,7 @@ class Output(Identifiable):
         """The constructed lambda-function for this output
 
         It is a constant zero function, if the stored function is not valid or the parent item has no valid connections
-        to enough SensorItems.
+        to enough sensors.
         Next time the ManagerModel initialises the lambda-functions, this lambda-function will be updated.
         """
         if not self.__is_function_valid:

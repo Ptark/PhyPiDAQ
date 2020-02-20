@@ -11,11 +11,11 @@ from PyQt5.QtWidgets import QSizePolicy, QFrame, QGridLayout
 
 from ..Translator import Translator
 from ..View import View
-from ...model.item.DiagramItems.DiagramItem import DiagramItem
-from ...model.item.DiagramItems.TimeDiagramItem import TimeDiagramItem
-from ...model.item.DiagramItems.BarDiagramItem import BarDiagramItem
-from ...model.item.DiagramItems.DualDiagramItem import DualDiagramItem
-from ...model.item.DiagramItems.ThreeDimDiagramItem import ThreeDimDiagramItem
+from ...model.item.diagrams.DiagramItem import DiagramItem
+from ...model.item.diagrams.TimeDiagramItem import TimeDiagramItem
+from ...model.item.diagrams.BarDiagramItem import BarDiagramItem
+from ...model.item.diagrams.DualDiagramItem import DualDiagramItem
+from ...model.item.diagrams.ThreeDimDiagramItem import ThreeDimDiagramItem
 from .StartButtonView import StartButtonView
 
 

@@ -1,7 +1,7 @@
 from ...config.BoolOption import BoolOption
 from ...config.NumOption import NumOption
 from ...config.ConfigModel import ConfigModel
-from ..DiagramItems.DiagramItem import DiagramItem
+from ..diagrams.DiagramItem import DiagramItem
 
 
 class BarDiagramItem(DiagramItem):

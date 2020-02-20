@@ -31,7 +31,7 @@ class OutputItem(ItemModel, ABC):
 
         This method calls all previous items to construct their lambda-functions and constructs with these a new
         lambda-function for the specified output.
-        Returns a constant zero lambda-function, if this item has no valid connections to enough SensorItems.
+        Returns a constant zero lambda-function, if this item has no valid connections to enough sensors.
         The standard output_number is zero.
 
         Args:
@@ -39,7 +39,7 @@ class OutputItem(ItemModel, ABC):
 
         Returns:
             Callable[[Dict[SensorItem, List[float]]], float]: Lambda-function for the output.
-                Constant zero lambda-function, if this item has no valid connections to enough SensorItems.
+                Constant zero lambda-function, if this item has no valid connections to enough sensors.
         """
         pass
 
@@ -49,7 +49,7 @@ class OutputItem(ItemModel, ABC):
 
         This method calls all previous items to construct their units and constructs with these a new
         unit for the specified output.
-        Returns a empty string, if this item has no valid connections to enough SensorItems.
+        Returns a empty string, if this item has no valid connections to enough sensors.
         The standard output_number is zero.
 
         Args:
@@ -57,7 +57,7 @@ class OutputItem(ItemModel, ABC):
 
         Returns:
             str: unit of the output.
-                Empty string, if this item has no valid connections to enough SensorItems.
+                Empty string, if this item has no valid connections to enough sensors.
         """
         pass
 
@@ -92,7 +92,7 @@ class OutputItem(ItemModel, ABC):
 
         Returns:
              List[str]: List of units. A unit is an empty string, if this item has no valid connections to enough
-                SensorItems.
+                sensors.
         """
         units: List[str] = []
         for output in self._outputs:
