@@ -94,8 +94,8 @@ class TimeDiagram(DiagramView):
         # TODO Wired exception in matplotlib
         try:
             self._canvas.draw()
-        except Exception:
-            pass
+        except Exception as e:
+            print("\033[1;31m" + "MatPlotLib diagram error:", e)
 
     def update_diagram(self) -> NoReturn:
         t = time.time() - StartButtonView.start_time
