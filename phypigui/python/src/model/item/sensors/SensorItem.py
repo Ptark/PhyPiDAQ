@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 import time
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import List, Callable, Dict, NoReturn
 
 from ...manager.ManagerModel import ManagerModel

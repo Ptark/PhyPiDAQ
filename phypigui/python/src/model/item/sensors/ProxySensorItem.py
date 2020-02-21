@@ -43,10 +43,11 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
-        self.__set_file(self._config.file_options[0].path)
-        # assert self.unit != ""
+        try:
+            self.__set_file(self._config.file_options[0].path)
+        except PathDoesntExist as e:
+            print(str(e))
         return self.unit
-        # return unit read from file
 
     def read(self) -> List[float]:
         """Read the current value from the file and increase current value by 1 or loop if too big
@@ -64,9 +65,6 @@ class ProxySensorItem(SensorItem):
 
     def close(self) -> NoReturn:
         """Implements parent method because there is no device"""
-        pass
-
-    def close(self) -> NoReturn:
         pass
 
     @staticmethod
