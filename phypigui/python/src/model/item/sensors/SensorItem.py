@@ -61,7 +61,7 @@ class SensorItem(OutputItem, ABC):
         return function
 
     def read(self) -> List[float]:
-        """Read data from physical sensor and returns a List of every measured value of the sensor
+        """Read data from physical or simulated sensor and returns a List of every measured value of the sensor
 
         Returns:
             List[float]: List of measured values

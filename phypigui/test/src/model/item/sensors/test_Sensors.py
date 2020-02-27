@@ -11,6 +11,7 @@ from phypigui.python.src.model.item.sensors.TemperatureSensorItem import Tempera
 from phypigui.python.src.model.item.sensors.VoltageSensorItem import VoltageSensorItem
 
 
+# fixture method sets up for the tests
 @pytest.fixture(scope="class", params=[
     AccelerationSensorItem,
     ConstantItem,
@@ -34,3 +35,9 @@ def test_get_unit(sensors):
 
 def test_get_name(sensors):
     assert isinstance(sensors.get_name(), str)
+
+
+def test_del(sensors):
+    sensors.__del__()
+
+
