@@ -2,7 +2,7 @@ import os
 import time
 import json
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, NoReturn
 
 from ..sensors.SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
@@ -28,23 +28,19 @@ class WriteToFileItem(DiagramItem):
                                           FileOption.DIR, "", None, Path(dir_path)))
         super().__init__(name, description, config, 1)
 
-    def calculate_functions(self) -> bool:
+    def calculate_functions(self) -> NoReturn:
         """Override method in superclass to add path creation of file"""
-        success = super().calculate_functions()
-        if success:
-            self.path = str(self._config.file_options[0].path) + os.path.sep + self._unit[0] + str(time.time()) + ".ppg"
-            self.loaded_json = {
-                "unit": self._unit[0],
-                "data": []
-            }
-        return success
+        super().calculate_functions()
+        self.path = str(self._config.file_options[0].path) + os.path.sep + self._unit[0] + str(time.time()) + ".ppg"
+        self.loaded_json = {
+            "unit": self._unit[0],
+            "data": []
+        }
 
-    def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> bool:
+    def calculate(self, sensor_data: Dict[SensorItem, List[float]]) -> NoReturn:
         """Override method in superclass to add writing to file"""
-        success = super().calculate(sensor_data)
-        if success:
-            self.loaded_json["data"].append(self._data[0])
-        return success
+        super().calculate(sensor_data)
+        self.loaded_json["data"].append(self._data[0])
 
     def stop(self):
         """Override method in superclass. Write accumulated json to file"""

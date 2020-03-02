@@ -193,7 +193,7 @@ class WorkspaceView(QWidget):
     def is_on_workspace(widget: QWidget) -> bool:
         """checks if the widget is currently on the workspace
            Args:
-               widget(QWidget): the widget to test if its on workspaceview
+               widget(QWidget): the widget to test_output if its on workspaceview
         """
         widget_rect = QRect(widget.parent().mapToGlobal(widget.pos()), widget.size())
         boundary_rect = QRect(WorkspaceView.main.mapToGlobal(WorkspaceView.boundary.pos()), WorkspaceView.boundary.size())

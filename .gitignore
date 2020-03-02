@@ -3,3 +3,4 @@
 **/__pycache__
 **/python/resources/data/*[1-9].ppg
 *.coverage
+**/test/resources/test_output/*

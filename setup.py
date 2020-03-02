@@ -7,7 +7,7 @@ from setuptools.command.test import test as TestCommand
 # class for running unit tests
 # from: https://pytest.org/latest/goodpractices.html
 class PyTest(TestCommand):
-    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
+    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test_output")]
 
     def initialize_options(self):
         TestCommand.initialize_options(self)

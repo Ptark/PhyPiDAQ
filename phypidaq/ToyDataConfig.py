@@ -5,7 +5,7 @@ from __future__ import absolute_import
 import numpy as np, sys
 
 class ToyDataConfig(object):
-  '''generate artifical data to test/debug PhyPiDAQ
+  '''generate artifical data to test_output/debug PhyPiDAQ
   '''
 
   def __init__(self, confdict = None):
