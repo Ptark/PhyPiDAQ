@@ -1,5 +1,6 @@
 from abc import ABC
 
+from ...manager.ManagerModel import ManagerModel
 from ..InputItem import InputItem
 from ..OutputItem import OutputItem
 from ...config.ConfigModel import ConfigModel
@@ -20,3 +21,4 @@ class OperatorItem(InputItem, OutputItem, ABC):
         """
         InputItem.__init__(self, name, description, config, inputs)
         OutputItem.__init__(self, name, description, config, outputs)
+        ManagerModel.add_operator(self)

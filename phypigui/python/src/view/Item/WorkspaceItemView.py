@@ -166,13 +166,12 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.close()
 
     def update_view(self) -> NoReturn:
-        if self.selected:
-            str_data = list(map(lambda x: str(round(x, 5)), self.get_data()))
-            data_units = [str_data[i] + ' ' + self.get_units()[i] for i in range(len(str_data))]
-            text = ""
-            for s in data_units:
-                text += s + "\n\t"
-            self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
+        str_data = list(map(lambda x: str(round(x, 5)), self.get_data()))
+        data_units = [str_data[i] + ' ' + self.get_units()[i] for i in range(len(str_data))]
+        text = ""
+        for s in data_units:
+            text += s + "\n\t"
+        self.__data_text.setText(Translator.tr("Daten") + ":\t" + text)
 
     @abstractmethod
     def get_data(self) -> List[float]:

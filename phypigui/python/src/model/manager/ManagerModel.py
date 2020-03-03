@@ -19,6 +19,7 @@ class ManagerModel:
     """
 
     __sensors: List['SensorItem'] = []
+    __operators: List['OperatorItem'] = []
     __diagrams: List['DiagramItem'] = []
     __sensor_data: Dict['SensorItem', List[float]] = {}
     __running: bool = False
@@ -106,6 +107,30 @@ class ManagerModel:
             ManagerModel.__sensor_data.pop(sensor)
 
     @staticmethod
+    def add_operator(operator: 'OperatorItem') -> NoReturn:
+        """Adds a OperatorItem to the global list of operators
+
+        This method is typically called in the constructor of a OperatorItem to add it to the list.
+
+        Args:
+            operator (OperatorItem): OperatorItem to be added
+        """
+        if operator is not None:
+            ManagerModel.__operators.append(operator)
+
+    @staticmethod
+    def delete_operator(operator: 'OperatorItem') -> NoReturn:
+        """Deletes a OperatorItem from the global list of operators
+
+        This method is typically called in the destructor af a OperatorItem.
+
+        Args:
+            operator (OperatorItem): OperatorItem to be deleted
+        """
+        if operator is not None:
+            ManagerModel.__operators.remove(operator)
+
+    @staticmethod
     def add_diagram(diagram: 'DiagramItem') -> NoReturn:
         """Adds a DiagramItem to the global list of diagrams
 
@@ -159,6 +184,9 @@ class ManagerModel:
                 time.sleep(time_to_wait)
         for d in diagrams:
             d.stop()
+        for i in ManagerModel.__sensors + ManagerModel.__operators + ManagerModel.__diagrams:
+            i.calculate(ManagerModel.__sensor_data)
+            i.notify()
 
     @staticmethod
     def stop() -> NoReturn:

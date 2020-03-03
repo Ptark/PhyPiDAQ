@@ -18,6 +18,10 @@ class OperatorItemView(WorkspaceItemView):
 
         super().__init__(parent, operator, self._model.get_input_ids(), self._model.get_output_ids())
 
+    def delete(self) -> NoReturn:
+        ManagerModel.delete_operator(self._model)
+        super().delete()
+
     def _select(self) -> NoReturn:
         ManagerModel.set_selected_item(self._model if self.selected else None)
         super()._select()
