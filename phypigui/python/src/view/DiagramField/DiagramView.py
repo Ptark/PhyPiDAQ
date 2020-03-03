@@ -50,7 +50,11 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
 
     @abstractmethod
     def _draw_diagram(self) -> NoReturn:
-        pass
+        self._canvas.figure.tight_layout()
+        try:
+            self._canvas.draw()
+        except Exception as e:
+            print("\033[1;31m" + "MatPlotLib diagram error:", e)
 
     @abstractmethod
     def update_diagram(self) -> NoReturn:
@@ -91,11 +95,7 @@ class TimeDiagram(DiagramView):
 
         self._ax.plot(self._data['time'], self._data['data'])
 
-        # TODO Wired exception in matplotlib
-        try:
-            self._canvas.draw()
-        except Exception as e:
-            print("\033[1;31m" + "MatPlotLib diagram error:", e)
+        super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
         t = time.time() - StartButtonView.start_time
@@ -148,7 +148,7 @@ class DualDiagram(DiagramView):
         else:
             self._ax.scatter(self._data['x'], self._data['y'])
 
-        self._canvas.draw()
+        super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
         if len(self._data['x']) >= self.__max_points:
@@ -200,7 +200,7 @@ class BarDiagram(DiagramView):
 
         self._ax.bar(self.__labels, self._data['data'])
 
-        self._canvas.draw()
+        super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
         self._data['data'] = self._item.data[:3]
@@ -239,7 +239,7 @@ class ThreeDimDiagram(DiagramView):
 
         self._ax.plot3D(self._data['x'], self._data['y'], self._data['z'])
 
-        self._canvas.draw()
+        super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
         if len(self._data['x']) > 10:
