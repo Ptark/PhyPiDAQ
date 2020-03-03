@@ -43,10 +43,7 @@ class ProxySensorItem(SensorItem):
     def get_unit(self, output_number: int = 0) -> str:
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
-        try:
-            self.__set_file(self._config.file_options[0].path)
-        except PathDoesntExist as e:
-            print(str(e))
+        self.__set_file(self._config.file_options[0].path)
         return self.unit
 
     def read(self) -> List[float]:
