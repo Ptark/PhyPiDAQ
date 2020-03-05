@@ -1,17 +1,9 @@
-import pytest
-
 from PyQt5.QtCore import QLocale
 
-from phypigui.python.src.SystemInfo import SystemInfo
 from phypigui.python.src.view.Translator import Translator
 
 
-@pytest.fixture
-def system():
-    SystemInfo.RESOURCES = '../../../python/resources/'
-
-
-def test_install_translator(system):
+def test_install_translator():
     assert Translator.install_translator(QLocale.German)
     assert _translator() is None
 
@@ -33,7 +25,7 @@ def test_install_translator(system):
     assert _translator() == english
 
 
-def test_translate(system):
+def test_translate():
     Translator.install_translator(QLocale.German)
 
     _assert_tr_same("Datei")
@@ -54,7 +46,7 @@ def test_translate(system):
     _assert_tr_same("\t\0")
 
 
-def test_language_changed_signal(system, qtbot):
+def test_language_changed_signal(qtbot):
     Translator.install_translator(QLocale.German)
 
     with qtbot.waitSignal(Translator.language_changed.signal, timeout=5000):
