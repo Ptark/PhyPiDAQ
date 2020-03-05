@@ -1,5 +1,6 @@
 import pytest
 
+from phypigui.python.src.Exceptions import PathDoesntExist
 from phypigui.python.src.model.item.sensors.AccelerationSensorItem import AccelerationSensorItem
 from phypigui.python.src.model.item.sensors.ConstantItems import ConstantItem, NatureConstantItem
 from phypigui.python.src.model.item.sensors.CurrentSensorItem import CurrentSensorItem
@@ -19,7 +20,6 @@ from phypigui.python.src.model.item.sensors.VoltageSensorItem import VoltageSens
     CurrentSensorItem,
     DistanceSensorItem,
     ForceSensorItem,
-    ProxySensorItem,
     RGBSensorItem,
     TemperatureSensorItem,
     VoltageSensorItem
@@ -27,6 +27,11 @@ from phypigui.python.src.model.item.sensors.VoltageSensorItem import VoltageSens
 def sensors(request):
     """Returns all sensors sequentially"""
     return request.param()
+
+
+@pytest.fixture
+def proxy_sensor():
+    return ProxySensorItem()
 
 
 def test_get_unit(sensors):
@@ -40,4 +45,12 @@ def test_get_name(sensors):
 def test_del(sensors):
     sensors.__del__()
 
+
+def test_proxy_get_unit(proxy_sensor):
+    with pytest.raises(PathDoesntExist):
+        proxy_sensor.get_unit()
+
+
+def test_proxy_get_name(proxy_sensor):
+    assert isinstance(proxy_sensor.get_name(), str)
 
