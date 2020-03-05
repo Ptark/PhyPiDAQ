@@ -26,7 +26,8 @@ class EnumOption(OptionModel):
         super().__init__(name, description)
 
         self.__samples: Type[Enum] = samples
-        self.__selection: int = start_selection
+        self.__selection: int = 0
+        self.selection = start_selection
 
     @property
     def selection(self) -> int:
