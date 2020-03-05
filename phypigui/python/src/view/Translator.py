@@ -17,6 +17,7 @@ class Translator:
         signal = pyqtSignal()
 
     __translator: Dict[str, str] = None
+    __language: int = QLocale.German
     language_changed: Signal = Signal()
 
     @staticmethod
@@ -30,18 +31,22 @@ class Translator:
                 bool: If the installation was successful.
                     Mostly depends on if the given language has a language file in /resources/languages/.
         """
+        if Translator.__language == language:
+            return True
+
         if language == QLocale.German:
             Translator.__translator = None
         else:
             try:
                 items = minidom.parse(SystemInfo.RESOURCES + 'languages/' + QLocale(language).name() + '.xml').getElementsByTagName('item')
-            except FileNotFoundError:
+            except (FileNotFoundError, OverflowError):
                 return False
 
             Translator.__translator = {}
             for item in items:
                 Translator.__translator[item.childNodes[1].firstChild.data] = item.childNodes[3].firstChild.data
 
+        Translator.__language = language
         Translator.language_changed.signal.emit()
         return True
 
