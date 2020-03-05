@@ -359,4 +359,16 @@
 		<source>Aktualisierungsrate der Daten und Diagramme in Aktualisierungen pro Sekunde</source>
 		<translation>Update rate of data and charts in updates per second</translation>
 	</item>
+	<item>
+		<source>Steckplätze auf dem Raspberry Pi</source>
+		<translation>Pins on the Raspberry Pi</translation>
+	</item>
+	<item>
+		<source>PhyPiGUI ist ein Softwareprojekt, dass im Rahmen von Praxis der Softwareentwicklung am Karlsruher Institut für Technologie entstanden ist</source>
+		<translation>PhyPiGUI is a software project that was developed in the course "Praxis der Softwareentwicklung" at the Karlsruhe Institute of Technology</translation>
+	</item>
+	<item>
+		<source>Es bietet eine für Schüler ausgelegte grafische Benutzeroberfläche zur vereinfachten Benutzung der Software PhyPiDAQ von Günter Quast</source>
+		<translation>It offers a graphical user interface designed for students to simplify the use of the software PhyPiDAQ by Günter Quast</translation>
+	</item>
 </data>

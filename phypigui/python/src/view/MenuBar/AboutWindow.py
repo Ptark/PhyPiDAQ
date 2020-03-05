@@ -37,11 +37,12 @@ class AboutWindow(QWidget):
         description.setFont(font)
         description.setWordWrap(True)
         description.setAlignment(Qt.AlignCenter)
-        description.setText(Translator.tr(
-            "PhyPiGUI ist ein Softwareprojekt, dass im Rahmen von Praxis der Softwareentwicklung am "
-            "Karlsruher Institut für Technologie entstanden ist.\n\n"
-            "Es bietet eine für Schüler ausgelegte grafische Benutzeroberfläche zur vereinfachten Benutzung "
-            "der Software PhyPiDAQ von Günter Quast."))
+        description.setText(Translator.tr("PhyPiGUI ist ein Softwareprojekt, dass im Rahmen von Praxis der "
+                                          "Softwareentwicklung am Karlsruher Institut für Technologie entstanden ist")
+                            + ".\n\n" +
+                            Translator.tr("Es bietet eine für Schüler ausgelegte grafische Benutzeroberfläche "
+                                          "zur vereinfachten Benutzung der Software PhyPiDAQ von Günter Quast")
+                            + ".")
 
         authors = QLabel("Simon Essig | Christian Hauser | Fritz Hund\nAhmad Jayossi | Sandro Negri")
         font.setPointSize(8)
