@@ -71,13 +71,13 @@ def test_enum_options(config):
 
 
 def test_file_options(config):
-    file_option = FileOption("File", Path(SystemInfo.RESOURCES + r"data\test_force.ppg"))
+    file_option = FileOption("File", Path("phypigui/test/resources/test_data/test_force.ppg"))
 
     assert config.add_file_option(file_option) == 0
     assert len(config.file_options) == 1
     assert config.file_options is not config._ConfigModel__file_options
 
-    path = Path(SystemInfo.RESOURCES + r"data\test_temp_celsius.ppg")
+    path = Path("phypigui/test/resources/test_data/test_temp_celsius.ppg")
     config.set_file_option(0, path)
     assert config.file_options[0].path == path
 
