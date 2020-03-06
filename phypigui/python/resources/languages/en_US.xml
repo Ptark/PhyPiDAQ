@@ -383,4 +383,8 @@
 		<source>Die Dateiendung "%s" ist nicht erlaubt</source>
 		<translation>File Ending "%s" ist not allowed</translation>
 	</item>
+    <item>
+		<source>Element</source>
+		<translation>Item</translation>
+	</item>
 </data>

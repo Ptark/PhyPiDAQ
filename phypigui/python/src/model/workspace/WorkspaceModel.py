@@ -67,7 +67,10 @@ class WorkspaceModel:
             input_id (int): ID to be checked
 
          Returns:
-             bool: False, if no input with this ID exists
+             bool: True, if the input with this ID exists
+
+        Raises:
+            IDNotFound: If the input with this ID does not exist
         """
         if input_id not in WorkspaceModel.__input_list:
             raise IDNotFound(input_id, "Eingang")
@@ -80,8 +83,11 @@ class WorkspaceModel:
         Args:
             output_id (int): ID to be checked
 
-        Returns:
-            bool: False, if no output with this ID exists
+         Returns:
+             bool: True, if the output with this ID exists
+
+        Raises:
+            IDNotFound: If the output with this ID does not exist
         """
         if output_id not in WorkspaceModel.__output_list:
             raise IDNotFound(output_id, "Ausgang")
@@ -94,10 +100,15 @@ class WorkspaceModel:
         Args:
             item_id (int): ID to be checked
 
-        Returns:
-            bool: False, if no item with this ID exists
+         Returns:
+             bool: True, if the item with this ID exists
+
+        Raises:
+            IDNotFound: If the item with this ID does not exist
         """
-        return item_id in WorkspaceModel.__output_item_list or item_id in WorkspaceModel.__input_item_list
+        if item_id not in WorkspaceModel.__output_item_list and item_id not in WorkspaceModel.__input_item_list:
+            raise IDNotFound(item_id, "Element")
+        return True
 
     @staticmethod
     def add_input(input: 'Input') -> int:
