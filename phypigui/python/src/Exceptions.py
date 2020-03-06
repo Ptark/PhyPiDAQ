@@ -55,6 +55,17 @@ class PathDoesntExist(Exception):
                (self.__path, Translator.tr(self.__item_name))
 
 
+class IllegalFileType(Exception):
+    """Raises if a file or directory doesn't exist"""
+    def __init__(self, text: str, path: str):
+        super().__init__()
+        self.__text: str = text
+        self.__path: str = path
+
+    def __str__(self) -> str:
+        return Translator.tr(self.__text) % self.__path
+
+
 class IDNotFound(Exception):
     """Raises if a given ID is not founded in this context"""
     def __init__(self, id: int, context: str):

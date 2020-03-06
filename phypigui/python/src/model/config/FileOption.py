@@ -4,7 +4,7 @@ from typing import NoReturn, List
 from pathlib import Path
 
 from .OptionModel import OptionModel
-from ...Exceptions import PathDoesntExist
+from ...Exceptions import PathDoesntExist, IllegalFileType
 
 
 class FileOption(OptionModel):
@@ -81,11 +81,21 @@ class FileOption(OptionModel):
         if new_path is None:
             self.__path = None
         else:
-            if self.__file_mode != 0 and not new_path.exists():
+            if self.__file_mode != self.ANYFILE and not new_path.exists():
                 raise PathDoesntExist(str(new_path), self._name)
-            self.__path = new_path
-            if self.__file_mode == self.DIR:
+
+            if self.__file_mode == self.EXISTINGFILE:
+                if new_path.is_dir():
+                    raise IllegalFileType("\"%s\" ist ein Ordner", str(new_path))
+                if self.__file_endings is not None and len(self.__file_endings) != 0 \
+                        and new_path.suffix[1:] not in self.__file_endings:
+                    raise IllegalFileType("Die Dateiendung \"%s\" ist nicht erlaubt", str(new_path.suffix))
+            elif new_path.is_dir():
                 self.__start_path = new_path
+            elif self.__file_mode == self.DIR:
+                raise IllegalFileType("\"%s\" ist kein Ordner", str(new_path))
+
+            self.__path = new_path
 
     @property
     def start_path(self) -> Path:
