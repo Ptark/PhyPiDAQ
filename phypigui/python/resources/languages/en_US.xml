@@ -371,4 +371,16 @@
 		<source>Es bietet eine für Schüler ausgelegte grafische Benutzeroberfläche zur vereinfachten Benutzung der Software PhyPiDAQ von Günter Quast</source>
 		<translation>It offers a graphical user interface designed for students to simplify the use of the software PhyPiDAQ by Günter Quast</translation>
 	</item>
+	<item>
+		<source>"%s" ist ein Ordner</source>
+		<translation>"%s" is a directory</translation>
+	</item>
+	<item>
+		<source>"%s" ist kein Ordner</source>
+		<translation>"%s" is no directory</translation>
+	</item>
+	<item>
+		<source>Die Dateiendung "%s" ist nicht erlaubt</source>
+		<translation>File Ending "%s" ist not allowed</translation>
+	</item>
 </data>
