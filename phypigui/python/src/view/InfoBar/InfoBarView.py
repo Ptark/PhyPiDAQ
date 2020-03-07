@@ -49,6 +49,6 @@ class InfoBarView(QWidget):
         """refreshes the info bar if there is a selected WorkspaceItemView"""
         widget: QWidget = QWidget()
         if WorkspaceView.WorkspaceView.selection is not None:
-            widget = WorkspaceView.WorkspaceView.selection.get_info_widget()    
+            widget = WorkspaceView.WorkspaceView.selection.get_info_widget()
         widget.setParent(InfoBarView.__infobar)
         InfoBarView.__infobar.update_info_widget(widget)
