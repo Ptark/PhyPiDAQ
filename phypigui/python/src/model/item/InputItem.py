@@ -31,9 +31,7 @@ class InputItem(ItemModel, ABC):
         Returns:
             int: Maximum count of inputs
         """
-        if len(self._inputs) is not None:
-            return len(self._inputs)
-        return 0
+        return len(self._inputs)
 
     def connect_input(self, input_index: int, output_id: int) -> NoReturn:
         """Connects an input with an output
@@ -50,7 +48,7 @@ class InputItem(ItemModel, ABC):
                 if WorkspaceModel.check_output_id(output_id) and WorkspaceModel.check_input_id(input_id):
                     WorkspaceModel.connect(input_id, output_id)
 
-    def get_output_id(self, input_number: int) -> int:
+    def get_input_id(self, input_number: int) -> int:
         """Returns the ID of the input on a specific index
 
         Args:

@@ -105,9 +105,7 @@ class OutputItem(ItemModel, ABC):
         Returns:
             int: Maximum count of outputs
         """
-        if len(self._outputs) is not None:
-            return len(self._outputs)
-        return 0
+        return len(self._outputs)
 
     def connect_output(self, output_index: int, input_id: int) -> NoReturn:
         """Connects an output with an input
