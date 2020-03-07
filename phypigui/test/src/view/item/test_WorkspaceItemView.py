@@ -1,6 +1,6 @@
 import pytest
 
-from phypigui.test.src.view.test_helpers_view import main_window
+from phypigui.test.src.test_helpers import main_window
 from phypigui.python.src.model.manager.ManagerModel import ManagerModel
 from phypigui.python.src.view.Workspace.WorkspaceView import WorkspaceView
 from phypigui.python.src.view.Item.ItemEnum import SensorEnum, OperatorEnum, DiagramEnum
