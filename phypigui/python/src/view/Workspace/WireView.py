@@ -21,6 +21,12 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
     deletion_signal = pyqtSignal(QObject)
 
     def __init__(self, output: QPoint, input: QPoint, output_id: int):
+        """Initializes a Wire
+            Args:
+                output(QPoint): the output from which the connection originates.
+                input(QPoint): the input to which the connection points.
+                output_id(int): The identification number for the output of the wire
+        """
         Selectable.__init__(self)
         QObject.__init__(self)
 
@@ -36,6 +42,9 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
+        """
+        Initializes the user interface for the wire
+        """
         info_layout = QVBoxLayout()
         info_layout.setContentsMargins(5, 5, 5, 5)
         info_layout.setSpacing(5)
@@ -59,6 +68,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         return self.__input
 
     def connect(self, input_id: int) -> NoReturn:
+        """connect two items with the wire"""
         self.__input_id = input_id
         WorkspaceModel.connect(input_id, self.__output_id)
 
@@ -117,6 +127,7 @@ class WireView(Selectable, QObject, metaclass=WireViewMeta):
         menu.exec(pos)
 
     def _update_selected_view(self) -> NoReturn:
+        """updates the selected view"""
         self.redraw()
 
     def get_info_widget(self) -> QWidget:

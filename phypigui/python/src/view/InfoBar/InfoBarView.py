@@ -13,6 +13,11 @@ class InfoBarView(QWidget):
     __infobar: 'InfoBarView' = None
 
     def __init__(self, parent):
+        """
+        Initializes the InfoBarView
+        Args:
+            parent
+        """
         super().__init__(parent)
 
         InfoBarView.__infobar = self
@@ -26,6 +31,7 @@ class InfoBarView(QWidget):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
+        """initializes the user interface of the Infobarview"""
         button_layout = QVBoxLayout()
         button_layout.addWidget(DeleteButtonView(self))
         button_layout.addWidget(SettingsButtonView(self))
@@ -36,7 +42,10 @@ class InfoBarView(QWidget):
         self.setLayout(self.__horizontal_layout)
 
     def update_info_widget(self, widget: QWidget) -> NoReturn:
-        """adds the information about the selected WorkspaceItemView in the info bar"""
+        """adds the information about the selected WorkspaceItemView in the info bar
+            Args:
+                widget(QWidget): the widget to be shown in infobar
+        """
         widget.setStyleSheet("QWidget#infowidget { background: white; border: 1px solid gray }")
         widget.setObjectName("infowidget")
         self.__horizontal_layout.replaceWidget(self.__info_widget, widget)

@@ -35,6 +35,8 @@ class StartButtonView(QPushButton):
     start_time: float = 0.0
 
     def __init__(self):
+        """Initializes the StartButton
+        """
         super().__init__()
 
         StartButtonView.__button = self
@@ -57,10 +59,12 @@ class StartButtonView(QPushButton):
         self.__update_text()
 
     def __update_text(self):
+        """updates the text in the tooltip"""
         tooltip = "Stop" if self.__is_started else "Start"
         self.setToolTip(Translator.tr(tooltip))
 
     def __on_click(self) -> NoReturn:
+        """on click method for the start button that starts and stops the program"""
         if self.__is_started:
             self.stop()
         else:
@@ -69,6 +73,7 @@ class StartButtonView(QPushButton):
         self.clearFocus()
 
     def start(self) -> NoReturn:
+        """start method that starts the program"""
         if not self.__is_started:
             if not self.__thread.isRunning():
                 StartButtonView.start_time = time.time()
@@ -79,6 +84,7 @@ class StartButtonView(QPushButton):
             self.__update_text()
 
     def stop(self) -> NoReturn:
+        """stop method that stops the program"""
         if self.__is_started:
             ManagerModel.stop()
             self.__thread.wait()

@@ -19,6 +19,10 @@ class DiagramFieldView(QWidget):
     """
 
     class Draw(QThread):
+        """
+        Args:
+            QThread
+        """
         def __init__(self, diagram: DiagramView):
             super().__init__()
             self.__diagram: DiagramView = diagram
@@ -125,6 +129,7 @@ class DiagramFieldView(QWidget):
 
     @staticmethod
     def add_stretch() -> NoReturn:
+        """adds a stretch to the diagram field"""
         DiagramFieldView.__diagram_field.__group_layout.addWidget(
             DiagramFieldView.__diagram_field.__stretch_widget, 10, Qt.AlignBottom)
 

@@ -14,6 +14,10 @@ class SettingsButtonView(QPushButton):
     __button: 'SettingsButtonView'
 
     def __init__(self, parent):
+        """Initializes the Settings button
+            Args:
+                parent
+        """
         super().__init__(parent)
 
         SettingsButtonView.__button = self
@@ -26,10 +30,14 @@ class SettingsButtonView(QPushButton):
         self.__update_text()
 
     def __update_text(self) -> NoReturn:
+        """updates the text of the tooltip"""
         self.setToolTip(Translator.tr("Einstellungen"))
 
     @pyqtSlot()
     def __on_click(self) -> NoReturn:
+        """on click method for the settings button when clicked opens the config window for
+           the selected workspace view item
+        """
         if WorkspaceView.selection is not None:
             WorkspaceView.selection.open_config()
 
@@ -44,4 +52,5 @@ class SettingsButtonView(QPushButton):
 
     @staticmethod
     def set_enabled(enabled: bool) -> NoReturn:
+        """enables the settings button"""
         SettingsButtonView.__button.setEnabled(enabled)
