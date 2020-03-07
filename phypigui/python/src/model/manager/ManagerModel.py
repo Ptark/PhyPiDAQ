@@ -89,7 +89,7 @@ class ManagerModel:
         Args:
             sensor (SensorItem): SensorItem to be added
         """
-        if sensor is not None:
+        if sensor is not None and sensor not in ManagerModel.__sensors:
             ManagerModel.__sensors.append(sensor)
             ManagerModel.__sensor_data[sensor] = []
 
@@ -102,7 +102,7 @@ class ManagerModel:
         Args:
             sensor (SensorItem): SensorItem to be deleted
         """
-        if sensor is not None:
+        if sensor is not None and sensor in ManagerModel.__sensors:
             ManagerModel.__sensors.remove(sensor)
             ManagerModel.__sensor_data.pop(sensor)
 
@@ -115,7 +115,7 @@ class ManagerModel:
         Args:
             operator (OperatorItem): OperatorItem to be added
         """
-        if operator is not None:
+        if operator is not None and operator not in ManagerModel.__operators:
             ManagerModel.__operators.append(operator)
 
     @staticmethod
@@ -127,7 +127,7 @@ class ManagerModel:
         Args:
             operator (OperatorItem): OperatorItem to be deleted
         """
-        if operator is not None:
+        if operator is not None and operator in ManagerModel.__operators:
             ManagerModel.__operators.remove(operator)
 
     @staticmethod
@@ -139,7 +139,7 @@ class ManagerModel:
         Args:
             diagram (DiagramItem): DiagramItem to be added
         """
-        if diagram is not None:
+        if diagram is not None and diagram not in ManagerModel.__diagrams:
             ManagerModel.__diagrams.append(diagram)
 
     @staticmethod
@@ -151,7 +151,7 @@ class ManagerModel:
         Args:
             diagram (DiagramItem): DiagramItem to be deleted
         """
-        if diagram is not None:
+        if diagram is not None and diagram in ManagerModel.__diagrams:
             ManagerModel.__diagrams.remove(diagram)
 
     @staticmethod
