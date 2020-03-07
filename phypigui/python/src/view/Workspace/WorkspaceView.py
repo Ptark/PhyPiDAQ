@@ -82,6 +82,10 @@ class WorkspaceView(QWidget):
     __main: QWidget = None
 
     def __init__(self, main: QWidget):
+        """initializes the WorkspaceView
+        Args:
+            main(QWidget): the main widget
+        """
         super().__init__(main)
 
         WorkspaceView.boundary = self
@@ -97,6 +101,7 @@ class WorkspaceView(QWidget):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
+        """initializes the user interface of the workspace"""
         layout = QGridLayout()
         scroll_area = WorkspaceScrollView()
 
@@ -107,6 +112,10 @@ class WorkspaceView(QWidget):
         self.setLayout(layout)
 
     def mouseMoveEvent(self, event: QMouseEvent) -> NoReturn:
+        """
+         Args:
+            event(QMouseEvent): an event of the mouse movement
+        """
         if event.buttons() == Qt.LeftButton:
             if self.__h_last_pos == 0:
                 self.__h_last_pos = event.pos().x()
@@ -125,6 +134,10 @@ class WorkspaceView(QWidget):
             self.__v_last_pos = event.pos().y()
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> NoReturn:
+        """on mouse release event sets horizontal and vertical position to zero
+            Args:
+                event(QMouseEvent): an event of the mouse realse
+        """
         self.__h_last_pos = 0
         self.__v_last_pos = 0
 
@@ -187,6 +200,7 @@ class WorkspaceView(QWidget):
 
     @staticmethod
     def get_widget() -> QWidget:
+        """a getter method for the workspace widget"""
         return WorkspaceView.widget
 
     @staticmethod

@@ -15,6 +15,7 @@ from .Workspace.WorkspaceView import WorkspaceView
 
 class MainWindow(QMainWindow):
     def __init__(self):
+        """initializes the Mainwindow"""
         super().__init__()
 
         self.__main_widget = QWidget(self)
@@ -35,6 +36,7 @@ class MainWindow(QMainWindow):
         self.__init_ui()
 
     def __init_ui(self) -> NoReturn:
+        """initializes the user interface of the main window"""
         self.setWindowTitle('PhyPiDAQ')
         self.setWindowIcon(QIcon(SystemInfo.RESOURCES + 'images/PhiPi_icon.png'))
 

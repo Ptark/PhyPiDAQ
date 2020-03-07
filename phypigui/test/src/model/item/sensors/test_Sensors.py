@@ -1,5 +1,6 @@
 import pytest
 
+from pathlib import Path
 from phypigui.python.src.Exceptions import PathDoesntExist
 from phypigui.python.src.model.item.sensors.AccelerationSensorItem import AccelerationSensorItem
 from phypigui.python.src.model.item.sensors.ConstantItems import ConstantItem, NatureConstantItem
@@ -53,4 +54,20 @@ def test_proxy_get_unit(proxy_sensor):
 
 def test_proxy_get_name(proxy_sensor):
     assert isinstance(proxy_sensor.get_name(), str)
+
+
+def test_proxy_read(proxy_sensor):
+    proxy_sensor.data = [0, 1]
+    proxy_sensor.read()
+    proxy_sensor.data = [0]
+    proxy_sensor.read()
+
+
+def test_proxy_close(proxy_sensor):
+    proxy_sensor.close()
+
+
+
+
+
 

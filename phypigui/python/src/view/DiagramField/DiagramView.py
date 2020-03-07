@@ -29,6 +29,14 @@ class DiagramViewMeta(type(QFrame), type(View)):
 class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
     """the super class of Time diagram, bar diagram and Dual diagram"""
     def __init__(self, data: type_data, item: DiagramItem, projection: str = 'rectilinear'):
+        """Initializing of a Diagramview
+
+        Args:
+            data (type_data): The type of the data in diagram
+            item (DiagramItem): The diagramItem item
+            projection (str): projection for the subplot initializing
+
+        """
         super().__init__()
 
         self._canvas = FigureCanvas(Figure(figsize=(4, 5), dpi=70))
@@ -50,6 +58,7 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
 
     @abstractmethod
     def _draw_diagram(self) -> NoReturn:
+        """abstract method that should draw diagram"""
         self._canvas.figure.tight_layout()
         try:
             self._canvas.draw()
@@ -58,13 +67,16 @@ class DiagramView(QFrame, View, ABC, metaclass=DiagramViewMeta):
 
     @abstractmethod
     def update_diagram(self) -> NoReturn:
+        """abstract method that should update diagram"""
         pass
 
     @abstractmethod
     def clear_diagram(self) -> NoReturn:
+        """abstract method of clearing diagram"""
         pass
 
     def update_selected_view(self, selected: bool):
+        """update the selected view and marks its borders blue"""
         border = "blue" if selected else "white"
         self.setStyleSheet("QFrame { border: 2px solid %s; border-radius: 4px }" % border)
 
@@ -84,6 +96,8 @@ class TimeDiagram(DiagramView):
         super().__init__(data, item)
 
     def _draw_diagram(self) -> NoReturn:
+        """draws a diagram with its labels and title"""
+
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
@@ -98,6 +112,8 @@ class TimeDiagram(DiagramView):
         super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
+        """Updates diagram and draws it after it has been updated"""
+
         t = time.time() - StartButtonView.start_time
         while len(self._data['time']) > 0 and t - self._data['time'][0] > self.__displayed_seconds:
             for i in ['time', 'data']:
@@ -109,6 +125,8 @@ class TimeDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        """clears the diagram then redraws it"""
+
         self.__displayed_seconds = self._item.config.num_options[0].number
 
         self._data['time'].clear()
@@ -134,6 +152,7 @@ class DualDiagram(DiagramView):
         super().__init__(data, item)
 
     def _draw_diagram(self) -> NoReturn:
+        """draws a diagram with its labels and title"""
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
@@ -151,6 +170,7 @@ class DualDiagram(DiagramView):
         super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
+        """Updates diagram and draws it after it has been updated"""
         if len(self._data['x']) >= self.__max_points:
             for i in ['x', 'y']:
                 self._data[i].pop(0)
@@ -161,6 +181,7 @@ class DualDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        """clears the diagram then redraws it"""
         self.__dynamic = self._item.config.bool_options[0].enabled
         self.__points_connected = self._item.config.bool_options[1].enabled
         self.__limit = [self._item.config.num_options[i].number for i in range(4)]
@@ -177,6 +198,7 @@ class DualDiagram(DiagramView):
 
 class BarDiagram(DiagramView):
     """this class represents a bar diagram """
+
     def __init__(self, item: BarDiagramItem):
         """Initialising an BarDiagram object
 
@@ -191,6 +213,7 @@ class BarDiagram(DiagramView):
         super().__init__(data, item)
 
     def _draw_diagram(self):
+        """draws a diagram with its labels and title"""
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
@@ -203,11 +226,15 @@ class BarDiagram(DiagramView):
         super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
+        """Updates diagram and draws it after it has been updated"""
+
         self._data['data'] = self._item.data[:3]
 
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        """clears the diagram then redraws it"""
+
         self.__dynamic = self._item.config.bool_options[0].enabled
         self.__limits[0] = self._item.config.num_options[0].number
         self.__limits[1] = self._item.config.num_options[1].number
@@ -230,6 +257,8 @@ class ThreeDimDiagram(DiagramView):
         super().__init__(data, item, '3d')
 
     def _draw_diagram(self) -> NoReturn:
+        """draws a diagram with its labels and title"""
+
         self._ax.clear()
 
         self._ax.set_title(Translator.tr(self._item.name))
@@ -242,6 +271,8 @@ class ThreeDimDiagram(DiagramView):
         super()._draw_diagram()
 
     def update_diagram(self) -> NoReturn:
+        """Updates diagram and draws it after it has been updated"""
+
         if len(self._data['x']) > 10:
             for i in ['x', 'y', 'z']:
                 self._data[i].pop(0)
@@ -252,6 +283,8 @@ class ThreeDimDiagram(DiagramView):
         self._draw_diagram()
 
     def clear_diagram(self) -> NoReturn:
+        """clears the diagram then redraws it"""
+
         for i in ['x', 'y', 'z']:
             self._data[i].clear()
 

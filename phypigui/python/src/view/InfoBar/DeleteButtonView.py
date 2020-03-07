@@ -15,6 +15,11 @@ class DeleteButtonView(QPushButton):
     __button: 'DeleteButtonView'
 
     def __init__(self, parent: QPushButton):
+        """
+        Initializes the delete button
+        Args:
+             parent (QPushButton)
+        """
         super().__init__(parent)
 
         DeleteButtonView.__button = self
@@ -27,9 +32,11 @@ class DeleteButtonView(QPushButton):
         self.__update_text()
 
     def __update_text(self) -> NoReturn:
+        """updates the tooltip text"""
         self.setToolTip(Translator.tr("Entfernen"))
 
     def __on_click(self) -> NoReturn:
+        """on click method when delete button is clicked deletes the selected item in workspaceview"""
         if WorkspaceView.selection is not None:
             StartButtonView.interrupt_mp()
             WorkspaceView.selection.delete()
@@ -43,4 +50,5 @@ class DeleteButtonView(QPushButton):
 
     @staticmethod
     def set_enabled(enabled: bool) -> NoReturn:
+        """enables the delete button"""
         DeleteButtonView.__button.setEnabled(enabled)
