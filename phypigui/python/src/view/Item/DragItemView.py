@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget
 from .ItemEnum import ItemEnum
 from ..Translator import Translator
 from ..DialogView import DialogView
-from ...Exceptions import DuplicateWorkspaceItem, DiagramMaximumReached
+from ...Exceptions import DuplicateWorkspaceItem, DiagramMaximumReached, SensorDAQError
 from .Draggable import Draggable
 from .WorkspaceItemView import WorkspaceItemView
 from ..Workspace.WorkspaceView import WorkspaceView
@@ -50,6 +50,9 @@ class DragItemView(Draggable, ABC):
                 DialogView.show_warning(Translator.tr("Maximum an Diagrammen erreicht"),
                                         Translator.tr("Es können nur drei Diagramme gleichzeitig verwendet werden.\n"
                                                       "Lösche ein anderes Diagramm um ein neues zu verwenden."))
+            except SensorDAQError:
+                DialogView.show_error(Translator.tr("PhyPiDAQ Sensor Fehler"),
+                                      Translator.tr("Fehler beim Einrichten des Sensors. Prüfe die Verbindung zum Sensor."))
             else:
                 item.move(item.mapFrom(self.parent(), self.pos()))
                 item.show()

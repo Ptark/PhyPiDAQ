@@ -2,6 +2,7 @@ from typing import NoReturn, List
 
 from PyQt5.QtWidgets import QWidget, QLabel
 
+from ...Exceptions import SensorDAQError
 from ..Translator import Translator
 from ...model.manager.ManagerModel import ManagerModel
 from ...model.item.sensors.SensorItem import SensorItem
@@ -15,7 +16,10 @@ class SensorItemView(WorkspaceItemView):
             parent (QWidget): A parent widget.
     """
     def __init__(self, parent: QWidget, sensor: 'SensorEnum'):
-        self._model: SensorItem = sensor.model()
+        try:
+            self._model: SensorItem = sensor.model()
+        except Exception:
+            raise SensorDAQError
 
         super().__init__(parent, sensor, [], self._model.get_output_ids(), False)
 
