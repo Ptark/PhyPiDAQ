@@ -24,4 +24,5 @@ cd ~/git/PhyPiDAQ
 ./run_phypigui.py
 ```
 
-Für eine Desktopverknüpfung die Datei `phypigui.desktop` auf den Desktop kopieren und ausführen
+Für eine Desktopverknüpfung die Datei `phypigui.desktop` auf den Desktop kopieren und ausführen.
+Nach der Installation muss der Raspberry Pi eventuell neu gestartet werden.
