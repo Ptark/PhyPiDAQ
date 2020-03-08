@@ -120,10 +120,6 @@
 		<translation>Read-out rate in milliseconds</translation>
 	</item>
     <item>
-		<source>Einheit einstellen</source>
-		<translation>Set Unit</translation>
-	</item>
-    <item>
 		<source>Ausleserate einstellen</source>
 		<translation>Set Read-out rate</translation>
 	</item>
@@ -418,5 +414,93 @@
 	<item>
 		<source>Fehler</source>
 		<translation>Error</translation>
+	</item>
+	<item>
+		<source>%s einstellen</source>
+		<translation>Set %s</translation>
+	</item>
+	<item>
+		<source>Konstante</source>
+		<translation>Constant</translation>
+	</item>
+	<item>
+		<source>Dateipfad</source>
+		<translation>File path</translation>
+	</item>
+	<item>
+		<source>Der Dateipfad der einzulesenden Datei</source>
+		<translation>The file path of the file to be read</translation>
+	</item>
+	<item>
+		<source>Exponent</source>
+		<translation>Exponent</translation>
+	</item>
+	<item>
+		<source>Mit dieser Zahl wird der \nDaten-Strom potenziert</source>
+		<translation>The data stream is raised to the power of this number</translation>
+	</item>
+	<item>
+		<source>Dieser Operator multipliziert einen Datenstrom mit 10 hoch einer einstellbaren Zahl</source>
+		<translation>This operator multiplies a data stream by 10 to the power of an adjustable number</translation>
+	</item>
+	<item>
+		<source>Mit dieser Zahl wird 10 potenziert</source>
+		<translation>This number is 10 raised to</translation>
+	</item>
+	<item>
+		<source>n-te Wurzel</source>
+		<translation>nth root</translation>
+	</item>
+	<item>
+		<source>Speicherpfad</source>
+		<translation>Save path</translation>
+	</item>
+	<item>
+		<source>Ordner, indem die\nAuslesedatei erstellt wird</source>
+		<translation>Folder, in which the readout file is created</translation>
+	</item>
+	<item>
+		<source>Angezeigte Sekunden</source>
+		<translation>Displayed seconds</translation>
+	</item>
+	<item>
+		<source>Dynamische Achsenabschnitte</source>
+		<translation>Dynamic axis</translation>
+	</item>
+	<item>
+		<source>Die Minima und Maxima werden nicht mehr beachtet</source>
+		<translation>The minima and maxima are no longer used</translation>
+	</item>
+	<item>
+		<source>Das Minimum und Maximum wird nicht mehr beachtet</source>
+		<translation>The minimum and maximum are no longer used</translation>
+	</item>
+	<item>
+		<source>x-Achsen Minimum</source>
+		<translation>x-axis minimum</translation>
+	</item>
+	<item>
+		<source>x-Achsen Maximum</source>
+		<translation>x-axis maximum</translation>
+	</item>
+	<item>
+		<source>y-Achsen Minimum</source>
+		<translation>y-axis minimum</translation>
+	</item>
+	<item>
+		<source>y-Achsen Maximum</source>
+		<translation>y-axis maximum</translation>
+	</item>
+	<item>
+		<source>Maximale Anzahl an Punkten</source>
+		<translation>Maximum number of points</translation>
+	</item>
+	<item>
+		<source>Dynamische y-Achse</source>
+		<translation>Dynamic y-axis</translation>
+	</item>
+	<item>
+		<source>Punkte verbinden</source>
+		<translation>Connect dots</translation>
 	</item>
 </item>
