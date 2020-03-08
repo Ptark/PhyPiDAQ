@@ -1,8 +1,9 @@
 [Desktop Entry]
 Type=Application
-Encoding=UTF-8
 Name=PhyPiGUI
 Comment=GUI for PhyPiDAQ
+Comment[de]=GBO für PhyPiDAQ
 Icon=/home/pi/git/PhyPiDAQ/phypigui/python/resources/images/PhiPi_icon.png
-Exec=lxterminal -t "PhyPiGUI" -e /home/pi/git/PhyPiDAQ/run_phypigui.py
-Terminal=false
+Exec=/home/pi/git/PhyPiDAQ/run_phypigui.py
+Path=/home/pi/git/PhyPiDAQ
+Terminal=False

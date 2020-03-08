@@ -16,3 +16,9 @@ sudo pip3 install installlibs/tgz/*.tar.gz # python packages
 
 sudo dpkg -i installlibs/picoscopelibs/*.deb # picoscope 
 sudo usermod -a -G tty pi # grant acces to USB for user pi
+
+if ! sudo grep -qF "dtoverlay=w1-gpio" /boot/config.txt;then
+	sudo echo "" >> /boot/config.txt
+	sudo echo "#PhyPiDAQ:" >> /boot/config.txt
+	sudo echo "dtoverlay=w1-gpio" >> /boot/config.txt
+fi
