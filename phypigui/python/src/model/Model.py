@@ -15,7 +15,8 @@ class Model(ABC):
             Args:
                 view (View): A view, which will be subscribed to this model.
         """
-        self.__views.append(view)
+        if view not in self.__views:
+            self.__views.append(view)
 
     def detach(self, view: View) -> NoReturn:
         """Unsubscribes a subscribed view
@@ -23,7 +24,8 @@ class Model(ABC):
             Args:
                 view (View): The subscribed view.
         """
-        self.__views.remove(view)
+        if view in self.__views:
+            self.__views.remove(view)
 
     def notify(self) -> NoReturn:
         """Notify all subscribers"""
