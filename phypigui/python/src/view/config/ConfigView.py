@@ -55,7 +55,7 @@ class ConfigView(QtWidgets.QWidget):
         self.show()
 
     def __init_ui(self) -> NoReturn:
-        self.resize(700, 900)
+        self.resize(700, 600)
         self.__icon.addPixmap(QtGui.QPixmap(self.icon_path))
         self.setWindowFlags(self.windowFlags() | QtCore.Qt.WindowStaysOnTopHint)
         self.setWindowTitle(self.__title)
@@ -71,6 +71,23 @@ class ConfigView(QtWidgets.QWidget):
         scroll: QtWidgets.QScrollArea = QtWidgets.QScrollArea(self)
         # Add scroll-area to scroll_layout
         scroll_layout.addWidget(scroll)
+        # Save and Cancel Button
+        save_button: QtWidgets.QPushButton = QtWidgets.QPushButton(self)
+        save_button.setFixedSize(130, 35)
+        save_button.setText(Translator.tr("Save"))
+        save_button.clicked.connect(self.__save_button_clicked)
+        cancel_button: QtWidgets.QPushButton = QtWidgets.QPushButton(self)
+        cancel_button.setFixedSize(130, 35)
+        cancel_button.setText(Translator.tr("Cancel"))
+        cancel_button.clicked.connect(self.__cancel_button_clicked)
+        # Button-layout
+        button_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout()
+        scroll_layout.addLayout(button_layout)
+        # Stretch-widget for button-layout
+        button_layout.addWidget(QtWidgets.QWidget(self), 10, QtCore.Qt.AlignLeft)
+        # Add buttons to button_layout
+        button_layout.addWidget(save_button, 0, QtCore.Qt.AlignRight)
+        button_layout.addWidget(cancel_button, 0, QtCore.Qt.AlignRight)
         # Widget in scroll-area
         content: QtWidgets.QWidget = QtWidgets.QWidget(scroll)
         # Set widget for scroll-bar
@@ -93,7 +110,7 @@ class ConfigView(QtWidgets.QWidget):
         # Add stretch-widget to option-layout
         option_layout.addWidget(QtWidgets.QWidget(self), 10, QtCore.Qt.AlignBottom)
 
-    def __on_close(self) -> NoReturn:
+    def __save_button_clicked(self) -> NoReturn:
         for option in self.__file_options:
             self.__config.set_file_option(self.__file_options.index(option), option.option.path)
         for option in self.__enum_options:
@@ -104,8 +121,11 @@ class ConfigView(QtWidgets.QWidget):
             self.__config.set_bool_option(self.__bool_options.index(option), option.option.enabled)
         self.set_data.emit(self.__config)
 
-        if self.__has_interrupted_mp:
-            StartButtonView.start_mp()
+        self.close()
+
+    def __cancel_button_clicked(self) -> NoReturn:
+        self.close()
 
     def closeEvent(self, close_event: QtGui.QCloseEvent):
-        self.__on_close()
+        if self.__has_interrupted_mp:
+            StartButtonView.start_mp()
