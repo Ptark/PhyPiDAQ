@@ -29,7 +29,7 @@ class TemperatureSensorItem(SensorItem):
         # data = 4, GND = 5, VCC = 9
         pins: List[int] = [4, 5, 9]
 
-        super().__init__(name, description, config, 1, pins, DS18B20Config.DS18B20Config())
+        super().__init__(name, description, config, 1, pins, DS18B20Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         assert self._config.enum_options[0] is not None

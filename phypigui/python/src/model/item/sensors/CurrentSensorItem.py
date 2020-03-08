@@ -3,7 +3,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..sensors.SensorItem import SensorItem
-# from phypidaq.INA219Config import INA219Config
+from phypidaq.INA219Config import INA219Config
 
 
 # TODO: modify INA219Config and separate config for current-/voltage sensor
@@ -21,7 +21,7 @@ class CurrentSensorItem(SensorItem):
 
         pins: List[int] = []
 
-        super().__init__(name, description, config, 1, pins, None)  # INA219Config()
+        super().__init__(name, description, config, 1, pins, INA219Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         return "mA"

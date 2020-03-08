@@ -3,7 +3,7 @@ from typing import List
 from ...config.NumOption import NumOption
 from .SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
-# from phypidaq.MMA8451Config import MMA8451Config
+from phypidaq.MMA8451Config import MMA8451Config
 
 
 class AccelerationSensorItem(SensorItem):
@@ -21,7 +21,7 @@ class AccelerationSensorItem(SensorItem):
 
         pins: List[int] = []
 
-        super().__init__(name, description, config, 3, pins, None)  # MMA8451Config())
+        super().__init__(name, description, config, 3, pins, MMA8451Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         return "m*s^2"

@@ -3,7 +3,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..sensors.SensorItem import SensorItem
-# from phypidaq.MMA845xConfig import MMA845xConfig
+from phypidaq.MMA845xConfig import MMA845xConfig
 
 
 class ForceSensorItem(SensorItem):
@@ -20,7 +20,7 @@ class ForceSensorItem(SensorItem):
 
         pins: List[int] = []
 
-        super().__init__(name, description, config, 1, pins, None)  # MMA845xConfig())
+        super().__init__(name, description, config, 1, pins, MMA845xConfig())
 
     def get_unit(self, output_number: int = 0) -> str:
         return "N"

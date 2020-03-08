@@ -20,7 +20,7 @@ class DistanceSensorItem(SensorItem):
 
         pins: List[int] = []
 
-        super().__init__(name, description, config, 1, pins, VL53LxConfig.VL53LxConfig({'range': 3}))
+        super().__init__(name, description, config, 1, pins, VL53LxConfig({'range': 3}))
 
     def get_unit(self, output_number: int = 0) -> str:
         return "mm"
