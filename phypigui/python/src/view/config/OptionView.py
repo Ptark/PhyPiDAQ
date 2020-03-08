@@ -37,7 +37,11 @@ class OptionView(ABC, QtWidgets.QWidget, metaclass=OptionViewMeta):
         # Layout for the whole option
         self._option_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout(self.__box)
         # Label, which stores name of option
-        self._description_label: QtWidgets.QLabel = QtWidgets.QLabel(Translator.tr(description), self)
+        if description[-10:] == "einstellen":
+            description = Translator.tr("%s einstellen") % Translator.tr(name)
+        else:
+            description = Translator.tr(description)
+        self._description_label: QtWidgets.QLabel = QtWidgets.QLabel(description, self)
 
         self.__init_ui()
 
