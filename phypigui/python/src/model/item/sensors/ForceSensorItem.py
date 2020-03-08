@@ -15,7 +15,8 @@ class ForceSensorItem(SensorItem):
         description: str = "Der Kraftsensor misst die Kraft in Newton"
 
         config: ConfigModel = ConfigModel()
-        config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, 10, 10000, 0))
+        config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, SensorItem.MIN_READ_OUT_RATE,
+                                        SensorItem.MAX_READ_OUT_RATE, 0))
 
         pins: List[int] = []
 

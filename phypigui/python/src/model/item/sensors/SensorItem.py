@@ -14,6 +14,9 @@ from ...config.ConfigModel import ConfigModel
 class SensorItem(OutputItem, ABC):
     """This class is a superclass for all kind of sensors"""
 
+    MIN_READ_OUT_RATE: int = 10
+    MAX_READ_OUT_RATE: int = 10000
+
     def __init__(self, name: str, description: str, config: ConfigModel, outputs: int, pins: List[int], sensor_config):
         """Initialising a SensorItem object
 
