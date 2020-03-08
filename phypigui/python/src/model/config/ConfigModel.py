@@ -1,7 +1,7 @@
 import copy
 
 from typing import List, NoReturn
-from pathlib import PurePath
+from pathlib import Path
 
 from .BoolOption import BoolOption
 from .FileOption import FileOption
@@ -133,14 +133,14 @@ class ConfigModel:
             raise IndexError("The index %d for this boolean option is out of range." % (index,))
         self.__bool_options[index].enabled = value
 
-    def set_file_option(self, index: int, path: PurePath) -> NoReturn:
+    def set_file_option(self, index: int, path: Path) -> NoReturn:
         """Sets the path of a FileOption
 
         Sets the path of a FileOption on a specific index in the list of this config, if index is valid.
 
         Args:
             index (int): Index of option, which will be set
-            path (PurePath): Path on which the option will be set
+            path (Path): Path on which the option will be set
 
         Raises:
             IndexError: If the index of the option is out of range

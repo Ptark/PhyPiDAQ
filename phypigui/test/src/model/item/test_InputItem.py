@@ -37,6 +37,7 @@ def test_connect_input():
     output_item = OItem("", "", None, 1)
     input_item.connect_input(0, output_item.get_output_id(0))
 
+
 def test_get_input_id():
     input_item = IItem("", "", None, 3)
     assert input_item.get_input_id(1) == input_item.get_input_ids()[1]

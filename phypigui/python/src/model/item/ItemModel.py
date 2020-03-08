@@ -1,7 +1,7 @@
 import copy
 
 from abc import ABC, abstractmethod
-from pathlib import PurePath
+from pathlib import Path
 from typing import NoReturn, List
 
 from ..Model import Model
@@ -66,12 +66,13 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
             value (bool): Value, on which the value of the BoolOption will be set
 
         Raises:
-            AssertionError: If the specified index doesnt exist
+            IndexError: If the specified index doesnt exist
         """
-        assert(len(self._config.bool_options) > index)
+        if index >= len(self._config.bool_options) or index < 0:
+            raise IndexError("Index %i for a boolean option is out of range" % (index,))
         self._config.set_bool_option(index, value)
 
-    def set_file_option(self, index: int, path: PurePath) -> NoReturn:
+    def set_file_option(self, index: int, path: Path) -> NoReturn:
         """Sets the path of a FileOption on a specific index
 
         Args:
@@ -79,9 +80,10 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
             path (str): Path, on which the path of the FileOption will be set
 
         Raises:
-            AssertionError: If the specified index doesnt exist
+            IndexError: If the specified index doesnt exist
         """
-        assert(len(self._config.file_options) > index)
+        if index >= len(self._config.file_options) or index < 0:
+            raise IndexError("Index %i for a file option is out of range" % (index,))
         self._config.set_file_option(index, path)
 
     def set_enum_option(self, index: int, selection: int) -> NoReturn:
@@ -92,9 +94,10 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
             selection (int): Selection-index, on which the selection of the EnumOption will be set
 
         Raises:
-            AssertionError: If the specified index doesnt exist
+            IndexError: If the specified index doesnt exist
         """
-        assert(len(self._config.enum_options) > index)
+        if index >= len(self._config.enum_options) or index < 0:
+            raise IndexError("Index %i for enumerable option is out of range" % (index,))
         self._config.set_enum_option(index, selection)
 
     def set_num_option(self, index: int, number: float) -> NoReturn:
@@ -105,9 +108,10 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
             number (float): Number, on which the number of the NumOption will be set
 
         Raises:
-            AssertionError: If the specified index doesnt exist
+            IndexError: If the specified index doesnt exist
         """
-        assert(len(self._config.num_options) > index)
+        if index >= len(self._config.num_options) or index < 0:
+            raise IndexError("Index %i for a numerical option is out of range" % (index,))
         self._config.set_num_option(index, number)
 
     @staticmethod
