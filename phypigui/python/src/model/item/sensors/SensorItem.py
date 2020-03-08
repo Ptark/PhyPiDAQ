@@ -31,7 +31,7 @@ class SensorItem(OutputItem, ABC):
         super().__init__(name, description, config, outputs)
 
         self._device = sensor_config
-        # self._device.init()
+        self._device.init()
         self._buffer: List[float] = [0, 0, 0]
         self._last_read_time: int = 0
         self._pins: List[int] = pins
@@ -39,7 +39,7 @@ class SensorItem(OutputItem, ABC):
         ManagerModel.add_sensor(self)
 
     def __del__(self):
-        #self.close()
+        self.close()
         pass
 
     @property
@@ -67,7 +67,7 @@ class SensorItem(OutputItem, ABC):
         Returns:
             List[float]: List of measured values
         """
-        return [random.random()] * self.get_count_of_outputs()  # for testing
+
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
         if read_diff >= self._config.num_options[0].number:

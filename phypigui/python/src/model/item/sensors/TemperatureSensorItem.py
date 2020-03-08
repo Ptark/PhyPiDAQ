@@ -5,7 +5,7 @@ from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ...config.EnumOption import EnumOption
 from ..sensors.SensorItem import SensorItem
-# from phypidaq.DS18B20Config import DS18B20Config
+from phypidaq.DS18B20Config import DS18B20Config
 
 
 class TemperatureSensorItem(SensorItem):
@@ -26,9 +26,10 @@ class TemperatureSensorItem(SensorItem):
         config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, SensorItem.MIN_READ_OUT_RATE,
                                         SensorItem.MAX_READ_OUT_RATE, 0))
 
-        pins: List[int] = [4, 5, 9] # data = 4, GND = 5, VCC = 9
+        # data = 4, GND = 5, VCC = 9
+        pins: List[int] = [4, 5, 9]
 
-        super().__init__(name, description, config, 1, pins, None)  # DS18B20Config())
+        super().__init__(name, description, config, 1, pins, DS18B20Config.DS18B20Config())
 
     def get_unit(self, output_number: int = 0) -> str:
         assert self._config.enum_options[0] is not None

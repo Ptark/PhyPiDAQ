@@ -30,7 +30,7 @@ class VL53LxConfig(object):
       print("VL53Lx: sensor set to VL53L%iX "%(self.type) )
             # possible vales: 0, 1 
     else: 
-      self.type=1  # VL53LX1 is default
+      self.type=0  # VL53LX0 is default
 
     if 'range' in confdict:
       self.range = confdict['range']
@@ -44,7 +44,7 @@ class VL53LxConfig(object):
            #                          3  2.0 m
            #                          4  1.2 m, high speed (20ms)
     else: 
-      self.range=2 # medium range
+      self.range=3 # medium range
 
     if 'I2CADDR' in confdict:
       self.I2CAddr = confdict['I2CADDR']
