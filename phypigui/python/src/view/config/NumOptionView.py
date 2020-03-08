@@ -1,8 +1,9 @@
 from ...model.config.NumOption import NumOption
 from .OptionView import OptionView
 from PyQt5 import QtWidgets, QtGui, QtCore
-from typing import NoReturn
+from typing import NoReturn, List
 from ...Exceptions import NumberTooSmall, NumberTooLarge
+from ...view.Translator import Translator
 
 
 class NumOptionView(OptionView):
@@ -38,12 +39,20 @@ class NumOptionView(OptionView):
 
     def __init_text_field_ui(self) -> NoReturn:
         # Set RegEx for validator
-        self.__validator.setRegExp(QtCore.QRegExp("^([+-]?\\d*\\.?\\d{0," + str(self.__option.decimals) + "})$"))
+        self.__validator.setRegExp(QtCore.QRegExp("^([+-]?\\d*\\" + Translator.tr(",") + "?\\d{0,"
+                                                  + str(self.__option.decimals) + "})$"))
 
         # Configure text-field
         self.__text_field.setFixedSize(250, 40)
         self.__text_field.setStyleSheet('QLineEdit { background-color: white; }')
-        self.__text_field.setText(self.__option.number.__str__())
+        if Translator.tr(",") == ".":
+            self.__text_field.setText(str(self.__option.number))
+        else:
+            text: str = str(self.__option.number)
+            if "." in text:
+                parts: List[str] = text.split(".", 2)
+                text = parts[0] + "," + parts[1]
+            self.__text_field.setText(text)
         self.__text_field.setValidator(self.__validator)
         self.__text_field.textChanged.connect(self.__set_text_field_data)
 
@@ -93,10 +102,14 @@ class NumOptionView(OptionView):
         if self.__validator.validate(text, 0):
             # Check for edge-cases
             try:
-                if QtCore.QRegularExpression("^[-+]?\\.?$").match(text).hasMatch():
+                if QtCore.QRegularExpression("^[-+]?\\" + Translator.tr(",") + "?$").match(text).hasMatch():
                     self.__option.number = 0
                 else:
-                    self.__option.number = round(float(text), self.__option.decimals - 1)
+                    s_number: str = text
+                    if "," in text:
+                        parts: List[str] = text.split(",", 2)
+                        s_number = parts[0] + "." + parts[1]
+                    self.__option.number = round(float(s_number), self.__option.decimals)
                 self.__error_label.setVisible(False)
             except Exception:
                 style_sheet = 'QLineEdit { background-color: ' + OptionView.ERROR_COLOR + '; }'
