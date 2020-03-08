@@ -5,6 +5,7 @@ from typing import NoReturn, List, Dict
 from mpl_toolkits import mplot3d
 from matplotlib.axes import Subplot
 from matplotlib.figure import Figure
+from matplotlib.ticker import FuncFormatter
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 from PyQt5.QtWidgets import QSizePolicy, QFrame, QGridLayout
@@ -20,6 +21,7 @@ from .StartButtonView import StartButtonView
 
 
 type_data = Dict[str, List[float]]
+func_format = FuncFormatter(lambda x, p: str(round(x, 3)).replace('.', Translator.tr(',')))
 
 
 class DiagramViewMeta(type(QFrame), type(View)):
@@ -97,8 +99,9 @@ class TimeDiagram(DiagramView):
 
     def _draw_diagram(self) -> NoReturn:
         """draws a diagram with its labels and title"""
-
         self._ax.clear()
+
+        self._ax.get_yaxis().set_major_formatter(func_format)
 
         self._ax.set_title(Translator.tr(self._item.name))
         self._ax.set_xlabel("s")
@@ -154,6 +157,9 @@ class DualDiagram(DiagramView):
     def _draw_diagram(self) -> NoReturn:
         """draws a diagram with its labels and title"""
         self._ax.clear()
+
+        self._ax.get_xaxis().set_major_formatter(func_format)
+        self._ax.get_yaxis().set_major_formatter(func_format)
 
         self._ax.set_title(Translator.tr(self._item.name))
         self._ax.set_xlabel(self._item.unit[0])
@@ -216,6 +222,8 @@ class BarDiagram(DiagramView):
         """draws a diagram with its labels and title"""
         self._ax.clear()
 
+        self._ax.get_yaxis().set_major_formatter(func_format)
+
         self._ax.set_title(Translator.tr(self._item.name))
 
         if not self.__dynamic:
@@ -258,8 +266,11 @@ class ThreeDimDiagram(DiagramView):
 
     def _draw_diagram(self) -> NoReturn:
         """draws a diagram with its labels and title"""
-
         self._ax.clear()
+
+        self._ax.get_xaxis().set_major_formatter(func_format)
+        self._ax.get_yaxis().set_major_formatter(func_format)
+        self._ax.get_zaxis().set_major_formatter(func_format)
 
         self._ax.set_title(Translator.tr(self._item.name))
         self._ax.set_xlabel(self._item.unit[0])

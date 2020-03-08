@@ -1,5 +1,9 @@
 <data>
     <item>
+		<source>,</source>
+		<translation>.</translation>
+	</item>
+    <item>
 		<source>Datei</source>
 		<translation>File</translation>
 	</item>

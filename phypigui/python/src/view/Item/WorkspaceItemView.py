@@ -166,7 +166,7 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
         self.close()
 
     def update_view(self) -> NoReturn:
-        str_data = list(map(lambda x: str(round(x, 5)), self.get_data()))
+        str_data = list(map(lambda x: str(round(x, 5)).replace('.', Translator.tr(',')), self.get_data()))
         data_units = [str_data[i] + ' ' + self.get_units()[i] for i in range(len(str_data))]
         text = ""
         for s in data_units:
