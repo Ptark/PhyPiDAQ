@@ -208,9 +208,9 @@ def test_calculate_unit(init_workspace):
     WorkspaceModel.connect(6, 3)
     WorkspaceModel.connect(9, 7)
 
-    assert WorkspaceModel.calculate_unit(5) == 'K'
+    assert WorkspaceModel.calculate_unit(5) == '°C'
     assert WorkspaceModel.calculate_unit(6) == 'N'
-    assert WorkspaceModel.calculate_unit(9) == '(K+N)'
+    assert WorkspaceModel.calculate_unit(9) == '(°C+N)'
 
     assert WorkspaceModel.calculate_unit(12) == ''
     with pytest.raises(IDNotFound):
