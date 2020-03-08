@@ -17,7 +17,7 @@ class ProxySensorItem(SensorItem):
         self.__unit: str = ""
         self.__read_out_rate = SensorItem.MIN_READ_OUT_RATE
         self.__data: List[float] = []
-        self.__current_index: int = -1
+        self.__current_index: int = 0
         # Config
         start_path: str = str(Path(".").resolve()) + "/phypigui/python/resources/data/"
         config: ConfigModel = ConfigModel()
@@ -49,6 +49,7 @@ class ProxySensorItem(SensorItem):
         """Returns the unit read from the open file"""
         assert self._config.file_options[0] is not None
         self.__set_file(self._config.file_options[0].path)
+        self.__current_index = 0
         return self.__unit
 
     def read(self) -> List[float]:
@@ -59,14 +60,17 @@ class ProxySensorItem(SensorItem):
         """
 
         if len(self.__data) != 0:
-            read_time: int = int(time.time() * 1000)
-            read_diff: int = read_time - self._last_read_time
-            increment: int = round(read_diff / self.__read_out_rate)
-            if increment > 1:
-                self._last_read_time = read_time
-                self.__current_index += increment
-                self.__current_index %= len(self.__data)
-                self._buffer = [self.__data[self.__current_index]]
+            if self.__read_out_rate == 0:
+                self.__current_index = 0
+            else:
+                read_time: int = int(time.time() * 1000)
+                read_diff: int = read_time - self._last_read_time
+                increment: int = round(read_diff / self.__read_out_rate)
+                if increment > 1:
+                    self._last_read_time = read_time
+                    self.__current_index += increment
+                    self.__current_index %= len(self.__data)
+            self._buffer = [self.__data[self.__current_index]]
             return self._buffer
         return [0]
 
