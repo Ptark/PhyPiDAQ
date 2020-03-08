@@ -3,7 +3,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..sensors.SensorItem import SensorItem
-# from ......phypidaq import INA219Config
+# from phypidaq.INA219Config import INA219Config
 
 
 # TODO: modify INA219Config and separate config for current-/voltage sensor

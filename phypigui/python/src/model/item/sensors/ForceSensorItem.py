@@ -3,7 +3,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..sensors.SensorItem import SensorItem
-# from ......phypidaq.MMA845xConfig import MMA845xConfig
+# from phypidaq.MMA845xConfig import MMA845xConfig
 
 
 class ForceSensorItem(SensorItem):

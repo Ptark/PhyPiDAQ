@@ -3,7 +3,7 @@ from typing import List
 from ...config.NumOption import NumOption
 from .SensorItem import SensorItem
 from ...config.ConfigModel import ConfigModel
-# from ......phypidaq.MMA8451Config import MMA8451Config
+# from phypidaq.MMA8451Config import MMA8451Config
 
 
 class AccelerationSensorItem(SensorItem):

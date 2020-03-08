@@ -3,7 +3,7 @@ from typing import List
 from ...config.ConfigModel import ConfigModel
 from ...config.NumOption import NumOption
 from ..sensors.SensorItem import SensorItem
-# from ......phypidaq import TCS34725Config
+# from phypidaq.TCS34725Config import TCS34725Config
 
 
 class RGBSensorItem(SensorItem):
@@ -22,7 +22,7 @@ class RGBSensorItem(SensorItem):
         super().__init__(name, description, config, 1, pins, None)  # TCS34725Config
 
     def get_unit(self, output_number: int = 0) -> str:
-        return "rot grün blau"
+        return "RGB"
 
     @staticmethod
     def get_name() -> str:

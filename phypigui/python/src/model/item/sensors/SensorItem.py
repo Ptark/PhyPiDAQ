@@ -29,9 +29,7 @@ class SensorItem(OutputItem, ABC):
 
         self._device = sensor_config
         # self._device.init()
-        self._buffer: List[float] = []
-        for n in range(3):
-            self._buffer.append(0)
+        self._buffer: List[float] = [0, 0, 0]
         self._last_read_time: int = 0
         self._pins: List[int] = pins
 
@@ -70,9 +68,7 @@ class SensorItem(OutputItem, ABC):
         read_time: int = int(time.time() * 1000)
         read_diff = read_time - self._last_read_time
         if read_diff >= self._config.num_options[0].number:
-            data: List[float] = []
-            self._device.acquireData(data)
-            self._buffer = data
+            self._device.acquireData(self._buffer)
             self._last_read_time = read_time
         return self._buffer
 
