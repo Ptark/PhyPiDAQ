@@ -201,3 +201,9 @@ class WorkspaceItemView(Draggable, Selectable, ABC):
             return
 
         super().mouseReleaseEvent(event)
+
+    def mouseDoubleClickEvent(self, event: QMouseEvent) -> NoReturn:
+        if event.buttons() == Qt.LeftButton:
+            self.open_config()
+
+        super().mouseDoubleClickEvent(event)
