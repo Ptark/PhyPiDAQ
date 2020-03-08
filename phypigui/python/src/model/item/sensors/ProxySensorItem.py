@@ -51,12 +51,10 @@ class ProxySensorItem(SensorItem):
         Returns:
             self.data[current] (float): the current value from the file
         """
-        current: int = self.current_index
-        if self.current_index < len(self.data) - 1:
+        if len(self.data) != 0:
             self.current_index += 1
-        else:
-            self.current_index = 0
-        self._buffer = [self.data[current]]
+            self.current_index %= len(self.data)
+            self._buffer = [self.data[self.current_index]]
         return self._buffer
 
     def close(self) -> NoReturn:
