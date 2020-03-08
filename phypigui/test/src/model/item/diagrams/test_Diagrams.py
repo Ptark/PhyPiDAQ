@@ -41,6 +41,6 @@ def test_writer_stop(write_to_file_item):
     writer: WriteToFileItem = write_to_file_item
     sep: str = os.path.sep
     path: str = sep + "phypigui" + sep + "test" + sep + "resources" + sep + "test_output" + sep
-    writer.path = os.getcwd() + path + str(time.time())
+    writer._WriteToFileItem__path = os.getcwd() + path + str(time.time())
     writer.stop()
 
