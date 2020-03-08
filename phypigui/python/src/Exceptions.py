@@ -95,3 +95,8 @@ class DuplicateWorkspaceItem(Exception):
 class DiagramMaximumReached(Exception):
     """Raises if the maximum number of diagrams that can be displayed is reached"""
     pass
+
+
+class SensorDAQError(Exception):
+    """Raises if an error occured while initializing a PhyPiDAQ Sensor Configuration"""
+    pass

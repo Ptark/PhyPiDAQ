@@ -399,4 +399,24 @@
 		<source>Abbrechen</source>
 		<translation>Cancel</translation>
 	</item>
+	<item>
+		<source>PhyPiDAQ Sensor Fehler</source>
+		<translation>PhyPiDAQ Sensor Error</translation>
+	</item>
+	<item>
+		<source>Fehler beim Einrichten des Sensors. Prüfe die Verbindung zum Sensor.</source>
+		<translation>Error while initializing the sensor. Check the connection to the sensor.</translation>
+	</item>
+	<item>
+		<source>Information</source>
+		<translation>Info</translation>
+	</item>
+	<item>
+		<source>Warnung</source>
+		<translation>Warning</translation>
+	</item>
+	<item>
+		<source>Fehler</source>
+		<translation>Error</translation>
+	</item>
 </item>
