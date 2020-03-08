@@ -117,4 +117,4 @@ class ItemModel(NameableRO, Describable, Identifiable, Model, ABC):
     @staticmethod
     @abstractmethod
     def get_name() -> str:
-        return ""
+        pass
