@@ -38,7 +38,8 @@ class Translator:
             Translator.__translator = None
         else:
             try:
-                items = minidom.parse(SystemInfo.RESOURCES + 'languages/' + QLocale(language).name() + '.xml').getElementsByTagName('item')
+                items = minidom.parse(SystemInfo.RESOURCES + 'languages/' + QLocale(language).name() + '.xml')\
+                    .getElementsByTagName('item')
             except (FileNotFoundError, OverflowError):
                 return False
 

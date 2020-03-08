@@ -15,7 +15,7 @@ class VoltageSensorItem(SensorItem):
         description: str = "Der Spannungssensor misst die Spannung in Volt"
 
         config: ConfigModel = ConfigModel()
-        config.add_num_option(NumOption("Ausleserate", "", 100))
+        config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, 10, 10000, 0))
 
         pins: List[int] = []
 

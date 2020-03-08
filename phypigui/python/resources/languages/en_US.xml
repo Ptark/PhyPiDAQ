@@ -1,4 +1,4 @@
-<data>
+<item>
     <item>
 		<source>,</source>
 		<translation>.</translation>
@@ -116,8 +116,8 @@
 		<translation>Unit</translation>
 	</item>
     <item>
-		<source>Ausleserate</source>
-		<translation>Read-out rate</translation>
+		<source>Ausleserate in Millisekunden</source>
+		<translation>Read-out rate in milliseconds</translation>
 	</item>
     <item>
 		<source>Einheit einstellen</source>
@@ -391,4 +391,12 @@
 		<source>Element</source>
 		<translation>Item</translation>
 	</item>
-</data>
+	<item>
+		<source>Speichern</source>
+		<translation>Save</translation>
+	</item>
+	<item>
+		<source>Abbrechen</source>
+		<translation>Cancel</translation>
+	</item>
+</item>

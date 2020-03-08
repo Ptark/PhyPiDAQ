@@ -15,7 +15,7 @@ class RGBSensorItem(SensorItem):
         description: str = "Der RGB Sensor detektiert Farben und gibt ihre Farbanteile für rot, grün und blau an"
 
         config: ConfigModel = ConfigModel()
-        config.add_num_option(NumOption("Ausleserate", "", 100))
+        config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, 10, 10000, 0))
 
         pins: List[int] = []
 

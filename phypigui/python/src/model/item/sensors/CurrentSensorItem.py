@@ -16,7 +16,7 @@ class CurrentSensorItem(SensorItem):
         description: str = "Der Stromstärkesensor misst die Stromstärke in milliampere"
 
         config: ConfigModel = ConfigModel()
-        config.add_num_option(NumOption("Ausleserate", "", 100))
+        config.add_num_option(NumOption("Ausleserate in Millisekunden", "", 100, 10, 10000, 0))
 
         pins: List[int] = []
 

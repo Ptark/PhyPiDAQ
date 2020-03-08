@@ -74,11 +74,11 @@ class ConfigView(QtWidgets.QWidget):
         # Save and Cancel Button
         save_button: QtWidgets.QPushButton = QtWidgets.QPushButton(self)
         save_button.setFixedSize(130, 35)
-        save_button.setText(Translator.tr("Save"))
+        save_button.setText(Translator.tr("Speichern"))
         save_button.clicked.connect(self.__save_button_clicked)
         cancel_button: QtWidgets.QPushButton = QtWidgets.QPushButton(self)
         cancel_button.setFixedSize(130, 35)
-        cancel_button.setText(Translator.tr("Cancel"))
+        cancel_button.setText(Translator.tr("Abbrechen"))
         cancel_button.clicked.connect(self.__cancel_button_clicked)
         # Button-layout
         button_layout: QtWidgets.QHBoxLayout = QtWidgets.QHBoxLayout()
