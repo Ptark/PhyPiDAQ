@@ -1,8 +1,8 @@
-# PhyPiGUI
+# PhyPiGUI - Prüfungsleistung für Praxis der Softwareentwicklung (1,7)
 
 #### Datenerfassung und -visualisierung mit einem Raspberry Pi
 
-*Bescheibung*
+Erstellung einer graphischen Benutzeroberfläche für PhyPiDAQ. Zielgruppe sind Schüler der Mittelstufe. Pflicht- und Wunschkriterien können dem Pflichtenheft entnommen werden.
 
 ## Schnellstart
 
