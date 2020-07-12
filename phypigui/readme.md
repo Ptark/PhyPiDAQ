@@ -1,5 +1,7 @@
 # PhyPiGUI - Prüfungsleistung für Praxis der Softwareentwicklung (1,7)
 
+Gruppenarbeit von Simon Essig, Christian Hauser, Fritz Hund, Ahmad Jayossi, Sandro Negri
+
 #### Datenerfassung und -visualisierung mit einem Raspberry Pi
 
 Erstellung einer graphischen Benutzeroberfläche für PhyPiDAQ. Zielgruppe sind Schüler der Mittelstufe. Pflicht- und Wunschkriterien können dem Pflichtenheft entnommen werden.
